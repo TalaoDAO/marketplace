@@ -5,11 +5,16 @@
         "This file is @generated automatically"
     ],
 <<<<<<< HEAD
+<<<<<<< HEAD
     "content-hash": "d4bea76348cedbaf88ec4a6b31ce42fa",
 =======
     "hash": "6d47f8c5a713f6883df38ec6c764f022",
     "content-hash": "2a23ed915d28faa82188759ad5b22f75",
 >>>>>>> Performance module & behat step
+=======
+    "hash": "6d47f8c5a713f6883df38ec6c764f022",
+    "content-hash": "2a23ed915d28faa82188759ad5b22f75",
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
     "packages": [
         {
             "name": "behat/behat",
@@ -1161,6 +1166,7 @@
         {
             "name": "phpspec/prophecy",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "v1.7.0",
             "source": {
                 "type": "git",
@@ -1172,6 +1178,8 @@
                 "url": "https://api.github.com/repos/phpspec/prophecy/zipball/93d39f1f7f9326d746203c7c056f300f7f126073",
                 "reference": "93d39f1f7f9326d746203c7c056f300f7f126073",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "version": "v1.6.2",
             "source": {
                 "type": "git",
@@ -1182,7 +1190,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/phpspec/prophecy/zipball/6c52c2722f8460122f96f86346600e1077ce22cb",
                 "reference": "6c52c2722f8460122f96f86346600e1077ce22cb",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -1201,7 +1212,10 @@
             },
             "require-dev": {
                 "phpspec/phpspec": "^2.0",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "phpunit/phpunit": "^4.8 || ^5.6.5"
             },
             "type": "library",
@@ -1241,10 +1255,14 @@
                 "stub"
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-03-02T20:05:34+00:00"
 =======
             "time": "2016-11-21 14:58:47"
 >>>>>>> Performance module & behat step
+=======
+            "time": "2016-11-21 14:58:47"
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1549,6 +1567,7 @@
         {
             "name": "phpunit/phpunit",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "4.8.36",
             "source": {
                 "type": "git",
@@ -1560,6 +1579,8 @@
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/46023de9a91eec7dfb06cc56cb4e260017298517",
                 "reference": "46023de9a91eec7dfb06cc56cb4e260017298517",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "version": "4.8.29",
             "source": {
                 "type": "git",
@@ -1570,7 +1591,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/f19d481b468b76a7fb55eb2b772ed487e484891e",
                 "reference": "f19d481b468b76a7fb55eb2b772ed487e484891e",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -1630,10 +1654,14 @@
                 "xunit"
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-06-21T08:07:12+00:00"
 =======
             "time": "2016-11-20 10:35:28"
 >>>>>>> Performance module & behat step
+=======
+            "time": "2016-11-20 10:35:28"
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1840,6 +1868,7 @@
         {
             "name": "sebastian/comparator",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "1.2.4",
             "source": {
                 "type": "git",
@@ -1851,6 +1880,8 @@
                 "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
                 "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "version": "1.2.2",
             "source": {
                 "type": "git",
@@ -1861,7 +1892,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/6a1ed12e8b2409076ab22e3897126211ff8b1f7f",
                 "reference": "6a1ed12e8b2409076ab22e3897126211ff8b1f7f",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -1913,10 +1947,14 @@
                 "equality"
             ],
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-01-29T09:50:25+00:00"
 =======
             "time": "2016-11-19 09:18:40"
 >>>>>>> Performance module & behat step
+=======
+            "time": "2016-11-19 09:18:40"
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
         },
         {
             "name": "sebastian/diff",
@@ -2268,10 +2306,14 @@
         {
             "name": "symfony/browser-kit",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "v3.3.6",
 =======
             "version": "v2.8.14",
 >>>>>>> Performance module & behat step
+=======
+            "version": "v2.8.14",
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/browser-kit.git",
@@ -2329,6 +2371,7 @@
         {
             "name": "symfony/class-loader",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "v3.3.6",
             "source": {
                 "type": "git",
@@ -2340,6 +2383,8 @@
                 "url": "https://api.github.com/repos/symfony/class-loader/zipball/386a294d621576302e7cc36965d6ed53b8c73c4f",
                 "reference": "386a294d621576302e7cc36965d6ed53b8c73c4f",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "version": "v2.8.14",
             "source": {
                 "type": "git",
@@ -2350,7 +2395,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/class-loader/zipball/db9c33f62d3cdfb19e3c8de477c8457eab0d3176",
                 "reference": "db9c33f62d3cdfb19e3c8de477c8457eab0d3176",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -2394,6 +2442,7 @@
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-06-02T09:51:43+00:00"
         },
         {
@@ -2409,6 +2458,8 @@
                 "url": "https://api.github.com/repos/symfony/config/zipball/54ee12b0dd60f294132cabae6f5da9573d2e5297",
                 "reference": "54ee12b0dd60f294132cabae6f5da9573d2e5297",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "time": "2016-11-15 12:06:39"
         },
         {
@@ -2423,7 +2474,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/config/zipball/1361bc4e66f97b6202ae83f4190e962c624b5e61",
                 "reference": "1361bc4e66f97b6202ae83f4190e962c624b5e61",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -2473,6 +2527,7 @@
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-07-19T07:37:29+00:00"
         },
         {
@@ -2488,6 +2543,8 @@
                 "url": "https://api.github.com/repos/symfony/console/zipball/32a3c6b3398de5db8ed381f4ef92970c59c2fcdd",
                 "reference": "32a3c6b3398de5db8ed381f4ef92970c59c2fcdd",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "time": "2016-11-03 07:52:58"
         },
         {
@@ -2502,7 +2559,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/console/zipball/a871ba00e0f604dceac64c56c27f99fbeaf4854e",
                 "reference": "a871ba00e0f604dceac64c56c27f99fbeaf4854e",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -2551,6 +2611,7 @@
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-07-29T21:26:04+00:00"
         },
         {
@@ -2581,6 +2642,22 @@
                 "url": "https://api.github.com/repos/symfony/css-selector/zipball/981abbbd6ba49af338a98490cbe29e7f39ca9fa9",
                 "reference": "981abbbd6ba49af338a98490cbe29e7f39ca9fa9",
 >>>>>>> Performance module & behat step
+=======
+            "time": "2016-11-15 23:02:12"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "v2.8.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "981abbbd6ba49af338a98490cbe29e7f39ca9fa9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/981abbbd6ba49af338a98490cbe29e7f39ca9fa9",
+                "reference": "981abbbd6ba49af338a98490cbe29e7f39ca9fa9",
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -2621,6 +2698,7 @@
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-05-01T15:01:29+00:00"
         },
         {
@@ -2636,6 +2714,8 @@
                 "url": "https://api.github.com/repos/symfony/debug/zipball/697c527acd9ea1b2d3efac34d9806bf255278b0a",
                 "reference": "697c527acd9ea1b2d3efac34d9806bf255278b0a",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "time": "2016-11-03 07:52:58"
         },
         {
@@ -2650,7 +2730,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/debug/zipball/62a68f640456f6761d752c62d81631428ef0d8a1",
                 "reference": "62a68f640456f6761d752c62d81631428ef0d8a1",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -2695,6 +2778,7 @@
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2016-07-30T07:22:48+00:00"
         },
         {
@@ -2725,6 +2809,22 @@
                 "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/9d2c5033ca70ceade8d7584f997a9d3943f0fe5f",
                 "reference": "9d2c5033ca70ceade8d7584f997a9d3943f0fe5f",
 >>>>>>> Performance module & behat step
+=======
+            "time": "2016-11-15 12:53:17"
+        },
+        {
+            "name": "symfony/dependency-injection",
+            "version": "v2.8.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dependency-injection.git",
+                "reference": "9d2c5033ca70ceade8d7584f997a9d3943f0fe5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dependency-injection/zipball/9d2c5033ca70ceade8d7584f997a9d3943f0fe5f",
+                "reference": "9d2c5033ca70ceade8d7584f997a9d3943f0fe5f",
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -2782,6 +2882,7 @@
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-07-28T15:27:31+00:00"
         },
         {
@@ -2797,6 +2898,8 @@
                 "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/fc2c588ce376e9fe04a7b8c79e3ec62fe32d95b1",
                 "reference": "fc2c588ce376e9fe04a7b8c79e3ec62fe32d95b1",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "time": "2016-11-18 21:10:01"
         },
         {
@@ -2811,7 +2914,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/7f565fe00e580c1edf732234a6d26e9b796bd105",
                 "reference": "7f565fe00e580c1edf732234a6d26e9b796bd105",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -2855,6 +2961,7 @@
             "description": "Symfony DomCrawler Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-05-25T23:10:31+00:00"
         },
         {
@@ -2867,6 +2974,13 @@
             "name": "symfony/event-dispatcher",
             "version": "v2.8.14",
 >>>>>>> Performance module & behat step
+=======
+            "time": "2016-11-14 16:15:57"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "v2.8.14",
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -2930,10 +3044,14 @@
         {
             "name": "symfony/filesystem",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "v3.3.6",
 =======
             "version": "v2.8.14",
 >>>>>>> Performance module & behat step
+=======
+            "version": "v2.8.14",
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
@@ -2983,6 +3101,7 @@
         {
             "name": "symfony/finder",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "v3.3.6",
             "source": {
                 "type": "git",
@@ -2994,6 +3113,8 @@
                 "url": "https://api.github.com/repos/symfony/finder/zipball/baea7f66d30854ad32988c11a09d7ffd485810c4",
                 "reference": "baea7f66d30854ad32988c11a09d7ffd485810c4",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "version": "v2.8.14",
             "source": {
                 "type": "git",
@@ -3004,7 +3125,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/finder/zipball/0023b024363dfc0cd21262e556f25a291fe8d7fd",
                 "reference": "0023b024363dfc0cd21262e556f25a291fe8d7fd",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -3041,8 +3165,11 @@
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-06-01T21:01:25+00:00"
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "time": "2016-11-03 07:52:58"
         },
         {
@@ -3161,10 +3288,14 @@
         {
             "name": "symfony/process",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "version": "v3.3.6",
 =======
             "version": "v2.8.14",
 >>>>>>> Performance module & behat step
+=======
+            "version": "v2.8.14",
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -3261,7 +3392,57 @@
             "time": "2016-06-29 05:29:29"
         },
         {
+            "name": "symfony/stopwatch",
+            "version": "v2.8.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/stopwatch.git",
+                "reference": "35bae476693150728b0eb51647faac82faf9aaca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/stopwatch/zipball/35bae476693150728b0eb51647faac82faf9aaca",
+                "reference": "35bae476693150728b0eb51647faac82faf9aaca",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Stopwatch\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Stopwatch Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-06-29 05:29:29"
+        },
+        {
             "name": "symfony/translation",
+<<<<<<< HEAD
 <<<<<<< HEAD
             "version": "v3.3.6",
             "source": {
@@ -3285,6 +3466,18 @@
                 "url": "https://api.github.com/repos/symfony/translation/zipball/edbe67e8f729885b55421d5cc58223d48540df07",
                 "reference": "edbe67e8f729885b55421d5cc58223d48540df07",
 >>>>>>> Performance module & behat step
+=======
+            "version": "v2.8.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/translation.git",
+                "reference": "edbe67e8f729885b55421d5cc58223d48540df07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/edbe67e8f729885b55421d5cc58223d48540df07",
+                "reference": "edbe67e8f729885b55421d5cc58223d48540df07",
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -3337,6 +3530,7 @@
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-06-24T16:45:30+00:00"
         },
         {
@@ -3352,6 +3546,8 @@
                 "url": "https://api.github.com/repos/symfony/yaml/zipball/ddc23324e6cfe066f3dd34a37ff494fa80b617ed",
                 "reference": "ddc23324e6cfe066f3dd34a37ff494fa80b617ed",
 =======
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
             "time": "2016-11-18 21:10:01"
         },
         {
@@ -3366,7 +3562,10 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/yaml/zipball/befb26a3713c97af90d25dd12e75621ef14d91ff",
                 "reference": "befb26a3713c97af90d25dd12e75621ef14d91ff",
+<<<<<<< HEAD
 >>>>>>> Performance module & behat step
+=======
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
                 "shasum": ""
             },
             "require": {
@@ -3409,10 +3608,14 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
 <<<<<<< HEAD
+<<<<<<< HEAD
             "time": "2017-07-23T12:43:26+00:00"
 =======
             "time": "2016-11-14 16:15:57"
 >>>>>>> Performance module & behat step
+=======
+            "time": "2016-11-14 16:15:57"
+>>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
         },
         {
             "name": "theseer/fdomdocument",
