@@ -26,19 +26,8 @@ class ProfileContext implements Context {
     public function stopScenarioTiming($event) {
         $this->stopwatchEvent = $this->getStopwatch()->stop($this->eventId);
         echo "\n\033[36m| ";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         echo 'Scenario time: ' . $this->formatTime($this->stopwatchEvent->getDuration());
-=======
         echo 'Step time: ' . $this->formatTime($this->stopwatchEvent->getDuration());
->>>>>>> Performance module & behat step
-=======
-        echo 'Scenario time: ' . $this->formatTime($this->stopwatchEvent->getDuration());
->>>>>>> Fix typo
-=======
-        echo 'Scenario time: ' . $this->formatTime($this->stopwatchEvent->getDuration());
->>>>>>> bacffcd536df6c3ed6f51fe2be4af17a12a53649
         echo "\033[0m\n\n";
     }
 
