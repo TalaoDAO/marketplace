@@ -91,6 +91,23 @@ function emh_points_earnings_update_7101() {
  * Retroactive commissions and monetizations.
  */
 function emh_points_earnings_update_7102() {
-    _emh_points_earnings_retroactive();
+  _emh_points_earnings_retroactive();
 }
+
+/**
+ * Link earnings to points transaction.
+ */
+function emh_points_earnings_update_7103() {
+  if (db_table_exists('emh_points_earnings')) {
+    if (!db_field_exists('emh_points_earnings', 'parent_txn_id')) {
+      $field = array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'description' => "Parent transaction ID (optional)",
+      );
+      db_add_field('emh_points_earnings', 'parent_txn_id', $field);
+    }
+  }
+}
+
 
