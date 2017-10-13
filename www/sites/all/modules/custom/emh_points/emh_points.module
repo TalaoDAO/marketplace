@@ -494,14 +494,16 @@ function emh_points_format_entity($entity) {
 /**
  * Main moving credits action.
  */
-function emh_points_move_points($source, $destination, $points, $txn_context, $parent_txn_id = NULL) {
+function emh_points_move_points($source, $destination, $points, $txn_context, $parent_txn_id = NULL, $description = '') {
   $emh_source = emh_points_build_entity_for_points($source);
   $emh_destination = emh_points_build_entity_for_points($destination);
   // Remove credits from source.
   emh_points_delete_points($emh_source, $points);
   // Add credits to destination.
   emh_points_add_points($emh_destination, $points);
-  $log = t('Move credits from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination)));
+  if ($description == '')
+    $log = t('Move credits from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination)));
+  else $log = $description;
 
   // Compute transaction.
   global $user;
