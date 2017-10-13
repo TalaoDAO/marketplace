@@ -91,7 +91,6 @@ function emh_points_earnings_update_7101() {
  * Retroactive commissions and monetizations.
  */
 function emh_points_earnings_update_7102() {
-  _emh_points_earnings_retroactive();
 }
 
 /**

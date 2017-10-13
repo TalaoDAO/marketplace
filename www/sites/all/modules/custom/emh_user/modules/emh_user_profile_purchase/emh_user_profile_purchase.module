@@ -183,14 +183,13 @@ function emh_user_profile_purchase($account, $node = NULL) {
     $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
 
     if ($node != NULL) {
-      $log = t('!source buy !destination profile on "!title" request (!nid)', 
+      $log = t('!source buy !destination profile on "!title" request', 
                   array(
                       '!source' => emh_points_format_entity($user), 
                       '!destination' => emh_points_format_entity($account), 
                       '!title' => $node->title, 
-                      '!nid' => $node->nid
                   ));
-      emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT, NULL, $log); 
+      emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT, NULL, $log, $node->nid); 
     } else emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT);
 
     // Flags the account to add it in the user's relationships.
