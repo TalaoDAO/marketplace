@@ -243,16 +243,16 @@ function emh_user_username_alter(&$name, $account) {
  */
 function emh_user_form_node_form_alter(&$form, &$form_state, $form_id) {
  
-    $users = emh_user_get_users_by_role() ;
+  $users = emh_user_get_users_by_role() ;
 
-    $form['author']['name'] = array(
-      '#type' => 'select',
-      '#title' => $form['author']['name']['#title'],
-      '#options' => $users,
-      '#default_value' => array($form['author']['name']['#default_value']),
-      '#weight' => $form['author']['name']['#weight'],
-      '#description' => t('Select user which will be author.'),
-    );
+  $form['author']['name'] = array(
+    '#type' => 'select',
+    '#title' => $form['author']['name']['#title'],
+    '#options' => $users,
+    '#default_value' => array($form['author']['name']['#default_value']),
+    '#weight' => $form['author']['name']['#weight'],
+    '#description' => t('Select user which will be author.'),
+  );
 }
 
 
