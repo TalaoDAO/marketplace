@@ -1,0 +1,638 @@
+<?php
+
+/**
+ * @file
+ * The main module for tagging and otherwise processing OpenCalais content.
+ */
+
+// Include the utils file which provides all the field utility functions required to
+// create and remove fields, and some purely utility functions.
+include_once('opencalais.utils.inc');
+
+/**
+ * Implements hook_permission().
+ */
+function opencalais_permission() {
+  return array(
+    'administer opencalais' => array(
+      'title' => t('Administer OpenCalais'),
+      'description' => t('Add and remove OpenCalais Fields and change OpenCalais settings.')
+    )
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function opencalais_menu() {
+  $items = array();
+  $items['admin/config/content/opencalais'] = array(
+    'title' => 'OpenCalais settings',
+    'description' => 'Configure Settings for OpenCalais integration',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('opencalais_admin_api_settings'),
+    'access arguments' => array('administer opencalais'),
+    'file' => 'opencalais.admin.inc',
+    'weight' => 2,
+  );
+  $items['admin/config/content/opencalais/api'] = array(
+    'title' => 'API Settings',
+    'description' => 'Configure Settings for OpenCalais integration',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  $items['admin/config/content/opencalais/settings'] = array(
+    'title' => 'Settings',
+    'description' => 'Configure Settings for OpenCalais integration',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('opencalais_admin_general_settings'),
+    'access arguments' => array('administer opencalais'),
+    'file' => 'opencalais.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 0,
+  );
+  $items['admin/structure/types/manage/%/opencalais_fields'] = array(
+    'title' => 'OpenCalais Fields',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('opencalais_add_fields_form', 4),
+    'access arguments' => array('administer opencalais'),
+    'file' => 'opencalais.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/config/content/opencalais/bulk'] = array(
+    'title' => 'Bulk Operations',
+    'page callback' => 'opencalais_bulk_operations',
+    'access arguments' => array('administer opencalais'),
+    'file' => 'opencalais.bulk.inc',
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 3,
+  );
+  $items['admin/config/content/opencalais/bulk/%'] = array(
+    'title' => 'Process Content Type',
+    'page callback' => 'opencalais_add_items_to_queue_callback',
+    'page arguments' => array(5),
+    'access arguments' => array('administer opencalais'),
+    'file' => 'opencalais.bulk.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['admin/config/content/opencalais/bulk-clear/%'] = array(
+    'title' => 'Clear Content Type Queue',
+    'page callback' => 'opencalais_queue_remove_items',
+    'page arguments' => array(5),
+    'access arguments' => array('administer opencalais'),
+    'file' => 'opencalais.bulk.inc',
+    'type' => MENU_CALLBACK
+  );
+  $items['admin/config/content/opencalais/bulk-re-queue/%'] = array(
+    'title' => 'Clear Content Type and Re-Queue',
+    'page callback' => 'opencalais_queue_reset',
+    'page arguments' => array(5),
+    'access arguments' => array('administer opencalais'),
+    'file' => 'opencalais.bulk.inc',
+    'type' => MENU_CALLBACK
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function opencalais_theme($existing, $type, $theme, $path) {
+  $path = drupal_get_path('module', 'opencalais');
+  return array(
+    'opencalais_suggestions' => array(
+      'variables' => array('type' => NULL, 'field_name' => NULL, 'suggestions' => NULL, 'language' => LANGUAGE_NONE),
+      'path' => "$path/theme",
+      'template' => 'opencalais-suggestions',
+    ),
+    'opencalais_preset_form' => array(
+      'render element' => 'form',
+      'path' => "$path/theme",
+      'file' => 'theme.inc',
+    ),
+    'opencalais_add_fields_entities' => array(
+      'render element' => 'info',
+      'path' => "$path/theme",
+      'file' => 'theme.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ * Add ajax callbacks to the opencalais fields
+ */
+function opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $node = $form['#node'];
+  $fields = opencalais_get_opencalais_tag_fields($form, 'node', $node->type);
+  $extra = array();
+
+  foreach ($fields as $opencalais_type => $field_name) {
+    // Load suggestions
+    $suggestions = opencalais_get_suggestions($node, $opencalais_type);
+
+    $auto = variable_get('opencalais_autotagging', array());
+    $auto = isset($auto[$node->type]) ? $auto[$node->type] : 0;
+
+    $vars = array(
+      'type' => $opencalais_type,
+      'field_name' => $field_name,
+      'suggestions' => $suggestions,
+      'language' => $form['language']['#value']
+    );
+
+    $themed_suggestions = theme('opencalais_suggestions', $vars);
+    $form[$field_name]['#suffix'] = $themed_suggestions;
+
+    // Only if we are doing autotagging exclusively do we want to take the opencalais fields
+    // and make them the only things here, otherwise, we should rely on what we already have
+    // in taxonomy
+    if ($auto == 1) {
+      $form[$field_name][$form[$field_name]['#language']]['#default_value'] = _opencalais_make_field_values($suggestions);
+    }
+    $extra[$field_name] = $suggestions;
+  }
+  $form_state['opencalais_extras'] = $extra;
+
+  if ($fields) {
+    $path = drupal_get_path('module', 'opencalais');
+    $form['actions']['suggest_tags'] = array(
+      '#type' => 'submit',
+      '#value' => t('Suggest Tags'),
+      '#prefix' => '<div class="opencalais_button_holder">OpenCalais Tagging Service:',
+      '#suffix' => '</div>',
+      '#attributes' => array('class' => array('opencalais_submit')),
+      '#weight' => -20,
+      '#submit' => array('opencalais_suggest_tags_submit'),
+      '#ajax' => array(
+        'callback' => 'opencalais_suggest_tags_callback',
+        'effect' => 'fade',
+      ),
+      '#attached' => array(
+        'js' => array($path . '/theme/opencalais.node.js'),
+        'css' => array($path . '/theme/opencalais.node.css'),
+      )
+    );
+
+    // Should we collect them in vertical tabs?
+    if (variable_get('opencalais_tags_in_verticaltab', TRUE)) {
+      $form['opencalais']  = array(
+        '#type' => 'fieldset',
+        '#title' => t('OpenCalais Tags'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#group' => 'additional_settings',
+        '#weight' => -2,
+      );
+
+      $form['opencalais']['suggest_tags'] = $form['actions']['suggest_tags'];
+      unset($form['actions']['suggest_tags']);
+
+      foreach ($fields as $field_name) {
+        $form['opencalais'][$field_name] = $form[$field_name];
+        unset($form[$field_name]);
+      }
+    }
+
+    array_unshift($form['#submit'], 'opencalais_node_form_submit');
+  }
+}
+
+/**
+ *  Handle the submission of the node form
+ *
+ *  If automatic tagging is set for the content type then get the term suggestions and place them into values
+ *  arrays for all the opencalais fields
+ *
+ *  TODO: See if we can also add in the addition of the disambiguation information here
+ */
+function opencalais_node_form_submit($form, &$form_state) {
+  if (isset($form_state['opencalais_building']) && $form_state['opencalais_building']) {
+    return;
+  }
+
+  $content_type = $form_state['values']['type'];
+
+  //Add extra meta data to the taxonomy term items
+  $lang = $form['language']['#value'];
+  //find the the extra fields with extra values
+  $extras = $form_state['opencalais_extras'];
+
+  foreach ($extras as $field => $value) {
+    if (isset($form_state['values'][$field])) {
+
+      $field_values = $form_state['values'][$field][$lang];
+      foreach ($field_values as $i => $v) {
+        if (isset($extras[$field][$v['name']])) {
+          $ev = $extras[$field][$v['name']]['extra'];
+          foreach ($ev as $n => $extra_val) {
+            $form_state['values'][$field][$lang][$i][$n][$lang] = array();
+            $form_state['values'][$field][$lang][$i][$n][$lang][] = array('value' => $extra_val);
+          }//end foreach
+        }
+      }//end foreach
+    }
+  } //end foreach
+
+}
+
+/**
+ * Implements hook_node_presave().
+ *
+ * Used to add fields if auto tagging is turned on and the field hasn't already been tagged
+ * This will be used when nodes are created in some way other than through the forms system
+ */
+function opencalais_node_presave($node) {
+
+  $content_type = $node->type;
+  $auto = variable_get('opencalais_autotagging', array());
+
+  $auto = isset($auto[$content_type]) ? $auto[$content_type] : 0;
+
+  if ($auto > 0) {
+    $fields = opencalais_get_fields_for_content_type($node->type);
+
+    $suggestions = array();
+    foreach ($fields as $opencalais_type => $field) {
+      $name = $field['field'];
+      $real_field = field_read_field($name);
+
+      $suggestions = opencalais_get_suggestions($node, $opencalais_type);
+      if ($suggestions) {
+        // We need to blank this if we're autotagging only. If we are not autotagging and
+        // this array is empty anyway, then we need to initialize it to have an empty array
+        if (empty($node->{$name}[$node->language]) || $auto == 1) {
+          $node->{$name} = array(
+            $node->language => array(),
+          );
+        }
+
+        // This logic exists to check for tags that are appended if we want to do both
+        // manual and automatic tagging. It looks for manually added tags and preserves
+        // them while making sure any OpenCalais tags are removed and replaced with
+        // new ones from the service.
+        $key = 0;
+        foreach ($suggestions as $term => $meta) {
+          $term = _opencalais_create_term($term, $real_field, $node, $meta);
+          $exists = FALSE;
+          foreach ($node->{$name}[$node->language] as $existing_term) {
+            if ($existing_term['name'] == $term['name']) {
+              $exists = TRUE;
+            }
+          }
+          if ($exists == FALSE) {
+            $node->{$name}[$node->language][] = $term;
+          }
+          $key++;
+        }
+
+        $instance = field_read_instance('node', $name, $node->type);
+        //run presave as it has already been run on this entity and won't be called again before node_save
+        taxonomy_field_presave('node', $node, $real_field, $instance, $node->language, $node->{$name}[$node->language]);
+      }
+    }
+  }
+}
+
+/**
+ * AJAX Callback to get OpenCalais tag suggestions for an Entity.
+ */
+function opencalais_get_opencalais_tag_fields($form, $entity, $bundle) {
+  $fields = array();
+  $entities = opencalais_get_all_entities();
+  foreach ($entities as $key => $item) $entities[$key] = _opencalais_make_machine_name($item);
+  $instances = field_info_instances($entity, $bundle);
+  foreach ($instances as $field_name => $instance) {
+
+    if (isset($instance['settings']['opencalais'])) {
+      $field = field_info_field($field_name);
+      $opencalais_type = $instance['settings']['opencalais'];
+      if (in_array($opencalais_type, $entities)) {
+        $fields[$opencalais_type] = $field_name;
+      }
+    }
+  }
+  return $fields;
+}
+
+/**
+ * AJAX Callback to get OpenCalais tag suggestions for an Entity.
+ */
+function opencalais_suggest_tags_callback($form, &$form_state, $norebuild = FALSE) {
+  $form_state['opencalais_building'] = TRUE;
+  $node = node_form_submit_build_node($form, $form_state);
+  $form_state['opencalais_building'] = FALSE;
+  $fields = opencalais_get_opencalais_tag_fields($form, 'node', $node->type);
+
+  // Load suggestions
+  $commands = array();
+  $extra = array();
+  $form_state['opencalais_suggestions'] = array();
+
+  foreach ($fields as $opencalais_type => $field_name) {
+    $suggestions = opencalais_get_suggestions($node, $opencalais_type);
+    $form_state['opencalais_suggestions'][$field_name] = $suggestions;
+    $vars = array(
+      'type' => $opencalais_type,
+      'field_name' => $field_name,
+      'suggestions' => $suggestions,
+      'language' => $form['language']['#value']
+    );
+    $themed_suggestions = theme('opencalais_suggestions', $vars);
+    $commands[] = ajax_command_replace("#{$field_name}_suggestions", $themed_suggestions);
+
+    // add extra fields to the session for storage since apparently we can't write to form state
+    $extra[$field_name] = $suggestions;
+  }
+
+  $form_state['opencalais_extras'] = $extra;
+  if (!$norebuild) {
+    $form_state['rebuild'] = TRUE;
+
+    /*
+     * Because the form state isn't resaved in ajax_form_callback anything we put in the form_state gets destroyed
+     * In order to keep our form_state stuff (the meta data) we need to do this.
+     */
+    drupal_process_form($form['#form_id'], $form, $form_state);
+  }
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Gracefully handle JS degredation by providing a multi-step form implementation
+ */
+function opencalais_suggest_tags_submit($form, &$form_state) {
+  $node = node_form_submit_build_node($form, $form_state);
+  $suggestions = opencalais_get_suggestions($node);
+}
+
+/**
+ *  Retrieve suggestions from OpenCalais service
+ */
+function opencalais_get_suggestions($node, $opencalais_type = NULL) {
+  $tag_cache = &drupal_static(__FUNCTION__);
+
+  if ($tag_cache && isset($node->ocid) && array_key_exists($node->ocid, $tag_cache)) {
+    $suggestions = $tag_cache[$node->ocid];
+  }
+  else {
+    if (empty($node->title)) {
+      //we need some way to break out if its a node being prepped to show on the node form (with no content)
+      return;
+    }
+
+    // Needed to support caching of unsaved nodes
+    if (empty($node->ocid)) {
+      $node->ocid = !empty($node->nid) ? $node->nid : uniqid();
+    }
+
+    $date = format_date($node->created, 'custom', 'r');
+
+    // adding all text fields and text area in the node to be 
+    // evalulated in OC
+    $node_fields = variable_get('opencalais_nodefields', array());
+    $content = NULL;
+    if (array_key_exists($node->type, $node_fields)) {
+      $content .= $node->title;
+      if ((bool) $node_fields[$node->type]) {
+        $fields = field_info_instances('node', $node->type);
+        foreach ($fields as $field_name => $instance) {
+          // add all textfields and textareas
+          if ($instance['widget']['module'] === 'text') {
+            if (empty($node->{$field_name})) {
+              continue;
+            }
+            // get all of that field into the html render array
+            foreach ($node->{$field_name}[$node->language] as $item) {
+              $content .= $item['value'] . "\n";
+            }
+          }
+        }
+      }
+      $body = $content;
+    }
+    else {
+      $body = (!empty($node->body[$node->language][0]['value'])) ? $node->body[$node->language][0]['value'] : '';
+    }
+    
+    // Allow modification of the content sent to Calais
+    drupal_alter('opencalais_body', $body, $node);
+
+    // Set up the options for the OpenCalais service.
+    $options = array(
+      'apiKey' => variable_get('opencalais_api_key', NULL),
+      'contentType' => 'text/plain',
+      'content' => strip_tags($body),
+      'host' => variable_get('opencalais_api_server', 'api.thomsonreuters.com'),
+    );
+
+    // Initialize the OpenCalais class.
+    $opencalais = opencalais_get_service($options);
+    
+    // Analyze the content and return the tags.    
+    $tags = $opencalais->analyze();
+
+    // Get a list of all the fields for this content type.
+    $fields = opencalais_get_fields_for_content_type($node->type);
+
+    $suggestions = array();
+    foreach ($tags as $type => $metadata) {
+      $terms = array();
+      $machine_name = _opencalais_make_machine_name($type);
+
+      if (isset($fields[$machine_name])) {
+        $settings = field_info_instance('node', $fields[$machine_name]['field'], $node->type);
+        foreach ($metadata->terms as $guid => $term) {
+          // Only add it if its relevant.
+          if (opencalais_check_suggestion($settings, $term)) {
+            $terms[$term->name] = array(
+              'relevance' => (float)$term->relevance,
+              'extra' => $term->extra
+            );
+          }
+        }
+      }
+      $suggestions[$machine_name] = $terms;
+    }
+  }
+  $tag_cache[$node->ocid] = $suggestions;
+  return isset($opencalais_type) ? (isset($suggestions[$opencalais_type]) ? $suggestions[$opencalais_type] : array()) : $suggestions;
+}
+
+/**
+ * Check whether the term should apply based on the field instance settings
+ */
+function opencalais_check_suggestion($settings, $term) {
+  if ($settings && is_array($settings['settings']) && isset($settings['settings']['threshold'])) {
+    return $settings['settings']['threshold'] <= $term->relevance;
+  }
+}
+
+/**
+ * Get a list of the entities that OpenCalais API defines.
+ *
+ * As of the new API for OpenCalais, there is no dynamic way to get the list of entities.
+ * This list was taken from the API documentation, which I was told is the correct way
+ * to get this information.
+ *
+ * @return array $entities
+ *   OpenCalais entities, use local defaults if they cannot be retrieved remotely.
+ */
+function opencalais_get_all_entities() {
+  $entities = array(
+    'Anniversary', 'City', 'Company', 'Continent', 'Country', 'Currency', 'Editor',
+    'EmailAddress', 'EntertainmentAwardEvent', 'Facility', 'FaxNumber', 'Holiday',
+    'IndustryTerm', 'Journalist', 'MarketIndex', 'MedicalCondition', 'MedicalTreatment',
+    'Movie', 'MusicAlbum', 'MusicGroup', 'NaturalFeature', 'OperatingSystem',
+    'Organization', 'Person', 'PharmaceuticalDrug', 'PhoneNumber', 'PoliticalEvent',
+    'Position', 'Product', 'ProgrammingLanguage', 'ProvinceOrState', 'PublishedMedium',
+    'RadioProgram', 'RadioStation', 'Region', 'SportsEvent', 'SportsGame', 'SportsLeague',
+    'Technology', 'TVShow', 'TVStation', 'URL');
+
+  // Special Reserved Vocabularies
+  array_push($entities, 'SocialTags', 'CalaisDocumentCategory', 'EventsFacts');
+  sort($entities);
+
+  return $entities;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Add the threshold setting the field settings form for opencalais fields
+ */
+function opencalais_form_field_ui_field_edit_form_alter(&$form, &$form_state, $form_id) {
+  //only show the threshold editor for nodes created by opencalais (nodes that already have a threshold and have the correct name)
+  if (isset($form['#instance']['settings']['threshold']) && stristr($form['#field']['field_name'], 'opencalais_')) {
+    $form['instance']['settings']['threshold'] = array(
+      '#type' => 'textfield',
+      '#title' => t('OpenCalais Threshold Value'),
+      '#description' => t('How relevant a term must be to be applied to a node. This is only utilized on OpenCalais Fields.'),
+      '#default_value' => $form['#instance']['settings']['threshold'],
+    );
+    if (!is_array($form['#validate'])) {
+      $form['validate'] = array();
+    }
+    $form['#validate'][] = 'opencalais_check_threshold';
+  }
+}
+
+/**
+ * Simple Validator for the system settings form;
+ */
+function opencalais_check_threshold($form, $form_state) {
+  $threshold = $form_state['values']['instance']['settings']['threshold'];
+  if (!isset($threshold) || $threshold < 0 || $threshold > 1) {
+    form_set_error('instance[settings][threshold]', 'Threshold must be between 0 and 1');
+  }
+}
+
+/**
+ * Pre-Processor for the system_settings form form to move OpenCalais Terms to the
+ * sidebar (for rubik).
+ */
+function opencalais_preprocess_system_settings_form(&$variables) {
+  if ($variables['form']['#form_id'] == 'opencalais_add_fields_form') {
+    // push the help into the sidebar - this will work on rubik - not sure what else right now.
+    $variables['sidebar'][] = $variables['form']['help'];
+    unset($variables['form']['help']);
+  }
+}
+
+/**
+ * Form submit call back function to handle the submit from the add_fields form.
+ */
+function opencalais_add_fields_submit($form, &$form_state) {
+  $content_type = $form_state['values']['content_type'];
+
+  $to_add = array_filter($form_state['values']['config']['entities'], '_opencalais_filter');
+  $to_rem = array_filter($form_state['values']['config']['entities'], '_opencalais_delete_filter');
+  opencalais_create_fields($content_type, $to_add);
+  opencalais_remove_fields($content_type, $to_rem);
+  // I'm slightly worried about batch operations causing a race condition here - we'll have to see
+  $settings = variable_get('opencalais_autotagging', array());
+  $node_fields = variable_get('opencalais_nodefields', array());
+
+  $node_fields[$content_type] = $form_state['values'][$content_type . '_nodefields'];
+  $settings[$content_type] = $form_state['values'][$content_type . '_autotagging'];
+  variable_set('opencalais_autotagging', $settings);
+  variable_set('opencalais_nodefields', $node_fields);
+  
+}
+
+/**
+ * Retrieve a list of extra fields to apply to a vocabulary
+ */
+function opencalais_get_extra_fields($vocab) {
+  $geo = array('City', 'Country', 'ProvinceOrState');
+  $company = array('Company');
+  $person = array('Person');
+
+  if (in_array($vocab, $geo)) {
+    return array('Latitude', 'Longitude', 'ContainedByState', 'ContainedByCountry', 'PermID');
+  }
+  elseif (in_array($vocab, $company)) {
+    return array('Ticker', 'LegalName', 'PermID URL', 'PermID');
+  }
+  elseif (in_array($vocab, $person)) {
+    return array('PermID');
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function opencalais_cron() {
+  $run = variable_get('opencalais_bulk_processing_enabled', FALSE);
+  if ($run != FALSE) {
+    module_load_include('inc', 'opencalais', 'opencalais.bulk');
+    opencalais_queue_cron();
+  }
+}
+
+/**
+ * Return the OpenCalais Service class.
+ *
+ * @param $options An array of option parameters to be sent to the CalaisService class.
+ * @return $object The initialized CalaisService object.
+ */
+function opencalais_get_service($options = array()) {
+  return new CalaisService($options);
+}
+
+/**
+ * Implements hook_help().
+ */
+function opencalais_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#opencalais':
+     
+      $output  = '<h4>' . t('Overview') . '</h4>';
+      $output .= '<img src="/' . drupal_get_path('module', 'opencalais') . '/images/opencalais-logo.png" width="225" height="225" alt="Open Calais" align="right" />';
+      $output .= t("It’s no secret that one of the most powerful aspects of the Drupal content management system is the ability to tag content using a variety of vocabularies within it’s Taxonomy structure. Being able to relate content in this way is a big help to large content, scholastic, government and news related web sites find appropriate tags which can be assigned on a per-vocabulary level to content.<br /><br />");
+      $output .= t("The OpenCalais module for Drupal makes this process easier by leveraging the power of the Calais service with regard to auto and suggested tagging of Drupal content.<br /><br />");
+      $output .= t("This is accomplished by analyzing the title of the article and body content of a given piece of content and assigning or suggesting tags on a per-vocabulary level. What makes this even more powerful is that you can utilize different vocabularies within different content types to target subject specific tags for each individual content type and piece of content. You can also set thresholds for which tags are recommended or assigned helping to narrow or widen the field of tags that are suggested or assigned.") . '<br clear="right">';
+      $output .= '<div style="border-top: 2px solid #f8981d; margin: 15px 0px; width: 100%"></div>';
+      
+      $output .= '<h4>' . t('Open Calais Settings') . '</h4>';
+      $output .= t('In order to use the Calais API you will need an API key. You can obtain one by signing up for an account at:<br /><br />');
+      $output .= l('https://iameui-eagan-prod.thomsonreuters.com/iamui/UI/createUser', 'https://iameui-eagan-prod.thomsonreuters.com/iamui/UI/createUser') . "<br /><br />";
+      $output .= t('Once you have the key you can provide it ') . l(t('by clicking here'), 'admin/config/content/opencalais/api') . '.';
+      $output .= '<div style="border-top: 2px solid #f8981d; margin: 15px 0px; width: 100%"></div>';
+
+      $output .= '<h4>' . t('Content Configuration & Tagging') . '</h4>';
+      $output .= t('You can select a variety of vocabularies for any content type. This mesn we expect to have many different article subjects contained within that content type. Also note the scores assigned to each selected vocabulary. This means that tags below a certain threshold will be ignored and those above will be suggested or assigned.') . "<br /><br />";
+      $output .= t('Once you edit the node (or allow it to auto-tag on creation) you can view the tags on your article display page. The terms are presented as tags separated by vocabulary. Certain tags contain additional metadata specific to those vocabularies.');
+      $output .= '<div style="border-top: 2px solid #f8981d; margin: 15px 0px; width: 100%"></div>';
+
+      $output .= '<h4>' . t('More Documentation') . '</h4>';
+      $output .= t('You can read additional documetation by ') . l(t('clicking here'), 'https://www.drupal.org/node/303763');
+      
+      $output .= '<div style="border-top: 2px solid #f8981d; margin: 15px 0px; padding-top: 15px; width: 100%; font-size: 8pt; line-height: 1.3em;">';
+      $output .= '<img src="/' . drupal_get_path('module', 'opencalais') . '/images/flyingflip-logo.png" width="151" height="50" alt="FlyingFlip Studios" align="right" /><br />';
+      $output .= 'Released 2016 - v7.x-1.1 - FlyingFlip Studios, LLC. - Released under GNU GENERAL PUBLIC LICENSE - Version 2, June 1991<br />http://www.flyingflip.com - @flyingflip - @mbagnall17<br clear="right">';
+      $output .= '<style>.item-list, hr { display: none; }</style></div>';      
+      
+      $output .= '<hr />';
+      return $output;
+  }
+}

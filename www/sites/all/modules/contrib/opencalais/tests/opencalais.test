@@ -1,0 +1,256 @@
+<?php
+
+/**
+ * @file
+ * Test conditions for opencalais module
+ */
+
+class OpenCalaisTestCase extends DrupalWebTestCase {
+
+  /**
+   * Make sure we have everything we need to do our tests.
+   */
+  function setUp() {
+    global $conf;
+
+    // Get the configured API key before generating a new $db_prefix
+    $api_key = variable_get('opencalais_api_key', '');
+
+    parent::setUp('opencalais');
+    if ($conf['opencalais_api_key'] != $api_key) {
+      variable_set('opencalais_api_key', $api_key);
+    }
+  }
+
+  /**
+   * Not sure what this does (yet).
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  /**
+	 * Check the Calais results for testing.
+	 */
+  function assertCalaisResults($results) {
+    $this->assertFalse(empty($results), "Results were populated");
+
+    $this->arrayContains($results->City, 'Denver', 'Denver is a City');
+    $this->arrayContains($results->City, 'Philadelphia', 'Philadelphia is a City');
+    $this->arrayContains($results->City, 'Chicago', 'Chicago is a City');
+
+    $this->arrayContains($results->Company, 'CBS', 'CBS is a Company');
+
+    $this->arrayContains($results->Person, 'Barack Obama', 'Barack Obama is a Person');
+    $this->arrayContains($results->Person, 'Hillary Clinton', 'Hillary Clinton is a Person');
+    $this->arrayContains($results->Person, 'Howard Dean', 'Howard Dean is a Person');
+    $this->arrayContains($results->Person, 'Al Gore', 'Al Gore is a Person');
+
+    $this->arrayContains($results->PublishedMedium, 'The Wall Street Journal', 'The Wall Street Journal is a PublishedMedium');
+
+    $this->arrayContains($results->ProvinceOrState, 'Indiana', 'Indiana is a ProvinceOrState');
+    $this->arrayContains($results->ProvinceOrState, 'Ohio', 'Ohio is a ProvinceOrState');
+    $this->arrayContains($results->ProvinceOrState, 'Florida', 'Florida is a ProvinceOrState');
+    $this->arrayContains($results->ProvinceOrState, 'North Carolina', 'North Carolina is a ProvinceOrState');
+    $this->arrayContains($results->ProvinceOrState, 'Iowa', 'Iowa is a ProvinceOrState');
+    $this->arrayContains($results->ProvinceOrState, 'Pennsylvania', 'Pennsylvania is a ProvinceOrState');
+    $this->arrayContains($results->ProvinceOrState, 'Michigan', 'Michigan is a ProvinceOrState');
+    $this->arrayContains($results->ProvinceOrState, 'Vermont', 'Vermont is a ProvinceOrState');
+
+    $this->arrayContains($results->EventsFacts, 'Person Career', 'Person Career is an Event/Fact');
+    $this->arrayContains($results->EventsFacts, 'Quotation', 'Quotation is an Event/Fact');
+
+    $this->assertFalse(property_exists($results, 'Geo'), 'GEO data handled correctly');
+
+    $this->assertRelevance($results->Person, 'Barack Obama', 0.797);
+    $this->assertRelevance($results->ProvinceOrState, 'Indiana', 0.565);
+
+    $this->assertResolvedName($results->Company, 'CBS', 'CBS Corporation', 'company', 'CBS disambiguates to CBS Corporation');
+
+    $this->assertResolvedData($results->Company, 'CBS', array('ticker' => 'CBSCO'));
+    $this->assertResolvedData($results->ProvinceOrState, 'Indiana', array('latitude' => '40.0066019668', 'longitude' => '-86.2913991487'));
+    $this->assertResolvedData($results->ProvinceOrState, 'North Carolina', array('latitude' => '35.4833648675', 'longitude' => '-79.4002284439'));
+
+    $this->arrayContains($results->SocialTags, 'Pennsylvania Democratic primary', 'Pennsylvania Democratic primary is in Social Tags');
+    $this->arrayContains($results->SocialTags, 'Barack Obama', 'Barack Obama is in Social Tags');
+    $this->arrayContains($results->SocialTags, 'Hillary Rodham Clinton', 'Hillary Rodham Clinton is in Social Tags');
+    $this->arrayContains($results->SocialTags, 'Superdelegate', 'Superdelegate is in Social Tags');
+    $this->arrayContains($results->SocialTags, 'Hillary Clinton caucuses and primaries', 'Hillary Clinton caucuses and primaries is in Social Tags');
+    $this->arrayContains($results->SocialTags, 'Barack Obama presidential primary campaign', 'Barack Obama presidential primary campaign is in Social Tags');
+    $this->arrayContains($results->SocialTags, 'Business', 'Business is in Social Tags');
+    $this->arrayContains($results->SocialTags, 'Labor', 'Labor is in Social Tags');
+    $this->assertRelevance($results->SocialTags, 'Barack Obama', 0.7);
+    $this->assertRelevance($results->SocialTags, 'Barack Obama presidential primary campaign', 0.7);
+
+    $this->arrayContains($results->CalaisDocumentCategory, 'Business', 'Business is in Document Category');
+    $this->arrayContains($results->CalaisDocumentCategory, 'Labor', 'Labor is in Document Category');
+
+    $this->arrayContains($results->TVShow, '60 Minutes', '60 Minutes is a TVShow');
+    $this->assertRelevance($results->TVShow, '60 Minutes', 0.052);
+  }
+
+  /**
+   * Override or provide our "arrayContains()" method.
+   */
+  function arrayContains($haystack, $needle, $message) {
+    if (!isset($haystack)) {
+      $this->fail("No results returned when looking for $needle");
+    }
+    $this->assertTrue($haystack->has_term_value($needle), t($message));
+  }
+
+  /**
+   * Provide our test for resolved name.
+   */
+  function assertResolvedName($entitySet, $entity, $resolved, $type, $message) {
+    $term = $entitySet->get_term_by_value($entity);
+    $this->assertTrue($term, "'$entity' was found for disambiguation");
+    $this->assertEqual($term->resolved_name, $resolved, $message);
+    $this->assertEqual($term->resolved_type, $type, "Resolved Type '$term->resolved_type' equals '$type'");
+  }
+
+  /**
+   * Provide our test for resolved data.
+   */
+  function assertResolvedData($entitySet, $entity, $data) {
+    $term = $entitySet->get_term_by_value($entity);
+    $extra = $term->extra;
+    foreach ($data as $key => $val) {
+      $this->assertEqual($extra[$key], $val, "Resolved '$key' for $entity is {$extra[$key]}");
+    }
+  }
+  /**
+   * Provide our test for the relevancy of the returned tags.
+   */
+  function assertRelevance($entitySet, $value, $score) {
+    $term = $entitySet->get_term_by_value($value);
+    $this->assertEqual($term->relevance, $score, "Relevance score for $value is {$term->relevance}");
+  }
+}
+
+class OpenCalaisAddFieldTestCase extends DrupalWebTestCase {
+  // We want the default taxonomy and content types created
+  protected $profile = 'standard';
+
+  /**
+   * Get the information for this specific test for the test api.
+   */
+  public static function getInfo() {
+    return array(
+      'name' => t('Add OpenCalais Field'),
+      'description' => t('Test adding an OpenCalais field to a content type.'),
+      'group' => t('OpenCalais')
+    );
+  }
+
+  /**
+   * Set up our test.
+   */
+  function setUp() {
+    parent::setUp('opencalais');
+
+    // Create and login user
+    $admin_user = $this->drupalCreateUser(array('administer site configuration', 'administer content types', 'administer opencalais'));
+    $this->drupalLogin($admin_user);
+  }
+
+  /**
+   * Test adding an api field.
+   */
+  function testAddOpenCalaisField() {
+
+    $edit = array(
+      'content_type' => 'article',
+      'config[entities][City][existing]' => FALSE,
+      'config[entities][City][enabled]' => TRUE,
+      'config[entities][City][threshold]' => 0.75,
+    );
+    $this->drupalPost('admin/structure/types/manage/article/opencalais_fields', $edit, t('Save Fields'));
+    $this->assertText('OpenCalais Field for City has been successfully created');
+
+    $this->drupalGet('admin/structure/types/manage/article/fields');
+    $this->assertFieldByXPath('//table[@id="field-overview"]//tr[@id="opencalais-city-tags"]', NULL, t('OpenCalais City Field was created and appears in the overview page.'));
+  }
+}
+
+/**
+ * Test case for the web service.
+ */
+class OpenCalaisWebServiceTestCase extends OpenCalaisTestCase {
+
+  /**
+   * Provide the information for the test to the simpletest module.
+   */
+  function getInfo() {
+    return array(
+      'name' => t('OpenCalais Web Service Test'),
+      'description' => t('Verify that an OpenCalais request returns expected results.'),
+      'group' => t('OpenCalais')
+    );
+  }
+
+  /**
+   * Test the analysis of a document data.
+   */
+  function testAnalyze() {
+    $body = filter_xss($this->getTestContent());
+    $date = format_date(time(), 'custom', 'r');
+
+    $opencalais = opencalais_get_service(array('host' => variable_get('opencalais_api_server', 'api.thomsonreuters.com')));
+    $api_key = variable_get('opencalais_api_key', NULL);
+    if (!empty($api_key)) {
+      $results = $opencalais->analyzeRaw($body, $api_key);
+      $this->assertCalaisResults($results);
+    }
+  }
+
+  /**
+   * Content provided by:
+   * http://voices.washingtonpost.com/44/2008/03/31/three_turning_points_on_the_ro.html
+   */
+  function getTestContent() {
+    $str = <<<EOD
+Democratic politicians should have three dates circled on their calendars: April 22, May 6 and July 1. Each represents a potential turning point in the nomination battle between Barack Obama and Hillary Clinton.
+
+April 22, the day of the Pennsylvania primary, is Clinton's next change to make a strong case for staying in the race to the end. Conversely, it is a critical opportunity for Obama to show that he continues to expand his appeal within the party, as someone who hopes to become the nominee must do.
+
+May 6 is when North Carolina and Indiana hold their primaries. It has gained significance over the past two weeks as a potential make-or-break day for both candidates, perhaps the only date between now and the end of the primaries that could deliver a seismic jolt to the trajectory of the nomination battle.
+
+July 1 is Democratic National Committee chairman Howard Dean's deadline for superdelegates to get off the fence and declare whether they will vote for Clinton or Obama.
+
+Start with Pennsylvania. Nothing underscores the significance of the Keystone State's primary more than the current bus tour that Obama is taking from one side of the state to the other.
+
+After Obama lost to Clinton in Ohio by 10 percentage points, there were questions about how hard he would play in Pennsylvania. Clinton has family roots in the state. She has the support of Gov. Edward Rendell and Philadelphia Mayor Michael Nutter. The state's demographic profile fits Clinton almost perfectly.
+
+The polls offer a bleak landscape for Obama. Clinton has enjoyed a double-digit lead in the state for months. Obama is braced for a loss in Pennsylvania but his campaign team has concluded he cannot afford another loss of the magnitude of Ohio.
+
+Obama has retooled his campaign in Pennsylvania, bringing in Paul Tewes as his new state director. Tewes was Obama's state director in Iowa and later in Ohio. He has seen what worked and what didn't and he has the full trust of Obama's Chicago headquarters team.
+
+More telling are the changes in Obama's campaign style. He is more focused on bread-and-butter issues and is spending more time in informal settings with working people. He went bowling -- for the first time in decades -- over the weekend and has shown up in cafes and bars in an effort to connect with working-class Pennsylvanians.
+
+His hope in Pennsylvania is something often heard during the early stages of a presidential campaign -- to exceed expectations. That's an odd objective for someone who purports to be the Democratic front-runner, but he is seeking to define down his prospects in the hope that a relatively narrow loss can be spun into victory.
+
+Clinton needs Ohio plus -- an outsized victory that silences for a time any talk that she should get out. As Ohio showed, there is nothing like a decisive victory to change the conversation.
+
+Clinton spent the weekend beating back such talk after Vermont Sen. Patrick Leahy had publicly called for her to get out. On Saturday, she made an emphatic statement to the Post's Perry Bacon Jr. that she's taking her fight all the way to Denver and that she will continue to press for a resolution to the problem of Michigan and Florida. Her husband urged Democrats to chill, to let the race play out according to the calendar and not attempt to disenfranchise the voters in the remaining 10 contests.
+
+May 6 looms as an even bigger moment. Nobody expects a significant change in the race before Pennsylvania and, given Clinton's prospects of victory there, Obama loyalists may have a harder time immediately after that primary to argue that she should quit.
+
+That could leave it to voters in North Carolina and Indiana to change the status quo. Obama is favored in North Carolina and The Wall Street Journal reported Monday morning that the entire congressional delegation is moving to endorse him. If he wins Indiana as well, a state that fits neither candidate perfectly, he will then argue that he has broken through. At that point, Clinton would face real pressure.
+
+But Obama has let these opportunities slip away before. Should Clinton manage to win both Indiana and North Carolina, she and Obama will be in slugfest through the rest of the campaign. If Democrats have been worried about some of the attacks going back and forth between the two campaigns in the past two weeks, they should expect even worse at that point.
+
+Any kind of muddled conclusion to May 6 virtually assures that the race goes through to the end. That will leave it in that hands of the superdelegates, and it was to them that Dean was directing his comments last week.
+
+By nature, many of these superdelegates will not be profiles in courage. Obama is doing is best to pry some of them loose. If he continues to do so over the next few weeks, and performs well in the upcoming primaries, he will gradually consolidate the nomination.
+
+Whether Dean has the clout to push the superdelegates to a conclusion by July 1, if the primaries end with the race notably closer in delegates and popular vote than it is today, is a real question. He may need the help of other senior Democrats who have not previously taken sides.
+
+Al Gore, on CBS's "60 Minutes" Sunday, laughed when asked by correspondent Lesley Stahl whether he would step in to try to resolve the nomination. "I'm not applying for the job of broker," he said. Perhaps Gore still harbors a smidgen of hope that the party might eventually turn to him, not to broker a deal, but to become the nominee to unite a party fractured by the Obama-Clinton duel.
+
+Depending on what happens on April 22, May 6 and by July 1, Democrats will know whether they have their nominee, or whether they are truly in need of either a broker or a uniter
+EOD;
+
+  return $str;
+  }
+}
