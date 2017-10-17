@@ -1,0 +1,79 @@
+.suggestions {
+  padding: 2px;
+  line-height: normal;
+}
+
+label.suggestion {
+  display: inline;
+  padding: 2px 5px;
+  margin: 5px;
+}
+
+label.suggestion:hover {
+  text-decoration:underline;
+}
+
+label.suggestion_selected {
+  color:#0074BD;
+  background:#EEEEEE;
+}
+
+.suggestions label.score-1 {
+  font-size: .8em;
+}
+
+.suggestions label.score-2 {
+  font-size: 1.2em;
+}
+
+.suggestions label.score-3 {
+  font-size: 1.6em;
+}
+
+.opencalais_submit {
+  display: inline-block;
+}
+
+.opencalais-imagry {
+  float: right;
+  margin-right: 10px;
+  margin-top: 2px;
+  width: 237px;
+}
+
+div.opencalais-messages {
+  border: 1px solid;
+  margin: 6px 0;
+  padding: 0px;
+}
+
+input.opencalais_submit, a.button {
+  margin: 5px !important;
+  width: 200px !important;
+}
+
+.opencalais_button_holder {
+  background-color: #ff9100 !important;
+  color: #ffffff;
+  font-weight: bold;
+  min-width: 405px;
+  padding: 10px !important;
+  text-align: center;
+}
+
+.ajax-progress {
+  display: none !important;
+}
+
+.ajax-progress-throbber {
+  display: none !important;
+}
+.opencalais_button_holder div.throbber {
+  display: none;
+}
+
+.opencalais_button_holder div.message {
+  padding: 3px 125px;
+}
+
+/* .keywords_available { background-color: #ccffbb; } */
