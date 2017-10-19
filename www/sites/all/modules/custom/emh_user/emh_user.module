@@ -235,3 +235,46 @@ function emh_user_preprocess_status_messages(&$variables) {
 function emh_user_username_alter(&$name, $account) {
   $name = emh_user_get_beautiful_realname($account);
 }
+
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function emh_user_form_node_form_alter(&$form, &$form_state, $form_id) {
+ 
+  $users = emh_user_get_users_by_beautiful_name() ;
+
+  $form['author']['name'] = array(
+    '#type' => 'select',
+    '#title' => $form['author']['name']['#title'],
+    '#options' => $users,
+    '#default_value' => array($form['author']['name']['#default_value']),
+    '#weight' => $form['author']['name']['#weight'],
+    '#description' => t('Select user which will be author.'),
+    '#chosen' => TRUE,
+  );
+}
+
+
+/**
+ * Get uids by role.
+ *
+ * @param int $rid
+ *   Role id
+ *
+ * @return array
+ *   User names
+ */
+function emh_user_get_users_by_beautiful_name() {
+  $query = db_select('users', 'u');
+  $query->fields('u', array('name', 'uid'));
+  $users = $query->execute()->fetchAllKeyed();
+  foreach ($users as $key => $value) {
+    $user = user_load($value);
+    $users[$key] = emh_user_get_beautiful_realname($user);
+  }
+  sort($users);
+  return $users;
+}
+
