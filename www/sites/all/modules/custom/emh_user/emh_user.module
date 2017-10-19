@@ -96,7 +96,7 @@ function emh_user_view_access($account) {
       return (is_object($account) && $account->status && emh_access_user_can_see_full_user($GLOBALS['user']->uid, $account->uid));
     }
   }
-  
+
   return FALSE;
 }
 
@@ -156,7 +156,11 @@ function emh_user_form_alter(&$form, &$form_state, $form_id) {
  */
 function emh_user_login_form_submit($form, &$form_state) {
   global $base_url;
-  $form_state['redirect'] = url('<front>', array('base_url' => $base_url, 'absolute' => TRUE, 'language' => (object) array('language' => FALSE)));
+  $form_state['redirect'] = url('<front>', array(
+    'base_url' => $base_url,
+    'absolute' => TRUE,
+    'language' => (object) array('language' => FALSE),
+  ));
 }
 
 /**
@@ -185,6 +189,9 @@ function emh_user_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['#submit'][] = 'emh_user_form_user_profile_submit';
 }
 
+/**
+ * Implements hook_form_submit().
+ */
 function emh_user_form_user_profile_submit(&$form, &$form_state) {
   $path = $_SERVER['HTTP_REFERER'];
   if (isset($_GET['current'])) {
@@ -200,6 +207,9 @@ function emh_user_form_change_pwd_page_form_alter(&$form, &$form_state, $form_id
   $form['#submit'][] = 'emh_user_form_change_pwd_page_form_submit';
 }
 
+/**
+ * Implements hook_form_submit().
+ */
 function emh_user_form_change_pwd_page_form_submit($form, &$form_state) {
   $form_state['redirect'] = 'user/' . $form['#account']->uid;
 }
@@ -217,7 +227,8 @@ function emh_user_preprocess_status_messages(&$variables) {
           $pos = array_search($message, $messages);
           if ($pos !== FALSE) {
             unset($_SESSION['messages'][$type][$pos]);
-            // Remove the empty status message wrapper if no other messages have been set.
+            // Remove the empty status message wrapper
+            // if no other messages have been set.
             // @see http://dropbucket.org/node/547
             if (empty($_SESSION['messages'][$type])) {
               unset($_SESSION['messages'][$type]);
@@ -236,14 +247,11 @@ function emh_user_username_alter(&$name, $account) {
   $name = emh_user_get_beautiful_realname($account);
 }
 
-
-
 /**
  * Implements hook_form_alter().
  */
 function emh_user_form_node_form_alter(&$form, &$form_state, $form_id) {
- 
-  $users = emh_user_get_users_by_beautiful_name() ;
+  $users = emh_user_get_users_by_beautiful_name();
 
   $form['author']['name'] = array(
     '#type' => 'select',
@@ -256,12 +264,22 @@ function emh_user_form_node_form_alter(&$form, &$form_state, $form_id) {
   );
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function emh_user_form_devel_switch_user_form_alter(&$form, &$form_state, $form_id) {
+  $users = emh_user_get_users_by_beautiful_name();
+
+  $form['username'] = array(
+    '#type' => 'select',
+    '#options' => $users,
+    '#description' => t('Select userr.'),
+    '#chosen' => TRUE,
+  );
+}
 
 /**
  * Get uids by role.
- *
- * @param int $rid
- *   Role id
  *
  * @return array
  *   User names
@@ -277,4 +295,3 @@ function emh_user_get_users_by_beautiful_name() {
   sort($users);
   return $users;
 }
-
