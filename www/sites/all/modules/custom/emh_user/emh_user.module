@@ -252,6 +252,7 @@ function emh_user_form_node_form_alter(&$form, &$form_state, $form_id) {
     '#default_value' => array($form['author']['name']['#default_value']),
     '#weight' => $form['author']['name']['#weight'],
     '#description' => t('Select user which will be author.'),
+    '#chosen' => TRUE,
   );
 }
 
@@ -271,8 +272,9 @@ function emh_user_get_users_by_beautiful_name() {
   $users = $query->execute()->fetchAllKeyed();
   foreach ($users as $key => $value) {
     $user = user_load($value);
-    $users[$key] = emh_user_get_beautiful_realname($user);  
-  }  
+    $users[$key] = emh_user_get_beautiful_realname($user);
+  }
+  sort($users);
   return $users;
 }
 
