@@ -227,6 +227,11 @@ function emh_linkedin_file_delete($file) {
  */
 function emh_linkedin_user_delete($account) {
   variable_del('emh_linkedin_user_page_linkedin_fields_' . $account->uid);
+  
+  if(emh_linkedin_is_linkedin_user($account->uid)) {
+    $file = file_load($account->field_photo['und'][0]['fid']);
+    file_delete($file, TRUE);
+  }
 }
 
 /**
@@ -329,4 +334,20 @@ function emh_linkedin_user_access($account) {
   }
   
   return FALSE;
+}
+
+/**
+ * To see if the user has linked their LinkedIn profile
+ * @param unknown $uid
+ * @return boolean
+ */
+function emh_linkedin_is_linkedin_user($uid) {
+  
+  $isLinkedin = _hybridauth_identity_load_by_uid($uid);
+	
+	if($isLinkedin == NULL){
+	  return FALSE;
+	} else {
+	  return TRUE;
+	}
 }
