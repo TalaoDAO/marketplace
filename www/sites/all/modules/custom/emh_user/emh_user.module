@@ -294,7 +294,7 @@ function emh_user_get_users_by_beautiful_name() {
   $query->fields('ln', array('field_last_name_value'));
   $users = $query->execute();
   foreach($users as $user) {
-    $options[$user->uid] = $user->field_first_name_value . ' ' . $user->field_last_name_value . ' (' . $user->name . ')';
+    $options[$user->name] = $user->field_first_name_value . ' ' . $user->field_last_name_value . ' (' . $user->name . ')';
   }
   return $options;
 }
