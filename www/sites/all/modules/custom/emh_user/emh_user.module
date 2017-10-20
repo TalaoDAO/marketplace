@@ -285,13 +285,17 @@ function emh_user_form_devel_switch_user_form_alter(&$form, &$form_state, $form_
  *   User names
  */
 function emh_user_get_users_by_beautiful_name() {
+  $options = array();
   $query = db_select('users', 'u');
-  $query->fields('u', array('name', 'uid'));
-  $users = $query->execute()->fetchAllKeyed();
-  foreach ($users as $key => $value) {
-    $user = user_load($value);
-    $users[$key] = emh_user_get_beautiful_realname($user);
+  $query->innerjoin('field_data_field_first_name', 'fn', 'fn.entity_id = u.uid');
+  $query->innerjoin('field_data_field_last_name', 'ln', 'ln.entity_id = u.uid');
+  $query->fields('u', array('uid', 'name'));
+  $query->fields('fn', array('field_first_name_value'));
+  $query->fields('ln', array('field_last_name_value'));
+  $users = $query->execute();
+  foreach($users as $user) {
+    $options[$user->name] = $user->field_first_name_value . ' ' . $user->field_last_name_value . ' (' . $user->name . ')';
   }
-  sort($users);
-  return $users;
+  sort($options);
+  return $options;
 }
