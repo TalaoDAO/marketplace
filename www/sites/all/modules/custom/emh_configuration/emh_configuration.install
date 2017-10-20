@@ -1707,4 +1707,5 @@ function emh_configuration_update_7082() {
 function emh_configuration_update_7083() {
   _emh_points_earnings_retroactive();
   exec("drush sql-query --file=$(drush dd)/../deploy/scripts/txn_data_context_retroactive.sql"); 
+  module_enable(['emh_linkedin']);
 }
