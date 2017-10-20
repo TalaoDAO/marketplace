@@ -107,7 +107,7 @@ function ft_content_type_field_default_field_bases() {
       ),
     ),
     'translatable' => 0,
-    'type' => 'text_long',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_education'.
