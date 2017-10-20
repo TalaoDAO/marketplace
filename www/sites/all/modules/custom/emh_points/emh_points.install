@@ -461,3 +461,22 @@ function emh_points_update_7115() {
   // Enable the earnings submodule.
   module_enable(['emh_points_earnings']);
 }
+
+/**
+ * ADD: transaction context_data.
+ */
+function emh_points_update_7116() {
+  if (db_table_exists('emh_points_txn')) {
+    if (!db_field_exists('emh_points_txn', 'context_data')) {
+      $field = array(
+        'type' => 'varchar',
+        'description' => "Context data of the Credit Transaction (usually nid)",
+        'length' => 48,
+      );
+      db_add_field('emh_points_txn', 'context_data', $field);
+
+      //exec("drush sql-query --file=$(drush dd)/../deploy/scripts/txn_data_context_retroactive.sql");
+    }
+  }
+}
+

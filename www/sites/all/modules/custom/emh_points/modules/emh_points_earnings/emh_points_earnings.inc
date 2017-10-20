@@ -58,14 +58,14 @@ function _emh_points_earnings_commission_and_monetize($parent_txn, $source) {
     // Currency conversion: credits => earnings.
     $earnings = $monetizable_credits * EMH_POINTS_EARNINGS_RATE;
     // Add earnings.
-    _emh_points_earnings_add_earnings($source_entity, $earnings);
+    _emh_points_earnings_add_earnings($source_entity, $earnings, $parent_txn_id);
   }
 }
 
 /**
  * Add earnings to an entity.
  */
-function _emh_points_earnings_add_earnings($entity, $earnings) {
+function _emh_points_earnings_add_earnings($entity, $earnings, $parent_txn_id) {
 
   // To add earning, there are almost no functional checks.
   if (!is_numeric($earnings) || (int) $earnings < 0) {
@@ -84,6 +84,7 @@ function _emh_points_earnings_add_earnings($entity, $earnings) {
       'bundle' => $entity->bundle,
       'earnings' => $earnings,
       'last_update' => REQUEST_TIME,
+      'parent_txn_id' => $parent_txn_id,
     ))
     ->execute();
   // Raise Rules event.
