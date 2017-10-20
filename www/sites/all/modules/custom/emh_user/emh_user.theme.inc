@@ -89,7 +89,7 @@ function emh_user_cartouche_view($account = NULL, $context = NULL) {
 	if (module_exists('emh_user_profile_purchase') && !emh_access_user_can_see_full_user($uid1, $uid2) && !($context == 'author')) {
     $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
     if (!empty($node)) {
-      $user_purchase_link = url('user/' . $uid2 . '/purchase') . '?destination=node/' . $node->nid;
+      $user_purchase_link = url('user/' . $uid2 . '/purchase/'.$node->nid) . '?destination=node/' . $node->nid;
     }
     else {
       $user_purchase_link = url('user/' . $uid2 . '/purchase');

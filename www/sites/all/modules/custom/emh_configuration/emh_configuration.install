@@ -12,6 +12,11 @@ function emh_configuration_update_dependencies() {
   $dependencies['emh_configuration'][7070] = array(
     'pet' => 7001,
   );
+  $dependencies['emh_configuration'][7083] = array(
+    'emh_points' => 7016,
+    'emh_points_earnings' => 7103, 
+  );
+
   return $dependencies;
 }
 
@@ -1694,4 +1699,12 @@ function emh_configuration_update_7082() {
     'options' => $options,
   );
   menu_link_save($item);
+}
+
+/**
+ * CHG: Earnings and points retroactivity.
+ */
+function emh_configuration_update_7083() {
+  _emh_points_earnings_retroactive();
+  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/txn_data_context_retroactive.sql"); 
 }
