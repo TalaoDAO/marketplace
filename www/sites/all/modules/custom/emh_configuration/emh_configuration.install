@@ -13,7 +13,7 @@ function emh_configuration_update_dependencies() {
     'pet' => 7001,
   );
   $dependencies['emh_configuration'][7083] = array(
-    'emh_points' => 7016,
+    'emh_points' => 7116,
     'emh_points_earnings' => 7103, 
   );
 
