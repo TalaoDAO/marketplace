@@ -70,7 +70,6 @@ Feature: Request Option Price
     When I select "Avengers" from "Circles"
       And I press "Save as draft"
       And I click "Edit" in the "primary tabs" region
-    Then I break
     Then I should see "1000 credits" in the "#edit-field-options-und-questionnaire" element
       And I should see "1000 credits" in the "#edit-field-options-und-duration" element
 
