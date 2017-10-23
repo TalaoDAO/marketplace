@@ -308,7 +308,6 @@ function _opencalais_create_term($term, $field, $node, $meta=array()) {
       $vocabularies[$vocabulary->vid] = $vocabulary;
     }
   }
-
   if ($possibilities = taxonomy_term_load_multiple(array(), array('name' => trim($term), 'vid' => array_keys($vocabularies)))) {
     $term = array_pop($possibilities);
   }
