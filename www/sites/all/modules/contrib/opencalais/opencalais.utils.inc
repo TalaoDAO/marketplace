@@ -86,7 +86,6 @@ function opencalais_create_vocabulary($entity) {
   $readable = opencalais_make_camel_case_readable($entity);
   $machine = _opencalais_make_machine_name($entity);
   $vocabulary = taxonomy_vocabulary_machine_name_load($machine);
-
   if (empty($vocabulary)) {
     $vocabulary = (object) array(
       'name' => $readable,
@@ -301,12 +300,13 @@ function _opencalais_already_tagged($node) {
  */
 function _opencalais_create_term($term, $field, $node, $meta=array()) {
   $lang = $node->language;
-
+  
   $vocabularies = array();
   foreach ($field['settings']['allowed_values'] as $tree) {
+    
     if ($vocabulary = taxonomy_vocabulary_machine_name_load($tree['vocabulary'])) {
       $vocabularies[$vocabulary->vid] = $vocabulary;
-    }
+    }      
   }
   if ($possibilities = taxonomy_term_load_multiple(array(), array('name' => trim($term), 'vid' => array_keys($vocabularies)))) {
     $term = array_pop($possibilities);
@@ -331,7 +331,9 @@ function _opencalais_create_term($term, $field, $node, $meta=array()) {
       }
     }
   }
-  return (array) $term;
+  
+  //return (array) $term;
+  return array();
 }
 
 /**
