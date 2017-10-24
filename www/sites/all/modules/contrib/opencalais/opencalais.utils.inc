@@ -14,7 +14,8 @@
  *  Some settings cannot be specified through this function - this is really just a utility wrapper for the fields api
  */
 function opencalais_add_field($content_type, $field_name, $taxonomy_name, $title, $description = '', $threshold = 0) {
-  node_types_rebuild();
+   
+/* node_types_rebuild();
 
   //since opencalais fields are taxonomy term references
   $taxonomy_field = taxonomy_field_info();
@@ -63,9 +64,9 @@ function opencalais_add_field($content_type, $field_name, $taxonomy_name, $title
   
   // Flag so we can know which fields belong to this module.
   $instance['settings']['opencalais'] = _opencalais_make_machine_name($taxonomy_name); 
-
+*/
   // Handle any fieldexceptions that occur by just setting and error message and returning.
-  try {
+ /* try {
     if (!field_read_instance('node', $instance['field_name'], $content_type)) {
       field_create_instance($instance);
     }
@@ -76,7 +77,7 @@ function opencalais_add_field($content_type, $field_name, $taxonomy_name, $title
   } catch (FieldException $f) {
     drupal_set_message($f->getMessage(), 'error');
     return;
-  }
+  }*/
 }
 
 /**
@@ -299,14 +300,18 @@ function _opencalais_already_tagged($node) {
  * Save taxonomy terms for attaching to the node
  */
 function _opencalais_create_term($term, $field, $node, $meta=array()) {
-  $lang = $node->language;
+  
+/* $lang = $node->language;
   
   $vocabularies = array();
   foreach ($field['settings']['allowed_values'] as $tree) {
     
-    if ($vocabulary = taxonomy_vocabulary_machine_name_load($tree['vocabulary'])) {
+    /*if ($vocabulary = taxonomy_vocabulary_machine_name_load($tree['vocabulary'])) {
       $vocabularies[$vocabulary->vid] = $vocabulary;
-    }      
+    }*/   
+  /*  if ($vocabulary = taxonomy_vocabulary_machine_name_load('tags')) {
+      $vocabularies[$vocabulary->vid] = $vocabulary;
+    }
   }
   if ($possibilities = taxonomy_term_load_multiple(array(), array('name' => trim($term), 'vid' => array_keys($vocabularies)))) {
     $term = array_pop($possibilities);
@@ -330,7 +335,7 @@ function _opencalais_create_term($term, $field, $node, $meta=array()) {
         );
       }
     }
-  }
+  }*/
   
   //return (array) $term;
   return array();
