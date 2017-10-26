@@ -230,7 +230,7 @@ function emh_linkedin_user_delete($account) {
   
   if(emh_linkedin_is_linkedin_user($account->uid)) {
     $file = file_load($account->field_photo['und'][0]['fid']);
-    file_delete($file, TRUE);
+    if ($file) file_delete($file, TRUE);
   }
 }
 
