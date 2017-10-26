@@ -296,6 +296,5 @@ function emh_user_get_users_by_beautiful_name() {
   foreach($users as $user) {
     $options[$user->name] = $user->field_first_name_value . ' ' . $user->field_last_name_value . ' (' . $user->name . ')';
   }
-  sort($options);
   return $options;
 }
