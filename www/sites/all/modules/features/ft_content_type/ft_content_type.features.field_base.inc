@@ -46,6 +46,35 @@ function ft_content_type_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_background'.
+  $field_bases['field_background'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_background',
+    'field_permissions' => array(
+      'owner_field' => 'Comment',
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'entity_translation_sync' => array(
+        0 => 'fid',
+      ),
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
   // Exported field_base: 'field_description_activities'.
   $field_bases['field_description_activities'] = array(
     'active' => 1,
@@ -66,7 +95,6 @@ function ft_content_type_field_default_field_bases() {
     'module' => 'text',
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'max_length' => 255,
       'user_role_field' => array(
         1 => 0,
         2 => 2,
@@ -203,45 +231,6 @@ function ft_content_type_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'link_field',
-  );
-
-  // Exported field_base: 'field_linkedin_image'.
-  $field_bases['field_linkedin_image'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_linkedin_image',
-    'field_permissions' => array(
-      'owner_field' => 'Comment',
-      'type' => 0,
-    ),
-    'indexes' => array(
-      'fid' => array(
-        0 => 'fid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'image',
-    'settings' => array(
-      'default_image' => 0,
-      'entity_translation_sync' => array(
-        0 => 'fid',
-      ),
-      'uri_scheme' => 'public',
-      'user_role_field' => array(
-        1 => 0,
-        2 => 2,
-        3 => 0,
-        4 => 0,
-        5 => 0,
-        6 => 0,
-        7 => 0,
-        10 => 0,
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'image',
   );
 
   // Exported field_base: 'field_nb_contacts_linkedin'.
