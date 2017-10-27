@@ -12,6 +12,11 @@ function emh_configuration_update_dependencies() {
   $dependencies['emh_configuration'][7070] = array(
     'pet' => 7001,
   );
+  $dependencies['emh_configuration'][7083] = array(
+    'emh_points' => 7116,
+    'emh_points_earnings' => 7103, 
+  );
+
   return $dependencies;
 }
 
@@ -1472,7 +1477,7 @@ function emh_configuration_update_7075() {
  * ADD: module emh_tracking.
  */
 function emh_configuration_update_7076() {
-  module_enable(['emh_tracking']);
+  module_enable(['emh_tracking', 'emh_linkedin']);
 }
 
 /**
@@ -1657,4 +1662,50 @@ function emh_configuration_update_7079() {
  */
 function emh_configuration_update_7080() {
   module_disable(array('og_webform'));
+}
+
+/**
+ * CHG: enable translation_helpers module.
+ */
+function emh_configuration_update_7081() {
+  module_enable(array('translation_helpers'));
+}
+
+/**
+ * CHG: Earnings badge menu with title.
+ */
+function emh_configuration_update_7082() {
+  // Del: Earning badges.
+  db_delete('menu_links')
+    ->condition('mlid', '17866')
+    ->execute();
+
+
+  // Add: User menu > Earnings badge.
+  $options = array(
+    'item_attributes' => array(
+      'id' => 'earnings-badge',
+      'class' => '',
+      'style' => '',
+    ),
+    'attributes' => array('title' => 'Earnings history'),
+  );
+  $item = array(
+    'link_title' => 'Earnings history',
+    'link_path' => 'earnings',
+    'router_path' => 'earnings',
+    'menu_name' => 'user-menu',
+    'weight' => '-25',
+    'options' => $options,
+  );
+  menu_link_save($item);
+}
+
+/**
+ * CHG: Earnings and points retroactivity.
+ */
+function emh_configuration_update_7083() {
+  _emh_points_earnings_retroactive();
+  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/txn_data_context_retroactive.sql"); 
+  module_enable(['emh_linkedin']);
 }
