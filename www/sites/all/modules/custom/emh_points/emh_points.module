@@ -494,14 +494,16 @@ function emh_points_format_entity($entity) {
 /**
  * Main moving credits action.
  */
-function emh_points_move_points($source, $destination, $points, $txn_context, $parent_txn_id = NULL) {
+function emh_points_move_points($source, $destination, $points, $txn_context, $parent_txn_id = NULL, $description = '', $data = '') {
   $emh_source = emh_points_build_entity_for_points($source);
   $emh_destination = emh_points_build_entity_for_points($destination);
   // Remove credits from source.
   emh_points_delete_points($emh_source, $points);
   // Add credits to destination.
   emh_points_add_points($emh_destination, $points);
-  $log = t('Move credits from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination)));
+  if ($description == '')
+    $log = t('Move credits from !source to !destination.', array('!source' => emh_points_format_entity($source), '!destination' => emh_points_format_entity($destination)));
+  else $log = $description;
 
   // Compute transaction.
   global $user;
@@ -517,6 +519,7 @@ function emh_points_move_points($source, $destination, $points, $txn_context, $p
     'dest_id' => $emh_destination->id,
     'operation' => POINTS_TRANSFERT,
     'context' => $txn_context,
+    'context_data' => $data,
   );
 
   // Record the parent transaction ID, when applicable.
@@ -903,10 +906,9 @@ function emh_points_show_user_history($account = NULL) {
     $points .= $transaction->points;
 
     $rows[] = array(
-      $transaction->operation,
-      $transaction->description,
       format_date($transaction->time_stamp, 'short_date'),
       $points,
+      $transaction->description,
     );
   }
 
@@ -918,13 +920,16 @@ function emh_points_show_user_history($account = NULL) {
     '#value' => t('Credits statement'),
   );
 
+  $build['header'] = array(
+    '#markup' => t('Credits bought or offered by eMindHub.'),
+  );
+
   $build['table'] = array(
     '#theme' => 'table',
     '#header' => array(
-      t('Type'),
-      t('Details'),
       t('Date'),
       t('Credits'),
+      t('Details'),
     ),
     '#rows' => $rows,
     '#empty' => t('No credits transaction.'),
