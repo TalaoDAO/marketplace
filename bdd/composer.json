@@ -7,6 +7,7 @@
   },
   "require-dev": {
     "ciaranmcnulty/behat-stepthroughextension" : "dev-master"
+    "symfony/stopwatch": "~2.2"
   },
   "config": {
     "bin-dir": "bin/"

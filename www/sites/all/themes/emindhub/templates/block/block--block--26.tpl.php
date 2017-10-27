@@ -7,12 +7,12 @@
     <?php if ($title): ?>
     <div class="select-persona-title">
       <!-- <h2<?php print $title_attributes; ?>><span><?php print $title; ?></span></h2> -->
-      <?php print t('The best experts in aerospace <br />responding to your requests'); ?>
+      <?php print t('The smart way to access smart people'); ?>
     </div>
     <?php endif;?>
 
     <div class="select-persona-subtitle">
-      <?php print t('The 1st Smart Professional Network in aerospace'); ?>
+      <?php print t('in aviation, space and nuclear industry'); ?>
     </div>
 
     <div class="row select-persona-buttons">

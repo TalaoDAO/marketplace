@@ -103,7 +103,7 @@ function ft_request_field_default_field_instances() {
     'bundle' => 'request',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => '',
+    'description' => 'We suggest you give at least some information about your activity',
     'display' => array(
       'default' => array(
         'label' => 'hidden',
@@ -131,7 +131,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_activity',
-    'label' => 'We suggest you give at least some information about your activity',
+    'label' => 'Activity',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -880,6 +880,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -889,6 +890,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'inline',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -1041,6 +1043,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'above',
         'module' => 'entityreference',
         'settings' => array(
+          'bypass_access' => FALSE,
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
@@ -1157,6 +1160,7 @@ function ft_request_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Activity');
   t('Choose a request type');
   t('Circle restriction');
   t('Circles');
