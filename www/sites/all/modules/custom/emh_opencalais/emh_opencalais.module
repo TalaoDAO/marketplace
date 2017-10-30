@@ -1,0 +1,46 @@
+<?php
+/**
+ * @file Main hooks implementation for emh_opencalais module.
+ */
+module_load_include('inc', 'emh_opencalais', 'emh_opencalais');
+
+/**
+ * Implements hook_node_prepare().
+ */
+function emh_opencalais_node_prepare($node) {
+  $tags = 'social_tags';
+  $content_type = $node->type;
+  $auto = variable_get('opencalais_autotagging', array());
+  
+  $auto = isset($auto[$content_type]);
+  
+  if ($auto > 0) {
+    variable_set('opencalais_autotagging', array($tags, 0));
+    $suggestions = opencalais_get_suggestions($node, $tags);
+    $suggestions = array_keys($suggestions);
+    
+    foreach ($suggestions as $key => $value) {
+      $title = $value;
+      $vocab = taxonomy_vocabulary_machine_name_load('tags');
+      if (empty($term = taxonomy_get_term_by_name($title, $vocab->machine_name))) {
+        // add a new term
+        $new_term = (object) array(
+            'name' => $title,
+            'description' => $title,
+            'vid' => $vocab->vid 
+        );
+        taxonomy_term_save($new_term);
+      }
+      $tid = array();
+      $term = taxonomy_get_term_by_name($title, $vocab->machine_name);
+      $key = array_keys($term);
+      $tid['tid'] = strval($key[0]);
+      
+      if (! emh_opencalais_term_is_on_field($node, $tid['tid'])) {
+        $node->field_tags['und'][] = $tid;
+      }
+    }
+  }
+}
+
+ 
