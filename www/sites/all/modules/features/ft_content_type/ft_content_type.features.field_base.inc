@@ -108,7 +108,7 @@ function ft_content_type_field_default_field_bases() {
       ),
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_education'.
@@ -133,7 +133,7 @@ function ft_content_type_field_default_field_bases() {
       'entity_translation_sync' => FALSE,
       'user_role_field' => array(
         1 => 0,
-        2 => 2,
+        2 => 0,
         3 => 0,
         4 => 0,
         5 => 0,
