@@ -13,23 +13,6 @@ include_once 'emh_circles.pages.inc';
 include_once 'emh_circles.theme.inc';
 include_once 'emh_circles.views.inc';
 
-const EMH_CIRCLES_JAIL = array(
-  'roles' => array('expert'),
-  'circles' => array(
-    2520,
-  ),
-  'mlids' => array(
-    10937,
-    17722,
-    17723,
-    17724,
-    17864,
-    17865,
-    18030,
-    7386,
-  ),
-);
-
 /**
  * Implements hook_theme().
  */
@@ -235,15 +218,32 @@ function emh_circles_translated_menu_link_alter(&$item, $map) {
   /*
    * Hide some menu items for some circles users.
    */
+  $emh_circles_jail = array(
+    'roles' => array('expert'),
+    'circles' => array(
+      2520,
+    ),
+    'mlids' => array(
+      10937,
+      17722,
+      17723,
+      17724,
+      17864,
+      17865,
+      18030,
+      7386,
+    ),
+  );
+
   // User menu.
   if ($item['menu_name'] == 'user-menu') {
     // Hide this menu item?
-    if (in_array($item['mlid'], EMH_CIRCLES_JAIL['mlids'])) {
+    if (in_array($item['mlid'], $emh_circles_jail['mlids'])) {
       // Can the user escape jail?
       if (!user_access('EMH circles escape jail')) {
         // Does the user belong to a jail Circle?
         global $user;
-        if (_emh_circles_user_is_groups_member($user->uid, EMH_CIRCLES_JAIL['circles'])) {
+        if (_emh_circles_user_is_groups_member($user->uid, $emh_circles_jail['circles'])) {
           $item['hidden'] = 1;
         }
       }
