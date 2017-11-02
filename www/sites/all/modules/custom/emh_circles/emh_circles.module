@@ -228,7 +228,7 @@ function emh_circles_translated_menu_link_alter(&$item, $map) {
 
     if (isset($node->type) && $node->type == 'circle') {
       $item['access'] = !empty($node);
-      $item['hidden'] = empty($node);
+      $item['hidden'] = empty($node) ? 1 : 0;
     }
   }
 
