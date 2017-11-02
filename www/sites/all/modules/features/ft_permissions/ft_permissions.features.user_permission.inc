@@ -10,6 +10,17 @@
 function ft_permissions_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: 'EMH circles escape jail'.
+  $permissions['EMH circles escape jail'] = array(
+    'name' => 'EMH circles escape jail',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'webmaster' => 'webmaster',
+    ),
+    'module' => 'emh_circles',
+  );
+
   // Exported permission: 'access EMH answers'.
   $permissions['access EMH answers'] = array(
     'name' => 'access EMH answers',
