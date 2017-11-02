@@ -13,6 +13,23 @@ include_once 'emh_circles.pages.inc';
 include_once 'emh_circles.theme.inc';
 include_once 'emh_circles.views.inc';
 
+const EMH_CIRCLES_JAIL = array(
+  'roles' => array('expert'),
+  'circles' => array(
+    2520,
+  ),
+  'mlids' => array(
+    10937,
+    17722,
+    17723,
+    17724,
+    17864,
+    17865,
+    18030,
+    7386,
+  ),
+);
+
 /**
  * Implements hook_theme().
  */
@@ -90,6 +107,7 @@ function emh_circles_menu_alter(&$items) {
   if (module_exists('node_export')) {
     $items['node/%node/node_export']['weight'] = 6;
   }
+  $test = 1;
 }
 
 /**
@@ -213,6 +231,24 @@ function emh_circles_translated_menu_link_alter(&$item, $map) {
       $item['hidden'] = empty($node);
     }
   }
+
+  /*
+   * Hide some menu items for some circles users.
+   */
+  // User menu.
+  if ($item['menu_name'] == 'user-menu') {
+    // Hide this menu item?
+    if (in_array($item['mlid'], EMH_CIRCLES_JAIL['mlids'])) {
+      // Can the user escape jail?
+      if (!user_access('EMH circles escape jail')) {
+        // Does the user belong to a jail Circle?
+        global $user;
+        if (_emh_circles_user_is_groups_member($user->uid, EMH_CIRCLES_JAIL['circles'])) {
+          $item['hidden'] = 1;
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -313,6 +349,7 @@ function emh_circles_preprocess_node(&$variables) {
 function emh_circles_permission() {
   return array(
     'modify EMH circles' => array('title' => t('Circle: Edit all EMH Circles')),
+    'EMH circles escape jail' => array('title' => t('Circle: User can escape Jail Circles')),
   );
 }
 
