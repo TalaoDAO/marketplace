@@ -18,15 +18,25 @@ const EMH_CIRCLES_JAIL = array(
   'circles' => array(
     2520,
   ),
-  'mlids' => array(
-    10937,
-    17722,
-    17723,
-    17724,
-    17864,
-    17865,
-    18030,
-    7386,
+  'menus' => array(
+    'menu-top' => array(
+      'mlids' => array(
+        7577,
+      ),
+    ),
+    'user-menu' => array(
+      'mlids' => array(
+        10937,
+        17722,
+        17723,
+        17724,
+        17864,
+        17865,
+        18030,
+        7386,
+        7577,
+      ),
+    ),
   ),
 );
 
@@ -235,12 +245,20 @@ function emh_circles_translated_menu_link_alter(&$item, $map) {
   /*
    * Hide some menu items for some circles users.
    */
-  // User menu.
-  if ($item['menu_name'] == 'user-menu') {
-    // Hide this menu item?
-    if (in_array($item['mlid'], EMH_CIRCLES_JAIL['mlids'])) {
-      // Can the user escape jail?
-      if (!user_access('EMH circles escape jail')) {
+
+  // Can the user escape jail?
+  if (!user_access('EMH circles escape jail')) {
+
+    // Only concerned menu items.
+    if (in_array($item['menu_name'], array_keys(EMH_CIRCLES_JAIL['menus']))) {
+
+      // Hide this menu item?
+      if (
+        in_array($item['mlid'], EMH_CIRCLES_JAIL['menus'][$item['menu_name']]['mlids'])
+        ||
+        in_array($item['plid'], EMH_CIRCLES_JAIL['menus'][$item['menu_name']]['plids'])
+      ) {
+
         // Does the user belong to a jail Circle?
         global $user;
         if (_emh_circles_user_is_groups_member($user->uid, EMH_CIRCLES_JAIL['circles'])) {
