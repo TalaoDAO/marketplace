@@ -93,18 +93,59 @@ nav#main-nav {
 	}
 
 	.nav {
-		.open,
-		.open.active,
-		.open.active-trail {
+		.open {
 			> a,
 			> a:hover,
 			> a:focus,
 			> span.dropdown-toggle,
 			> span.dropdown-toggle:hover,
 			> span.dropdown-toggle:focus {
-		    background-color: @color-secondary;
+		    background-color: @color-white;
 			}
+      > ul > li.active-trail a,
+      > ul > li.active-trail a:hover {
+        background-color: @blue-lighter;
+        color: @brand-primary;
+      }
+      ul {
+        li {
+          a:hover {
+            color: @color-white;
+            background-color: @blue-light;
+          }
+          a {
+            background-color: @color-white;
+          }
+          .active {
+            a {
+              background-color: darken(@blue-light, 10%);
+            }
+          }
+        }
+      }
 		}
+    > li {
+      &#create-request {
+        > a {
+          background-image: linear-gradient(126deg, #003ba8, #00205b);
+          &.active,
+          &:active {
+            background-image: linear-gradient(126deg, #003ba8, #00205b);
+            box-shadow: 0 3px 7px 0 rgba(25, 135, 152, 0.4);
+          }
+        }
+      }
+      &#earnings-badge {
+        > a {
+          color: @blue-light;
+        }
+      }
+      &#tour-profile {
+        .dropdown-toggle {
+          background-color: @blue-light;
+        }
+      }
+    }
 	}
 
 	.dropdown-menu {
