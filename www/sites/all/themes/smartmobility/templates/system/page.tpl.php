@@ -13,9 +13,13 @@
           <?php print l(t('Smart Mobility'), variable_get('emh_smartmobility_base_url', 'http://smartmob.box.local'), array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
         <?php else : ?>
           <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
-          <?php if ($logged_in): ?>
-            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="30" height="30" />
-          <?php else : ?>
+            <?php if ($logged_in): ?>
+              <?php if ($jail_circle_logo): ?>
+                <img src="<?php print $jail_circle_logo; ?>" alt="<?php print $site_name; ?>" width="35" height="25" />
+              <?php else: ?>
+                <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="35" height="25" />
+              <?php endif; ?>
+            <?php else: ?>
             <?php print l(t('Smart Mobility'), EMH_SMARTMOBILITY_HOMEPAGE, array('language' => $language, 'attributes' => array('title' => t('Smart Mobility'), 'class' => array('navbar-brand')))); ?>
           <?php endif; ?>
           </a>
