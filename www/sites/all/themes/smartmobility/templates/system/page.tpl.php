@@ -14,7 +14,7 @@
         <?php else : ?>
           <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
             <?php if ($logged_in): ?>
-              <?php if ($jail_circle_logo): ?>
+              <?php if (!empty($jail_circle_logo)): ?>
                 <img src="<?php print $jail_circle_logo; ?>" alt="<?php print $site_name; ?>" />
               <?php else: ?>
                 <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="35" height="25" />
