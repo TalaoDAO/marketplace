@@ -26,6 +26,7 @@ const EMH_CIRCLES_JAIL = array(
     ),
     'user-menu' => array(
       'mlids' => array(
+        7577,
         10937,
         17722,
         17723,
@@ -34,7 +35,6 @@ const EMH_CIRCLES_JAIL = array(
         17865,
         18030,
         7386,
-        7577,
       ),
     ),
   ),
@@ -117,7 +117,6 @@ function emh_circles_menu_alter(&$items) {
   if (module_exists('node_export')) {
     $items['node/%node/node_export']['weight'] = 6;
   }
-  $test = 1;
 }
 
 /**
@@ -445,10 +444,15 @@ function emh_circles_node_access($node, $op, $account) {
     switch ($node->type) {
       case 'circle':
         $states = array(OG_STATE_ACTIVE);
-        return (og_is_member('node', $node->nid, 'user', $account, $states)) ? NODE_ACCESS_IGNORE : NODE_ACCESS_DENY;
+        $node_wrapper = entity_metadata_wrapper('node', $node);
+
+        // If the circle is private:
+        if ($node_wrapper->group_access->value()) {
+          // Grant access if the user belongs to the group.
+          return (og_is_member('node', $node->nid, 'user', $account, $states)) ? NODE_ACCESS_IGNORE : NODE_ACCESS_DENY;
+        }
     }
   }
-
   return NODE_ACCESS_IGNORE;
 }
 
