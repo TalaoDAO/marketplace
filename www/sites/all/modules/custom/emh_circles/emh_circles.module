@@ -234,10 +234,13 @@ function emh_circles_translated_menu_link_alter(&$item, $map) {
   if (!empty($item['link_path']) && $item['router_path'] == 'node/%') {
     $alias = $item['link_path'];
     $node = menu_get_object('node', 1, $alias);
-
     if (isset($node->type) && $node->type == 'circle') {
-      $item['access'] = !empty($node);
-      $item['hidden'] = empty($node) ? 1 : 0;
+
+      // If the user is not a member of this circle.
+      if (!og_is_member('node', $node->nid)) {
+        // Hide the menu item.
+        $item['hidden'] = 1;
+      }
     }
   }
 
@@ -305,8 +308,9 @@ function emh_circles_preprocess_page(&$variables) {
         break;
     }
   }
+
   /*
-   * Replace logo and home page URL.
+   * Replace logo and home page URL for Jail circles.
    */
   // Can the user escape jail?
   if (!user_access('EMH circles escape jail')) {
