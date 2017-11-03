@@ -47,7 +47,8 @@ Feature: Circles workflow for Expert
     Then I should not see the link "Guardians of the Galaxy"
 
     When I go to "content/guardians-galaxy"
-    Then I should get a "403" HTTP response
+    Then I should see "Guardians of the Galaxy"
+      And I should not see "Latest requests" in the "content" region
 
   @email
   Scenario: Experts can join public circles and be activated by the circle admin
@@ -58,7 +59,7 @@ Feature: Circles workflow for Expert
       And I click "Join circle" in the "guardians_galaxy_teaser" region
       And I fill in "Request message" with "I really want to join your band"
       And I press "Ask to join"
-    Then I should see "Your request is pending." in the "guardians_galaxy_teaser" region
+    Then I should see "Your request is pending." in the "header" region
       And the last email to "emindhub.test+client4@gmail.com" should contain "Iron MAN membership request for 'Guardians of the Galaxy'"
       And the last email to "emindhub.test+1@gmail.com" should contain "Iron MAN membership request for 'Guardians of the Galaxy'"
       And the last email to "emindhub.test+expert1@gmail.com" should contain "Your membership request for 'Guardians of the Galaxy'"
@@ -84,7 +85,7 @@ Feature: Circles workflow for Expert
       And I click "Join circle" in the "guardians_galaxy_teaser" region
       And I fill in "Request message" with "Hey guys, please accept my request!"
       And I press "Ask to join"
-    Then I should see "Your request is pending." in the "guardians_galaxy_teaser" region
+    Then I should see "Your request is pending." in the "header" region
 
     Given I am logged in as "client4"
     When I go to "content/guardians-galaxy"
