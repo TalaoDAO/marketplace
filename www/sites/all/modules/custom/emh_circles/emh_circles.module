@@ -448,7 +448,7 @@ function emh_circles_node_access($node, $op, $account) {
 
         // If the circle is private:
         if ($node_wrapper->group_access->value()) {
-          // Grant access if the user belongs to the group.
+          // Grant access only if the user belongs to the group.
           return (og_is_member('node', $node->nid, 'user', $account, $states)) ? NODE_ACCESS_IGNORE : NODE_ACCESS_DENY;
         }
     }
