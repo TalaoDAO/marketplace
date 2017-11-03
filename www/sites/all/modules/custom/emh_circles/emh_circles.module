@@ -256,7 +256,7 @@ function emh_circles_translated_menu_link_alter(&$item, $map) {
       if (
         in_array($item['mlid'], EMH_CIRCLES_JAIL['menus'][$item['menu_name']]['mlids'])
         ||
-        in_array($item['plid'], EMH_CIRCLES_JAIL['menus'][$item['menu_name']]['plids'])
+        in_array($item['plid'], EMH_CIRCLES_JAIL['menus'][$item['menu_name']]['mlids'])
       ) {
 
         // Does the user belong to a jail Circle?
@@ -323,7 +323,7 @@ function emh_circles_preprocess_page(&$variables) {
         if (in_array($jail_circle, $circles['node'])) {
 
           // Replace the logo and homepage by those of the Circle.
-          $circle_node = ($node->nid == $jail_circle) ? $node : node_load($jail_circle);
+          $circle_node = node_load($jail_circle);
           $circle_node_wrapper = entity_metadata_wrapper('node', $circle_node);
           $variables['front_page'] = url(drupal_get_path_alias('node/' . $circle_node->nid));
           if ($circle_node_wrapper->field_circle_icon->value()) {
