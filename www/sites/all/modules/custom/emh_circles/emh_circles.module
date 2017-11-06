@@ -264,7 +264,16 @@ function emh_circles_translated_menu_link_alter(&$item, $map) {
         // Does the user belong to a jail Circle?
         global $user;
         if (_emh_circles_user_is_groups_member($user->uid, EMH_CIRCLES_JAIL['circles'])) {
-          $item['hidden'] = 1;
+
+          // Is the Jail circle his only circle?
+          $user_circles = og_get_groups_by_user()['node'];
+          // We do no count "All experts" circle.
+          unset($user_circles[314]);
+          if (empty(array_diff($user_circles, EMH_CIRCLES_JAIL['circles']))) {
+
+            // Then hide the menu item.
+            $item['hidden'] = 1;
+          }
         }
       }
     }
@@ -319,22 +328,30 @@ function emh_circles_preprocess_page(&$variables) {
     if (_emh_circles_user_is_groups_member($variables['user']->uid, EMH_CIRCLES_JAIL['circles'])) {
 
       // Get user circles.
-      $circles = og_get_groups_by_user();
-      foreach (EMH_CIRCLES_JAIL['circles'] as $jail_circle) {
+      $user_circles = og_get_groups_by_user()['node'];
+      // We do no count "All experts" circle.
+      unset($user_circles[314]);
 
-        // For the first jail circle in order:
-        if (in_array($jail_circle, $circles['node'])) {
+      // Is the user member of Jail circles only?
+      if (empty(array_diff($user_circles, EMH_CIRCLES_JAIL['circles']))) {
 
-          // Replace the logo and homepage by those of the Circle.
-          $circle_node = node_load($jail_circle);
-          $circle_node_wrapper = entity_metadata_wrapper('node', $circle_node);
-          $variables['front_page'] = url(drupal_get_path_alias('node/' . $circle_node->nid));
-          if ($circle_node_wrapper->field_circle_icon->value()) {
-            $variables['jail_circle_logo'] = file_create_url($circle_node_wrapper->field_circle_icon->value()['uri']);
+        // Then loop through Jail circles.
+        foreach (EMH_CIRCLES_JAIL['circles'] as $jail_circle) {
+
+          // For the first jail circle in order:
+          if (in_array($jail_circle, $user_circles)) {
+
+            // Replace the logo and homepage by those of the Circle.
+            $circle_node = node_load($jail_circle);
+            $circle_node_wrapper = entity_metadata_wrapper('node', $circle_node);
+            $variables['front_page'] = url(drupal_get_path_alias('node/' . $circle_node->nid));
+            if ($circle_node_wrapper->field_circle_icon->value()) {
+              $variables['jail_circle_logo'] = file_create_url($circle_node_wrapper->field_circle_icon->value()['uri']);
+            }
+
+            // Break at first jail Circle : it has priority.
+            break;
           }
-
-          // Break at first jail Circle : it has priority.
-          break;
         }
       }
     }
