@@ -1,4 +1,4 @@
-  <?php global $base_url; ?>
+<?php global $base_url; ?>
   <nav id="main-nav" class="navbar navbar-emh">
     <div class="container">
       <div class="navbar-header">
@@ -11,8 +11,12 @@
 
         <a class="navbar-brand" href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
           <?php if ($logged_in): ?>
-            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="35" height="25" />
-          <?php else : ?>
+            <?php if (!empty($jail_circle_logo)): ?>
+              <img src="<?php print $jail_circle_logo; ?>" alt="<?php print $site_name; ?>" />
+            <?php else: ?>
+              <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/circles.svg" alt="<?php print $site_name; ?>" width="35" height="25" />
+            <?php endif; ?>
+          <?php else: ?>
             <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h-blue.svg" alt="<?php print $site_name; ?>" width="158" height="22" />
           <?php endif; ?>
         </a>
@@ -213,4 +217,4 @@
     </div>
   </footer>
 
-  <?php print render($page['footer_bottom']); ?>
+<?php print render($page['footer_bottom']); ?>
