@@ -13,6 +13,33 @@ include_once 'emh_circles.pages.inc';
 include_once 'emh_circles.theme.inc';
 include_once 'emh_circles.views.inc';
 
+const EMH_CIRCLES_JAIL = array(
+  'roles' => array('expert'),
+  'circles' => array(
+    2520,
+  ),
+  'menus' => array(
+    'menu-top' => array(
+      'mlids' => array(
+        7577,
+      ),
+    ),
+    'user-menu' => array(
+      'mlids' => array(
+        7577,
+        10937,
+        17722,
+        17723,
+        17724,
+        17864,
+        17865,
+        18027,
+        7386,
+      ),
+    ),
+  ),
+);
+
 /**
  * Implements hook_theme().
  */
@@ -207,10 +234,48 @@ function emh_circles_translated_menu_link_alter(&$item, $map) {
   if (!empty($item['link_path']) && $item['router_path'] == 'node/%') {
     $alias = $item['link_path'];
     $node = menu_get_object('node', 1, $alias);
-
     if (isset($node->type) && $node->type == 'circle') {
-      $item['access'] = !empty($node);
-      $item['hidden'] = empty($node);
+
+      // If the user is not a member of this circle.
+      if (!og_is_member('node', $node->nid)) {
+        // Hide the menu item.
+        $item['hidden'] = 1;
+      }
+    }
+  }
+
+  /*
+   * Hide some menu items for some circles users.
+   */
+
+  // Can the user escape jail?
+  if (!user_access('EMH circles escape jail')) {
+
+    // Only concerned menu items.
+    if (in_array($item['menu_name'], array_keys(EMH_CIRCLES_JAIL['menus']))) {
+
+      // Hide this menu item?
+      if (
+        in_array($item['mlid'], EMH_CIRCLES_JAIL['menus'][$item['menu_name']]['mlids'])
+        ||
+        in_array($item['plid'], EMH_CIRCLES_JAIL['menus'][$item['menu_name']]['mlids'])
+      ) {
+
+        // Does the user belong to a jail Circle?
+        global $user;
+        if (_emh_circles_user_is_groups_member($user->uid, EMH_CIRCLES_JAIL['circles'])) {
+
+          // Is the Jail circle his only circle?
+          $user_circles = og_get_groups_by_user()['node'];
+          // We do no count "All experts" circle.
+          unset($user_circles[314]);
+          if (empty(array_diff($user_circles, EMH_CIRCLES_JAIL['circles']))) {
+
+            // Then hide the menu item.
+            $item['hidden'] = 1;
+          }
+        }
+      }
     }
   }
 }
@@ -250,6 +315,45 @@ function emh_circles_preprocess_page(&$variables) {
 
       default:
         break;
+    }
+  }
+
+  /*
+   * Replace logo and home page URL for Jail circles.
+   */
+  // Can the user escape jail?
+  if (!user_access('EMH circles escape jail')) {
+
+    // Does the user belong to a jail Circle?
+    if (_emh_circles_user_is_groups_member($variables['user']->uid, EMH_CIRCLES_JAIL['circles'])) {
+
+      // Get user circles.
+      $user_circles = og_get_groups_by_user()['node'];
+      // We do no count "All experts" circle.
+      unset($user_circles[314]);
+
+      // Is the user member of Jail circles only?
+      if (empty(array_diff($user_circles, EMH_CIRCLES_JAIL['circles']))) {
+
+        // Then loop through Jail circles.
+        foreach (EMH_CIRCLES_JAIL['circles'] as $jail_circle) {
+
+          // For the first jail circle in order:
+          if (in_array($jail_circle, $user_circles)) {
+
+            // Replace the logo and homepage by those of the Circle.
+            $circle_node = node_load($jail_circle);
+            $circle_node_wrapper = entity_metadata_wrapper('node', $circle_node);
+            $variables['front_page'] = url(drupal_get_path_alias('node/' . $circle_node->nid));
+            if ($circle_node_wrapper->field_circle_icon->value()) {
+              $variables['jail_circle_logo'] = file_create_url($circle_node_wrapper->field_circle_icon->value()['uri']);
+            }
+
+            // Break at first jail Circle : it has priority.
+            break;
+          }
+        }
+      }
     }
   }
 }
@@ -313,6 +417,7 @@ function emh_circles_preprocess_node(&$variables) {
 function emh_circles_permission() {
   return array(
     'modify EMH circles' => array('title' => t('Circle: Edit all EMH Circles')),
+    'EMH circles escape jail' => array('title' => t('Circle: User can escape Jail Circles')),
   );
 }
 
@@ -360,10 +465,15 @@ function emh_circles_node_access($node, $op, $account) {
     switch ($node->type) {
       case 'circle':
         $states = array(OG_STATE_ACTIVE);
-        return (og_is_member('node', $node->nid, 'user', $account, $states)) ? NODE_ACCESS_IGNORE : NODE_ACCESS_DENY;
+        $node_wrapper = entity_metadata_wrapper('node', $node);
+
+        // If the circle is private:
+        if ($node_wrapper->group_access->value()) {
+          // Grant access only if the user belongs to the group.
+          return (og_is_member('node', $node->nid, 'user', $account, $states)) ? NODE_ACCESS_IGNORE : NODE_ACCESS_DENY;
+        }
     }
   }
-
   return NODE_ACCESS_IGNORE;
 }
 
