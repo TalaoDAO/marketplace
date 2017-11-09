@@ -12,12 +12,12 @@ function ft_content_type_taxonomy_default_vocabularies() {
     'domaine' => array(
       'name' => 'Domains',
       'machine_name' => 'domaine',
-      'description' => 'Domaine de compétences',
-      'hierarchy' => 1,
+      'description' => 'Domain of work',
+      'hierarchy' => 0,
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 1,
+      'i18n_mode' => 32768,
       'emh_earnings' => 0,
     ),
     'known_how' => array(
