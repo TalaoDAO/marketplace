@@ -2455,6 +2455,52 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-request-field_expertise'.
+  $field_instances['node-request-field_expertise'] = array(
+    'bundle' => 'request',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 18,
+      ),
+      'summary' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_expertise',
+    'label' => 'Expertise',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-webform-body'.
   $field_instances['node-webform-body'] = array(
     'bundle' => 'webform',
@@ -3535,7 +3581,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 15,
+      'weight' => 16,
     ),
   );
 
@@ -3594,7 +3640,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 14,
+      'weight' => 15,
     ),
   );
 
@@ -3629,7 +3675,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 10,
       ),
       'type' => 'text_textarea',
-      'weight' => 48,
+      'weight' => 7,
     ),
   );
 
@@ -3705,7 +3751,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 12,
+      'weight' => 13,
     ),
   );
 
@@ -3736,7 +3782,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 24,
+      'weight' => 27,
     ),
   );
 
@@ -3778,7 +3824,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 13,
+      'weight' => 14,
     ),
   );
 
@@ -3889,6 +3935,40 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_expertise'.
+  $field_instances['user-user-field_expertise'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 44,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_expertise',
+    'label' => 'Expertise',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_first_name'.
   $field_instances['user-user-field_first_name'] = array(
     'bundle' => 'user',
@@ -3963,7 +4043,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 45,
+      'weight' => 20,
     ),
   );
 
@@ -4000,7 +4080,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 46,
+      'weight' => 21,
     ),
   );
 
@@ -4037,7 +4117,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 42,
+      'weight' => 19,
     ),
   );
 
@@ -4076,7 +4156,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 7,
+      'weight' => 10,
     ),
   );
 
@@ -4116,7 +4196,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 8,
+      'weight' => 11,
     ),
   );
 
@@ -4305,7 +4385,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 32,
+      'weight' => 10,
     ),
   );
 
@@ -4350,7 +4430,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 29,
+      'weight' => 8,
     ),
   );
 
@@ -4383,7 +4463,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 26,
+      'weight' => 28,
     ),
   );
 
@@ -4426,7 +4506,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 9,
     ),
   );
 
@@ -4647,7 +4727,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -4682,7 +4762,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 47,
+      'weight' => 22,
     ),
   );
 
@@ -4729,7 +4809,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -4773,7 +4853,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 34,
+      'weight' => 12,
     ),
   );
 
@@ -4818,7 +4898,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 10,
+      'weight' => 18,
     ),
   );
 
@@ -4895,7 +4975,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 9,
+      'weight' => 17,
     ),
   );
 
@@ -4937,7 +5017,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'phone',
       'settings' => array(),
       'type' => 'phone_textfield',
-      'weight' => 33,
+      'weight' => 11,
     ),
   );
 
@@ -5056,7 +5136,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 19,
+      'weight' => 6,
     ),
   );
 
@@ -5107,7 +5187,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 20,
+      'weight' => 7,
     ),
   );
 
@@ -5238,7 +5318,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 41,
+      'weight' => 18,
     ),
   );
 
@@ -5269,6 +5349,7 @@ function ft_content_type_field_default_field_instances() {
   t('Duration of the mission');
   t('Education');
   t('Entreprise type');
+  t('Expertise');
   t('Field(s) of expertise');
   t('First Name');
   t('For example : Expert in electromechanical systems.');
