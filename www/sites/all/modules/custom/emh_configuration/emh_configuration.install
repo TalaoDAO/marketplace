@@ -1709,3 +1709,12 @@ function emh_configuration_update_7083() {
   exec("drush sql-query --file=$(drush dd)/../deploy/scripts/txn_data_context_retroactive.sql"); 
   module_enable(['emh_linkedin']);
 }
+
+/**
+ * CHG: Domains become "sectors".
+ */
+function emh_configuration_update_7084() {
+  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/domains_to_sector.sql"); 
+}
+
+
