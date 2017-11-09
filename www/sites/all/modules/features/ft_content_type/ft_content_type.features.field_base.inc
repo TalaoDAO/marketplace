@@ -95,6 +95,7 @@ function ft_content_type_field_default_field_bases() {
     'module' => 'text',
     'settings' => array(
       'entity_translation_sync' => FALSE,
+      'max_length' => 255,
       'user_role_field' => array(
         1 => 0,
         2 => 2,
