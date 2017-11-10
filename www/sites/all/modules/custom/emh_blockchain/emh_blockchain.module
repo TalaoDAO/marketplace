@@ -15,8 +15,8 @@ function emh_blockchain_libraries_info() {
     'download url' => 'https://github.com/ethereum/web3.js/releases',
     'version arguments' => array(
       'file' => 'dist/web3.min.js',
-      'pattern' => '/version:"(\d+\.\d+\.\d+-beta\.\d+)"/',
-      'lines' => 10,
+      'pattern' => '/version:"([0-9a-z\.-]+)"/',
+      'lines' => 150,
     ),
     'files' => array(
       'js' => array('dist/web3.min.js'),
@@ -30,21 +30,61 @@ function emh_blockchain_libraries_info() {
  */
 function emh_blockchain_menu() {
   $items = array();
-  $items['blockchain/test'] = array(
-    'title' => 'BC test',
-    'page callback' => '_emh_blockchain_test',
+  $items['blockchain'] = array(
+    'title' => 'Blockchain prototype',
+    'page callback' => '_emh_blockchain',
+    'access callback' => TRUE,
+  );
+  $items['blockchain/voting'] = array(
+    'title' => 'Voting',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'page callback' => '_emh_blockchain_voting',
     'access callback' => TRUE,
   );
   return $items;
 }
 
 /**
- * Blockchain test.
+ * Blockchain homepage.
  */
-function _emh_blockchain_test() {
-  $content = '<p>Blockchain test</p>';
+function _emh_blockchain() {
+  $content = '';
   if (($library = libraries_load('web3')) && !empty($library['loaded'])) {
     drupal_set_message(t('web3.js loaded, version: %version', array('%version' => $library['version'])));
+  }
+  return $content;
+}
+
+/**
+ * Blockchain voting.
+ */
+function _emh_blockchain_voting() {
+
+  $content = '';
+
+  if (($library = libraries_load('web3')) && !empty($library['loaded'])) {
+
+    $header = array(
+      t('Expert'),
+      t('Votes'),
+    );
+    $rows = array(
+      array('Captain America', array('data' => '', 'id' => 'candidate-1')),
+      array('Charles Xavier', array('data' => '', 'id' => 'candidate-2')),
+      array('Ironman', array('data' => '', 'id' => 'candidate-3')),
+    );
+    $content .= theme('table', array(
+      'header' => $header,
+      'rows' => $rows,
+      'caption' => t('Those votes are read and written in the blockchain.'),
+    ));
+    $content .= '<input type="text" id="candidate" />
+    <a href="#" id="submit" class="btn btn-primary">Vote</a>';
+
+    drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/plugins/voting/js/voting.js', array('scope' => 'footer'));
+  }
+  else {
+    $content = 'Web3 could not load.';
   }
   return $content;
 }
