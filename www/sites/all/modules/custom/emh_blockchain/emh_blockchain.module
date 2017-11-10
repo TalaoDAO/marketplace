@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * EMH Blockchain.
+ */
+
+/**
+ * Implements hook_libraries_info().
+ */
+function emh_blockchain_libraries_info() {
+  $libraries['web3'] = array(
+    'name' => 'web3.js',
+    'vendor url' => 'https://github.com/ethereum/web3.js/',
+    'download url' => 'https://github.com/ethereum/web3.js/releases',
+    'version arguments' => array(
+      'file' => 'dist/web3.min.js',
+      'pattern' => '/version:"(\d+\.\d+\.\d+-beta\.\d+)"/',
+      'lines' => 10,
+    ),
+    'files' => array(
+      'js' => array('dist/web3.min.js'),
+    ),
+  );
+  return $libraries;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function emh_blockchain_menu() {
+  $items = array();
+  $items['blockchain/test'] = array(
+    'title' => 'BC test',
+    'page callback' => '_emh_blockchain_test',
+    'access callback' => TRUE,
+  );
+  return $items;
+}
+
+/**
+ * Blockchain test.
+ */
+function _emh_blockchain_test() {
+  $content = '<p>Blockchain test</p>';
+  if (($library = libraries_load('web3')) && !empty($library['loaded'])) {
+    drupal_set_message(t('web3.js loaded, version: %version', array('%version' => $library['version'])));
+  }
+  return $content;
+}
