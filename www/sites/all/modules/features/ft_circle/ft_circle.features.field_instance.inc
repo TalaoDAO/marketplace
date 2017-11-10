@@ -178,6 +178,85 @@ function ft_circle_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-circle-field_circle_icon'.
+  $field_instances['node-circle-field_circle_icon'] = array(
+    'bundle' => 'circle',
+    'deleted' => 0,
+    'description' => 'Circle icon which will replace EMH\'s logo in the navbar. Only for jail Circles. Only .png files and height = 25px, 25px < width < 100px',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 11,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_circle_icon',
+    'label' => 'Circle icon',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'entity_translation_sync' => FALSE,
+      'file_directory' => 'circles',
+      'file_extensions' => 'png',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 0,
+      'max_filesize' => '',
+      'max_resolution' => '100x25',
+      'min_resolution' => '25x25',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance: 'node-circle-field_circle_instructions'.
   $field_instances['node-circle-field_circle_instructions'] = array(
     'bundle' => 'circle',
@@ -692,6 +771,8 @@ function ft_circle_field_default_field_instances() {
   t('Answer');
   t('Author visibility');
   t('Body');
+  t('Circle icon');
+  t('Circle icon which will replace EMH\'s logo in the navbar. Only for jail Circles. Only .png files and height = 25px, 25px < width < 100px');
   t('Circle logo');
   t('Community website');
   t('Determine if this is an OG group.');

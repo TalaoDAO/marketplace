@@ -17,7 +17,7 @@ function ft_content_type_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
       'language' => 'und',
-      'i18n_mode' => 32768,
+      'i18n_mode' => 0,
       'emh_earnings' => 0,
     ),
     'known_how' => array(
