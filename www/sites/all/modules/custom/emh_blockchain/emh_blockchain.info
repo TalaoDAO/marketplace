@@ -1,0 +1,6 @@
+name = EMH Blockchain
+package = EMH
+core = 7.x
+
+; Dependencies
+dependencies[] = libraries
