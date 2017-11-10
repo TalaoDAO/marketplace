@@ -2455,52 +2455,6 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-request-field_expertise'.
-  $field_instances['node-request-field_expertise'] = array(
-    'bundle' => 'request',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'i18n_taxonomy',
-        'settings' => array(),
-        'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 18,
-      ),
-      'summary' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_expertise',
-    'label' => 'Expertise',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'apply_chosen' => '',
-      ),
-      'type' => 'options_select',
-      'weight' => 4,
-    ),
-  );
-
   // Exported field_instance: 'node-webform-body'.
   $field_instances['node-webform-body'] = array(
     'bundle' => 'webform',
@@ -3703,7 +3657,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_domaine',
-    'label' => 'Field(s) of expertise',
+    'label' => 'Domain',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -3953,19 +3907,18 @@ function ft_content_type_field_default_field_instances() {
     'entity_type' => 'user',
     'field_name' => 'field_expertise',
     'label' => 'Expertise',
-    'required' => 0,
+    'required' => FALSE,
     'settings' => array(
       'entity_translation_sync' => FALSE,
-      'user_register_form' => 0,
+      'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
       'module' => 'options',
       'settings' => array(
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 10,
+      'weight' => 51,
     ),
   );
 
@@ -5345,12 +5298,12 @@ function ft_content_type_field_default_field_instances() {
   t('Desired starting date');
   t('Document');
   t('Document text');
+  t('Domain');
   t('Domain(s)');
   t('Duration of the mission');
   t('Education');
   t('Entreprise type');
   t('Expertise');
-  t('Field(s) of expertise');
   t('First Name');
   t('For example : Expert in electromechanical systems.');
   t('Force public answer');
