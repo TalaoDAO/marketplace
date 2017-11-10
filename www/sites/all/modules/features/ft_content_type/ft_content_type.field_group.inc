@@ -1725,7 +1725,6 @@ function ft_content_type_field_group_info() {
       4 => 'field_position_list',
       5 => 'field_availability',
       6 => 'field_education',
-      7 => 'field_expertise',
     ),
     'format_type' => 'div',
     'format_settings' => array(
