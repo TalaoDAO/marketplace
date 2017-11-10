@@ -33,9 +33,9 @@ Feature: Requests visibility for Référent
     Given "request" content:
     | title         | field_domaine  | og_group_ref    | author  | field_expiration_date  | status  |
     | Fight Magneto | Energy         | X-Men           | client2 | 2020-02-08 17:45:00    | 1       |
-    | Fight Ultron  | Energy, Drones | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
-    | Fight Hydra   | Drones         | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
-    | Fight Thanos  | Drones         | Avengers, X-Men | client1 | 2020-02-08 17:45:00    | 1       |
+    | Fight Ultron  | Energy, Aviation | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
+    | Fight Hydra   | Aviation         | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
+    | Fight Thanos  | Aviation         | Avengers, X-Men | client1 | 2020-02-08 17:45:00    | 1       |
 
     Given the user "client1" is an admin of the group "Avengers"
     Given the user "expert1" is a member of the group "Avengers"
