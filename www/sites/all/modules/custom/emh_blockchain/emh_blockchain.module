@@ -30,6 +30,16 @@ function emh_blockchain_libraries_info() {
  */
 function emh_blockchain_menu() {
   $items = array();
+
+  $items['admin/emindhub/blockchain'] = array(
+    'title' => 'Blockchain',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_blockchain_admin_form'),
+    'access arguments' => array('administer blockchain'),
+    'file' => 'emh_blockchain.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
   $items['blockchain'] = array(
     'title' => 'Blockchain prototype',
     'page callback' => '_emh_blockchain',
@@ -42,6 +52,15 @@ function emh_blockchain_menu() {
     'access callback' => TRUE,
   );
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function emh_blockchain_permission() {
+  return array(
+    'administer blockchain' => array('title' => t('Administer Blockchain')),
+  );
 }
 
 /**
@@ -81,7 +100,15 @@ function _emh_blockchain_voting() {
     $content .= '<input type="text" id="candidate" />
     <a href="#" id="submit" class="btn btn-primary">Vote</a>';
 
-    drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/plugins/voting/js/voting.js', array('scope' => 'footer'));
+    $voting_deployed_contract_address = variable_get('emh_blockchain_voting_deployed_contract_address');
+    $voting_deployed_contract_address_fallback = variable_get('emh_blockchain_voting_deployed_contract_address_fallback');
+    drupal_add_js(array(
+      'emh_blockchain' => array(
+        'voting_deployed_contract_address' => $voting_deployed_contract_address,
+        'voting_deployed_contract_address_fallback' => $voting_deployed_contract_address_fallback,
+      ),
+    ), 'setting');
+    drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/contracts/voting/js/voting.js', array('scope' => 'footer'));
   }
   else {
     $content = 'Web3 could not load.';
