@@ -1695,3 +1695,20 @@ function emh_configuration_update_7082() {
   );
   menu_link_save($item);
 }
+
+/**
+ * ADD: enable opencalais module.
+ */
+function emh_configuration_update_7083() {
+    module_enable(array('opencalais'));
+    variable_set('opencalais_api_key', 'WgnZlNyGrLVfgZpyFb04chAUthY9xJFT');
+    variable_set('opencalais_autotagging', array(0 => 'social_tags', 'request' => '1'));
+
+}
+
+/**
+ * ADD: enable emh_opencalais module
+ */
+function emh_configuration_update_7084() {
+    module_enable(array('emh_opencalais'));
+}
