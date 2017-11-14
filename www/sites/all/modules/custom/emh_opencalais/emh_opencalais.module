@@ -66,10 +66,11 @@ function emh_opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
   
   if ($mode != 1 && isset($auto[$content_type])) {
     $path = drupal_get_path('module', 'opencalais');
+    $path_emh = drupal_get_path('module', 'emh_opencalais');
     $form['field_tags']['emh_opencalais']['suggest_tags'] = array(
         '#type' => 'submit',
         '#value' => t('Suggest EMH Tags'),
-        '#prefix' => '<div class="opencalais_button_holder">EMH TAGS:',
+        '#prefix' => '<div class="emh_opencalais_button_holder">EMH TAGS:',
         '#suffix' => '</div>',
         '#attributes' => array(
             'class' => array(
@@ -88,7 +89,7 @@ function emh_opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
                 $path . '/theme/opencalais.node.js' 
             ),
             'css' => array(
-                $path . '/theme/opencalais.node.css' 
+                $path_emh . '/theme/emh_opencalais.node.css' 
             ) 
         ) 
     );
@@ -117,7 +118,7 @@ function emh_opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
    * }
    */
   
-  $form['field_tags']['#prefix'] = '<div id="div-emh-opencalais-tags">';
+  $form['field_tags']['#prefix'] = '<div id="div-emh-opencalais-tags" width="20px">';
   $form['field_tags']['#suffix'] = '</div>';
 }
 
