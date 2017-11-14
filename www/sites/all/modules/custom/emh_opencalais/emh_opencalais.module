@@ -137,8 +137,8 @@ function emh_opencalais_suggest_tags_callback($form, &$form_state, $norebuild = 
   $tags_array = array();
   $tags_node = $form_state['values']['field_tags']['und'];
   foreach ($tags_node as $key => $value) {
-    $val_array[] = $value['name'];
-  }
+    $tags_array[] = $value['name'];
+  }  
   
   $tags_array = array_merge($tags_array, $suggestions);
   $tags_array = array_unique($tags_array);
