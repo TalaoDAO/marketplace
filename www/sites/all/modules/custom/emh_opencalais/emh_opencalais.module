@@ -8,46 +8,50 @@ module_load_include('inc', 'emh_opencalais', 'emh_opencalais');
  * Implements hook_node_prepare().
  */
 function emh_opencalais_node_prepare($node) {
-
   $tags = 'social_tags';
   $content_type = $node->type;
   $auto = variable_get('opencalais_autotagging', array());
   $mode = $auto[$content_type];
   
-  //not manual mode
+  // not manual mode
   if ($mode > 0 && isset($auto[$content_type])) {
-    //variable_set('opencalais_autotagging', array($tags, 0));
+    // variable_set('opencalais_autotagging', array($tags, 0));
     $node = emh_opencalais_get_tags($node, $tags);
-    
   }
 }
 
+/**
+ * Return node with opencalais' tags
+ * @param unknown $node
+ * @param unknown $opencalais_tags
+ * @return node
+ */
 function emh_opencalais_get_tags($node, $opencalais_tags) {
   $suggestions = opencalais_get_suggestions($node, $opencalais_tags);
-    $suggestions = array_keys($suggestions);
-   
-    foreach ($suggestions as $key => $value) {
-      $title = $value;
-      $vocab = taxonomy_vocabulary_machine_name_load('tags');
-      if (empty($term = taxonomy_get_term_by_name($title, $vocab->machine_name))) {
-        // add a new term
-        $new_term = (object) array(
-            'name' => $title,
-            'description' => $title,
-            'vid' => $vocab->vid 
-        );
-        taxonomy_term_save($new_term);
-      }
-      $tid = array();
-      $term = taxonomy_get_term_by_name($title, $vocab->machine_name);
-      $key = array_keys($term);
-      $tid['tid'] = strval($key[0]);
-      
-      if (! emh_opencalais_term_is_on_field($node, $tid['tid'])) {
-        $node->field_tags['und'][] = $tid;
-      }
+  $suggestions = array_keys($suggestions);
+  
+  foreach ($suggestions as $key => $value) {
+    $title = $value;
+    $vocab = taxonomy_vocabulary_machine_name_load('tags');
+    if (empty($term = taxonomy_get_term_by_name($title, $vocab->machine_name))) {
+      // add a new term
+      $new_term = (object) array(
+          'name' => $title,
+          'description' => $title,
+          'vid' => $vocab->vid 
+      );
+      taxonomy_term_save($new_term);
     }
-    return $node;
+    $tid = array();
+    $term = taxonomy_get_term_by_name($title, $vocab->machine_name);
+    $key = array_keys($term);
+    $tid['tid'] = strval($key[0]);
+    
+    if (! emh_opencalais_term_is_on_field($node, $tid['tid'])) {
+      $node->field_tags['und'][] = $tid;
+    }
+  }
+  return $node;
 }
 
 /**
@@ -55,124 +59,73 @@ function emh_opencalais_get_tags($node, $opencalais_tags) {
  * Add ajax callbacks to the opencalais fields
  */
 function emh_opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
-
   $node = $form['#node'];
   $content_type = $node->type;
   $auto = variable_get('opencalais_autotagging', array());
-    $mode = $auto[$content_type];
-
-    if ($mode != 1 && isset($auto[$content_type])) {
-       $path = drupal_get_path('module', 'opencalais');
-      $form['field_tags']['emh_opencalais']['suggest_tags'] = array(
+  $mode = $auto[$content_type];
+  
+  if ($mode != 1 && isset($auto[$content_type])) {
+    $path = drupal_get_path('module', 'opencalais');
+    $form['field_tags']['emh_opencalais']['suggest_tags'] = array(
         '#type' => 'submit',
         '#value' => t('Suggest EMH Tags'),
         '#prefix' => '<div class="opencalais_button_holder">EMH TAGS:',
         '#suffix' => '</div>',
-        '#attributes' => array('class' => array('opencalais_submit')),
-        '#weight' => -20,
-        //'#submit' => array('emh_opencalais_suggest_tags_submit'),
+        '#attributes' => array(
+            'class' => array(
+                'opencalais_submit' 
+            ) 
+        ),
+        '#weight' => - 20,
+        // '#submit' => array('emh_opencalais_suggest_tags_submit'),
         '#ajax' => array(
-          'callback' => 'emh_opencalais_suggest_tags_callback',
-          'effect' => 'fade',
-          'method' => 'replace',
+            'callback' => 'emh_opencalais_suggest_tags_callback',
+            'effect' => 'fade',
+            'method' => 'replace' 
         ),
         '#attached' => array(
-          'js' => array($path . '/theme/opencalais.node.js'),
-          'css' => array($path . '/theme/opencalais.node.css'),
-        )
-      );
-
-      if(isset($form_state['values']['field_tags'])) {
-          ddl('coucou');
-          $form_state['values']['field_tags']['und']['value_field'] .= ' ""Batman2""';
-      }
-
-     // array_unshift($form['#submit'], 'emh_opencalais_node_form_submit');
-    }
-   
-    
-    $output = '';
-    if ($mode > 0 && isset($auto[$content_type])) {
-      $output = 'New Tags : ';
-      $tags = 'social_tags';
-      
-      $suggestions = opencalais_get_suggestions($node, $tags);
-      $suggestions = array_keys($suggestions);
-     
-      $first = TRUE;
-      foreach ($suggestions as $key => $value) {
-        if(!$first)
-          $output .= ', ';
-          
-        $output .= $value;
-         
-        $first = FALSE;
-         
-      }      
-    }
-    
-    $form['field_tags']['emh_opencalais']['#prefix'] = '<div id="div-emh-opencalais-tags">' . $output;
-    $form['field_tags']['emh_opencalais']['#suffix'] = '</div>';
-
-   /* unset($form['opencalais']['suggest_tags']);
-    unset($form['opencalais_socialtags_tags']);
-   */
-
-}
-
-/**
- *  Handle the submission of the node form
- *
- *  If automatic tagging is set for the content type then get the term suggestions and place them into values
- *  arrays for all the opencalais fields
- *
- *  TODO: See if we can also add in the addition of the disambiguation information here
- *//*
-function emh_opencalais_node_form_submit($form, &$form_state) {
-  
-  $tags = 'social_tags';
-  $node = $form['#node'];
-  $content_type = $node->type;
- 
-  $node = emh_opencalais_get_tags($node, $tags);
-  node_save($node);  
-  
-
-}
-*/
-
-/**
- * AJAX Callback to get OpenCalais tag suggestions for an Entity.
- */
-function emh_opencalais_get_opencalais_tag_fields($form, $entity, $bundle) {
-  $fields = array();
-  $entities = opencalais_get_all_entities();
-  
-  foreach ($entities as $key => $item) $entities[$key] = _opencalais_make_machine_name($item);
-  $instances = field_info_instances($entity, $bundle);
- 
-  foreach ($instances as $field_name => $instance) {
-
-    if (isset($instance['settings']['emh_opencalais'])) {
-      $field = field_info_field($field_name);
-      
-      $opencalais_type = $instance['settings']['emh_opencalais'];
-      if (in_array($opencalais_type, $entities)) {
-        $fields[$opencalais_type] = $field_name;
-      }
-    }
-   
+            'js' => array(
+                $path . '/theme/opencalais.node.js' 
+            ),
+            'css' => array(
+                $path . '/theme/opencalais.node.css' 
+            ) 
+        ) 
+    );
   }
-  return $fields;
+  
+  /*
+   * $output = '';
+   * if ($mode > 0 && isset($auto[$content_type])) {
+   * $output = 'New Tags : ';
+   * $tags = 'social_tags';
+   *
+   * $suggestions = opencalais_get_suggestions($node, $tags);
+   * $suggestions = array_keys($suggestions);
+   *
+   *
+   * $first = TRUE;
+   * foreach ($suggestions as $key => $value) {
+   * if(!$first)
+   * $output .= ', ';
+   *
+   * $output .= $value;
+   *
+   * $first = FALSE;
+   *
+   * }
+   * }
+   */
+  
+  $form['field_tags']['#prefix'] = '<div id="div-emh-opencalais-tags">';
+  $form['field_tags']['#suffix'] = '</div>';
 }
 
 /**
  * AJAX Callback to get OpenCalais tag suggestions for an Entity.
  */
 function emh_opencalais_suggest_tags_callback($form, &$form_state, $norebuild = FALSE) {
-
   $commands = array();
-  
   $tags_generate = '<p> ';
   $tags = 'social_tags';
   
@@ -181,22 +134,25 @@ function emh_opencalais_suggest_tags_callback($form, &$form_state, $norebuild = 
   $suggestions = opencalais_get_suggestions($node, $tags);
   $suggestions = array_keys($suggestions);
   
-  $first = TRUE;
-  foreach ($suggestions as $key => $value) {
-    if (! $first)
-      $tags_generate .= ', ';
-    
-    $tags_generate .= $value;
-    
-    $first = FALSE;
+  $tags_array = array();
+  $tags_node = $form_state['values']['field_tags']['und'];
+  foreach ($tags_node as $key => $value) {
+    $val_array[] = $value['name'];
   }
-  $tags_generate .= '</p> ';
-  $output = '<div id = "div-emh-opencalais-tags">' . 'This tags will be saved :' . $tags_generate;
   
-  //$field_tags['#value'] .= ",Batman2";
-  //$output .= render($field_tags);
+  $tags_array = array_merge($tags_array, $suggestions);
+  $tags_array = array_unique($tags_array);
   
+  $value_field_tags = '';
+  foreach ($tags_array as $key => $value) {
+    
+    $value_field_tags .= ' ""' . $value . '""';
+  }
   
+  $form['field_tags']['und']['value_field']['#default_value'] = $value_field_tags;
+  $form['field_tags']['und']['value_field']['#value'] = $value_field_tags;
+  
+  $output = '<div id = "div-emh-opencalais-tags">' . render($form['field_tags']['und']);
   $output .= render($form['field_tags']['emh_opencalais']['suggest_tags']) . '</div>';
   
   $commands[] = ajax_command_replace('#div-emh-opencalais-tags', $output);
@@ -205,37 +161,5 @@ function emh_opencalais_suggest_tags_callback($form, &$form_state, $norebuild = 
       '#commands' => $commands 
   );
   return $element;
-  
-  /*
-    $field_tags =  $form['field_tags']['und'];
-
-if (!$norebuild) {
-    $form_state['rebuild'] = TRUE;
-
-    /*
-     * Because the form state isn't resaved in ajax_form_callback anything we put in the form_state gets destroyed
-     * In order to keep our form_state stuff (the meta data) we need to do this.
-     */
-   /* drupal_process_form($form['#form_id'], $form, $form_state);
-  }
-    
-    return $form['field_tags'];*/
-
 }
 
-
-function emh_opencalais_suggest_tags_submit($form, &$form_state) {
-  
-  
-  /*$term = taxonomy_term_load(1977);
-  $form_state['values']['field_tags']['und'][] = (array)$term;
-  $form_state['build_info']['args'][0]->field_tags['und'][] = array('tid' => '1977');
-  ddl($form_state, 'form_state submit');*/
-  $form_state['rebuild'] = true;
-
-}
-
-function emh_opencalais_node_presave($node) {
-    ddl($node, 'presave');
-
-}
