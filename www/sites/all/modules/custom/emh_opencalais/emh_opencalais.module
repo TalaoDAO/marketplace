@@ -11,7 +11,9 @@ function emh_opencalais_node_prepare($node) {
   $tags = 'social_tags';
   $content_type = $node->type;
   $auto = variable_get('opencalais_autotagging', array());
-  $mode = $auto[$content_type];
+  
+  if(isset($auto[$content_type]))
+    $mode = $auto[$content_type];
   
   // not manual mode
   if ($mode > 0 && isset($auto[$content_type])) {
