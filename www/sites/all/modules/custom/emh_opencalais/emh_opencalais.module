@@ -73,7 +73,8 @@ function emh_opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
     $form['field_tags']['emh_opencalais']['suggest_tags'] = array(
         '#type' => 'submit',
         '#value' => t('Suggest EMH Tags'),
-        '#prefix' => '<div class="emh_opencalais_button_holder">EMH TAGS:',
+        '#prefix' => 
+          '<div class="emh_opencalais_button_holder">Use IA to help you fill tags : ',
         '#suffix' => '</div>',
         '#attributes' => array(
             'class' => array(
