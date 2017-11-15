@@ -12,14 +12,15 @@ function emh_opencalais_node_prepare($node) {
   $content_type = $node->type;
   $auto = variable_get('opencalais_autotagging', array());
   
-  if(isset($auto[$content_type]))
-    $mode = $auto[$content_type];
-  
-  // not manual mode
-  if ($mode > 0 && isset($auto[$content_type])) {
-    // variable_set('opencalais_autotagging', array($tags, 0));
-    $node = emh_opencalais_get_tags($node, $tags);
+  if(isset($auto[$content_type])) {
+     $mode = $auto[$content_type];
+    // not manual mode
+    if ($mode > 0) {
+      // variable_set('opencalais_autotagging', array($tags, 0));
+      $node = emh_opencalais_get_tags($node, $tags);
+    }
   }
+   
 }
 
 /**
@@ -49,7 +50,7 @@ function emh_opencalais_get_tags($node, $opencalais_tags) {
     $key = array_keys($term);
     $tid['tid'] = strval($key[0]);
     
-    if (! emh_opencalais_term_is_on_field($node, $tid['tid'])) {
+    if (isset($node->field_tags) && ! emh_opencalais_term_is_on_field($node->field_tags['und'], $tid['tid'])) {
       $node->field_tags['und'][] = $tid;
     }
   }
