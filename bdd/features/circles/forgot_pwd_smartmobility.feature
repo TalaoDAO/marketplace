@@ -13,7 +13,7 @@ Feature: Forgot Password
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise   | field_working_status | field_domaine | field_address:country |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Bruce            | WAYNE           | 0712345670      | Justicier      | Smart Mobility     | emindhub.test+expert1@gmail.com | DC Comics     | Employee             | Energy        | US                  |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Bruce            | WAYNE           | 0712345670      | Justicier      | Smart Mobility     | emindhub.test+expert1@gmail.com | DC Comics     | Employee             | Blockchain        | US                  |
    
     Given the user "expert1" is a member of the group "Smart Mobility"
     
