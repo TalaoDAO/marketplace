@@ -45,6 +45,20 @@ function emh_points_views_data() {
       'type' => 'INNER',
       'extra' => array(array('field' => 'dest_type', 'value' => 'node', 'operator' => '=')),
     ),
+    'node' => array(
+      'left_table' => 'node',
+      'left_field' => 'nid',
+      'table' => 'emh_points_txn',
+      'field' => 'context_data',
+      'type' => 'INNER',
+    ),
+    'emh_points_txn' => array(
+      'left_table' => 'emh_points_txn',
+      'left_field' => 'txn_id',
+      'table' => 'emh_points_txn',
+      'field' => 'txn_parent_id',
+      'type' => 'INNER',
+    ),
   );
   $data['emh_points_total']['table']['group'] = t('Credits');
   $data['emh_points_total']['table']['join'] = array(
@@ -274,6 +288,30 @@ function emh_points_views_data() {
       'extra' => array(array('table' => 'emh_points_txn_source', 'field' => 'dest_type', 'value' => 'node', 'operator' => '=')),
     ),
   );
+  $data['emh_points_txn']['context_data_node'] = array(
+    'title' => t('Node of the context of the transaction'),
+    'relationship' => array(
+      'title' => t('Node context of the transaction'),
+      'handler' => 'views_handler_relationship',
+      'base' => 'node',
+      'base field' => 'nid',
+      'table' => 'emh_points_txn',
+      'field' => 'context_data',
+      'label' => t('Node context of the transaction'),
+    ),
+  );
+  $data['emh_points_txn']['parent_txn'] = array(
+    'title' => t('Parent transaction of the transaction'),
+    'relationship' => array(
+      'title' => t('Parent transaction of the transaction'),
+      'handler' => 'views_handler_relationship',
+      'base' => 'emh_points_txn',
+      'base field' => 'txn_id',
+      'table' => 'emh_points_txn',
+      'field' => 'parent_txn_id',
+      'label' => t('Parent transaction of the transaction'),
+    ),
+  );
   $data['emh_points_txn']['points'] = array(
     'title' => 'Credits',
     'field' => array(
@@ -374,6 +412,19 @@ function emh_points_views_data() {
   $data['emh_points_txn']['context'] = array(
     'title' => t('Context'),
     'help' => t('The context of the credits transaction.'),
+    'field' => array(
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+  );
+  $data['emh_points_txn']['context_data'] = array(
+    'title' => t('Context data'),
+    'help' => t('The data context of the credits transaction.'),
     'field' => array(
       'click sortable' => TRUE,
     ),
