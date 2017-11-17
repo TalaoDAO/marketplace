@@ -40,15 +40,9 @@ function emh_blockchain_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
-  $items['blockchain'] = array(
-    'title' => 'Blockchain prototype',
-    'page callback' => '_emh_blockchain',
-    'access callback' => TRUE,
-  );
-  $items['blockchain/voting'] = array(
-    'title' => 'Voting',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-    'page callback' => '_emh_blockchain_voting',
+  $items['blockchain/helloworld'] = array(
+    'title' => 'Helloworld',
+    'page callback' => '_emh_blockchain_helloworld',
     'access callback' => TRUE,
   );
   return $items;
@@ -64,20 +58,9 @@ function emh_blockchain_permission() {
 }
 
 /**
- * Blockchain homepage.
+ * Blockchain helloworld.
  */
-function _emh_blockchain() {
-  $content = '';
-  if (($library = libraries_load('web3')) && !empty($library['loaded'])) {
-    drupal_set_message(t('web3.js loaded, version: %version', array('%version' => $library['version'])));
-  }
-  return $content;
-}
-
-/**
- * Blockchain voting.
- */
-function _emh_blockchain_voting() {
+function _emh_blockchain_helloworld() {
 
   $content = '';
 
@@ -108,7 +91,7 @@ function _emh_blockchain_voting() {
         'voting_deployed_contract_address_fallback' => $voting_deployed_contract_address_fallback,
       ),
     ), 'setting');
-    drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/contracts/voting/js/voting.js', array('scope' => 'footer'));
+    drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/contracts/helloworld/js/helloworld.js', array('scope' => 'footer'));
   }
   else {
     $content = 'Web3 could not load.';
