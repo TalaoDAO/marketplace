@@ -16,11 +16,11 @@ Feature: Buy profile access
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_position          |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | All experts     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    | Avionic Design Engineer |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | All experts     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Blockchain        | US                    | Avionic Design Engineer |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | All experts     | client1 | 2020-02-08 17:45:00    | 1       |
+    | How to become a superhero?  | Blockchain        | All experts     | client1 | 2020-02-08 17:45:00    | 1       |
 
     Given I give "client1" 1000 emh credits
     Given I give "expert1" 1000 emh credits
