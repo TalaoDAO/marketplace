@@ -1,0 +1,58 @@
+.ui-corner-all {
+  border-bottom-left-radius: 4px 4px;
+  border-bottom-right-radius: 4px 4px;
+  border-top-left-radius: 4px 4px;
+  border-top-right-radius: 4px 4px;
+}
+
+input.threshold_slider {
+  text-align: center;
+}
+
+div.ui-slider {
+  width: 86%;
+  display: inline-block;
+  margin-top: 3px;
+  margin-right: 7px;
+}
+
+.slider_label {
+  display: inline-block;
+  text-align: center;
+  min-width: 25px;
+}
+
+div.slider_holder {
+  clear: both;
+  display: block;
+  text-align: center;
+}
+
+#bundle-info {
+  padding: 5px;
+}
+
+#opencalais_entities .form-type-checkbox {
+  display: inline-block;
+  padding: 0px 5px 2px 0px;
+}
+
+#opencalais_entities .opencalais_tag {
+  display: inline-block;
+  padding: 2px 0px 0px 0px;
+}
+
+#opencalais_entities th img {
+  position: relative;
+  top: 3px;
+  left: 2px;
+}
+
+#opencalais_entities tr.existing {
+  background: #ECF8F4;
+}
+
+#opencalais_entities tr.deleted {
+  background: #FFE4E0;
+}
+
