@@ -259,6 +259,15 @@ function ft_views_views_default_views() {
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
   $handler->display->display_options['empty']['area']['content'] = 'No earnings yet.';
   $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
+  /* Relationship: Credits Transaction: Parent transaction of the transaction */
+  $handler->display->display_options['relationships']['parent_txn']['id'] = 'parent_txn';
+  $handler->display->display_options['relationships']['parent_txn']['table'] = 'emh_points_txn';
+  $handler->display->display_options['relationships']['parent_txn']['field'] = 'parent_txn';
+  /* Relationship: Credits Transaction: Node context of the transaction */
+  $handler->display->display_options['relationships']['context_data_node']['id'] = 'context_data_node';
+  $handler->display->display_options['relationships']['context_data_node']['table'] = 'emh_points_txn';
+  $handler->display->display_options['relationships']['context_data_node']['field'] = 'context_data_node';
+  $handler->display->display_options['relationships']['context_data_node']['relationship'] = 'parent_txn';
   /* Field: Credits Transaction: Timestamp */
   $handler->display->display_options['fields']['time_stamp']['id'] = 'time_stamp';
   $handler->display->display_options['fields']['time_stamp']['table'] = 'emh_points_txn';
@@ -271,11 +280,13 @@ function ft_views_views_default_views() {
   $handler->display->display_options['fields']['points']['table'] = 'emh_points_txn';
   $handler->display->display_options['fields']['points']['field'] = 'points';
   $handler->display->display_options['fields']['points']['label'] = 'Earnings';
-  /* Field: Credits Transaction: Description of the transaction */
-  $handler->display->display_options['fields']['description']['id'] = 'description';
-  $handler->display->display_options['fields']['description']['table'] = 'emh_points_txn';
-  $handler->display->display_options['fields']['description']['field'] = 'description';
-  $handler->display->display_options['fields']['description']['label'] = 'Details';
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'context_data_node';
+  $handler->display->display_options['fields']['title']['label'] = 'The requester selected your profile for request:';
+  $handler->display->display_options['fields']['title']['empty'] = 'Unknown';
   /* Filter criterion: Credits Transaction: Context */
   $handler->display->display_options['filters']['context']['id'] = 'context';
   $handler->display->display_options['filters']['context']['table'] = 'emh_points_txn';
