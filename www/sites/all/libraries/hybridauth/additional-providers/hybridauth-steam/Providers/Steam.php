@@ -63,8 +63,13 @@ class Hybrid_Providers_Steam extends Hybrid_Provider_Model_OpenID
     {
         $apiUrl = 'http://steamcommunity.com/profiles/' . $this->user->profile->identifier . '/?xml=1';
 
-        $data = @file_get_contents($apiUrl);
-        $data = @ new SimpleXMLElement($data);
+	try {
+            $data = @file_get_contents($apiUrl);
+            $data = @ new SimpleXMLElement($data);
+	} catch(Exception $e) {
+	    Hybrid_Logger::error( "Steam::getUserProfileLegacyAPI() error: ", $e->getMessage());
+	    return false;
+	}
 
         if (!is_object($data)) {
             return false;
@@ -72,7 +77,13 @@ class Hybrid_Providers_Steam extends Hybrid_Provider_Model_OpenID
 
 		# store the user profile.  
 		//$this->user->profile->identifier		=	"";
-		$this->user->profile->profileURL		=	property_exists($data, 'customURL') ? "http://steamcommunity.com/id/{$data->customURL}/" : "http://steamcommunity.com/profiles/{$this->user->profile->identifier}/";
+		if (property_exists($data, 'customURL') && (string) $data->customURL != '') {
+      			$this->user->profile->profileURL = 'http://steamcommunity.com/id/' . (string) $data->customURL . '/';
+    		}
+    		else {
+            $this->user->profile->profileURL = "http://steamcommunity.com/profiles/{$this->user->profile->identifier}/";
+    		}
+		
 		$this->user->profile->webSiteURL		=	"";
 		$this->user->profile->photoURL			=	property_exists($data, 'avatarFull') ? (string)$data->avatarFull : '';
 		$this->user->profile->displayName		=	property_exists($data, 'steamID') ? (string)$data->steamID : '';
@@ -93,6 +104,5 @@ class Hybrid_Providers_Steam extends Hybrid_Provider_Model_OpenID
 		$this->user->profile->region			=	property_exists($data, 'location') ? (string)$data->location : '';
 		$this->user->profile->city				=	"";
 		$this->user->profile->zip				=	"";
-
     }
 }
