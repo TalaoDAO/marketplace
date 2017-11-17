@@ -7,7 +7,7 @@ Feature: Private Circle
   Background: Create Users & Request
 
     Given "circle" content:
-    | title             | author  | group_access | 
+    | title             | author  | group_access |
     | Avengers          | admin   | Private      |
     | Justice League    | admin   | Private      |
     | Suicide Squad     | admin   | Public       |
@@ -37,27 +37,26 @@ Feature: Private Circle
     Given the user "expert1" is a member of the group "Avengers"
     Given the user "expert4" is a member of the group "Justice League"
 
-Scenario:  An authentificated user try to access to a public and private circle 
+Scenario:  An authentificated user try to access to a public and private circle
     Given I am logged in as "expert4"
     When I go to "/circles"
     Then I should not see the text "Avengers"
       And I should see the text "Justice League"
       And I should see the text "Suicide Squad"
-      
+
     When I go to "content/suicide-squad"
-    Then I should see the text "Access denied"
-    
+    Then I should see the text "Suicide Squad"
+
     When I go to "content/justice-league"
     Then I should see the text "About this circle"
-    
+
     When I go to "content/avengers"
     Then I should see the text "Access denied"
-    
+
     When I go to homepage
     Then I should see the text "How to stop the Joker?"
       And I should not see the text "How to become a superhero?"
-      And I should not see the text "How to kill the Batman?"      
+      And I should not see the text "How to kill the Batman?"
       And I should not see the text "Avengers"
       And I should see the text "Justice League"
       And I should not see the text "Suicide Squad"
-    
