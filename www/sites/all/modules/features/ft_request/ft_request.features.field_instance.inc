@@ -109,7 +109,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 18,
       ),
       'summary' => array(
         'label' => 'hidden',
@@ -253,10 +253,9 @@ function ft_request_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'i18n_taxonomy',
         'settings' => array(),
-        'type' => 'i18n_taxonomy_term_reference_link',
-        'weight' => 18,
+        'type' => 'hidden',
+        'weight' => 13,
       ),
       'summary' => array(
         'label' => 'above',
@@ -371,7 +370,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 16,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -420,7 +419,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 17,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -545,7 +544,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 15,
       ),
       'summary' => array(
         'label' => 'above',
@@ -880,7 +879,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 17,
+        'weight' => 12,
       ),
       'summary' => array(
         'label' => 'above',
@@ -996,7 +995,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 19,
       ),
       'summary' => array(
         'label' => 'hidden',
