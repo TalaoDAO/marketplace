@@ -121,7 +121,7 @@ function ft_request_strongarm() {
         ),
         'language' => array(
           'default' => array(
-            'weight' => '12',
+            'weight' => '14',
             'visible' => FALSE,
           ),
           'summary' => array(
