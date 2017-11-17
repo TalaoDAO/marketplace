@@ -21,10 +21,10 @@ function ft_circle_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'How it works?',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
-      0 => 'field_circle_qa',
-      1 => 'field_circle_instructions',
+      0 => 'field_circle_instructions',
+      1 => 'field_circle_qa',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
