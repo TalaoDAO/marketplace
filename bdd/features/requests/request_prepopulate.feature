@@ -77,7 +77,7 @@ Feature: Request Prepopulation
 
     When I select "Avengers" from "Circles"
       And I fill in "Request title or question" with "How to defeat a superhero?"
-      And I select "Energy" from "Fields of expertise"
+      And I select "Blockchain" from "Fields of expertise"
       And I press "Continue"
       And I press "Publish"
     Then I should see "How to defeat a superhero? has been published"
@@ -101,7 +101,7 @@ Feature: Request Prepopulation
 
     When I select "Avengers" from "Circles"
       And I fill in "Request title or question" with "How to defeat a superhero?"
-      And I select "Energy" from "Fields of expertise"
+      And I select "Blockchain" from "Fields of expertise"
       And I press "Continue"
       And I press "Publish"
     Then I should see "How to defeat a superhero? has been published"

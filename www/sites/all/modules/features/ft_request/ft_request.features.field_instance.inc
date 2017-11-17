@@ -109,7 +109,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 18,
       ),
       'summary' => array(
         'label' => 'hidden',
@@ -145,7 +145,7 @@ function ft_request_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 16,
+      'weight' => 17,
     ),
   );
 
@@ -179,7 +179,7 @@ function ft_request_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_domaine',
-    'label' => 'Domains',
+    'label' => 'Domain',
     'required' => 1,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -240,7 +240,52 @@ function ft_request_field_default_field_instances() {
         'size' => 30,
       ),
       'type' => 'text_textfield',
-      'weight' => 12,
+      'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-request-field_expertise'.
+  $field_instances['node-request-field_expertise'] = array(
+    'bundle' => 'request',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 13,
+      ),
+      'summary' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_expertise',
+    'label' => 'Expertise',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'apply_chosen' => '',
+      ),
+      'type' => 'options_select',
+      'weight' => 4,
     ),
   );
 
@@ -306,7 +351,7 @@ function ft_request_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -325,7 +370,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 16,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -355,7 +400,7 @@ function ft_request_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 14,
+      'weight' => 15,
     ),
   );
 
@@ -374,7 +419,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'inline',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 17,
       ),
       'summary' => array(
         'label' => 'inline',
@@ -404,7 +449,7 @@ function ft_request_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 15,
+      'weight' => 16,
     ),
   );
 
@@ -484,7 +529,7 @@ function ft_request_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -499,7 +544,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 15,
       ),
       'summary' => array(
         'label' => 'above',
@@ -527,7 +572,7 @@ function ft_request_field_default_field_instances() {
       'module' => 'emh_request',
       'settings' => array(),
       'type' => 'emh_option_selector_default',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -599,7 +644,7 @@ function ft_request_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -647,7 +692,7 @@ function ft_request_field_default_field_instances() {
         'size' => 100,
       ),
       'type' => 'text_textfield',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -762,7 +807,7 @@ function ft_request_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_popup',
-      'weight' => 13,
+      'weight' => 14,
     ),
   );
 
@@ -814,7 +859,7 @@ function ft_request_field_default_field_instances() {
         'size' => 40,
       ),
       'type' => 'autocomplete_deluxe_taxonomy',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -834,7 +879,7 @@ function ft_request_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 17,
+        'weight' => 12,
       ),
       'summary' => array(
         'label' => 'above',
@@ -864,7 +909,7 @@ function ft_request_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 19,
+      'weight' => 20,
     ),
   );
 
@@ -935,7 +980,7 @@ function ft_request_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -950,7 +995,7 @@ function ft_request_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 19,
       ),
       'summary' => array(
         'label' => 'hidden',
@@ -1169,9 +1214,10 @@ function ft_request_field_default_field_instances() {
   t('Description');
   t('Desired starting date');
   t('Documents');
-  t('Domains');
+  t('Domain');
   t('Duration of the mission');
   t('Example: edit[field_options][und][questionnaire][enabled]=&edit[field_options][und][private][enabled]=&edit[field_options][und][questionnaire][enabled]=&edit[field_request_questions][und][\'0\'][value]=How to become a superhero%3F');
+  t('Expertise');
   t('Feedback');
   t('Group content visibility');
   t('Hide my name');
