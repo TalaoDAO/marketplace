@@ -31,7 +31,7 @@
         }
         else {
           // Fallback on local testrpc chain.
-          window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+          window.web3 = new Web3(new Web3.providers.HttpProvider("http://ethdev:8545"));
           var voting_deployed_contract_address = Drupal.settings.emh_blockchain.voting_deployed_contract_address_fallback;
         }
 
