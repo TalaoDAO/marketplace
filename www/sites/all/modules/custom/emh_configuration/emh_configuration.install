@@ -1711,10 +1711,19 @@ function emh_configuration_update_7083() {
 }
 
 /**
- * CHG: Domains become "sectors".
+ * ADD: enable opencalais module.
  */
 function emh_configuration_update_7084() {
-  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/domains_to_sector.sql"); 
+    module_enable(array('opencalais'));
+    variable_set('opencalais_api_key', 'WgnZlNyGrLVfgZpyFb04chAUthY9xJFT');
+    variable_set('opencalais_autotagging', array(0 => 'social_tags', 'request' => '1'));
+
 }
 
+/**
+ * CHG: Domains become "sectors".
+ */
+function emh_configuration_update_7085() {
+  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/domains_to_sector.sql"); 
+}
 

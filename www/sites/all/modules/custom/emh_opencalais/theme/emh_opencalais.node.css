@@ -1,0 +1,14 @@
+.emh_opencalais_button_holder button {
+  background-color: #009FE0 !important;
+  color: #ffffff;
+  font-weight: bold;
+  width: 23 px;
+  padding: 10px !important;
+  text-align: center;
+  display: inline-block;
+}
+
+
+div#div-emh-opencalais-tags {
+    margin-bottom: 20px;
+}
