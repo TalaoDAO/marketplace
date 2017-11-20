@@ -61,7 +61,7 @@ function emh_blockchain_permission() {
  * Blockchain helloworld.
  */
 function _emh_blockchain_helloworld() {
-
+  global $user;
   $content = '';
 
   if (($library = libraries_load('web3')) && !empty($library['loaded'])) {
@@ -82,16 +82,23 @@ function _emh_blockchain_helloworld() {
     ));
     $content .= '<input type="text" id="candidate" />
     <a href="#" id="submit" class="btn btn-primary">Vote</a>';
+    $content .= /*'<br>'.$user->hash.*/'<div id="debug">toto</div>';
 
     $voting_deployed_contract_address = variable_get('emh_blockchain_voting_deployed_contract_address');
     $voting_deployed_contract_address_fallback = variable_get('emh_blockchain_voting_deployed_contract_address_fallback');
+    $register_drupal_deployed_contract_address_fallback = variable_get('emh_blockchain_RegisterDrupal_deployed_contract_address_fallback');
+    $register_drupal_deployed_contract_ABI = variable_get('emh_blockchain_RegisterDrupal_deployed_contract_ABI');
     drupal_add_js(array(
       'emh_blockchain' => array(
         'voting_deployed_contract_address' => $voting_deployed_contract_address,
         'voting_deployed_contract_address_fallback' => $voting_deployed_contract_address_fallback,
+        'register_drupal_deployed_contract_address_fallback' => $register_drupal_deployed_contract_address_fallback,
+        'register_drupal_deployed_contract_ABI' => $register_drupal_deployed_contract_ABI,
+        'userHash' => $user->hash,
       ),
     ), 'setting');
     drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/contracts/helloworld/js/helloworld.js', array('scope' => 'footer'));
+    drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/contracts/registerdrupal/js/registerdrupal.js', array('scope' => 'footer'));
   }
   else {
     $content = 'Web3 could not load.';
