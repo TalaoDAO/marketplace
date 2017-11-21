@@ -142,6 +142,10 @@ function emh_opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
   
   $form['field_tags']['#prefix'] = '<div id="div-emh-opencalais-tags" width="20px">';
   $form['field_tags']['#suffix'] = '</div>';
+  
+  $form['opencalais_socialtags_tags']['#access'] = FALSE;
+  
+  
 }
 
 /**
@@ -186,22 +190,14 @@ function emh_opencalais_suggest_tags_callback($form, &$form_state, $norebuild = 
   return $element;
 }
 
-/*
-function emh_opencalais_hook_info_alter(&$hooks) {
-  
-  unset($hooks['form_node_form_alter']['opencalais']);
-  ddl($hooks, 'hook');
-}*/
-
+/**
+ * Implements hook_module_implements_alter().
+ */
 function emh_opencalais_module_implements_alter(&$implementations, $hook) {
   switch ($hook) {
     case 'form_node_form_alter':
-      if (array_key_exists('opencalais', $implementations)) {
-        // On veut que le hook_form_alter my_module soit le dernier exécuté
-        // On le remet à la fin du tableau
-        //$my_module = $implementations['my_module'];
-        unset($implementations['opencalais']);
-        //$implementations['my_module'] = $my_module;
+      if (array_key_exists('opencalais', $implementations)) {       
+        unset($implementations['opencalais']);        
       }
       break;
   }
