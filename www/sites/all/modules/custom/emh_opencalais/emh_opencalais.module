@@ -83,7 +83,7 @@ function emh_opencalais_get_tags($node, $opencalais_tags) {
 function emh_opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
   
   $path_emh = drupal_get_path('module', 'emh_opencalais');
-  drupal_add_js($path_emh.'/emh_opencalais.js');
+  drupal_add_js($path_emh.'/theme/emh_opencalais.js');
   
   $node = $form['#node'];
   $content_type = $node->type;
