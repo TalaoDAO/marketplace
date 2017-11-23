@@ -1,0 +1,130 @@
+<?php
+
+/**
+ * @file
+ * Ethereum address field module.
+ *
+ * Provides an Ethereum address field.
+ */
+
+/**
+ * Implements hook_field_info().
+ */
+function ethereum_address_field_field_info() {
+  return array(
+    'ethereum_address_field_ethereum_address' => array(
+      'label' => t('Ethereum address field'),
+      'description' => t('Ethereum address field.'),
+      'settings' => array('max_length' => 42),
+      'instance_settings' => array(
+        'text_processing' => 0,
+      ),
+      'default_widget' => 'text_textfield',
+      'default_formatter' => 'text_default',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_validate().
+ */
+function ethereum_address_field_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
+  foreach ($items as $delta => $item) {
+    if (!empty($item['ethereum_address'])) {
+      if (!preg_match('/^0x[0-9a-f]{40}/is', $item['ethereum_address'])) {
+        $errors[$field['field_name']][$langcode][$delta][] = array(
+          'error' => 'ethereum_address_field_invalid',
+          'message' => t('Ethereum addresses must begin with "0x" and 40 hexadecimals characters must follow.'),
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function ethereum_address_field_field_is_empty($item, $field) {
+  return empty($item['ethereum_address']);
+}
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function ethereum_address_field_field_formatter_info() {
+  return array(
+    'ethereum_address_field_simple_text' => array(
+      'label' => t('Ethereum address in simple text'),
+      'field types' => array('ethereum_address_field_ethereum_address'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function ethereum_address_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+
+  switch ($display['type']) {
+    case 'ethereum_address_field_plain_text':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#type' => 'html_tag',
+          '#tag' => 'p',
+          '#value' => $item['ethereum_address'],
+        );
+      }
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_info().
+ */
+function ethereum_address_field_field_widget_info() {
+  return array(
+    'ethereum_address_field_text' => array(
+      'label' => t('Ethereum address'),
+      'field types' => array('ethereum_address_field_ethereum_address'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function ethereum_address_field_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $element) {
+  $value = isset($items[$delta]['ethereum_address']) ? $items[$delta]['ethereum_address'] : '';
+
+  $widget = $element;
+  $widget['#delta'] = $delta;
+
+  switch ($instance['widget']['type']) {
+
+    case 'ethereum_address_field_text':
+      $widget += array(
+        '#type' => 'textfield',
+        '#default_value' => $value,
+        '#size' => 42,
+        '#maxlength' => 42,
+      );
+      break;
+  }
+
+  $element['ethereum_address'] = $widget;
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function ethereum_address_field_field_widget_error($element, $error, $form, &$form_state) {
+  switch ($error['error']) {
+    case 'ethereum_address_field_invalid':
+      form_error($element, $error['message']);
+      break;
+  }
+}
