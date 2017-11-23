@@ -17,7 +17,7 @@
         console.log(register_drupal_deployed_contract_address);
         abi = JSON.parse(Drupal.settings.emh_blockchain.register_drupal_deployed_contract_ABI);
         console.log(Drupal.settings.emh_blockchain.userHash);
-        hash = Drupal.settings.emh_blockchain.userHash.toUpperCase();
+        hash = Drupal.settings.emh_blockchain.userHash;
         console.log(hash);
         Contract = web3.eth.contract(abi);
         contractInstance = Contract.at(register_drupal_deployed_contract_address);
