@@ -4,8 +4,8 @@
     attach: function (context, settings) {
       window.addEventListener('load', function () {
 
-        getContract = function (address, abi) {
-          abi = JSON.parse(ABI);
+        getContract = function (address, abiJSON) {
+          abi = JSON.parse(abiJSON);
           contract_holder = web3.eth.contract(abi);
           return contract_holder.at(address);
         }
@@ -16,21 +16,12 @@
         } else { // Fallback on local testrpc chain.
           window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
         }
-        register_drupal_address = Drupal.settings.emh_blockchain.register_drupal_deployed_contract_address_fallback;
-        register_drupal_abi = JSON.parse(Drupal.settings.emh_blockchain.register_drupal_deployed_contract_ABI);
-        register_drupal_contract_holder = web3.eth.contract(register_drupal_abi);
-        register_drupal_contract = register_drupal_contract_holder.at(register_drupal_address);
+        register_drupal_contract = getContract(Drupal.settings.emh_blockchain.register_drupal_deployed_contract_address_fallback, Drupal.settings.emh_blockchain.register_drupal_deployed_contract_ABI);
+        token_emh_contract = getContract(Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback, Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI);
 
-        token_emh_address = Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback;
-        token_emh_abi = JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI);
-        token_emh_contract_holder = web3.eth.contract(token_emh_abi);
-        token_emh_contract = token_emh_contract_holder.at(token_emh_address);
-
-        //token_emh_contract = getContract(Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback, Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI);
-
-        hash = Drupal.settings.emh_blockchain.userHash;
-        userAddress = register_drupal_contract.validateUserByHash(hash);
-        console.log(userAddress);
+        hash = Drupal.settings.emh_blockchain.adminHash;
+        adminAddress = register_drupal_contract.validateUserByHash(hash);
+        console.log(adminAddress);
         /*register_drupal_contract.validateUserByHash.call(hash,
           function (error, result) {
             if (!error) {
@@ -41,10 +32,28 @@
               console.error(error);
             }
         });*/
-        $("#debug").html('user address: '+userAddress.toString());
-        balance = token_emh_contract.balanceOf(userAddress.toString()).toFormat();
+        $("#debug").html('user address: '+adminAddress.toString());
+        balance = token_emh_contract.balanceOf(adminAddress.toString()).toFormat();
         console.log(balance);
         $("#debug").html( $("#debug").text()+ ' balance : '+balance);
+
+        hash = Drupal.settings.emh_blockchain.clientHash;
+        clientAddress = register_drupal_contract.validateUserByHash(hash);
+        balance = token_emh_contract.balanceOf(clientAddress.toString()).toFormat();
+        console.log(token_emh_contract);
+        $("#debug").html( $("#debug").text()+ '<br> balance YBA : '+balance + ' client address :'+clientAddress.toString());
+
+        $("#debug").html( $("#debug").text()+ ' balance eth: '+web3.fromWei(web3.eth.getBalance(clientAddress)));
+
+        var buyHash;
+        $('#buyYBA').click(function() {
+          //alert('test');
+          buyHash = web3.eth.sendTransaction({from: clientAddress.toString(), to: adminAddress.toString(), value: web3.toWei(1, "ether")});
+          tstatus = web3.eth.getTransactionReceipt(buyHash);
+          console.log(tstatus);
+          console.log(token_emh_contract.balanceOf(clientAddress.toString()).toFormat());
+          token_emh_contract.transfer.sendTransaction(clientAddress.toString(), 1, {from: web3.eth.accounts[0]});
+        });
       });
     }
   }
