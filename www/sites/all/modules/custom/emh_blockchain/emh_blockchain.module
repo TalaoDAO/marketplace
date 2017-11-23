@@ -82,7 +82,7 @@ function _emh_blockchain_helloworld() {
     ));
     $content .= '<input type="text" id="candidate" />
     <a href="#" id="submit" class="btn btn-primary">Vote</a>';
-    $content .= /*'<br>'.$user->hash.*/'<div id="debug">toto</div>';
+    $content .= '<br>'.$user->hash.'<div id="debug">toto</div>';
 
     $voting_deployed_contract_address = variable_get('emh_blockchain_voting_deployed_contract_address');
     $voting_deployed_contract_address_fallback = variable_get('emh_blockchain_voting_deployed_contract_address_fallback');

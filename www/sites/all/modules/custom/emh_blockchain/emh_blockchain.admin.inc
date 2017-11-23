@@ -23,10 +23,10 @@ function emh_blockchain_admin_form() {
     '#default_value' => variable_get('emh_blockchain_voting_deployed_contract_address_fallback'),
   );
 
-  $form['emh_blockchain_register_drupal_deployed_contract_address_fallback'] = array(
+  $form['emh_blockchain_RegisterDrupal_deployed_contract_address_fallback'] = array(
     '#type' => 'textfield',
     '#title' => t('Register drupal: deployed contract address fallback'),
-    '#default_value' => variable_get('emh_blockchain_register_drupal_deployed_contract_address_fallback'),
+    '#default_value' => variable_get('emh_blockchain_RegisterDrupal_deployed_contract_address_fallback'),
   );
 
   $form['emh_blockchain_RegisterDrupal_deployed_contract_ABI'] = array(
