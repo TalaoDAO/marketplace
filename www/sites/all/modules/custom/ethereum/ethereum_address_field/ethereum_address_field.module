@@ -13,8 +13,8 @@
 function ethereum_address_field_field_info() {
   return array(
     'ethereum_address_field_ethereum_address' => array(
-      'label' => t('Ethereum address field'),
-      'description' => t('Ethereum address field.'),
+      'label' => t('Ethereum address'),
+      'description' => t('Ethereum address.'),
       'settings' => array('max_length' => 42),
       'instance_settings' => array(
         'text_processing' => 0,
