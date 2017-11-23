@@ -11,10 +11,12 @@
         }
         else {
           // Fallback on local testrpc chain.
-          window.web3 = new Web3(new Web3.providers.HttpProvider("http://ethdev:8545"));
+          window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
           var register_drupal_deployed_contract_address = Drupal.settings.emh_blockchain.register_drupal_deployed_contract_address_fallback;
         }
+        console.log(register_drupal_deployed_contract_address);
         abi = JSON.parse(Drupal.settings.emh_blockchain.register_drupal_deployed_contract_ABI);
+        console.log(Drupal.settings.emh_blockchain.userHash);
         hash = Drupal.settings.emh_blockchain.userHash.toUpperCase();
         console.log(hash);
         Contract = web3.eth.contract(abi);
