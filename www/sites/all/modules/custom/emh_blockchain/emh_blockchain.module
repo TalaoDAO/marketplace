@@ -83,7 +83,7 @@ function _emh_blockchain_helloworld() {
     $content .= '<input type="text" id="candidate" />
     <a href="#" id="submit" class="btn btn-primary">Vote</a>';
     $content .= '<br> user hash : '.$user->hash.'<div id="debug">toto</div>';
-    $content .= 'User 3 (Yoann Babel) <input id="buyYBA" type="button" value="Buy 1 Token for 1 ether">';
+    $content .= 'User 3 (Yoann Babel) <input id="buyYBA" type="button" value="Buy 1 Token for 0.001 ether">';
     $client = user_load(3); //Yoann Babel
     drupal_add_js(array(
       'emh_blockchain' => array(
