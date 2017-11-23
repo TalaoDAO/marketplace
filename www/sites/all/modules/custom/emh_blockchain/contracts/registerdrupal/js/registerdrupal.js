@@ -48,11 +48,20 @@
         var buyHash;
         $('#buyYBA').click(function() {
           //alert('test');
-          buyHash = web3.eth.sendTransaction({from: clientAddress.toString(), to: adminAddress.toString(), value: web3.toWei(1, "ether")});
+          //1st metho : 2 transactions, insecure
+          /*buyHash = web3.eth.sendTransaction({from: clientAddress.toString(), to: adminAddress.toString(), value: web3.toWei(1, "ether")});
           tstatus = web3.eth.getTransactionReceipt(buyHash);
           console.log(tstatus);
           console.log(token_emh_contract.balanceOf(clientAddress.toString()).toFormat());
-          token_emh_contract.transfer.sendTransaction(clientAddress.toString(), 1, {from: web3.eth.accounts[0]});
+          token_emh_contract.transfer.sendTransaction(clientAddress.toString(), 1, {from: web3.eth.accounts[0]});*/
+
+          //2nd method : 1 transaction, secure
+          // You have to : set but and sell price to : 1000000000000000
+          // unit : 1
+          // mine token for contract
+          // have enough ether on client
+          token_emh_contract.buy.sendTransaction({from:clientAddress, value:web3.toWei(0.001, "ether")}); // buy one token
+          //token_emh_contract.buy.sendTransaction({from:web3.eth.accounts[3], value: web3.toWei(1, "ether")})
         });
       });
     }
