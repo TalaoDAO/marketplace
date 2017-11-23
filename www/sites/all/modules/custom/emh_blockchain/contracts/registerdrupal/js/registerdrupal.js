@@ -46,6 +46,7 @@
         $("#debug").html( $("#debug").text()+ ' balance eth: '+web3.fromWei(web3.eth.getBalance(clientAddress)));
 
         var buyHash;
+        var thash = undefined;
         $('#buyYBA').click(function() {
           //alert('test');
           //1st metho : 2 transactions, insecure
@@ -60,8 +61,18 @@
           // unit : 1
           // mine token for contract
           // have enough ether on client
-          token_emh_contract.buy.sendTransaction({from:clientAddress, value:web3.toWei(0.001, "ether")}); // buy one token
+          thash = token_emh_contract.buy.sendTransaction({from:clientAddress, value:web3.toWei(0.001, "ether")}); // buy one token
           //token_emh_contract.buy.sendTransaction({from:web3.eth.accounts[3], value: web3.toWei(1, "ether")})
+        });
+
+        //var event = token_emh_contract.Transfer({_from:web3.eth.coinbase},{fromBlock: 0, toBlock: 'latest'});
+        var event = token_emh_contract.Transfer({_from:clientAddress},{fromBlock: 0, toBlock: 'latest'});
+        event.watch(function(error, result){
+          if (!error) {
+            if (result.transactionHash == thash)
+            //console.log(result);
+            alert('Transfert done');
+          }
         });
       });
     }
