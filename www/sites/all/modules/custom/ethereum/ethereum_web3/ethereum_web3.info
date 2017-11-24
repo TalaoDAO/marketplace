@@ -1,0 +1,6 @@
+name = Ethereum Web3.js library wrapper.
+package = Ethereum
+core = 7.x
+
+; Dependencies
+dependencies[] = libraries
