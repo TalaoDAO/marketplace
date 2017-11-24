@@ -36,6 +36,8 @@
           userAddress = Drupal.settings.ethereum_user.ethereum_user_register_drupal_user_address;
           console.log(userAddress);
           contract.newUser(hash, {from : userAddress});
+          address = contract.validateUserByHash(hash);
+          console.log(address);
           // TODO: listen to transaction receipt and update #ethereum_user_register_drupal_trigger HTML.
           // TODO: then, Ajax / Drupal service callback to assign the 'registered ethereum user' role to the user.
         });
