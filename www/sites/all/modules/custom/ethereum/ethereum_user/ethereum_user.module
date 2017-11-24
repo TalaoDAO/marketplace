@@ -95,7 +95,16 @@ function _ethereum_user($this_user) {
       ),
     );
 
-    // TODO: generate $user->hash.
+    // Generate user hash.
+    if (!$this_user->hash) {
+      $data = array(
+        '@name' => $this_user->name,
+        '!id' => $this_user->uid,
+      );
+      $hash = user_hash_generate();
+      $this_user = user_save($this_user, array('hash' => $hash));
+    }
+
     drupal_add_js(array(
       'ethereum_user' => array(
         'ethereum_user_register_drupal_deployed_contract_address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
