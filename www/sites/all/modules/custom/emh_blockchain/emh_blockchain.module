@@ -80,11 +80,13 @@ function _emh_blockchain_helloworld() {
       'rows' => $rows,
       'caption' => t('Those votes are read and written in the blockchain.'),
     ));
-    $content .= '<input type="text" id="candidate" />
-    <a href="#" id="submit" class="btn btn-primary">Vote</a>';
-    $content .= '<br> user hash : '.$user->hash.'<div id="debug">toto</div>';
-    $content .= 'User 3 (Yoann Babel) <input id="buyYBA" type="button" value="Buy 1 Token for 0.001 ether">';
     $client = user_load(3); //Yoann Babel
+    $content .= '<input type="text" id="candidate" />
+    <a href="#" id="submit" class="btn btn-primary">Vote</a><hr>';
+    $content .= '<b>admin</b><br>hash: '.$user->hash.'<br>address: <span id="admin-address"></span><br>eth balance : <span id="admin-eth"></span><br>token balance: <span id="admin-token"></span>'; 
+    $content .= '<br><b>client (YBA)</b><br>hash: '.$client->hash.'<br>address: <span id="client-address"></span><br>eth balance : <span id="client-eth"></span><br>token balance: <span id="client-token"></span>'; 
+    $content .= '<div id="debug-client"/><div id="debug-user"/>';
+    $content .= 'User 3 (Yoann Babel) <input id="buyYBA" type="button" value="Buy 1 Token for 0.001 ether">';
     drupal_add_js(array(
       'emh_blockchain' => array(
         'voting_deployed_contract_address' => variable_get('emh_blockchain_voting_deployed_contract_address'),

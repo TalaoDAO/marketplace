@@ -21,7 +21,7 @@
 
         hash = Drupal.settings.emh_blockchain.adminHash;
         adminAddress = register_drupal_contract.validateUserByHash(hash);
-        console.log(adminAddress);
+        //console.log(adminAddress);
         /*register_drupal_contract.validateUserByHash.call(hash,
           function (error, result) {
             if (!error) {
@@ -32,18 +32,18 @@
               console.error(error);
             }
         });*/
-        $("#debug").html('user address: '+adminAddress.toString());
+        $("#admin-address").html(adminAddress.toString());
         balance = token_emh_contract.balanceOf(adminAddress.toString()).toFormat();
-        console.log(balance);
-        $("#debug").html( $("#debug").text()+ ' balance : '+balance);
-
+        //console.log(balance);
+        $("#admin-token").html(balance);
+        $("#admin-eth").html(web3.fromWei(web3.eth.getBalance(adminAddress)).toString());
         hash = Drupal.settings.emh_blockchain.clientHash;
         clientAddress = register_drupal_contract.validateUserByHash(hash);
         balance = token_emh_contract.balanceOf(clientAddress.toString()).toFormat();
-        console.log(token_emh_contract);
-        $("#debug").html( $("#debug").text()+ '<br> balance YBA : '+balance + ' client address :'+clientAddress.toString());
-
-        $("#debug").html( $("#debug").text()+ ' balance eth: '+web3.fromWei(web3.eth.getBalance(clientAddress)));
+        //console.log(token_emh_contract);
+        $("#client-address").html(clientAddress.toString());
+        $("#client-token").html(balance);
+        $("#client-eth").html(web3.fromWei(web3.eth.getBalance(clientAddress)).toString());
 
         var buyHash;
         var thash = undefined;
@@ -62,16 +62,16 @@
           // mine token for contract
           // have enough ether on client
           thash = token_emh_contract.buy.sendTransaction({from:clientAddress, value:web3.toWei(0.001, "ether")}); // buy one token
-          //token_emh_contract.buy.sendTransaction({from:web3.eth.accounts[3], value: web3.toWei(1, "ether")})
+          $("#client-token").html(token_emh_contract.balanceOf(clientAddress.toString()).toFormat());
+          $("#client-eth").html(web3.fromWei(web3.eth.getBalance(clientAddress)).toString());
         });
 
-        //var event = token_emh_contract.Transfer({_from:web3.eth.coinbase},{fromBlock: 0, toBlock: 'latest'});
-        var event = token_emh_contract.Transfer({_from:clientAddress},{fromBlock: 0, toBlock: 'latest'});
         event.watch(function(error, result){
+        var event = token_emh_contract.Transfer({_from:clientAddress},{fromBlock: 0, toBlock: 'latest'});
           if (!error) {
             if (result.transactionHash == thash)
+              alert('Transfert done');
             //console.log(result);
-            alert('Transfert done');
           }
         });
       });
