@@ -45,8 +45,9 @@ function _emh_blockchain_helloworld() {
   $content = '';
 
   $web3_local = variable_get('ethereum_web3_local_injection');
+  $library = libraries_load('web3');
 
-  if (($web3_local && $library = libraries_load('web3') && !empty($library['loaded'])) || !$web3_local) {
+  if (($web3_local && $library && !empty($library['loaded'])) || !$web3_local) {
 
     $header = array(
       t('Expert'),
@@ -65,8 +66,8 @@ function _emh_blockchain_helloworld() {
     $client = user_load(3); //Yoann Babel
     $content .= '<input type="text" id="candidate" />
     <a href="#" id="submit" class="btn btn-primary">Vote</a><hr>';
-    $content .= '<b>admin</b><br>hash: '.$user->hash.'<br>address: <span id="admin-address"></span><br>eth balance : <span id="admin-eth"></span><br>token balance: <span id="admin-token"></span>'; 
-    $content .= '<br><b>client (YBA)</b><br>hash: '.$client->hash.'<br>address: <span id="client-address"></span><br>eth balance : <span id="client-eth"></span><br>token balance: <span id="client-token"></span>'; 
+    $content .= '<b>admin</b><br>hash: '.$user->hash.'<br>address: <span id="admin-address"></span><br>eth balance : <span id="admin-eth"></span><br>token balance: <span id="admin-token"></span>';
+    $content .= '<br><b>client (YBA)</b><br>hash: '.$client->hash.'<br>address: <span id="client-address"></span><br>eth balance : <span id="client-eth"></span><br>token balance: <span id="client-token"></span>';
     $content .= '<div id="debug-client"/><div id="debug-user"/>';
     $content .= 'User 3 (Yoann Babel) <input id="buyYBA" type="button" value="Buy 1 Token for 0.001 ether">';
     drupal_add_js(array(
