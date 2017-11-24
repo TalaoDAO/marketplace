@@ -44,46 +44,6 @@ function ethereum_user_permission() {
 }
 
 /**
- * Ethereum tab for /user.
- */
-function _ethereum_user_tmp() {
-
-  global $user;
-  $user_wrapper = entity_metadata_wrapper('user', $user);
-  $rid = user_role_load_by_name('registered ethereum user');
-  $is_registered_ethereum_user = user_has_role($rid) ? TRUE : FALSE;
-
-  if (($web3_local && $library = libraries_load('web3') && !empty($library['loaded'])) || !$web3_local) {
-
-    $content = '<h2>Ethereum Dashboard for ' . $user->name . '</h2>';
-    $content .= '<ul>';
-    $content .= '<li>Ethereum address: ' . $user_wrapper->ethereum_user_address->value() . '</li>';
-    $content .= '<li>Ethereum address status: ' . $is_registered_ethereum_user ? 'Registred' : 'Not registred (or confirmed yet)';
-    $content .= '</ul>';
-
-    if (!$is_registered_ethereum_user) {
-      $content .= '<p><a id="ethereum_user_register_drupal_trigger" href="">Register now</a></p>';
-    }
-
-    drupal_add_js(array(
-      'ethereum_user' => array(
-        'ethereum_user_register_drupal_deployed_contract_address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
-        'ethereum_user_register_drupal_deployed_contract_abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
-        'ethereum_user_register_drupal_fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
-        'ethereum_user_register_drupal_user_hash' => $user->hash,
-      ),
-    ), 'setting');
-
-    drupal_add_js(drupal_get_path('module', 'ethereum_user') . '/contracts/ethereum_user_register_drupal/js/ethereum_user_register_drupal.js', array('scope' => 'footer'));
-  }
-  else {
-    $content = 'Web3 could not load.';
-  }
-
-  return $content;
-}
-
-/**
  * Tab for /user/UID/ethereum.
  *
  * @object $this_user: User beeing viewed (UID), not necessarly the current user.
