@@ -1,0 +1,121 @@
+<?php
+
+/**
+ * @file
+ * Ethereum user.
+ *
+ * Allows users to sign a User Registry contract on Ethereum.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ethereum_user_menu() {
+  $items = array();
+
+  $items['admin/config/people/ethereum'] = array(
+    'title' => 'Ethereum',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ethereum_user_admin_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'ethereum_user.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['user/%user/ethereum'] = array(
+    'title' => 'Ethereum',
+    'page callback' => '_ethereum_user',
+    'page arguments' => array(1),
+    'access callback' => 'user_is_logged_in',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function ethereum_user_permission() {
+  return array(
+    'ethereum user' => array('title' => t('Use Ethereum')),
+  );
+}
+
+/**
+ * Tab for /user/UID/ethereum.
+ *
+ * @object $this_user: User beeing viewed (UID), not necessarly the current user.
+ */
+function _ethereum_user($this_user) {
+
+  // Current user (who is viewing $this_user, an admin or the same person).
+  global $user;
+
+  // TODO: better check (if $user_viewed exists, ...)
+  if (!is_numeric($this_user->uid)) {
+    drupal_access_denied();
+    return;
+  }
+  elseif ($user->uid != $this_user->uid && !user_access('administrate users')) {
+    drupal_access_denied();
+    return;
+  }
+  elseif (!$web3_local && !$library = libraries_load('web3') || !$web3_local) {
+    drupal_access_denied();
+    return;
+  }
+  else {
+
+    // User can access the tab and there is a Web3 instance with account.
+    // TODO: better check: is there really an injected Web3 lib & account?
+    $this_user_wrapper = entity_metadata_wrapper('user', $this_user);
+    $this_user_editlink = l(t('Edit account to add Ethereum address'), 'user/' . $this_user->uid . '/edit');
+    $this_user_ethereum_address = $this_user_wrapper->ethereum_user_address->value() ? $this_user_wrapper->ethereum_user_address->value() : $this_user_editlink;
+    // TODO: use l();
+    $this_user_registerlink = $this_user_wrapper->ethereum_user_address->value() ? '<a id="ethereum_user_register_drupal_trigger" href="#">' . t('To use Ethereum features with us, please sign our user registry.') . '</a>' : t('Add your Ethereum address first.');
+
+    // Check if $this_user is registered.
+    $rid = user_role_load_by_name('registered ethereum user');
+    $is_registered_ethereum_user = user_has_role($rid) ? TRUE : FALSE;
+    // TODO: store transaction address & other contract transactions for user?
+    $this_user_ethereum_address_status = $is_registered_ethereum_user ? t('Yes') : $this_user_registerlink;
+    // Override register link if user is admin and checking another user.
+    $this_user_ethereum_address_status = ($user->uid != $this_user->uid && user_access('administrate users')) ? t("No, but even as an admin you can't sign for the user.") : $this_user_ethereum_address_status;
+
+    $output = array(
+      'ethereum_user_address' => array(
+        '#type' => 'markup',
+        '#markup' => '<h2>Ethereum address</h2><p>' . $this_user_ethereum_address . '</p>',
+      ),
+      'ethereum_user_address_status' => array(
+        '#type' => 'markup',
+        '#markup' => '<h2>Is your Ethereum address registered for this site?</h2><p id="ethereum_user_address_status">' . $this_user_ethereum_address_status . '</p>',
+      ),
+    );
+
+    // Generate user hash.
+    if (!$this_user->hash) {
+      $data = array(
+        '@name' => $this_user->name,
+        '!id' => $this_user->uid,
+      );
+      $hash = user_hash_generate();
+      $this_user = user_save($this_user, array('hash' => $hash));
+    }
+
+    drupal_add_js(array(
+      'ethereum_user' => array(
+        'ethereum_user_register_drupal_deployed_contract_address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
+        'ethereum_user_register_drupal_deployed_contract_abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
+        'ethereum_user_register_drupal_fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
+        'ethereum_user_register_drupal_user_hash' => $user->hash,
+      ),
+    ), 'setting');
+
+    drupal_add_js(drupal_get_path('module', 'ethereum_user') . '/contracts/ethereum_user_register_drupal/js/ethereum_user_register_drupal.js', array('scope' => 'footer'));
+
+    return $output;
+  }
+}
