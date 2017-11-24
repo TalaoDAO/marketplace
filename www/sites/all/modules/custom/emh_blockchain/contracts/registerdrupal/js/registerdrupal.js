@@ -61,17 +61,46 @@
           // unit : 1
           // mine token for contract
           // have enough ether on client
-          thash = token_emh_contract.buy.sendTransaction({from:clientAddress, value:web3.toWei(0.001, "ether")}); // buy one token
-          $("#client-token").html(token_emh_contract.balanceOf(clientAddress.toString()).toFormat());
-          $("#client-eth").html(web3.fromWei(web3.eth.getBalance(clientAddress)).toString());
+          //thash = token_emh_contract.buy.sendTransaction({from:clientAddress, value:web3.toWei(0.001, "ether")}); // buy one token
+          //callback so that it is asynchronous
+          token_emh_contract.buy({from:clientAddress, value:web3.toWei(0.001, "ether")}, function(error, result){ if (!error) { thash=result; } });
+  
+$.ajax({
+  type:"POST",
+  url: "http://localhost:8545",
+  data: JSON.stringify({"method":"signer_requestsToConfirm","params":[],"id":1,"jsonrpc":"2.0"}),
+  Accept : "application/json",
+  contentType: "application/json", 
+  dataType: "json",
+  success: function(result) { 
+
+    //console.log(result); 
+    id = result.result[0].id;
+    pass = $('#eth-password').val();
+    $.ajax({
+      type:"POST",
+      url: "http://localhost:8545",
+      data: JSON.stringify({"method":"signer_confirmRequest","params":[id, {}, pass],"id":1,"jsonrpc":"2.0"}),
+      Accept : "application/json",
+      contentType: "application/json",
+      dataType: "json",
+      success: function(result) { alert('transaction validated automatically'); }
+    });
+
+},  
+});
+
         });
 
-        event.watch(function(error, result){
         var event = token_emh_contract.Transfer({_from:clientAddress},{fromBlock: 0, toBlock: 'latest'});
-          if (!error) {
-            if (result.transactionHash == thash)
+        event.watch(function(error, result){
+          if (!error) { 
+            if (result.transactionHash == thash) {
               alert('Transfert done');
-            //console.log(result);
+              $("#client-token").html(token_emh_contract.balanceOf(clientAddress.toString()).toFormat());
+              $("#client-eth").html(web3.fromWei(web3.eth.getBalance(clientAddress)).toString());
+              //console.log(result);
+            }
           }
         });
       });
