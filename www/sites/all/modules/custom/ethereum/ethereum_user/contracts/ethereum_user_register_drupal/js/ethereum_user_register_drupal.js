@@ -34,7 +34,7 @@
           hash = Drupal.settings.ethereum_user.ethereum_user_register_drupal_user_hash;
           console.log(hash);
 
-          contract.newUser(hash, {from: web3.eth.accounts[1]});
+          contract.newUser(hash, {from: web3.eth.accounts[0]});
           address = contract.validateUserByHash(hash);
           console.log(address);
           // TODO: listen to transaction receipt and update #ethereum_user_register_drupal_trigger HTML.
