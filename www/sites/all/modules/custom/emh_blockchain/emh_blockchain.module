@@ -6,26 +6,6 @@
  */
 
 /**
- * Implements hook_libraries_info().
- */
-function emh_blockchain_libraries_info() {
-  $libraries['web3'] = array(
-    'name' => 'web3.js',
-    'vendor url' => 'https://github.com/ethereum/web3.js/',
-    'download url' => 'https://github.com/ethereum/web3.js/releases',
-    'version arguments' => array(
-      'file' => 'dist/web3.min.js',
-      'pattern' => '/version:"([0-9a-z\.-]+)"/',
-      'lines' => 150,
-    ),
-    'files' => array(
-      'js' => array('dist/web3.min.js'),
-    ),
-  );
-  return $libraries;
-}
-
-/**
  * Implements hook_menu().
  */
 function emh_blockchain_menu() {
@@ -64,7 +44,9 @@ function _emh_blockchain_helloworld() {
   global $user;
   $content = '';
 
-  if (($library = libraries_load('web3')) && !empty($library['loaded'])) {
+  $web3_local = variable_get('ethereum_web3_local_injection');
+
+  if (($web3_local && $library = libraries_load('web3') && !empty($library['loaded'])) || !$web3_local) {
 
     $header = array(
       t('Expert'),
@@ -101,7 +83,7 @@ function _emh_blockchain_helloworld() {
     drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/contracts/registerdrupal/js/registerdrupal.js', array('scope' => 'footer'));
   }
   else {
-    $content = 'Web3 could not load.';
+    $content = 'Web3.js could not load.';
   }
   return $content;
 }

@@ -21,6 +21,7 @@ function ethereum_address_field_field_info() {
       ),
       'default_widget' => 'text_textfield',
       'default_formatter' => 'text_default',
+      'property_type' => 'text',
     ),
   );
 }

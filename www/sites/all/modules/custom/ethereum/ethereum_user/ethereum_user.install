@@ -1,0 +1,61 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for ethereum_user module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ethereum_user_install() {
+
+  // Create a role.
+  $role_name = 'registered ethereum user';
+  $role = new stdClass();
+  $role->name = $role_name;
+  user_role_save($role);
+
+  // Add permission to role.
+  $role = user_role_load_by_name($role_name);
+  $permissions = array(
+    'use ethereum address',
+  );
+  // TODO: does not work during .install @see https://api.drupal.org/api/drupal/modules%21user%21user.module/function/user_role_grant_permissions/7.x
+  //user_role_grant_permissions($role->rid, $permissions);
+
+  // Attach an Ethereum address field to the User entity.
+  if (!field_info_field('ethereum_user_address')) {
+    $field = array(
+      'field_name' => 'ethereum_user_address',
+      'type' => 'ethereum_address_field_ethereum_address',
+    );
+    field_create_field($field);
+  }
+  if (!field_info_instance('user', 'ethereum_user_address', 'user')) {
+    $instance = array(
+      'field_name' => 'ethereum_user_address',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'label' => 'Ethereum address',
+      'widget' => array(
+        'type' => 'ethereum_address_field_text',
+      ),
+    );
+    field_create_instance($instance);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function ethereum_user_uninstall() {
+
+  // Delete role.
+  user_role_delete('registered ethereum user');
+
+  // Delete Ethereum address field for the User entity.
+  if ($instance = field_info_instance('user', 'ethereum_user_address', 'user')) {
+    field_delete_instance($instance);
+  }
+}
