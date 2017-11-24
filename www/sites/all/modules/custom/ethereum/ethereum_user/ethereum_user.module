@@ -104,13 +104,15 @@ function _ethereum_user($this_user) {
       $hash = user_hash_generate();
       $this_user = user_save($this_user, array('hash' => $hash));
     }
-
+    $user_wrapper = entity_metadata_wrapper('user', $user);
+    $user_ethereum_address = $user_wrapper->ethereum_user_address->value();
     drupal_add_js(array(
       'ethereum_user' => array(
         'ethereum_user_register_drupal_deployed_contract_address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
         'ethereum_user_register_drupal_deployed_contract_abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
         'ethereum_user_register_drupal_fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
         'ethereum_user_register_drupal_user_hash' => $user->hash,
+        'ethereum_user_register_drupal_user_address' => $user_ethereum_address,
       ),
     ), 'setting');
 
