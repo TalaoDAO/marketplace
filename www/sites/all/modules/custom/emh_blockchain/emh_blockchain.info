@@ -3,4 +3,4 @@ package = EMH
 core = 7.x
 
 ; Dependencies
-dependencies[] = libraries
+dependencies[] = ethereum_web3
