@@ -41,7 +41,7 @@ function emh_opencalais_node_prepare($node) {
 }
 function emh_opencalais_get_suggestions($node, $opencalais_tags) {
   // modify field_request_questions to be used by opencalais
-  if(isset($node->language)) {
+  if(isset($node->language) && !empty($node->field_request_questions)) {
     $node->field_request_questions[$node->language] = $node->field_request_questions['und'];
   }
       
