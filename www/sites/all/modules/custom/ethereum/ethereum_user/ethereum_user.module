@@ -48,14 +48,15 @@ function ethereum_user_permission() {
  */
 function ethereum_user_form($form, &$form_state) {
   $form = array();
-
+  global $user;
+  $account = user_load($user->uid);
   $form['ethereum_user_address'] = array(
     '#title' => t('Ethereum address'),
     '#title_display' => 'invisible',
     '#type' => 'textfield',
     '#size' => 42,
     '#maxlength' => 42,
-    '#default_value' => 'TODO: default value, form validation and user field save',
+    '#default_value' => $account->ethereum_user_address['und'][0]['ethereum_address'], //'TODO: default value, form validation and user field save',
     '#description' => t('Ethereum addresses must begin with 0x and 40 hexadecimals characters must follow.'),
   );
 
@@ -73,6 +74,17 @@ function ethereum_user_form($form, &$form_state) {
   );
 
   return $form;
+}
+
+/**
+ * Implements hook_form_submit().
+ */
+function ethereum_user_form_submit($form, &$form_state) {
+  $address = $form_state['input']['ethereum_user_address'];
+  global $user;
+  $account = user_load($user->uid);
+  $account->ethereum_user_address['und'][0]['ethereum_address'] = $address;
+  user_save($account);
 }
 
 /**
