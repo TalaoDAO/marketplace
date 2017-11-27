@@ -17,7 +17,7 @@ function emh_opencalais_node_prepare($node) {
     $mode = $auto[$content_type];
     
     // new request
-    if (! isset($node->nid)) {
+    if (! isset($node->nid) && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
       
       // detect language
       $langue = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
@@ -35,8 +35,10 @@ function emh_opencalais_node_prepare($node) {
 }
 function emh_opencalais_get_suggestions($node, $opencalais_tags) {
   // modify field_request_questions to be used by opencalais
-  $node->field_request_questions[$node->language] = $node->field_request_questions['und'];
-  
+  if(isset($node->language)) {
+    $node->field_request_questions[$node->language] = $node->field_request_questions['und'];
+  }
+      
   $suggestions = opencalais_get_suggestions($node, $opencalais_tags);
   return $suggestions;
 }
