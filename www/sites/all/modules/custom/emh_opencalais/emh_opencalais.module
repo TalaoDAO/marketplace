@@ -17,20 +17,26 @@ function emh_opencalais_node_prepare($node) {
     $mode = $auto[$content_type];
     
     // new request
-    if (! isset($node->nid) && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+    if (! isset($node->nid)) {
       
-      // detect language
-      $langue = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-      $langue = strtolower(substr($langue[0], 0, 2));
+      if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        // detect language
+        $langue = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $langue = strtolower(substr($langue[0], 0, 2)); 
+        
+        $node->language = $langue;
+      }     
       
-      $node->language = $langue;
+      
+    } else {
+      // not manual mode
+      if ($mode > 0) {
+        // variable_set('opencalais_autotagging', array($tags, 0));
+        $node = emh_opencalais_get_tags($node, $tags);
+      }      
     }
     
-    // not manual mode
-    if ($mode > 0) {
-      // variable_set('opencalais_autotagging', array($tags, 0));
-      $node = emh_opencalais_get_tags($node, $tags);
-    }
+    
   }
 }
 function emh_opencalais_get_suggestions($node, $opencalais_tags) {
@@ -52,7 +58,9 @@ function emh_opencalais_get_suggestions($node, $opencalais_tags) {
  */
 function emh_opencalais_get_tags($node, $opencalais_tags) {
   $suggestions = emh_opencalais_get_suggestions($node, $opencalais_tags);
-  $suggestions = array_keys($suggestions);
+  
+  if(is_array($suggestions))
+    $suggestions = array_keys($suggestions);
   
   foreach ($suggestions as $key => $value) {
     $title = $value;
