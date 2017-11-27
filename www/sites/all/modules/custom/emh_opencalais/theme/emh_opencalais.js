@@ -1,6 +1,6 @@
 /**
  * @file emh_opencalais.js
- * Show or hide button to suggest tags
+ * Show or hide button to suggest tags.
  */
 (function($) {
   Drupal.behaviors.emhOpencalais = {
