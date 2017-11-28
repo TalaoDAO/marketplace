@@ -50,6 +50,7 @@ function ethereum_dashboard() {
         'token_emh_deployed_contract_address_fallback' => variable_get('emh_blockchain_TokenEMH_deployed_contract_address_fallback'),
         'token_emh_deployed_contract_ABI' => variable_get('emh_blockchain_TokenEMH_deployed_contract_ABI'),
         'clientHash' => $client->hash,
+        'clientAddress' => $client->ethereum_user_address['und'][0]['ethereum_address'],
       ),
     ), 'setting');
     drupal_add_js(drupal_get_path('module', 'ethereum_token') . '/contracts/token/js/ethereum_token.js', array('scope' => 'footer'));
