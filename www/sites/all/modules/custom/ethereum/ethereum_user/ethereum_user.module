@@ -22,17 +22,32 @@ function ethereum_user_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
-  $items['user/%user/ethereum'] = array(
+  $items['ethereum'] = array(
     'title' => 'Ethereum',
+    'page callback' => 'ethereum_main',
+    'access arguments' => array('ethereum user'),
+    'menu_name' => 'user-menu',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  //$items['user/%user/ethereum'] = array(
+  $items['ethereum/user'] = array(
+  //$items['ethereum/user/%user'] = array(
+    'title' => 'Ethereum user',
     'page callback' => '_ethereum_user',
-    'page arguments' => array(1),
-    'access callback' => 'user_is_logged_in',
-    'access arguments' => array(1),
-    'type' => MENU_LOCAL_TASK,
+    'access arguments' => array('ethereum user'),
+    //'page arguments' => array(2),
+    //'access callback' => 'user_is_logged_in',
+    //'access arguments' => array(2),
+    'menu_name' => 'user-menu',
+    //'type' => MENU_LOCAL_TASK,
+    'type' => MENU_NORMAL_ITEM,
   );
 
   return $items;
 }
+
+function ethereum_main() { return ''; }
 
 /**
  * Implements hook_permission().
@@ -92,10 +107,11 @@ function ethereum_user_form_submit($form, &$form_state) {
  *
  * @object $this_user: User beeing viewed (UID), not necessarly the current user.
  */
-function _ethereum_user($this_user) {
+function _ethereum_user(/*$this_user*/) {
 
   // Current user (who is viewing $this_user, an admin or the same person).
   global $user;
+  $this_user = $user;
 
   // TODO: better check (if $user_viewed exists, ...)
   if (!is_numeric($this_user->uid)) {
