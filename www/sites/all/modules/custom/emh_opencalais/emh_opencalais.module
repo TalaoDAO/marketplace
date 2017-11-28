@@ -26,23 +26,28 @@ function emh_opencalais_node_prepare($node) {
         
         $node->language = $langue;
       }     
-      
-      
     } else {
       // not manual mode
       if ($mode > 0) {
-        // variable_set('opencalais_autotagging', array($tags, 0));
         $node = emh_opencalais_get_tags($node, $tags);
       }      
     }
-    
-    
   }
 }
 function emh_opencalais_get_suggestions($node, $opencalais_tags) {
   // modify field_request_questions to be used by opencalais
   if(isset($node->language) && !empty($node->field_request_questions)) {
     $node->field_request_questions[$node->language] = $node->field_request_questions['und'];
+  }
+  
+  if(!strcmp($node->language,'en')) {
+    //to correct errors with opencalais_get_suggestions with some fields
+    if(isset($node->field_duration_of_the_mission['und'])) {
+      $node->field_duration_of_the_mission[$node->language] = $node->field_duration_of_the_mission['und'];
+    }
+    if(isset($node->field_activity['und'])) {
+      $node->field_activity[$node->language] = $node->field_activity['und'];
+    }    
   }
       
   $suggestions = opencalais_get_suggestions($node, $opencalais_tags);
@@ -79,8 +84,17 @@ function emh_opencalais_get_tags($node, $opencalais_tags) {
     $key = array_keys($term);
     $tid['tid'] = strval($key[0]);
     
-    if (isset($node->field_tags) && ! emh_opencalais_term_is_on_field($node->field_tags['und'], $tid['tid'])) {
-      $node->field_tags['und'][] = $tid;
+    if (isset($node->field_tags)) {
+      
+      //if request have not tag
+      if(empty($node->field_tags)) {
+        $node->field_tags['und'][] = $tid;
+      } else {
+        //test to know if request have already this tag
+        if(! emh_opencalais_term_is_on_field($node->field_tags['und'], $tid['tid']))
+          $node->field_tags['und'][] = $tid;
+      }
+      
     }
   }
   return $node;
@@ -98,37 +112,43 @@ function emh_opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
   $node = $form['#node'];
   $content_type = $node->type;
   $auto = variable_get('opencalais_autotagging', array());
-  $mode = $auto[$content_type];
   
-  if ($mode != 1 && isset($auto[$content_type])) {
-    $path = drupal_get_path('module', 'opencalais');
-    $form['field_tags']['emh_opencalais']['suggest_tags'] = array(
-        '#type' => 'submit',
-        '#value' => t('Suggest EMH Tags'),
-        '#prefix' => '<div class="emh_opencalais_button_holder">Automatically add some tags : ',
-        '#suffix' => '</div>',
-        '#attributes' => array(
-            'class' => array(
-                'emh_opencalais_submit' 
-            ) 
-        ),
-        '#weight' => - 20,
-        // '#submit' => array('emh_opencalais_suggest_tags_submit'),
-        '#ajax' => array(
-            'callback' => 'emh_opencalais_suggest_tags_callback',
-            'effect' => 'fade',
-            'method' => 'replace' 
-        ),
-        '#attached' => array(
-            'js' => array(
-                $path . '/theme/opencalais.node.js' 
-            ),
-            'css' => array(
-                $path_emh . '/theme/emh_opencalais.node.css' 
-            ) 
-        ) 
-    );
+  if(isset($auto[$content_type])) {
+    
+    $mode = $auto[$content_type];
+  
+    if ($mode != 1) {
+      $path = drupal_get_path('module', 'opencalais');
+      $form['field_tags']['emh_opencalais']['suggest_tags'] = array(
+          '#type' => 'submit',
+          '#value' => t('Suggest EMH Tags'),
+          '#prefix' => '<div class="emh_opencalais_button_holder">Automatically add some tags : ',
+          '#suffix' => '</div>',
+          '#attributes' => array(
+              'class' => array(
+                  'emh_opencalais_submit' 
+              ) 
+          ),
+          '#weight' => - 20,
+          // '#submit' => array('emh_opencalais_suggest_tags_submit'),
+          '#ajax' => array(
+              'callback' => 'emh_opencalais_suggest_tags_callback',
+              'effect' => 'fade',
+              'method' => 'replace' 
+          ),
+          '#attached' => array(
+              'js' => array(
+                  $path . '/theme/opencalais.node.js' 
+              ),
+              'css' => array(
+                  $path_emh . '/theme/emh_opencalais.node.css' 
+              ) 
+          ) 
+      );
+    }     
   }
+  
+
   
   $form['field_tags']['#prefix'] = '<div id="div-emh-opencalais-tags" width="20px">';
   $form['field_tags']['#suffix'] = '</div>';
@@ -185,6 +205,7 @@ function emh_opencalais_suggest_tags_callback($form, &$form_state, $norebuild = 
 function emh_opencalais_module_implements_alter(&$implementations, $hook) {
   switch ($hook) {
     case 'form_node_form_alter':
+    case 'node_presave' :
       if (array_key_exists('opencalais', $implementations)) {       
         unset($implementations['opencalais']);        
       }
