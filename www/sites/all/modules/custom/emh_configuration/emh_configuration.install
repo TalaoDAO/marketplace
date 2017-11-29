@@ -1739,3 +1739,10 @@ function emh_configuration_update_7086() {
   module_enable(array('emh_opencalais'));
 }
 
+/**
+ * ADD: enable log module.
+ */
+function emh_configuration_update_7086() {
+  module_enable(array('log'));
+}
+
