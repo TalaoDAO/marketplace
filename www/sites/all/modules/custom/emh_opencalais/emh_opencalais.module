@@ -34,25 +34,73 @@ function emh_opencalais_node_prepare($node) {
     }
   }
 }
-function emh_opencalais_get_suggestions($node, $opencalais_tags) {
-  // modify field_request_questions to be used by opencalais
-  if(isset($node->language) && !empty($node->field_request_questions)) {
-    $node->field_request_questions[$node->language] = $node->field_request_questions['und'];
-  }
+
+/**
+ *  Retrieve suggestions from OpenCalais service
+ */
+function emh_opencalais_get_suggestions($node, $opencalais_type = NULL) {
+  $tag_cache = &drupal_static(__FUNCTION__);
   
-  if(!strcmp($node->language,'en')) {
-    //to correct errors with opencalais_get_suggestions with some fields
-    if(isset($node->field_duration_of_the_mission['und'])) {
-      $node->field_duration_of_the_mission[$node->language] = $node->field_duration_of_the_mission['und'];
-    }
-    if(isset($node->field_activity['und'])) {
-      $node->field_activity[$node->language] = $node->field_activity['und'];
-    }    
+  if ($tag_cache && isset($node->ocid) && array_key_exists($node->ocid, $tag_cache)) {
+    $suggestions = $tag_cache[$node->ocid];
   }
+  else {
+    if (empty($node->title)) {
+      // we need some way to break out if its a node being prepped to show on the node form (with no content)
+      return;
+    }
+    
+    // Needed to support caching of unsaved nodes
+    if (empty($node->ocid)) {
+      $node->ocid = ! empty($node->nid) ? $node->nid : uniqid();
+    }
+    
+    $date = format_date($node->created, 'custom', 'r');
+    
+    $body = emh_opencalais_get_body($node);
+    
+    // Set up the options for the OpenCalais service.
+    $options = array(
+        'apiKey' => variable_get('opencalais_api_key', NULL),
+        'contentType' => 'text/plain',
+        'content' => strip_tags($body),
+        'host' => variable_get('opencalais_api_server', 'api.thomsonreuters.com') 
+    );
+    
+    // Initialize the OpenCalais class.
+    $opencalais = opencalais_get_service($options);
+    
+    // Analyze the content and return the tags.
+    $tags = $opencalais->analyze();
+    
+    // Get a list of all the fields for this content type.
+    $fields = opencalais_get_fields_for_content_type($node->type);
+    
+    $suggestions = array();
+    foreach ($tags as $type => $metadata) {
+      $terms = array();
+      $machine_name = _opencalais_make_machine_name($type);
       
-  $suggestions = opencalais_get_suggestions($node, $opencalais_tags);
-  return $suggestions;
+      if (isset($fields[$machine_name])) {
+        $settings = field_info_instance('node', $fields[$machine_name]['field'], $node->type);
+        foreach ($metadata->terms as $guid => $term) {
+          // Only add it if its relevant.
+          if (opencalais_check_suggestion($settings, $term)) {
+            $terms[$term->name] = array(
+                'relevance' => (float) $term->relevance,
+                'extra' => $term->extra 
+            );
+          }
+        }
+      }
+      $suggestions[$machine_name] = $terms;
+    }
+  }
+  $tag_cache[$node->ocid] = $suggestions;
+  return isset($opencalais_type) ? (isset($suggestions[$opencalais_type]) ? $suggestions[$opencalais_type] : array()) : $suggestions;
 }
+
+
 
 /**
  * Return node with opencalais' tags
@@ -64,8 +112,10 @@ function emh_opencalais_get_suggestions($node, $opencalais_tags) {
 function emh_opencalais_get_tags($node, $opencalais_tags) {
   $suggestions = emh_opencalais_get_suggestions($node, $opencalais_tags);
   
-  if(is_array($suggestions))
+  if(is_array($suggestions)) {
     $suggestions = array_keys($suggestions);
+    emh_opencalais_log($node, $suggestions);
+  }
   
   foreach ($suggestions as $key => $value) {
     $title = $value;
@@ -162,19 +212,20 @@ function emh_opencalais_form_node_form_alter(&$form, &$form_state, $form_id) {
  */
 function emh_opencalais_suggest_tags_callback($form, &$form_state, $norebuild = FALSE) {
   $commands = array();
-  $tags_generate = '<p> ';
   $tags = 'social_tags';
   
   $node = node_form_submit_build_node($form, $form_state);
-  
+   
   $suggestions = emh_opencalais_get_suggestions($node, $tags);
   $suggestions = array_keys($suggestions);
+  
+  emh_opencalais_log($node, $suggestions); 
   
   $tags_array = array();
   $tags_node = $form_state['values']['field_tags']['und'];
   foreach ($tags_node as $key => $value) {
     $tags_array[] = $value['name'];
-  }
+  }  
   
   $tags_array = array_merge($tags_array, $suggestions);
   $tags_array = array_unique($tags_array);
@@ -196,6 +247,7 @@ function emh_opencalais_suggest_tags_callback($form, &$form_state, $norebuild = 
       '#type' => 'ajax',
       '#commands' => $commands 
   );
+  
   return $element;
 }
 
@@ -211,5 +263,86 @@ function emh_opencalais_module_implements_alter(&$implementations, $hook) {
       }
       break;
   }
+}
+
+/**
+ * Returns a text to be used by opencalais.
+ * @param unknown $node
+ * @return string
+ */
+function emh_opencalais_get_body($node) {
+  // adding all text fields and text area in the node to be
+  // evalulated in OC
+  $node_fields = variable_get('opencalais_nodefields', array());
+  $content = NULL;
+  if (array_key_exists($node->type, $node_fields)) {
+    $content .= $node->title . "\n";
+    if ((bool) $node_fields[$node->type]) {
+      $fields = field_info_instances('node', $node->type);
+      foreach ($fields as $field_name => $instance) {
+        // add all textfields and textareas
+        if ($instance['widget']['module'] === 'text') {
+          if (empty($node->{$field_name})) {
+            continue;
+          }
+          
+          $language;
+          if (isset($node->{$field_name}[$node->language]))
+            $language = $node->language;
+          else
+            $language = 'und';
+          
+          // get all of that field into the html render array
+          foreach ($node->{$field_name}[$language] as $item) {
+            $content .= $item['value'] . "\n";
+          }
+        }
+      }
+    }
+    $body = $content;
+  }
+  else {
+    $body = (! empty($node->body[$node->language][0]['value'])) ? $node->body[$node->language][0]['value'] : '';
+  }
+  
+  return $body;
+}
+
+/**
+ * Create entity to log opencalais use.
+ * 
+ * @param unknown $node          
+ * @param unknown $suggestions          
+ */
+function emh_opencalais_log($node, $suggestions) {
+  
+  // log opencalais
+  $entity_type = 'log';
+  $entity = entity_create($entity_type, array(
+      'type' => 'log_opencalais' 
+  ));
+  $wrapper = entity_metadata_wrapper($entity_type, $entity);
+  
+  $wrapper->field_request->set($node->nid);
+  
+  $body = strip_tags(emh_opencalais_get_body($node));
+  $body = htmlspecialchars_decode($body, ENT_COMPAT | ENT_HTML5);
+  $wrapper->field_body_request->set($body);
+  
+  $wrapper->field_nb_tags->set(count($suggestions));
+  
+  $tags_generate = '';
+  $first = TRUE;
+  foreach ($suggestions as $key => $value) {
+    if (! $first)
+      $tags_generate .= ', ';
+    
+    $tags_generate .= $value;
+    
+    $first = FALSE;
+  }
+  $wrapper->field_tags_opencalais->set($tags_generate);
+  
+  $wrapper->save();
 }
 

@@ -45,6 +45,158 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'log-log_opencalais-field_body_request'.
+  $field_instances['log-log_opencalais-field_body_request'] = array(
+    'bundle' => 'log_opencalais',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 7,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_body_request',
+    'label' => 'Body Request',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 5,
+    ),
+  );
+
+  // Exported field_instance: 'log-log_opencalais-field_nb_tags'.
+  $field_instances['log-log_opencalais-field_nb_tags'] = array(
+    'bundle' => 'log_opencalais',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_nb_tags',
+    'label' => 'Nombre de tags ',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'log-log_opencalais-field_request'.
+  $field_instances['log-log_opencalais-field_request'] = array(
+    'bundle' => 'log_opencalais',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => '',
+        ),
+        'type' => 'number_integer',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_request',
+    'label' => 'Nid de la request',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance: 'log-log_opencalais-field_tags_opencalais'.
+  $field_instances['log-log_opencalais-field_tags_opencalais'] = array(
+    'bundle' => 'log_opencalais',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 6,
+      ),
+    ),
+    'entity_type' => 'log',
+    'field_name' => 'field_tags_opencalais',
+    'label' => 'Tags Opencalais',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 5,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-request-body'.
   $field_instances['node-request-body'] = array(
     'bundle' => 'request',
@@ -984,6 +1136,63 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-request-opencalais_socialtags_tags'.
+  $field_instances['node-request-opencalais_socialtags_tags'] = array(
+    'bundle' => 'request',
+    'default_formatter' => 'taxonomy_term_reference_link',
+    'default_value' => NULL,
+    'default_widget' => 'options_select',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 23,
+      ),
+      'summary' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'opencalais_socialtags_tags',
+    'label' => 'SocialTags',
+    'required' => FALSE,
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => '',
+          'parent' => 0,
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'opencalais' => 'social_tags',
+      'threshold' => 0.69,
+      'user_register_form' => FALSE,
+    ),
+    'title' => 'SocialTags',
+    'widget' => array(
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 24,
+    ),
+  );
+
   // Exported field_instance: 'node-request-title_field'.
   $field_instances['node-request-title_field'] = array(
     'bundle' => 'request',
@@ -1206,6 +1415,7 @@ function ft_request_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Activity');
+  t('Body Request');
   t('Choose a request type');
   t('Circle restriction');
   t('Circles');
@@ -1225,11 +1435,15 @@ function ft_request_field_default_field_instances() {
   t('If you choose a circle, this request type will be available only for this circle. On the request type term, enter in "Prepopulate request URL" : edit[og_group_ref][und]=NID where NID is the circle NID.');
   t('Image');
   t('Name');
+  t('Nid de la request');
+  t('Nombre de tags ');
   t('Options');
   t('Prepopulate request URL');
   t('Questions');
   t('Request title or question');
+  t('SocialTags');
   t('Tags');
+  t('Tags Opencalais');
   t('We suggest you give at least some information about your activity');
 
   return $field_instances;
