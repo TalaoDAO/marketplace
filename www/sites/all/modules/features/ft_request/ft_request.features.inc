@@ -129,6 +129,23 @@ function ft_request_flag_default_flags() {
 }
 
 /**
+ * Implements hook_default_log_type().
+ */
+function ft_request_default_log_type() {
+  $items = array();
+  $items['log_opencalais'] = entity_import('log_type', '{
+    "type" : "log_opencalais",
+    "label" : "LogOpenCalais",
+    "weight" : 0,
+    "name_pattern" : "Log [log:id]",
+    "name_edit" : "0",
+    "done" : "0",
+    "emh_earnings" : 0
+  }');
+  return $items;
+}
+
+/**
  * Implements hook_node_info().
  */
 function ft_request_node_info() {
