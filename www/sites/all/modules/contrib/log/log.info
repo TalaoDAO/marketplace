@@ -1,0 +1,16 @@
+name = "Log"
+description = "A general purpose record keeping system."
+core = 7.x
+package = "Log"
+dependencies[] = date_api
+dependencies[] = entity
+configure = admin/config/log
+files[] = log.class.inc
+files[] = plugins/feeds/LogProcessor.inc
+
+; Information added by Drupal.org packaging script on 2017-08-10
+version = "7.x-1.9"
+core = "7.x"
+project = "log"
+datestamp = "1502376846"
+
