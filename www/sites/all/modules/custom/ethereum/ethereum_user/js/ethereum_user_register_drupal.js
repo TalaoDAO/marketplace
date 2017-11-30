@@ -34,6 +34,7 @@
             console.log(error);
           }
           else if (result.toLowerCase() == user_address.toLowerCase()) {
+            console.log(user_address);
             $('#ethereum_user_registry_wait').toggle('fast');
             $('#ethereum_user_registry_validated').toggle('fast');
           }
