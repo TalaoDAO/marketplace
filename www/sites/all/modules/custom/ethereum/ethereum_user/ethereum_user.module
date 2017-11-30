@@ -115,6 +115,9 @@ function _ethereum_user($this_user) {
   global $user;
   if ($this_user == NULL) $this_user = $user;
 
+  // Local Web3 injection?
+  $web3_local = variable_get('ethereum_web3_local_injection');
+
   // TODO: better check (if $user_viewed exists, ...)
   if (!is_numeric($this_user->uid)) {
     drupal_access_denied();
@@ -124,82 +127,83 @@ function _ethereum_user($this_user) {
     drupal_access_denied();
     return;
   }
-  elseif (!$web3_local && !$library = libraries_load('web3') || !$web3_local) {
-    drupal_access_denied();
-    return;
-  }
-  else {
-
-    // User can access the tab and there is a Web3 instance with account.
-    // TODO: better check: is there really an injected Web3 lib & account?
-    $output = array();
-
-    $this_user_wrapper = entity_metadata_wrapper('user', $this_user);
-    $this_user_ethereum_address = $this_user_wrapper->ethereum_user_address->value();
-
-    // Ethereum user address.
-    $address = '<div id="ethereum_user_address">';
-    $address .= '<h2>' . t('Ethereum address') . '</h2>';
-    $address .= '<p>';
-    $address .= $this_user_ethereum_address ? $this_user_ethereum_address : t('Please add your Ethereum address');
-    $address .= ' <a href="#">' . t('edit') . '</a>';
-    $address .= '</p>';
-    $address .= '</div>';
-    $output['ethereum_user_address'] = array(
-      '#type' => 'markup',
-      '#markup' => $address,
-    );
-    $output['ethereum_user_address_form'] = drupal_get_form('ethereum_user_form');
-
-    if ($this_user_ethereum_address) {
-
-      // User registry check.
-      $loader = theme_image(array('path' => drupal_get_path('module', 'ethereum_user') . '/img/loader.svg'));
-      $registry = '<div id="ethereum_user_registry">';
-      $registry  .= '<h2>' . t('Ethereum user registry') . '</h2>';
-      $registry  .= '<div id="ethereum_user_registry_wait"><p>' . t('Please wait while we check if you are in our user registry on Ethereum...') . '</p><p>' . $loader . '</p></diV>';
-      $registry  .= '<p id="ethereum_user_registry_validated">' . t('Yes, you are in our Ethereum user registry!') . '</p>';
-      $register_link = ($user->uid == $this_user->uid) ? '<a href="#">' . t('To use Ethereum features with us, please sign our user registry.') . '</a>' : t('User did not sign the registry and you can not do it as an admin');
-      $registry  .= '<p id="ethereum_user_registry_sign">' . $register_link . '</p>';
-      $registry  .= '</div>';
-      $output['ethereum_user_registry'] = array(
-        '#type' => 'markup',
-        '#markup' => $registry,
-        '#attached' => array(
-          'css' => array(
-            drupal_get_path('module', 'ethereum_user') . '/css/ethereum_user_registry.css',
-          ),
-          'js' => array(
-            drupal_get_path('module', 'ethereum_user') . '/js/ethereum_user_register_drupal.js',
-          ),
-        ),
-      );
-
-      // Generate user hash, if necessary.
-      if (!$this_user->hash) {
-        $data = array(
-          '@name' => $this_user->name,
-          '!id' => $this_user->uid,
-        );
-        $hash = user_hash_generate();
-        $this_user = user_save($this_user, array('hash' => $hash));
-      }
-
-      // Pass variables to JS.
-      drupal_add_js(array(
-        'ethereum_user' => array(
-          'contract' => array(
-            'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
-            'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
-          ),
-          'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
-          'user' => array(
-            'hash' => $this_user->hash,
-            'address' => $this_user_ethereum_address,
-          ),
-        ),
-      ), 'setting');
+  elseif ($web3_local) {
+    $library = libraries_load('web3');
+    if (empty($library['loaded'])) {
+      drupal_access_denied();
+      return;
     }
-    return $output;
   }
+
+  // User can access the tab and there is a Web3 instance with account.
+  // TODO: better check: is there really an injected Web3 lib & account?
+  $output = array();
+
+  $this_user_wrapper = entity_metadata_wrapper('user', $this_user);
+  $this_user_ethereum_address = $this_user_wrapper->ethereum_user_address->value();
+
+  // Ethereum user address.
+  $address = '<div id="ethereum_user_address">';
+  $address .= '<h2>' . t('Ethereum address') . '</h2>';
+  $address .= '<p>';
+  $address .= $this_user_ethereum_address ? $this_user_ethereum_address : t('Please add your Ethereum address');
+  $address .= ' <a href="#">' . t('edit') . '</a>';
+  $address .= '</p>';
+  $address .= '</div>';
+  $output['ethereum_user_address'] = array(
+    '#type' => 'markup',
+    '#markup' => $address,
+  );
+  $output['ethereum_user_address_form'] = drupal_get_form('ethereum_user_form');
+
+  if ($this_user_ethereum_address) {
+
+    // User registry check.
+    $loader = theme_image(array('path' => drupal_get_path('module', 'ethereum_user') . '/img/loader.svg'));
+    $registry = '<div id="ethereum_user_registry">';
+    $registry  .= '<h2>' . t('Ethereum user registry') . '</h2>';
+    $registry  .= '<div id="ethereum_user_registry_wait"><p>' . t('Please wait while we check if you are in our user registry on Ethereum...') . '</p><p>' . $loader . '</p></diV>';
+    $registry  .= '<p id="ethereum_user_registry_validated">' . t('Yes, you are in our Ethereum user registry!') . '</p>';
+    $register_link = ($user->uid == $this_user->uid) ? '<a href="#">' . t('To use Ethereum features with us, please sign our user registry.') . '</a>' : t('User did not sign the registry and you can not do it as an admin');
+    $registry  .= '<p id="ethereum_user_registry_sign">' . $register_link . '</p>';
+    $registry  .= '</div>';
+    $output['ethereum_user_registry'] = array(
+      '#type' => 'markup',
+      '#markup' => $registry,
+      '#attached' => array(
+        'css' => array(
+          drupal_get_path('module', 'ethereum_user') . '/css/ethereum_user_registry.css',
+        ),
+        'js' => array(
+          drupal_get_path('module', 'ethereum_user') . '/js/ethereum_user_register_drupal.js',
+        ),
+      ),
+    );
+
+    // Generate user hash, if necessary.
+    if (!$this_user->hash) {
+      $data = array(
+        '@name' => $this_user->name,
+        '!id' => $this_user->uid,
+      );
+      $hash = user_hash_generate();
+      $this_user = user_save($this_user, array('hash' => $hash));
+    }
+
+    // Pass variables to JS.
+    drupal_add_js(array(
+      'ethereum_user' => array(
+        'contract' => array(
+          'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
+          'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
+        ),
+        'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
+        'user' => array(
+          'hash' => $this_user->hash,
+          'address' => $this_user_ethereum_address,
+        ),
+      ),
+    ), 'setting');
+  }
+  return $output;
 }

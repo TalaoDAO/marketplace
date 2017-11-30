@@ -9,15 +9,23 @@
       window.addEventListener('load', function () {
 
         // Checking if Web3.js has been injected by the browser (Mist/MetaMask).
-        // TODO: check that Mist also sets web3.eth.accounts[0]
+        // NOTE: MetaMask does not support Web3 1.0.0 yet, this won't work, check the metamask branch.
         if (typeof web3 !== 'undefined') {
           window.web3 = new Web3(web3.currentProvider);
-          var user_address = web3.eth.accounts[0];
+          var accounts = web3.eth.getAccounts(function (error, accounts) {
+            if (error) {
+              console.log(error);
+            }
+          });
+          var user_address = accounts[0];
+          if (user_address != Drupal.settings.ethereum_user.user.address.toLowerCase()) {
+            console.log('Current active Ethereum address:' + user_address + ' - Registred Ethereum address on this site:' + Drupal.settings.ethereum_user.user.address + ' - They should be the same.');
+          }
         }
         // Else fallback on a locally injected Web3.js.
         else {
           window.web3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_user.fallback_node));
-          var user_address = Drupal.settings.ethereum_user.user.address;
+          var user_address = Drupal.settings.ethereum_user.user.address.toLowerCase();
         }
 
         // Get contract object.
@@ -33,7 +41,7 @@
           if (error) {
             console.log(error);
           }
-          else if (result.toLowerCase() == user_address.toLowerCase()) {
+          else if (result.toLowerCase() == user_address) {
             console.log(user_address);
             $('#ethereum_user_registry_wait').toggle('fast');
             $('#ethereum_user_registry_validated').toggle('fast');
