@@ -154,7 +154,7 @@ function _ethereum_user($this_user) {
     if ($this_user_ethereum_address) {
 
       // User registry check.
-      $loader = theme_image(array('path' => drupal_get_path('module', 'ethereum_user') . '/img/puff.svg'));
+      $loader = theme_image(array('path' => drupal_get_path('module', 'ethereum_user') . '/img/loader.svg'));
       $registry = '<div id="ethereum_user_registry">';
       $registry  .= '<h2>' . t('Ethereum user registry') . '</h2>';
       $registry  .= '<div id="ethereum_user_registry_wait"><p>' . t('Please wait while we check if you are in our user registry on Ethereum...') . '</p><p>' . $loader . '</p></diV>';
@@ -170,7 +170,7 @@ function _ethereum_user($this_user) {
             drupal_get_path('module', 'ethereum_user') . '/css/ethereum_user_registry.css',
           ),
           'js' => array(
-            drupal_get_path('module', 'ethereum_user') . '/contracts/ethereum_user_register_drupal/js/ethereum_user_register_drupal.js',
+            drupal_get_path('module', 'ethereum_user') . '/js/ethereum_user_register_drupal.js',
           ),
         ),
       );
