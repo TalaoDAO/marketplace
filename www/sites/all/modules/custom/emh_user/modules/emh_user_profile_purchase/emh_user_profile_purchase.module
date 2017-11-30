@@ -31,6 +31,14 @@ function emh_user_profile_purchase_menu() {
  * Builds the profile purchase form.
  */
 function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
+  $web3_local = variable_get('ethereum_web3_local_injection');
+  $library = libraries_load('web3');
+
+  if (! (($web3_local && $library && !empty($library['loaded'])) || !$web3_local) ) {
+    $form['Error'] = array('#markup' => "Web3.js could not be loaded, contact your adminsitrator");
+    return $form;
+  }
+
   global $user;
 
   // Checks if the account hasn't already been purchased.
@@ -53,7 +61,7 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
 
   $form['confirmation'] = array(
     '#type' => 'item',
-    '#markup' => '<p>' . t("Access !user's profile for !amount credits?", array(
+    '#markup' => '<p>' . t("Access !user's profile for !amount credits and 1 EXP Token?", array(
       '!user' => format_username($account),
       '!amount' => $amount,
     )) . '</p>'
@@ -61,6 +69,8 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
 					'!current_user' => format_username($user),
 		)) . '</p>',
   );
+
+  $form['debug'] = array('#markup' => "<span id='debug-js'>...</span><br>");
 
   $form['actions'] = array(
     '#type' => 'actions',
@@ -73,10 +83,27 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
     ),
     'submit' => array(
       '#type' => 'submit',
+//      '#attributes' => array('onclick' => 'alert("not yet"); return false;'),
       '#value' => t("Access profile"),
     ),
   );
 
+  $_user = user_load($user->uid);
+  $_account = user_load($account->uid);
+  drupal_add_js(array(
+    'emh_blockchain' => array(
+      'token_emh_deployed_contract_address_fallback' => variable_get('emh_blockchain_TokenEMH_deployed_contract_address_fallback'),
+      'token_emh_deployed_contract_ABI' => variable_get('emh_blockchain_TokenEMH_deployed_contract_ABI'),
+      'clientHash' => $_user->hash,
+      'clientAddress' => $_user->ethereum_user_address['und'][0]['ethereum_address'],
+      'expertHash' => $_account->hash,
+      'expertAddress' => $_account->ethereum_user_address['und'][0]['ethereum_address'],
+    ),
+  ), 'setting');
+
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/ethereum_buy_profile.js');
+
+  //$form['info'] = array('#markup' => $_account->ethereum_user_address['und'][0]['ethereum_address']);
   return $form;
 }
 
