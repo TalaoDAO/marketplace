@@ -13,7 +13,7 @@
 function ethereum_token_menu() {
   $items = array();
 
-  $items['admin/emindhub/blockchain/ethereum_token'] = array(
+  $items['admin/config/ethereum/contracts/ethereum_token'] = array(
     'title' => 'Ethereum Token',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('ethereum_token_admin_form'),
