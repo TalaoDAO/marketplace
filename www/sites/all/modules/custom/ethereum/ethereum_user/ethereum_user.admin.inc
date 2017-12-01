@@ -31,3 +31,55 @@ function ethereum_user_admin_form() {
 
   return system_settings_form($form);
 }
+
+/**
+ * List the users who signed the Ethereum registry.
+ */
+function _ethereum_user_registry_list() {
+  $loader = theme_image(array('path' => drupal_get_path('module', 'ethereum_user') . '/img/loader.svg'));
+
+  $header = array(
+    t('User Ethereum address'),
+    t('User hash'),
+    t('User'),
+  );
+
+  $rows = array(
+  );
+
+  $table = theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'caption' => t('Users who signed this site\'s Ethereum user registry'),
+    'attributes' => array(
+      'id' => 'ethereum_user_registry_list',
+    ),
+  ));
+
+  $render['ethereum_user_registry_list'] = array(
+    '#type' => 'markup',
+    '#markup' => $table,
+    '#attached' => array(
+      'css' => array(
+        drupal_get_path('module', 'ethereum_user') . '/css/ethereum_user_registry.css',
+      ),
+      'js' => array(
+        array(
+          'data' => array(
+            'ethereum_user' => array(
+              'contract' => array(
+                'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
+                'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
+              ),
+              'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
+            ),
+          ),
+          'type' => 'setting',
+        ),
+        drupal_get_path('module', 'ethereum_user') . '/js/ethereum_user_registry_list.js',
+      ),
+    ),
+  );
+  $render['ethereum_user_registry_list']['#attached']['libraries_load'][] = array('web3');
+  return $render;
+}
