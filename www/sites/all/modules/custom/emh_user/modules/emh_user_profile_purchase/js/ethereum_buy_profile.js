@@ -50,9 +50,8 @@
            } else {
              try {
                //autosign('');
-               //pass = '0d5308fb0ece80dbbabd01e6e106f5cab581066e29d1c407b2b5197cf44bb3ec';
                logInfo('<b>Transaction send, waiting for validation ...<b>');
-               Window.profile_buy(clientAddress, expertAddress,pass, Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback, JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI), ()=>{validated = true; $('#edit-submit').click();});
+               Window.profile_buy(clientAddress, expertAddress,pass, Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback, JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI), ()=>{validated = true; $('#edit-submit').click();}, fallback);
              } catch (err) { console.log(err); alert('There was an error'); }
            }
            return false;
