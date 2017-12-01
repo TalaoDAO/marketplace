@@ -73537,21 +73537,16 @@ module.exports = XMLHttpRequest;
 
 },{}],336:[function(require,module,exports){
 (function (Buffer){
-//var profile_buy = function (fromAccount, toAccount, key) {
-var  profile_buy = function(fromAccount, toAccount, key, contractAddress, contractABI, success) {
+
+var  profile_buy = function(fromAccount, toAccount, key, contractAddress, contractABI, success, fallback) {
 Web3 = require('web3'); 
-web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); 
-//contractAddress=fs.readFileSync('MyAdvancedToken.at').toString();
-//contractABI=JSON.parse(fs.readFileSync('MyAdvancedToken.abi').toString());
+web3 = new Web3(new Web3.providers.HttpProvider(fallback)); 
 var Tx = require('ethereumjs-tx');
 var _ = require('lodash');
 var SolidityFunction = require('web3/lib/web3/function');
 var keythereum = require('keythereum');
-//var privateKey = new Buffer('0d5308fb0ece80dbbabd01e6e106f5cab581066e29d1c407b2b5197cf44bb3ec', 'hex');
 var privateKey = new Buffer(key, 'hex');
 var walletContractAddress = contractAddress;
-//var toAccount = '0x729843Fa58A607b887d10fA4ECb9F1D0c7a1E95A';
-//var fromAccount = '0xF4c4ccAA093F93A11C8C1Af34c2E8D093e4F5bd8';
 var ABI = contractABI;
 var solidityFunction = new SolidityFunction('', _.find(ABI, { name: 'transfer' }), '');
 console.log('This shows what toPayload expects as an object');
