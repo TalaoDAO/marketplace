@@ -8,7 +8,7 @@
         if (typeof web3 !== 'undefined') { // Use Mist/MetaMask's provider.
           window.web3 = new Web3(web3.currentProvider);
         } else { // Fallback on local testrpc chain.
-          window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+          window.web3 = new Web3(new Web3.providers.HttpProvider(fallback));
         }
 
         token_emh_contract = new web3.eth.Contract(JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI), Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback);
@@ -40,7 +40,7 @@
 
         validated = false;
         $('#edit-submit', context).on('click', function(){
-           if (!clientRegistered || !expertRegistered) { alert('Using normal profil buy'); return false;}
+           if (!clientRegistered || !expertRegistered) { alert('Using normal profil buy'); return true;}
            if (validated) return true;
            var pass = prompt("Please enter your private key (keep empty to validate transaction with your wallet)", "");
            if (pass == '') {
@@ -48,12 +48,13 @@
                .then( receipt => {validated = true; $('#edit-submit', context).click(); })
                .catch(error => alert('Request rejected') );
            } else {
-           try {
-             //autosign('');
-             //pass = '0d5308fb0ece80dbbabd01e6e106f5cab581066e29d1c407b2b5197cf44bb3ec';
-             Window.profile_buy(clientAddress, expertAddress,pass, Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback, JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI)); 
-           } catch (err) { console.log(err); alert('There was an error'); }
-           //}
+             try {
+               //autosign('');
+               //pass = '0d5308fb0ece80dbbabd01e6e106f5cab581066e29d1c407b2b5197cf44bb3ec';
+               logInfo('<b>Transaction send, waiting for validation ...<b>');
+               Window.profile_buy(clientAddress, expertAddress,pass, Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback, JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI), ()=>{validated = true; $('#edit-submit').click();});
+             } catch (err) { console.log(err); alert('There was an error'); }
+           }
            return false;
         });
       });

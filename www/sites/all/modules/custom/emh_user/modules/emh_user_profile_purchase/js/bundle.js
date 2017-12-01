@@ -73538,7 +73538,7 @@ module.exports = XMLHttpRequest;
 },{}],336:[function(require,module,exports){
 (function (Buffer){
 //var profile_buy = function (fromAccount, toAccount, key) {
-var  profile_buy = function(fromAccount, toAccount, key, contractAddress, contractABI) {
+var  profile_buy = function(fromAccount, toAccount, key, contractAddress, contractABI, success) {
 Web3 = require('web3'); 
 web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545')); 
 //contractAddress=fs.readFileSync('MyAdvancedToken.at').toString();
@@ -73577,8 +73577,8 @@ var tx = new Tx(rawTx);
 tx.sign(privateKey);
 var serializedTx = tx.serialize();
 web3.eth.sendRawTransaction('0x'+serializedTx.toString('hex'), function (err, hash) {
-	        if (err) { console.log('Error:'); console.log(err); }
-	        else {  console.log('Transaction receipt hash pending'); console.log(hash);}
+	        if (err) { alert('There was an error'); console.log('Error:'); console.log(err); }
+	        else { console.log('Transaction receipt hash pending'); console.log(hash); success();}
 });
 }
 module.exports=profile_buy;
