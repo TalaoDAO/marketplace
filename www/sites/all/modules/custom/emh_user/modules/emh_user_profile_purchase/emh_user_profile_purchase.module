@@ -35,8 +35,8 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
   $library = libraries_load('web3');
 
   if (! (($web3_local && $library && !empty($library['loaded'])) || !$web3_local) ) {
-    $form['Error'] = array('#markup' => "Web3.js could not be loaded, contact your adminsitrator");
-    return $form;
+    $form['Error'] = array('#markup' => "Web3.js could not be loaded, ethereum wont work. You should be able to use the site normally though. Contact your adminsitrator");
+    //return $form;
   }
 
   global $user;
@@ -61,16 +61,16 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
 
   $form['confirmation'] = array(
     '#type' => 'item',
-    '#markup' => '<p>' . t("Access !user's profile for !amount credits and 1 EXP Token?", array(
+    '#markup' => '<p><span id="buy-title">' . t("Access !user's profile for !amount credits ?", array(
       '!user' => format_username($account),
       '!amount' => $amount,
-    )) . '</p>'
+    )) . '</span></p>'
 		. '<p class="emh-credits-buy">' . t('Do you need more credits? Please contact us at <a href="mailto:credits@emindhub.com?Subject=Credits%20needed%20by%20!current_user&Body=Your%20company%3A%0AYour%20position%3A%0APhone%20number%3A%0AAmount%20of%20credits%20needed%3A">credits@emindhub.com</a>', array(
 					'!current_user' => format_username($user),
 		)) . '</p>',
   );
 
-  $form['debug'] = array('#markup' => "<span id='debug-js'>...</span><br>");
+  $form['info'] = array('#markup' => "<div id='ethereum-info'></div>");
 
   $form['actions'] = array(
     '#type' => 'actions',
@@ -83,7 +83,6 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
     ),
     'submit' => array(
       '#type' => 'submit',
-//      '#attributes' => array('onclick' => 'alert("not yet"); return false;'),
       '#value' => t("Access profile"),
     ),
   );
@@ -94,15 +93,24 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
     'emh_blockchain' => array(
       'token_emh_deployed_contract_address_fallback' => variable_get('emh_blockchain_TokenEMH_deployed_contract_address_fallback'),
       'token_emh_deployed_contract_ABI' => variable_get('emh_blockchain_TokenEMH_deployed_contract_ABI'),
+      'user_register_deployed_contract_address_fallback' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
+      'user_register_deployed_contract_ABI' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
+      'ethereum_fallback' => variable_get('ethereum_user_register_drupal_fallback_node'),
       'clientHash' => $_user->hash,
       'clientAddress' => $_user->ethereum_user_address['und'][0]['ethereum_address'],
       'expertHash' => $_account->hash,
       'expertAddress' => $_account->ethereum_user_address['und'][0]['ethereum_address'],
+      'clientName' => emh_user_get_beautiful_realname($_user),
+      'expertName' => emh_user_get_beautiful_realname($_account),
     ),
   ), 'setting');
 
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/bundle.js');
+//  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/buffer.js');
+//  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/keythereum.min.js');
+//  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/lodash.min.js');
+//  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/ethereumjs-tx-1.3.3.min.js');
   drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/ethereum_buy_profile.js');
-
   //$form['info'] = array('#markup' => $_account->ethereum_user_address['und'][0]['ethereum_address']);
   return $form;
 }
