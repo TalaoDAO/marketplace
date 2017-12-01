@@ -13,11 +13,21 @@
 function ethereum_user_menu() {
   $items = array();
 
-  $items['admin/config/people/ethereum'] = array(
-    'title' => 'Ethereum',
+  $items['admin/config/ethereum/registry'] = array(
+    'title' => 'Users registry',
+    'description' => 'Ethereum users registry.',
+    'page callback' => '_ethereum_user_registry_list',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ethereum_user.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['admin/config/ethereum/registry/settings'] = array(
+    'title' => 'Settings',
+    'description' => 'Ethereum users registry settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('ethereum_user_admin_form'),
-    'access arguments' => array('access administration pages'),
+    'access arguments' => array('administer site configuration'),
     'file' => 'ethereum_user.admin.inc',
     'type' => MENU_NORMAL_ITEM,
   );
