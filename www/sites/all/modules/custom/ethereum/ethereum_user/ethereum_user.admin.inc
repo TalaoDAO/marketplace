@@ -38,9 +38,8 @@ function ethereum_user_admin_form() {
 function _ethereum_user_registry_list() {
 
   $header = array(
-    t('User Ethereum address'),
-    t('User hash'),
     t('User'),
+    t('Ethereum address'),
   );
 
   $rows = array(
@@ -55,12 +54,16 @@ function _ethereum_user_registry_list() {
     ),
   ));
 
+  // Security token for the Ajax callback to retrieve the Drupal user.
+  $token = variable_set('ethereum_user_registry_list_token', drupal_random_key());
+
   $settings = array(
     'contract' => array(
       'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
       'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
     ),
     'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
+    'token' => $token,
   );
 
   $render['ethereum_user_registry_list'] = array(
