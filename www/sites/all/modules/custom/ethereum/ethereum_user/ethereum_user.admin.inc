@@ -36,7 +36,6 @@ function ethereum_user_admin_form() {
  * List the users who signed the Ethereum registry.
  */
 function _ethereum_user_registry_list() {
-  $loader = theme_image(array('path' => drupal_get_path('module', 'ethereum_user') . '/img/loader.svg'));
 
   $header = array(
     t('User Ethereum address'),
@@ -56,23 +55,22 @@ function _ethereum_user_registry_list() {
     ),
   ));
 
+  $settings = array(
+    'contract' => array(
+      'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
+      'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
+    ),
+    'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
+  );
+
   $render['ethereum_user_registry_list'] = array(
     '#type' => 'markup',
     '#markup' => $table,
     '#attached' => array(
-      'css' => array(
-        drupal_get_path('module', 'ethereum_user') . '/css/ethereum_user_registry.css',
-      ),
       'js' => array(
         array(
           'data' => array(
-            'ethereum_user' => array(
-              'contract' => array(
-                'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
-                'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
-              ),
-              'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
-            ),
+            'ethereum_user' => $settings,
           ),
           'type' => 'setting',
         ),
