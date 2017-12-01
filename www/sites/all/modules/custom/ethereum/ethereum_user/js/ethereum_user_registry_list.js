@@ -4,7 +4,7 @@
 
 (function ($) {
 
-  Drupal.behaviors.ethereum_user_register_drupal = {
+  Drupal.behaviors.ethereum_user_registry_list = {
     attach: function (context, settings) {
       window.addEventListener('load', function () {
 
@@ -18,14 +18,10 @@
             }
           });
           var user_address = accounts[0];
-          if (user_address != Drupal.settings.ethereum_user.user.address.toLowerCase()) {
-            console.log('Current active Ethereum address:' + user_address + ' - Registred Ethereum address on this site:' + Drupal.settings.ethereum_user.user.address + ' - They should be the same.');
-          }
         }
         // Else fallback on a locally injected Web3.js.
         else {
           window.web3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_user.fallback_node));
-          //var user_address = Drupal.settings.ethereum_user.user.address.toLowerCase();
         }
 
         // Get contract object.
@@ -40,8 +36,11 @@
           }
           else {
             result.forEach(function (event) {
+
               // Add a row to the table.
-              $('#ethereum_user_registry_list tr:last').after('<tr><td>' + event.returnValues.from + '</td><td>' + event.returnValues.hash + '</td><td></td></tr>');
+              $.getJSON('/admin/config/ethereum/registry/callback/' + event.returnValues.hash + '/token', function (json) {
+                $('#ethereum_user_registry_list tr:last').after('<tr><td><a href="/user/' + json.data.uid + '">' + json.data.name + '</a></td><td>' + event.returnValues.from + '</td></tr>');
+              });
             });
           }
         });

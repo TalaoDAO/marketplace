@@ -22,6 +22,14 @@ function ethereum_user_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
+  $items['admin/config/ethereum/registry/callback/%/%'] = array(
+    'page callback' => '_ethereum_user_registry_list_callback',
+    'page arguments' => array(5),
+    'access callback' => '_ethereum_user_registry_list_callback_access',
+    'access arguments' => array(5, 6),
+    'type' => MENU_CALLBACK,
+  );
+
   $items['admin/config/ethereum/registry/settings'] = array(
     'title' => 'Settings',
     'description' => 'Ethereum users registry settings',
@@ -216,4 +224,48 @@ function _ethereum_user($this_user) {
     ), 'setting');
   }
   return $output;
+}
+
+/**
+ * Callback to retrieve a user from his hash.
+ */
+function _ethereum_user_registry_list_callback($hash) {
+
+  $hash = substr($hash, 2);
+
+  $user = db_select('users', 'u')
+    ->fields('u', array('uid', 'name'))
+    ->condition('hash', $hash)
+    ->range(0, 1)
+    ->execute()
+    ->fetch();
+
+  drupal_json_output(
+    array(
+      'status' => 0,
+      'data' => array(
+        'uid' => $user->uid,
+        'name' => $user->name,
+      ),
+    )
+  );
+}
+
+/**
+ * Access callback to retrieve a user from his hash.
+ */
+function _ethereum_user_registry_list_callback_access($hash, $token) {
+
+  if (!ctype_xdigit($hash)) {
+    return FALSE;
+  }
+  elseif (!ctype_alnum($token)) {
+    return FALSE;
+  }
+  elseif ($token != variable_get('ethereum_user_registry_list_token')) {
+    return FALSE;
+  }
+  else {
+    return TRUE;
+  }
 }
