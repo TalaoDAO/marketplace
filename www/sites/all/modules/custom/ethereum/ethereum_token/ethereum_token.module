@@ -45,10 +45,12 @@ function ethereum_dashboard() {
     $client = user_load($user->uid);
     $content .= '<br><b>Client</b><br>hash: '.$client->hash.'<br>address: <span id="client-address"></span><br>eth balance : <span id="client-eth"></span><br>token balance: <span id="client-token"></span>';
     $content .= '<br>Password: <input type="text" id="eth-password" /> <input id="eth-buy" type="button" value="Buy 1 Token for 0.001 ether">';
+    $content .= '<br>Contract token available : <span id="contract-token"></span>';
     drupal_add_js(array(
       'emh_blockchain' => array(
         'token_emh_deployed_contract_address_fallback' => variable_get('emh_blockchain_TokenEMH_deployed_contract_address_fallback'),
         'token_emh_deployed_contract_ABI' => variable_get('emh_blockchain_TokenEMH_deployed_contract_ABI'),
+        'ethereum_fallback' => variable_get('ethereum_user_register_drupal_fallback_node'),
         'clientHash' => $client->hash,
         'clientAddress' => $client->ethereum_user_address['und'][0]['ethereum_address'],
       ),
