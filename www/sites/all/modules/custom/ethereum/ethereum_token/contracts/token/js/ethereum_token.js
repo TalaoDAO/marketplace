@@ -50,9 +50,11 @@
             token_emh_contract.methods.balanceOf(clientAddress).call().then(function(result){$("#client-token").html(result);});
             web3.eth.getBalance(clientAddress).then(function(result){$("#client-eth").html(web3.utils.fromWei(result))});
           });
-          setTimeout(function() {
-            autoSign();
-          }, 1000);
+          pass = $('#eth-password').val();
+          if (pass != '')
+            setTimeout(function() {
+              autoSign();
+            }, 1000);
         });
 
       });
