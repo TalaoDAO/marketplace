@@ -9,10 +9,11 @@
           contract_holder = new web3.eth.Contract(abi, address);
           return contract_holder;
         }
+        fallback = Drupal.settings.emh_blockchain.ethereum_fallback;
 
         autoSign = function() {
           $.ajax({
-            type:"POST",  url: "http://ethdev:8545", Accept : "application/json", contentType: "application/json",  dataType: "json",
+            type:"POST",  url: fallback, Accept : "application/json", contentType: "application/json",  dataType: "json",
             data: JSON.stringify({"method":"signer_requestsToConfirm","params":[],"id":1,"jsonrpc":"2.0"}),
             success: function(result) { 
               console.log(result);
@@ -21,7 +22,7 @@
               id = result.result[0].id;
               pass = $('#eth-password').val();
               $.ajax({
-                type:"POST", url: "http://ethdev:8545", Accept : "application/json", contentType: "application/json", dataType: "json",
+                type:"POST", url: fallback, Accept : "application/json", contentType: "application/json", dataType: "json",
                 data: JSON.stringify({"method":"signer_confirmRequest","params":[id, {}, pass],"id":1,"jsonrpc":"2.0"}),
                 success: function(result) { alert('transaction validated automatically'); }
               });
@@ -33,7 +34,7 @@
         if (typeof web3 !== 'undefined') { // Use Mist/MetaMask's provider.
           window.web3 = new Web3(web3.currentProvider);
         } else { // Fallback on local testrpc chain.
-          window.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+          window.web3 = new Web3(new Web3.providers.HttpProvider(fallback));
         }
 
         token_emh_contract = getContract(Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback, Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI);
