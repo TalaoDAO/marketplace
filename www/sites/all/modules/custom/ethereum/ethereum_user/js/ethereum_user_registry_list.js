@@ -27,6 +27,7 @@
         // Get contract object.
         var contract_abi = JSON.parse(Drupal.settings.ethereum_user.contract.abi);
         var contract_address = Drupal.settings.ethereum_user.contract.address;
+        var token = Drupal.settings.ethereum_user.token;
         var contract = new web3.eth.Contract(contract_abi, contract_address);
 
         // Get subscribers.
@@ -38,7 +39,7 @@
             result.forEach(function (event) {
 
               // Add a row to the table.
-              $.getJSON('/admin/config/ethereum/registry/callback/' + event.returnValues.hash + '/token', function (json) {
+              $.getJSON('/admin/config/ethereum/registry/callback/' + event.returnValues.hash + '/'+token, function (json) {
                 $('#ethereum_user_registry_list tr:last').after('<tr><td><a href="/user/' + json.data.uid + '">' + json.data.name + '</a></td><td>' + event.returnValues.from + '</td></tr>');
               });
             });

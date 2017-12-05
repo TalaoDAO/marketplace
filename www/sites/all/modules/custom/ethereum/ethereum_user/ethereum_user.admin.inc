@@ -63,7 +63,8 @@ function _ethereum_user_registry_list() {
       'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
     ),
     'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
-    'token' => $token,
+    //'token' => $token,
+    'token' => variable_get('ethereum_user_registry_list_token'),
   );
 
   $render['ethereum_user_registry_list'] = array(
