@@ -1740,9 +1740,10 @@ function emh_configuration_update_7086() {
 }
 
 /**
- * ADD: enable log module.
+ * ADD: enable log module and ft_opencalais.
  */
 function emh_configuration_update_7087() {
   module_enable(array('log'));
+  module_enable(array('ft_opencalais'));
 }
 
