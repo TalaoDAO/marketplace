@@ -216,6 +216,7 @@ function _ethereum_user($this_user) {
           'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
         ),
         'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
+        'token' => variable_get('ethereum_user_registry_list_token'),
         'user' => array(
           'hash' => $this_user->hash,
           'address' => $this_user_ethereum_address,
@@ -255,11 +256,10 @@ function _ethereum_user_registry_list_callback($hash) {
  * Access callback to retrieve a user from his hash.
  */
 function _ethereum_user_registry_list_callback_access($hash, $token) {
-
-  if (!ctype_xdigit($hash)) {
+  if (!ctype_xdigit(substr($hash,2))) {
     return FALSE;
   }
-  elseif (!ctype_alnum($token)) {
+  elseif (!ctype_alnum(str_replace(['-', '_'], '', $token))) {
     return FALSE;
   }
   elseif ($token != variable_get('ethereum_user_registry_list_token')) {
