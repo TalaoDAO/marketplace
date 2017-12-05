@@ -114,7 +114,7 @@ function emh_opencalais_get_tags($node, $opencalais_tags) {
   
   if(is_array($suggestions)) {
     $suggestions = array_keys($suggestions);
-    emh_opencalais_log($node, $suggestions);
+    emh_opencalais_log($node, $suggestions, 'auto');
   }
   
   foreach ($suggestions as $key => $value) {
@@ -219,7 +219,7 @@ function emh_opencalais_suggest_tags_callback($form, &$form_state, $norebuild = 
   $suggestions = emh_opencalais_get_suggestions($node, $tags);
   $suggestions = array_keys($suggestions);
   
-  emh_opencalais_log($node, $suggestions); 
+  emh_opencalais_log($node, $suggestions, 'button'); 
   
   $tags_array = array();
   $tags_node = $form_state['values']['field_tags']['und'];
@@ -314,15 +314,23 @@ function emh_opencalais_get_body($node) {
  * @param unknown $node          
  * @param unknown $suggestions          
  */
-function emh_opencalais_log($node, $suggestions) {
-  
+function emh_opencalais_log($node, $suggestions, $mode) {
+ 
   // log opencalais
-  $entity_type = 'log';
-  $entity = entity_create($entity_type, array(
+  $entity_type = 'log'; 
+  
+  if(isset($_SESSION['log_opencalais'])) {
+    $entity_id = $_SESSION['log_opencalais']['entity_id'];    
+    $entity = entity_load_single($entity_type, $entity_id);    
+  } else {
+     $entity = entity_create($entity_type, array(
       'type' => 'log_opencalais' 
-  ));
+     ));
+  } 
+  
   $wrapper = entity_metadata_wrapper($entity_type, $entity);
   
+  $wrapper->field_mode_generate_tags->set($mode);
   $wrapper->field_request->set($node->nid);
   
   $body = strip_tags(emh_opencalais_get_body($node));
@@ -344,5 +352,37 @@ function emh_opencalais_log($node, $suggestions) {
   $wrapper->field_tags_opencalais->set($tags_generate);
   
   $wrapper->save();
+    
+  $_SESSION['log_opencalais'] = array('entity_id' => $entity->id,
+     'suggestions' => $suggestions);
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function emh_opencalais_node_presave($node) {
+  if (isset($_SESSION['log_opencalais'])) {
+    $entity_id = $_SESSION['log_opencalais']['entity_id'];
+    $suggestions = $_SESSION['log_opencalais']['suggestions'];
+    unset($_SESSION['log_opencalais']);
+    
+    $entity_type = 'log';
+    $entity = entity_load_single($entity_type, $entity_id);
+    $wrapper = entity_metadata_wrapper($entity_type, $entity);
+    
+    $node_tags = $node->field_tags['und'];
+    // count the nb tags submitted
+    $nb_tags = 0;
+    foreach ($node_tags as $key => $value_tag) {
+      foreach ($suggestions as $key_sugg => $value_sugg) {
+        if (! strcmp($value_sugg, $value_tag['name'])) {
+          $nb_tags ++;
+        }
+      }
+    }
+    
+    $wrapper->field_nb_tags_submitted->set($nb_tags);
+    $wrapper->save();
+  }
 }
 
