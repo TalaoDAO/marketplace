@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FT opencalais feature.
+ */
+
+include_once 'ft_opencalais.features.inc';
