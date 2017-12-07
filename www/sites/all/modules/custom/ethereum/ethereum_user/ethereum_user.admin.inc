@@ -23,12 +23,6 @@ function ethereum_user_admin_form() {
     '#default_value' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
   );
 
-  $form['ethereum_user_register_drupal_fallback_node'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Fallback Ethereum node'),
-    '#default_value' => variable_get('ethereum_user_register_drupal_fallback_node', 'http://localhost:8545'),
-  );
-
   return system_settings_form($form);
 }
 
@@ -62,7 +56,7 @@ function _ethereum_user_registry_list() {
       'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
       'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
     ),
-    'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
+    'node' => variable_get('ethereum_web3_node'),
     'token' => $token,
   );
 

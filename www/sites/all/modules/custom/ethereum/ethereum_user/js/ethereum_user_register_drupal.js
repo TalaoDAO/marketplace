@@ -22,9 +22,9 @@
             console.log('Current active Ethereum address:' + user_address + ' - Registred Ethereum address on this site:' + Drupal.settings.ethereum_user.user.address + ' - They should be the same.');
           }
         }
-        // Else fallback on a locally injected Web3.js.
+        // Else try to use a locally injected Web3.js.
         else {
-          window.web3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_user.fallback_node));
+          window.web3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_user.node));
           var user_address = Drupal.settings.ethereum_user.user.address.toLowerCase();
         }
 
@@ -57,7 +57,7 @@
                 $('#ethereum_user_registry_sign').html('<p>Please wait between 10 seconds and a few minutes for the transaction to be mined on the Ethereum network. You can reload this page at any time to see if the transaction is confirmed. Or you can <a href="https://etherscan.io/tx/' + transactionHash + '" target="_blank">see the transaction status in live</a>.</p>');
               })
               .on('error', function (error) {
-                // 0 is "success error" in RegisterDrupal.sol
+                // 0 is "success error" in RegisterDrupal.sol.
                 if (error != 0) {
                   console.error;
                 }
