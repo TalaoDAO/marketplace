@@ -10,21 +10,14 @@
  */
 function ethereum_user_install() {
 
-  // Create a role.
-  $role_name = 'registered ethereum user';
-  $role = new stdClass();
-  $role->name = $role_name;
-  user_role_save($role);
+  // Clear field cache to recognize the Ethereum address field.
+  $fields = field_read_fields(array(), array('include_inactive' => TRUE));
+  $field_types = field_info_field_types();
+  if (!isset($field_types['ethereum_address_field_ethereum_address'])) {
+    field_info_cache_clear();
+  }
 
-  // Add permission to role.
-  $role = user_role_load_by_name($role_name);
-  $permissions = array(
-    'use ethereum address',
-  );
-  // TODO: does not work during .install @see https://api.drupal.org/api/drupal/modules%21user%21user.module/function/user_role_grant_permissions/7.x
-  //user_role_grant_permissions($role->rid, $permissions);
-
-  // Attach an Ethereum address field to the User entity.
+  // Create an Ethereum address field.
   if (!field_info_field('ethereum_user_address')) {
     $field = array(
       'field_name' => 'ethereum_user_address',
@@ -32,6 +25,8 @@ function ethereum_user_install() {
     );
     field_create_field($field);
   }
+
+  // Create a field instance and attach it to the User entity.
   if (!field_info_instance('user', 'ethereum_user_address', 'user')) {
     $instance = array(
       'field_name' => 'ethereum_user_address',
@@ -44,6 +39,20 @@ function ethereum_user_install() {
     );
     field_create_instance($instance);
   }
+
+  // Create a role.
+  $role_name = 'registered ethereum user';
+  $role = new stdClass();
+  $role->name = $role_name;
+  user_role_save($role);
+
+  // Add permission to role.
+  $permissions = array(
+    'use ethereum',
+  );
+  module_invoke_all('permission');
+  $role = user_role_load_by_name($role_name);
+  user_role_grant_permissions($role->rid, $permissions);
 }
 
 /**
@@ -52,7 +61,10 @@ function ethereum_user_install() {
 function ethereum_user_uninstall() {
 
   // Delete role.
-  user_role_delete('registered ethereum user');
+  $role_name = 'registered ethereum user';
+  if (user_role_load_by_name($role_name)) {
+    user_role_delete($role_name);
+  }
 
   // Delete Ethereum address field for the User entity.
   if ($instance = field_info_instance('user', 'ethereum_user_address', 'user')) {
