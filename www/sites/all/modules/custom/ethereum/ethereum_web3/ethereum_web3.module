@@ -31,8 +31,9 @@ function ethereum_web3_libraries_info() {
 function ethereum_web3_menu() {
   $items = array();
 
-  $items['admin/config/development/web3'] = array(
+  $items['admin/config/ethereum/web3'] = array(
     'title' => 'Web3.js',
+    'description' => 'Web3.js settings.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('ethereum_web3_admin_form'),
     'access arguments' => array('access administration pages'),
