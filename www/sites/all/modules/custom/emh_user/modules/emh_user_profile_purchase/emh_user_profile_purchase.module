@@ -95,7 +95,7 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
       'token_emh_deployed_contract_ABI' => variable_get('emh_blockchain_TokenEMH_deployed_contract_ABI'),
       'user_register_deployed_contract_address_fallback' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
       'user_register_deployed_contract_ABI' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
-      'ethereum_fallback' => variable_get('ethereum_user_register_drupal_fallback_node'),
+      'ethereum_fallback' => variable_get('ethereum_web3_node'),
       'clientHash' => $_user->hash,
       'clientAddress' => $_user->ethereum_user_address['und'][0]['ethereum_address'],
       'expertHash' => $_account->hash,
@@ -218,13 +218,13 @@ function emh_user_profile_purchase($account, $node = NULL) {
     $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
 
     if ($node != NULL) {
-      $log = t('!source buy !destination profile on "!title" request', 
+      $log = t('!source buy !destination profile on "!title" request',
                   array(
-                      '!source' => emh_points_format_entity($user), 
-                      '!destination' => emh_points_format_entity($account), 
-                      '!title' => $node->title, 
+                      '!source' => emh_points_format_entity($user),
+                      '!destination' => emh_points_format_entity($account),
+                      '!title' => $node->title,
                   ));
-      emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT, NULL, $log, $node->nid); 
+      emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT, NULL, $log, $node->nid);
     } else emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT);
 
     // Flags the account to add it in the user's relationships.
