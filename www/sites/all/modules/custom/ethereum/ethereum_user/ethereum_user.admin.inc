@@ -42,20 +42,20 @@ function _ethereum_user_registry_list() {
     t('Ethereum address'),
   );
 
-  $rows = array(
-  );
+  $rows = array();
 
   $table = theme('table', array(
     'header' => $header,
     'rows' => $rows,
-    'caption' => t('Users who signed this site\'s Ethereum user registry'),
+    'caption' => t("Users who signed this site's Ethereum user registry"),
     'attributes' => array(
       'id' => 'ethereum_user_registry_list',
     ),
   ));
 
   // Security token for the Ajax callback to retrieve the Drupal user.
-  $token = variable_set('ethereum_user_registry_list_token', drupal_random_key());
+  $token = drupal_random_key();
+  variable_set('ethereum_user_registry_list_token', $token);
 
   $settings = array(
     'contract' => array(
@@ -63,8 +63,7 @@ function _ethereum_user_registry_list() {
       'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
     ),
     'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
-    //'token' => $token,
-    'token' => variable_get('ethereum_user_registry_list_token'),
+    'token' => $token,
   );
 
   $render['ethereum_user_registry_list'] = array(
@@ -83,5 +82,6 @@ function _ethereum_user_registry_list() {
     ),
   );
   $render['ethereum_user_registry_list']['#attached']['libraries_load'][] = array('web3');
+
   return $render;
 }
