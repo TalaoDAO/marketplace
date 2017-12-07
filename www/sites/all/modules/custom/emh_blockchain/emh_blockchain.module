@@ -97,8 +97,10 @@ function _emh_blockchain_helloworld() {
  */
 function emh_blockchain_ethereum_user_tab(&$build, $this_user_ethereum_address) {
 
-  $markup  = '<h2>Example of hook_ethereum_user_tab</h2>';
+  $markup  = '<div id="emh_blockchain">';
+  $markup .= '<h2>Example of hook_ethereum_user_tab</h2>';
   $markup .= '<p>User address is ' . $this_user_ethereum_address . '</p>';
+  $markup .= '</div>';
 
   $build['emb_blockchain'] = array(
     '#markup' => $markup,
