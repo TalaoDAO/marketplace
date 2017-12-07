@@ -39,7 +39,7 @@
             result.forEach(function (event) {
 
               // Add a row to the table.
-              $.getJSON('/admin/config/ethereum/registry/callback/' + event.returnValues.hash + '/'+token, function (json) {
+              $.getJSON('/admin/config/ethereum/registry/callback/' + event.returnValues.hash + '/' + token, function (json) {
                 $('#ethereum_user_registry_list tr:last').after('<tr><td><a href="/user/' + json.data.uid + '">' + json.data.name + '</a></td><td>' + event.returnValues.from + '</td></tr>');
               });
             });

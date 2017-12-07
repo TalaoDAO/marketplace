@@ -256,13 +256,10 @@ function _ethereum_user_registry_list_callback($hash) {
  * Access callback to retrieve a user from his hash.
  */
 function _ethereum_user_registry_list_callback_access($hash, $token) {
-  if (!ctype_xdigit(substr($hash,2))) {
+  if (!ctype_xdigit(substr($hash, 2))) {
     return FALSE;
   }
-  elseif (!ctype_alnum(str_replace(['-', '_'], '', $token))) {
-    return FALSE;
-  }
-  elseif ($token != variable_get('ethereum_user_registry_list_token')) {
+  elseif (check_plain($token) != variable_get('ethereum_user_registry_list_token')) {
     return FALSE;
   }
   else {
