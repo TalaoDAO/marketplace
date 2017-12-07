@@ -74,7 +74,9 @@ function ethereum_main() { return ''; }
  */
 function ethereum_user_permission() {
   return array(
-    'ethereum user' => array('title' => t('Use Ethereum')),
+    'use ethereum' => array(
+      'title' => t('Use Ethereum'),
+    ),
   );
 }
 
