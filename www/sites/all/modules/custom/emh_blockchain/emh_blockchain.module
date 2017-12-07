@@ -91,3 +91,16 @@ function _emh_blockchain_helloworld() {
   }
   return $content;
 }
+
+/**
+ * Implements hook_ethereum_user_tab().
+ */
+function emh_blockchain_ethereum_user_tab(&$build, $this_user_ethereum_address) {
+
+  $markup  = '<h2>Example of hook_ethereum_user_tab</h2>';
+  $markup .= '<p>User address is ' . $this_user_ethereum_address . '</p>';
+
+  $build['emb_blockchain'] = array(
+    '#markup' => $markup,
+  );
+}

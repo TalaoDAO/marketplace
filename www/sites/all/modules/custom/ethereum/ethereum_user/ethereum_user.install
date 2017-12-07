@@ -41,14 +41,14 @@ function ethereum_user_install() {
   }
 
   // Create a role.
-  $role_name = 'registered ethereum user';
+  $role_name = 'Registered Ethereum user';
   $role = new stdClass();
   $role->name = $role_name;
   user_role_save($role);
 
   // Add permission to role.
   $permissions = array(
-    'use ethereum',
+    'sign ethereum contracts',
   );
   module_invoke_all('permission');
   $role = user_role_load_by_name($role_name);
