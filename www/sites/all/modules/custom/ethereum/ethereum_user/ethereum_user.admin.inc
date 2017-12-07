@@ -56,7 +56,7 @@ function _ethereum_user_registry_list() {
       'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
       'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
     ),
-    'fallback_node' => variable_get('ethereum_user_register_drupal_fallback_node'),
+    'node' => variable_get('ethereum_web3_node'),
     'token' => $token,
   );
 

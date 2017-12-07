@@ -50,7 +50,7 @@ function ethereum_dashboard() {
       'emh_blockchain' => array(
         'token_emh_deployed_contract_address_fallback' => variable_get('emh_blockchain_TokenEMH_deployed_contract_address_fallback'),
         'token_emh_deployed_contract_ABI' => variable_get('emh_blockchain_TokenEMH_deployed_contract_ABI'),
-        'ethereum_fallback' => variable_get('ethereum_user_register_drupal_fallback_node'),
+        'ethereum_fallback' => variable_get('ethereum_web3_node'),
         'clientHash' => $client->hash,
         'clientAddress' => $client->ethereum_user_address['und'][0]['ethereum_address'],
       ),
@@ -64,4 +64,3 @@ function ethereum_dashboard() {
 
 
 }
-
