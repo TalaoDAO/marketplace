@@ -19,9 +19,9 @@
           });
           var user_address = accounts[0];
         }
-        // Else fallback on a locally injected Web3.js.
+        // Else try to use a locally injected Web3.js.
         else {
-          window.web3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_user.fallback_node));
+          window.web3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_user.node));
         }
 
         // Get contract object.

@@ -23,12 +23,6 @@ function ethereum_user_admin_form() {
     '#default_value' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
   );
 
-  $form['ethereum_user_register_drupal_fallback_node'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Fallback Ethereum node'),
-    '#default_value' => variable_get('ethereum_user_register_drupal_fallback_node', 'http://localhost:8545'),
-  );
-
   return system_settings_form($form);
 }
 
