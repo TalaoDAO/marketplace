@@ -319,7 +319,8 @@ function emh_opencalais_log($node, $suggestions, $mode) {
   // log opencalais
   $entity_type = 'log'; 
   
-  if(isset($_SESSION['log_opencalais'])) {
+  if(isset($_SESSION['log_opencalais']) && 
+      $_SESSION['log_opencalais']['node'] == $node->nid) {
     $entity_id = $_SESSION['log_opencalais']['entity_id'];    
     $entity = entity_load_single($entity_type, $entity_id);    
   } else {
@@ -352,37 +353,43 @@ function emh_opencalais_log($node, $suggestions, $mode) {
   $wrapper->field_tags_opencalais->set($tags_generate);
   
   $wrapper->save();
-    
+  
   $_SESSION['log_opencalais'] = array('entity_id' => $entity->id,
-     'suggestions' => $suggestions);
+     'suggestions' => $suggestions, 'node' => $node->nid);
 }
 
 /**
  * Implements hook_node_presave().
  */
 function emh_opencalais_node_presave($node) {
-  if (isset($_SESSION['log_opencalais'])) {
-    $entity_id = $_SESSION['log_opencalais']['entity_id'];
-    $suggestions = $_SESSION['log_opencalais']['suggestions'];
-    unset($_SESSION['log_opencalais']);
-    
-    $entity_type = 'log';
-    $entity = entity_load_single($entity_type, $entity_id);
-    $wrapper = entity_metadata_wrapper($entity_type, $entity);
-    
-    $node_tags = $node->field_tags['und'];
-    // count the nb tags submitted
-    $nb_tags = 0;
-    foreach ($node_tags as $key => $value_tag) {
-      foreach ($suggestions as $key_sugg => $value_sugg) {
-        if (! strcmp($value_sugg, $value_tag['name'])) {
-          $nb_tags ++;
+  if($node->type == 'request') {
+    if (isset($_SESSION['log_opencalais'])) {
+      $entity_id = $_SESSION['log_opencalais']['entity_id'];
+      $suggestions = $_SESSION['log_opencalais']['suggestions'];
+      unset($_SESSION['log_opencalais']);
+      
+      $entity_type = 'log';
+      $entity = entity_load_single($entity_type, $entity_id);
+      $wrapper = entity_metadata_wrapper($entity_type, $entity);
+      
+      // count the nb tags submitted
+      $nb_tags = 0;
+      
+      if(isset($node->field_tags['und'])) {
+        $node_tags = $node->field_tags['und'];
+        foreach ($node_tags as $key => $value_tag) {
+          foreach ($suggestions as $key_sugg => $value_sugg) {
+            if (! strcmp($value_sugg, $value_tag['name'])) {
+              $nb_tags ++;
+            }
+          }
         }
       }
+      
+      $wrapper->field_nb_tags_submitted->set($nb_tags);
+      $wrapper->save();
     }
-    
-    $wrapper->field_nb_tags_submitted->set($nb_tags);
-    $wrapper->save();
   }
+  
 }
 
