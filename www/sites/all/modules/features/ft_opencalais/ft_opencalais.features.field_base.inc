@@ -47,22 +47,18 @@ function ft_opencalais_field_default_field_bases() {
       'type' => 0,
     ),
     'indexes' => array(
-      'value' => array(
-        0 => 'value',
+      'format' => array(
+        0 => 'format',
       ),
     ),
     'locked' => 0,
-    'module' => 'list',
+    'module' => 'text',
     'settings' => array(
-      'allowed_values' => array(
-        'button' => 'button',
-        'auto' => 'auto',
-      ),
-      'allowed_values_function' => '',
       'entity_translation_sync' => FALSE,
+      'max_length' => 255,
     ),
     'translatable' => 0,
-    'type' => 'list_text',
+    'type' => 'text',
   );
 
   // Exported field_base: 'field_nb_tags'.
