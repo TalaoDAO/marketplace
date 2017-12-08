@@ -105,11 +105,10 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
     ),
   ), 'setting');
 
-  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/bundle.js');
-//  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/buffer.js');
-//  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/keythereum.min.js');
-//  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/lodash.min.js');
-//  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/ethereumjs-tx-1.3.3.min.js');
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/buffer.js');
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/keythereum.min.js');
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/lodash.min.js');
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/ethereumjs-tx-1.3.3.min.js');
   drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/ethereum_buy_profile.js');
   //$form['info'] = array('#markup' => $_account->ethereum_user_address['und'][0]['ethereum_address']);
   return $form;
