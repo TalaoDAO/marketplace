@@ -179,7 +179,7 @@ function emh_virality_block_view($delta = '') {
       if (!user_is_logged_in()) {
         break;
       }
-
+      
       $reward = _emh_virality_get_invitation_reward();
 
       if ($reward > 0) {
@@ -287,6 +287,26 @@ function emh_virality_invitation_form($form, &$form_state) {
     '#type' => 'submit',
     '#value' => t('Send invitation'),
   );
+  
+  if(isset($_GET['request'])) {
+    $nid = $_GET['request'];
+    if(is_numeric($nid)) {
+      $node = node_load($nid);
+      if($node) {
+        //TODO
+        $form['sponsorship'] = array(
+          '#type' => 'textfield',
+            '#value' => $node->title,
+            '#title' => 'Request'
+        );
+      }
+      
+    }
+    
+  }
+  
+  
+  
 
   return $form;
 }
@@ -628,3 +648,67 @@ function emh_virality_user_is_referrer($referral, $referrer = NULL) {
   }
   return FALSE;
 }
+
+function emh_virality_node_view($node, $view_mode, $langcode) {
+  switch ($node->type) {
+    case 'request' :
+      //ddl($node, 'node');
+      $node->content['my_additional_field'] = array(
+        '#markup' => $additional_field,
+        '#weight' => 10,
+        '#theme' => 'mymodule_my_additional_field',
+      );
+      
+      $node->content['sponsorship'] = array(
+        //'#type' => 'link',
+        //'#title' => t('Example link'),
+        //'#href' => $base_url . '/' . drupal_get_path_alias('invitations'),
+        '#attributes' => array(
+          'class' => array(
+              'btn', 'btn-flash', 'icon-user',
+          ),
+          'href' => array(
+            $base_url . '/' . drupal_get_path_alias('invitations') . '?request=' . $node->nid,
+          ),        
+        ),
+        '#theme' => 'html_tag',
+        '#tag' => 'a',
+        '#value' => t('Invite experts'),
+          //'#type' => 'submit',
+          //'#submit' => array('emh_virality_sponsorship_submit'),
+        //'#ajax' => array(
+             // 'callback' => 'emh_virality_sponsorship_callback',
+              //'effect' => 'fade',
+             // 'method' => 'redirect',
+            //'event' => 'click'
+        //  ),
+          //'#process' => array('emh_virality_sponsorship_process'),
+          
+      );
+      
+      break;
+  }
+}
+
+function emh_virality_sponsorship_submit($form, &$form_state) {
+  ddl($form_state, 'form state');
+  ddl($form, 'form');
+  $test = $form;
+  $form_state['testo'] = "couc";
+  //$_SESSION['sponsorship'] = $form['#node'];
+  
+}
+
+
+function emh_virality_node_view_alter(&$build) {
+  /*if ($build['#view_mode'] == 'full' && isset($build['an_additional_field'])) {
+    // Change its weight.
+    $build['an_additional_field']['#weight'] = -10;
+  }*/
+  //ddl($build,'build');
+
+  // Add a #post_render callback to act on the rendered HTML of the node.
+  //$build['#post_render'][] = 'my_module_node_post_render';
+}
+
+
