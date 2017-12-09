@@ -3,6 +3,37 @@
   Drupal.behaviors.emhBlockchain = {
     attach: function (context, settings) {
       window.addEventListener('load', function () {
+
+        autosign = function (pass, onreceipt) {
+          var walletContractAddress = Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback;
+          var privateKey = new buffer.Buffer(pass, 'hex');
+          var toAccount = expertAddress;
+          var fromAccount = clientAddress;
+          var signature = _.find(ABI, { name: 'transfer' });
+          var payloadData = web3.eth.abi.encodeFunctionCall(signature, [toAccount, 1]);
+          gasPrice = web3.eth.gasPrice;
+          gasPriceHex = web3.utils.toHex(gasPrice);
+          gasLimitHex = web3.utils.toHex(300000);
+          web3.eth.getTransactionCount(fromAccount).then((nonce) => {
+            nonceHex = web3.utils.toHex(nonce);
+            var rawTx = {
+              nonce: nonceHex,
+              gasPrice: gasPriceHex,
+              gasLimit: gasLimitHex,
+              to: walletContractAddress,
+              from: fromAccount,
+              value: '0x00',
+              data: payloadData
+              };
+            var tx = new ethereumjs.Tx(rawTx);
+            tx.sign(privateKey);
+            var serializedTx = tx.serialize();
+            web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).then( () =>{ onreceipt(); return null; } );
+            return null;
+          });
+        }
+
+
         fallback = Drupal.settings.emh_blockchain.ethereum_fallback;
         // Checking if Web3 has been injected by the browser (Mist/MetaMask).
         if (typeof web3 !== 'undefined') { // Use Mist/MetaMask's provider.
@@ -10,7 +41,7 @@
         } else { // Fallback on local testrpc chain.
           window.web3 = new Web3(new Web3.providers.HttpProvider(fallback));
         }
-
+        ABI = JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI);
         token_emh_contract = new web3.eth.Contract(JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI), Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback);
         user_register_contract = new web3.eth.Contract(JSON.parse(Drupal.settings.emh_blockchain.user_register_deployed_contract_ABI), Drupal.settings.emh_blockchain.user_register_deployed_contract_address_fallback);
         clientAddress = Drupal.settings.emh_blockchain.clientAddress;
@@ -49,9 +80,11 @@
                .catch(error => alert('Request rejected') );
            } else {
              try {
-               //autosign('');
                logInfo('<b>Transaction send, waiting for validation ...<b>');
-               Window.profile_buy(clientAddress, expertAddress,pass, Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback, JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI), ()=>{validated = true; $('#edit-submit').click();}, fallback);
+               pass = '0d5308fb0ece80dbbabd01e6e106f5cab581066e29d1c407b2b5197cf44bb3ec';
+               autosign(pass, ()=>{
+                 //validated = true; $('#edit-submit').click();
+               });
              } catch (err) { console.log(err); alert('There was an error'); }
            }
            return false;
@@ -62,18 +95,28 @@
 }(jQuery));
 
 /*
-        autosign = function () {
+// Autosign version with Web3.js dev and SolidityFunction
+// inspired from https://forum.ethereum.org/discussion/5039/how-to-use-web3-js-to-sign-a-contract-call
+// generate a bundle with browserify : http://browserify.org/ 
+// call it with : 
+// Window.profile_buy(clientAddress, expertAddress,pass, Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback, JSON.parse(Drupal.settings.emh_blockchain.token_emh_deployed_contract_ABI), ()=>{validated = true; $('#edit-submit').click();}, fallback);
 
-var walletContractAddress = Drupal.settings.emh_blockchain.token_emh_deployed_contract_address_fallback;
-var privateKey = new buffer.Buffer('0d5308fb0ece80dbbabd01e6e106f5cab581066e29d1c407b2b5197cf44bb3ec', 'hex');
-//var privateKey = new Buffer(pass, 'hex');
-var toAccount = expertAddress;
-var fromAccount = clientAddress;
-console.log(privateKey);
+
+var  profile_buy = function(fromAccount, toAccount, key, contractAddress, contractABI, success, fallback) {
+Web3 = require('web3'); 
+web3 = new Web3(new Web3.providers.HttpProvider(fallback)); 
+var Tx = require('ethereumjs-tx');
+var _ = require('lodash');
+var SolidityFunction = require('web3/lib/web3/function');
+var keythereum = require('keythereum');
+var privateKey = new Buffer(key, 'hex');
+var walletContractAddress = contractAddress;
+var ABI = contractABI;
 var solidityFunction = new SolidityFunction('', _.find(ABI, { name: 'transfer' }), '');
 console.log('This shows what toPayload expects as an object');
-console.log(solidityFunction);
+//console.log(solidityFunction);
 var payloadData = solidityFunction.toPayload([toAccount, 1]).data;
+console.log(payloadData);
 gasPrice = web3.eth.gasPrice;
 gasPriceHex = web3.toHex(gasPrice);
 gasLimitHex = web3.toHex(300000);
@@ -82,18 +125,24 @@ nonceHex = web3.toHex(nonce);
 console.log('nonce (transaction count on fromAccount): ' + nonce + '(' + nonceHex + ')');
 
 var rawTx = {
-    nonce: nonceHex,
-    gasPrice: gasPriceHex,
-    gasLimit: gasLimitHex,
-    to: walletContractAddress,
-    from: fromAccount,
-    value: '0x00',
-    data: payloadData
+      nonce: nonceHex,
+      gasPrice: gasPriceHex,
+      gasLimit: gasLimitHex,
+      to: walletContractAddress,
+      from: fromAccount,
+      value: '0x00',
+      data: payloadData
 };
-var tx = new ethereumjs.Tx(rawTx);
+var tx = new Tx(rawTx);
 tx.sign(privateKey);
 var serializedTx = tx.serialize();
-web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', console.log);
-
-        }
+console.log(tx);
+return;
+web3.eth.sendRawTransaction('0x'+serializedTx.toString('hex'), function (err, hash) {
+          if (err) { alert('There was an error'); console.log('Error:'); console.log(err); }
+          else { console.log('Transaction receipt hash pending'); console.log(hash); success();}
+});
+}
+module.exports=profile_buy;
+Window.profile_buy = profile_buy;
 */
