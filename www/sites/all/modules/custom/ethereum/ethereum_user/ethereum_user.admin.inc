@@ -75,7 +75,10 @@ function _ethereum_user_registry_list() {
       ),
     ),
   );
-  $render['ethereum_user_registry_list']['#attached']['libraries_load'][] = array('web3');
+  // Inject local Web3.js if configured so.
+  if (variable_get('ethereum_web3_local_injection')) {
+    $render['ethereum_user_registry_list']['#attached']['libraries_load'][] = array('web3');
+  }
 
   return $render;
 }
