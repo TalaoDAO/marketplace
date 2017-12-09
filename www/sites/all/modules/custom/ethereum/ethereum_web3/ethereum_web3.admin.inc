@@ -26,7 +26,7 @@ function ethereum_web3_admin_form() {
 
     $form['ethereum_web3_local_injection'] = array(
       '#type' => 'checkbox',
-      '#title' => t('Inject local Web3.js library?'),
+      '#title' => t('Inject local Web3.js library'),
       '#description' => t('Check to inject Web3.js locally. You need to specify an Ethereum node to connect to, or have a local node running at the usual http://localhost:8545. Local Web3.js injection is not compatible with injection from Metamask.'),
       '#default_value' => variable_get('ethereum_web3_local_injection', FALSE),
     );
