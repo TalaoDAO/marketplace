@@ -31,7 +31,7 @@
         var contract = new web3.eth.Contract(contract_abi, contract_address);
 
         // Get subscribers.
-        contract.getPastEvents('AccountCreatedEvent', {fromBlock: 0, toBlock: 'latest'}, function (error, result) {
+        contract.getPastEvents('AccountCreatedEvent', {filter: {error: [0]}, fromBlock: 0, toBlock: 'latest'}, function (error, result) {
           if (error) {
             console.log(error);
           }
