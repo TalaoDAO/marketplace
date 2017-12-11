@@ -1729,6 +1729,7 @@ function emh_configuration_update_7084() {
  * CHG: Domains become "sectors".
  */
 function emh_configuration_update_7085() {
+  exec("drush fra -y");
   exec("drush sql-query --file=$(drush dd)/../deploy/scripts/domains_to_sector.sql"); 
 }
 
@@ -1737,5 +1738,14 @@ function emh_configuration_update_7085() {
  */
 function emh_configuration_update_7086() {
   module_enable(array('emh_opencalais'));
+}
+
+/**
+ * ADD: enable log module and ft_opencalais.
+ */
+function emh_configuration_update_7087() {
+  module_enable(array('log'));
+  module_enable(array('log_plan'));
+  module_enable(array('ft_opencalais'));
 }
 
