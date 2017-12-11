@@ -1745,6 +1745,7 @@ function emh_configuration_update_7086() {
  */
 function emh_configuration_update_7087() {
   module_enable(array('log'));
+  module_enable(array('log_plan'));
   module_enable(array('ft_opencalais'));
 }
 
