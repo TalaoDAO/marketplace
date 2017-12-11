@@ -984,6 +984,63 @@ function ft_request_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-request-opencalais_socialtags_tags'.
+  $field_instances['node-request-opencalais_socialtags_tags'] = array(
+    'bundle' => 'request',
+    'default_formatter' => 'taxonomy_term_reference_link',
+    'default_value' => NULL,
+    'default_widget' => 'options_select',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'i18n_taxonomy',
+        'settings' => array(),
+        'type' => 'i18n_taxonomy_term_reference_link',
+        'weight' => 20,
+      ),
+      'summary' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'opencalais_socialtags_tags',
+    'label' => 'SocialTags',
+    'required' => FALSE,
+    'settings' => array(
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => '',
+          'parent' => 0,
+        ),
+      ),
+      'entity_translation_sync' => FALSE,
+      'opencalais' => 'social_tags',
+      'threshold' => 0.54,
+      'user_register_form' => FALSE,
+    ),
+    'title' => 'SocialTags',
+    'widget' => array(
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 21,
+    ),
+  );
+
   // Exported field_instance: 'node-request-title_field'.
   $field_instances['node-request-title_field'] = array(
     'bundle' => 'request',
@@ -1229,6 +1286,7 @@ function ft_request_field_default_field_instances() {
   t('Prepopulate request URL');
   t('Questions');
   t('Request title or question');
+  t('SocialTags');
   t('Tags');
   t('We suggest you give at least some information about your activity');
 
