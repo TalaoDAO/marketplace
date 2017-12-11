@@ -274,19 +274,9 @@ function emh_virality_move_points_after($txn_id, $transaction, $source, $destina
  * Builds the invitation form.
  */
 function emh_virality_invitation_form($form, &$form_state) {
-  $form['emails'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Emails'),
-    '#required' => TRUE,
-    '#attributes' => array(
-      'placeholder' => t('Add emails separated by comma'),
-    ),
-  );
+  
 
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Send invitation'),
-  );
+  
   
   if(isset($_GET['request'])) {
     $nid = $_GET['request'];
@@ -299,15 +289,106 @@ function emh_virality_invitation_form($form, &$form_state) {
             '#value' => $node->title,
             '#title' => 'Request'
         );
+        
+        // Because we have many fields with the same values, we have to set
+        // #tree to be able to access them.
+        $form['#tree'] = TRUE;
+        $form['sponsorship_fieldset'] = array(
+          '#type' => 'fieldset',
+          '#title' => t('Invite experts'),
+          // Set up the wrapper so that AJAX will be able to replace the fieldset.
+          '#prefix' => '<div id="sponsorship-fieldset-wrapper">',
+          '#suffix' => '</div>',
+        );
+      
+        // Build the fieldset with the proper number of names. We'll use
+        // $form_state['num_experts'] to determine the number of textfields to build.
+        if (empty($form_state['num_experts'])) {
+          $form_state['num_experts'] = 1;
+        }
+        for ($i = 0; $i < $form_state['num_experts']; $i++) {
+          $form['sponsorship_fieldset']['name'][$i] = array(
+            '#type' => 'textfield',
+            '#title' => t('Name'),
+            '#required' => TRUE,
+          );
+          $form['sponsorship_fieldset']['first_name'][$i] = array(
+            '#type' => 'textfield',
+            '#title' => t('First Name'),
+            '#required' => TRUE,
+          );
+          $form['sponsorship_fieldset']['mail'][$i] = array(
+            '#type' => 'textfield',
+            '#title' => t('Mail'),
+            '#required' => TRUE,
+          );
+        }
+        $form['sponsorship_fieldset']['add_expert'] = array(
+          '#type' => 'submit',
+          '#value' => t('Add one more'),
+          '#submit' => array('emh_virality_add_more_add_one'),
+          // See the examples in ajax_example.module for more details on the
+          // properties of #ajax.
+          '#ajax' => array(
+            'callback' => 'emh_virality_add_more_callback',
+            'wrapper' => 'sponsorship-fieldset-wrapper',
+          ),
+        );
+        if ($form_state['num_experts'] > 1) {
+          $form['sponsorship_fieldset']['remove_name'] = array(
+            '#type' => 'submit',
+            '#value' => t('Remove one'),
+            '#submit' => array('emh_virality_add_more_remove_one'),
+            '#ajax' => array(
+              'callback' => 'emh_virality_add_more_callback',
+              'wrapper' => 'sponsorship-fieldset-wrapper',
+            ),
+          );
+        }
+        /*$form['submit'] = array(
+          '#type' => 'submit',
+          '#value' => t('Submit'),
+        );*/
+      
+        // This simply allows us to demonstrate no-javascript use without
+        // actually turning off javascript in the browser. Removing the #ajax
+        // element turns off AJAX behaviors on that element and as a result
+        // ajax.js doesn't get loaded.
+        // For demonstration only! You don't need this.
+        if ($no_js_use) {
+          // Remove the #ajax from the above, so ajax.js won't be loaded.
+          if (!empty($form['sponsorship_fieldset']['remove_name']['#ajax'])) {
+            unset($form['sponsorship_fieldset']['remove_name']['#ajax']);
+          }
+          unset($form['sponsorship_fieldset']['add_name']['#ajax']);
+        }
+        
       }
+      
       
     }
     
+  } else {
+    $form['emails'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Emails'),
+      '#required' => TRUE,
+      '#attributes' => array(
+        'placeholder' => t('Add emails separated by comma'),
+      ),
+    );
   }
   
   
   
-
+  ddl($form, 'form');
+  ddl($form_state,'form state');
+  
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Send invitation'),
+  );
+  
   return $form;
 }
 
@@ -709,6 +790,22 @@ function emh_virality_node_view_alter(&$build) {
 
   // Add a #post_render callback to act on the rendered HTML of the node.
   //$build['#post_render'][] = 'my_module_node_post_render';
+}
+
+function emh_virality_add_more_add_one($form, &$form_state) {
+  $form_state['num_expert']++;
+  $form_state['rebuild'] = TRUE;
+}
+
+function emh_virality_add_more_callback($form, $form_state) {
+  return $form['sponsorship_fieldset'];
+}
+
+function emh_virality_add_more_remove_one($form, &$form_state) {
+  if ($form_state['num_expert'] > 1) {
+    $form_state['num_expert']--;
+  }
+  $form_state['rebuild'] = TRUE;
 }
 
 
