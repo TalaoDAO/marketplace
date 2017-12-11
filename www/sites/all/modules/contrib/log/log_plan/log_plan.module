@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Log Plan - A planning module that utilizes log entities.
+ */
+
+/****************************************************************
+ * Drupal hooks
+ * **************************************************************/
+
+/**
+ * Implements hook_permission().
+ */
+function log_plan_permission() {
+  $perms = array(
+    'view log plan' => array(
+      'title' => t('View log plan'),
+      'description' => t('Allow access to the log plan Views'),
+    ),
+  );
+
+  return $perms;
+}
+
+/***************************************************************
+ * Views hooks
+ * *************************************************************/
+
+/**
+ * Implements hook_views_api().
+ */
+function log_plan_views_api() {
+  return array('version' => 3);
+}
