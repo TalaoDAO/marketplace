@@ -1,0 +1,182 @@
+<?php
+
+/**
+ * @file
+ * Ethereum field module.
+ *
+ * Provides an Ethereum field.
+ */
+
+
+function ethereum_field_block_info() {
+  $blocks['ethereum_field'] = [ 'info'=> t('Ethereum field') ];
+  return $blocks;
+}
+
+function ethereum_field_block_configure($delta = '') {
+  $form = [];
+  if ($delta = 'ethereum_field') {
+    $form['contract_at'] = [ '#type' => 'textfield', '#title' => 'Contract address', '#size' => '42', '#default_value' => variable_get('ethfield_contract_at') ];
+    $form['contract_abi'] = [ '#type' => 'textarea', '#title' => 'Contract abi', '#size' => '42',  '#default_value' => variable_get('ethfield_contract_abi')];
+    $form['contract_fieldname'] = [ '#type' => 'textfield', '#title' => 'Field name', '#size' => '42', '#default_value' => variable_get('ethfield_contract_fieldname') ];
+  }
+  return $form;
+}
+
+function ethereum_field_block_save($delta = '', $edit=array()) {
+  if ($delta = 'ethereum_field') {
+    variable_set('ethfield_contract_at', $edit['contract_at']);
+    variable_set('ethfield_contract_abi', $edit['contract_abi']);
+    variable_set('ethfield_contract_fieldname', $edit['contract_fieldname']);
+  }
+}
+
+function ethereum_field_block_view($delta = '') {
+  switch ($delta) {
+    case 'ethereum_field' :
+      global $user; $client = user_load($user->uid);
+      $block['subject'] = "ethereum field";
+      $block['content'] = '<span id="eth-field">toto</span>'; 
+      drupal_add_js(array(
+        'ethereum_field' => array(
+          'contract_address' => variable_get('ethfield_contract_at'),
+          'contract_abi' => variable_get('ethfield_contract_abi'),
+          'fallback' => variable_get('ethereum_web3_node'),
+          'field_name' => variable_get('ethfield_contract_fieldname'),
+          'user_hash' => $client->hash,
+          'user_address' => $client->ethereum_user_address['und'][0]['ethereum_address'],
+        ),
+      ), 'setting');
+      drupal_add_js("
+(function ($) {
+  Drupal.behaviors.ethereum_field = {
+    attach: function (context, settings) {
+      window.addEventListener('load', function () {
+
+        localweb3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_field.fallback));
+        user_address = Drupal.settings.ethereum_field.user_address;
+        contract_abi = JSON.parse(Drupal.settings.ethereum_field.contract_abi);
+        contract_address = Drupal.settings.ethereum_field.contract_address;
+        contract = new localweb3.eth.Contract(contract_abi, contract_address);
+        user_hash = Drupal.settings.ethereum_field.user_hash;
+        field_name = Drupal.settings.ethereum_field.field_name;
+        method = contract.methods[field_name];
+        method(user_address).call().then(function(result){console.log(result); $('#eth-field').html(result); window[field_name] = result; });
+
+}); }}}(jQuery));", 'inline');
+    break;
+  }
+  return $block;
+}
+
+function ethereum_field_field_info() {
+  return array(
+    'ethereum_field' => array(
+      'label' => t('Ethereum field'),
+      'description' => t('Ethereum field.'),
+      'settings' => array(),
+      'instance_settings' => ['contract_at' => '', 'contract_abi' => '', 'callname' => ''],
+      'default_widget' => 'ethereum_field_widget',
+      'default_formatter' => 'ethereum_field_formater',
+    ),
+  );
+}
+
+function ethereum_field_field_is_empty($item, $field) {
+  return empty($item['ethereum_field']);
+}
+
+function ethereum_field_field_formatter_info() {
+  return array(
+    'ethereum_field_formater' => array(
+      'label' => t('Ethereum dynamic value'),
+      'field types' => array('ethereum_field' ),
+    ),
+  );
+}
+
+function ethereum_field_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays) {
+   foreach ($items as $id => $item) {
+    if ($displays[$id]['type'] == 'ethereum_field_formater') {
+          $items[$id][0]['contract_value'] = '';
+      }
+    }
+}
+
+function ethereum_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  $settings = $instance['settings'];
+  switch ($display['type']) {
+    case 'ethereum_field_formater':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#markup' => "<span id='eth-field'>test</span>"
+        );
+      }
+        global $user; $client = user_load($user->uid);
+        libraries_load('web3');
+        drupal_add_js(array(
+          'ethereum_field' => array(
+            'contract_address' => $settings['contract_at'],
+            'contract_abi' => $settings['contract_abi'],
+            'fallback' => variable_get('ethereum_web3_node'),
+            'field_name' => $settings['callname'],
+            'user_hash' => $client->hash,
+            'user_address' => $client->ethereum_user_address['und'][0]['ethereum_address'],
+          ),
+        ), 'setting');
+        drupal_add_js("
+  (function ($) {
+    Drupal.behaviors.ethereum_field = {
+      attach: function (context, settings) {
+        window.addEventListener('load', function () {
+          localweb3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_field.fallback));
+          user_address = Drupal.settings.ethereum_field.user_address;
+          contract_abi = JSON.parse(Drupal.settings.ethereum_field.contract_abi);
+          contract_address = Drupal.settings.ethereum_field.contract_address;
+          contract = new localweb3.eth.Contract(contract_abi, contract_address);
+          user_hash = Drupal.settings.ethereum_field.user_hash;
+          field_name = Drupal.settings.ethereum_field.field_name;
+          method = contract.methods[field_name];
+          method(user_address).call().then(function(result){console.log(result); $('#eth-field').html(result); window[field_name] = result; });
+
+  }); }}}(jQuery));", 'inline');
+
+      break;
+  }
+
+  return $element;
+}
+
+function ethereum_field_field_widget_info() {
+  return array(
+    'ethereum_field_widget' => array(
+      'label' => t('Ethereum field'),
+      'field types' => array('ethereum_field'),
+    ),
+  );
+}
+
+function ethereum_field_field_instance_settings_form($field, $instance) {
+  $settings = $instance['settings'];
+
+  $form['contract_at'] = [
+    '#type' => 'textfield',
+    '#title' => t('Contract address'),
+    '#default_value' =>  $settings['contract_at'],
+    '#required' => FALSE,
+  ];
+  $form['contract_abi'] = [
+    '#type' => 'textarea',
+    '#title' => t('Contract ABI'),
+    '#default_value' =>  $settings['contract_abi'],
+     '#required' => FALSE,
+  ];
+  $form['callname'] = [
+    '#type' => 'textfield',
+    '#title' => t('Contract method'),
+    '#default_value' =>  $settings['callname'],
+    '#required' => FALSE,
+  ];
+  return $form;
+}
