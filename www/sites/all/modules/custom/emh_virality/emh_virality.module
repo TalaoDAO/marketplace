@@ -275,60 +275,71 @@ function emh_virality_move_points_after($txn_id, $transaction, $source, $destina
  */
 function emh_virality_invitation_form($form, &$form_state) {
   
-
-  
-  
-  if(isset($_GET['request'])) {
-    $nid = $_GET['request'];
+  $parameters = drupal_get_query_parameters();
+  if(isset($parameters['request']) || $form_state['submitted']) {
+    
+    if(isset($parameters['request'])) {
+      $nid = $parameters['request'];
+    } elseif (isset($_SESSION['invite_expert_request'])) {
+      $nid = $_SESSION['invite_expert_request'];
+    }
+    
     if(is_numeric($nid)) {
       $node = node_load($nid);
-      if($node) {
-        //TODO
-        $form['sponsorship'] = array(
-          '#type' => 'textfield',
-            '#value' => $node->title,
-            '#title' => 'Request'
+      $_SESSION['invite_expert_request'] = $nid;
+      if($node && $node->type == 'request') {
+        
+        $form_state['request_nid'] = $node->nid;
+       
+        $form['sponsorship_request'] = array(
+          '#markup' => '<h3>' . $node->title . '</h3>',
         );
         
-        // Because we have many fields with the same values, we have to set
-        // #tree to be able to access them.
+        
         $form['#tree'] = TRUE;
         $form['sponsorship_fieldset'] = array(
           '#type' => 'fieldset',
           '#title' => t('Invite experts'),
-          // Set up the wrapper so that AJAX will be able to replace the fieldset.
           '#prefix' => '<div id="sponsorship-fieldset-wrapper">',
           '#suffix' => '</div>',
         );
-      
-        // Build the fieldset with the proper number of names. We'll use
-        // $form_state['num_experts'] to determine the number of textfields to build.
+        
         if (empty($form_state['num_experts'])) {
           $form_state['num_experts'] = 1;
         }
         for ($i = 0; $i < $form_state['num_experts']; $i++) {
-          $form['sponsorship_fieldset']['name'][$i] = array(
+          $form['sponsorship_fieldset']['expert'][$i] = array(
+            '#tree'=> TRUE,
+            '#type' => 'fieldset',
+            '#title' => t('One expert'),
+            '#prefix' => '<div id="invite-expert-wrapper">',
+            '#suffix' => '</div>',
+          );
+          
+          $form['sponsorship_fieldset']['expert'][$i]['name'] = array(
             '#type' => 'textfield',
             '#title' => t('Name'),
             '#required' => TRUE,
           );
-          $form['sponsorship_fieldset']['first_name'][$i] = array(
+          $form['sponsorship_fieldset']['expert'][$i]['first_name'] = array(
             '#type' => 'textfield',
             '#title' => t('First Name'),
             '#required' => TRUE,
           );
-          $form['sponsorship_fieldset']['mail'][$i] = array(
+          $form['sponsorship_fieldset']['expert'][$i]['mail'] = array(
             '#type' => 'textfield',
             '#title' => t('Mail'),
             '#required' => TRUE,
+          );
+          $form['sponsorship_fieldset']['expert'][$i]['message'] = array(
+            '#type' => 'textarea',
+            '#title' => t('Message'),
           );
         }
         $form['sponsorship_fieldset']['add_expert'] = array(
           '#type' => 'submit',
           '#value' => t('Add one more'),
           '#submit' => array('emh_virality_add_more_add_one'),
-          // See the examples in ajax_example.module for more details on the
-          // properties of #ajax.
           '#ajax' => array(
             'callback' => 'emh_virality_add_more_callback',
             'wrapper' => 'sponsorship-fieldset-wrapper',
@@ -345,45 +356,17 @@ function emh_virality_invitation_form($form, &$form_state) {
             ),
           );
         }
-        /*$form['submit'] = array(
-          '#type' => 'submit',
-          '#value' => t('Submit'),
-        );*/
-      
-        // This simply allows us to demonstrate no-javascript use without
-        // actually turning off javascript in the browser. Removing the #ajax
-        // element turns off AJAX behaviors on that element and as a result
-        // ajax.js doesn't get loaded.
-        // For demonstration only! You don't need this.
-        if ($no_js_use) {
-          // Remove the #ajax from the above, so ajax.js won't be loaded.
-          if (!empty($form['sponsorship_fieldset']['remove_name']['#ajax'])) {
-            unset($form['sponsorship_fieldset']['remove_name']['#ajax']);
-          }
-          unset($form['sponsorship_fieldset']['add_name']['#ajax']);
-        }
-        
+      } else {
+        emh_virality_form_email($form);
       }
-      
-      
+    } else {
+      emh_virality_form_email($form);
     }
     
   } else {
-    $form['emails'] = array(
-      '#type' => 'textarea',
-      '#title' => t('Emails'),
-      '#required' => TRUE,
-      '#attributes' => array(
-        'placeholder' => t('Add emails separated by comma'),
-      ),
-    );
+    emh_virality_form_email($form);
   }
-  
-  
-  
-  ddl($form, 'form');
-  ddl($form_state,'form state');
-  
+ 
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Send invitation'),
@@ -392,24 +375,50 @@ function emh_virality_invitation_form($form, &$form_state) {
   return $form;
 }
 
+function emh_virality_form_email(&$form){
+   $form['emails'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Emails'),
+      '#required' => TRUE,
+      '#attributes' => array(
+        'placeholder' => t('Add emails separated by comma'),
+      ),
+    );
+}
 
 /**
  * Validation callback of the invitation form.
  */
 function emh_virality_invitation_form_validate($form, &$form_state) {
+  
   $values = $form_state['values'];
 
-  $emails = explode(',', $values['emails']);
-
-  if (count($emails) > VIRAL_INVITATIONS_MAX) {
-    form_set_error('emails', t('You can not send more than !max invitations at the same time', array('!max' => VIRAL_INVITATIONS_MAX)));
-  }
-
-  foreach ($emails as $email) {
-    if (($email = trim($email)) && (!valid_email_address($email))) {
-      form_set_error('emails', t('This email is not valid: @email', array('@email' => $email)));
+  if(isset($values['emails'])) {
+    $emails = explode(',', $values['emails']);
+  
+    if (count($emails) > VIRAL_INVITATIONS_MAX) {
+      form_set_error('emails', t('You can not send more than !max invitations at the same time', array('!max' => VIRAL_INVITATIONS_MAX)));
+    }
+  
+    foreach ($emails as $email) {
+      if (($email = trim($email)) && (!valid_email_address($email))) {
+        form_set_error('emails', t('This email is not valid: @email', array('@email' => $email)));
+      }
     }
   }
+  
+  if(isset($values['sponsorship_fieldset'])) {
+    $experts = $values['sponsorship_fieldset']['expert'];
+    
+    foreach ($experts as $expert) {
+      $email = $expert['mail'];  
+      if (($email = trim($email)) && (!valid_email_address($email))) {
+        form_set_error('emails', t('This email is not valid: @email', array('@email' => $email)));
+      }
+    }
+    
+  }
+  
 }
 
 
@@ -417,17 +426,28 @@ function emh_virality_invitation_form_validate($form, &$form_state) {
  * Submit callback of the invitation form.
  */
 function emh_virality_invitation_form_submit($form, &$form_state) {
+  
   global $user;
   $values = $form_state['values'];
 
+  $emails = array();
   // Cleans the received emails list
+  if(isset($values['emails'])) {
+    $emails = explode(',', $values['emails']);
+  } elseif (isset($values['sponsorship_fieldset'])) {
+    $emails = $values['sponsorship_fieldset']['expert'];
+  }
+  
   $valid_emails = array();
-  foreach (explode(',', $values['emails']) as $email) {
+  foreach ($emails as $email) {
+    if(isset($values['sponsorship_fieldset'])){
+      $email = $email['mail'];
+    }
     if ($email = trim($email)) {
       $valid_emails[] = $email;
     }
   }
-
+  
   // Retrieves the emails already used by users
   $query = db_select('users', 'u')
     ->fields('u', array('mail'))
@@ -465,10 +485,16 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
     }
 
     try {
+      
+      $request = NULL;
+      if(isset($form_state['request_nid']))
+        $request = $form_state['request_nid'];
+
       $invitation = new EmhInvitation(array(
         'referrer_id' => $user->uid,
         'referral_mail' => $email,
         'created_at' => time(),
+        'request_id' => $request,  
       ));
 
       $invitation->save();
@@ -659,15 +685,19 @@ function emh_virality_show_user_history($account = NULL) {
       case EmhInvitation::STATUS_VALIDATED: $status = t('Invitation validated.'); break;
     }
 
+    $node = node_load($invitation->request_id);
+    
     $rows[] = array(
       $invitation->referral_mail,
       format_date($invitation->updated_at, 'short_date'),
       $status,
+      '<a href="' . $base_url . '/node/' . $invitation->request_id . '">' 
+        . $node->title . '<a/>'
     );
   }
 
   $build = array();
-
+  
   $build['title'] = array(
     '#theme' => 'html_tag',
     '#tag' => 'h2',
@@ -676,7 +706,7 @@ function emh_virality_show_user_history($account = NULL) {
 
   $build['table'] = array(
     '#theme' => 'table',
-    '#header' => array(t('Email'), t('Date'), t('Status')),
+    '#header' => array(t('Email'), t('Date'), t('Status'), t('Requète')),
     '#rows' => $rows,
     '#empty' => t('No invitation.'),
   );
@@ -733,12 +763,6 @@ function emh_virality_user_is_referrer($referral, $referrer = NULL) {
 function emh_virality_node_view($node, $view_mode, $langcode) {
   switch ($node->type) {
     case 'request' :
-      //ddl($node, 'node');
-      $node->content['my_additional_field'] = array(
-        '#markup' => $additional_field,
-        '#weight' => 10,
-        '#theme' => 'mymodule_my_additional_field',
-      );
       
       $node->content['sponsorship'] = array(
         //'#type' => 'link',
@@ -755,45 +779,14 @@ function emh_virality_node_view($node, $view_mode, $langcode) {
         '#theme' => 'html_tag',
         '#tag' => 'a',
         '#value' => t('Invite experts'),
-          //'#type' => 'submit',
-          //'#submit' => array('emh_virality_sponsorship_submit'),
-        //'#ajax' => array(
-             // 'callback' => 'emh_virality_sponsorship_callback',
-              //'effect' => 'fade',
-             // 'method' => 'redirect',
-            //'event' => 'click'
-        //  ),
-          //'#process' => array('emh_virality_sponsorship_process'),
-          
       );
       
       break;
   }
 }
 
-function emh_virality_sponsorship_submit($form, &$form_state) {
-  ddl($form_state, 'form state');
-  ddl($form, 'form');
-  $test = $form;
-  $form_state['testo'] = "couc";
-  //$_SESSION['sponsorship'] = $form['#node'];
-  
-}
-
-
-function emh_virality_node_view_alter(&$build) {
-  /*if ($build['#view_mode'] == 'full' && isset($build['an_additional_field'])) {
-    // Change its weight.
-    $build['an_additional_field']['#weight'] = -10;
-  }*/
-  //ddl($build,'build');
-
-  // Add a #post_render callback to act on the rendered HTML of the node.
-  //$build['#post_render'][] = 'my_module_node_post_render';
-}
-
 function emh_virality_add_more_add_one($form, &$form_state) {
-  $form_state['num_expert']++;
+  $form_state['num_experts']++;
   $form_state['rebuild'] = TRUE;
 }
 
@@ -802,8 +795,8 @@ function emh_virality_add_more_callback($form, $form_state) {
 }
 
 function emh_virality_add_more_remove_one($form, &$form_state) {
-  if ($form_state['num_expert'] > 1) {
-    $form_state['num_expert']--;
+  if ($form_state['num_experts'] > 1) {
+    $form_state['num_experts']--;
   }
   $form_state['rebuild'] = TRUE;
 }
