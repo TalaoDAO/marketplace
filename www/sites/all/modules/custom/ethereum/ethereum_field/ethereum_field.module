@@ -52,7 +52,6 @@ function ethereum_field_block_view($delta = '') {
   Drupal.behaviors.ethereum_field = {
     attach: function (context, settings) {
       window.addEventListener('load', function () {
-
         localweb3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_field.fallback));
         user_address = Drupal.settings.ethereum_field.user_address;
         contract_abi = JSON.parse(Drupal.settings.ethereum_field.contract_abi);
@@ -62,7 +61,6 @@ function ethereum_field_block_view($delta = '') {
         field_name = Drupal.settings.ethereum_field.field_name;
         method = contract.methods[field_name];
         method(user_address).call().then(function(result){console.log(result); $('#eth-field').html(result); window[field_name] = result; });
-
 }); }}}(jQuery));", 'inline');
     break;
   }
@@ -130,6 +128,17 @@ function ethereum_field_field_formatter_view($entity_type, $entity, $field, $ins
     Drupal.behaviors.ethereum_field = {
       attach: function (context, settings) {
         window.addEventListener('load', function () {
+
+          var drupal = new drupalService();
+          drupal.url = 'http://emh.box.local/api';
+          drupal.method = 'user/1.json';
+          drupal.callback = function(data) {
+            console.log(data);
+            alert(data.hash);
+          }
+          drupal.get();
+
+
           localweb3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_field.fallback));
           user_address = Drupal.settings.ethereum_field.user_address;
           contract_abi = JSON.parse(Drupal.settings.ethereum_field.contract_abi);
@@ -139,9 +148,9 @@ function ethereum_field_field_formatter_view($entity_type, $entity, $field, $ins
           field_name = Drupal.settings.ethereum_field.field_name;
           method = contract.methods[field_name];
           method(user_address).call().then(function(result){console.log(result); $('#eth-field').html(result); window[field_name] = result; });
-
   }); }}}(jQuery));", 'inline');
 
+      drupal_add_js('sites/all/modules/contrib/drupalservicejs/app.js', array('scope' => 'footer'));
       break;
   }
 
