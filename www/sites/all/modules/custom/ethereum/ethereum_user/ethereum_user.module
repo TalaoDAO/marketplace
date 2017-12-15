@@ -75,13 +75,13 @@ function ethereum_user_form($form, &$form_state) {
   global $user;
   $user_wrapper = entity_metadata_wrapper('user', $user);
 
-  $form['ethereum_user_address'] = array(
+  $form['ethereum_address'] = array(
     '#title' => t('Ethereum address'),
     '#title_display' => 'invisible',
     '#type' => 'textfield',
     '#size' => 42,
     '#maxlength' => 42,
-    '#default_value' => $user_wrapper->ethereum_user_address->value(),
+    '#default_value' => $user_wrapper->ethereum_address->value(),
     '#description' => t('Ethereum addresses must begin with 0x and 40 hexadecimals characters must follow.'),
   );
 
@@ -106,8 +106,8 @@ function ethereum_user_form($form, &$form_state) {
  * Implements hook_form_validate().
  */
 function ethereum_user_form_validate($form, &$form_state) {
-  if (!preg_match('/^0x[0-9a-f]{40}/is', $form_state['values']['ethereum_user_address'])) {
-    form_set_error('ethereum_user_address', t('Ethereum addresses must begin with "0x" and 40 hexadecimals characters must follow.'));
+  if (!preg_match('/^0x[0-9a-f]{40}/is', $form_state['values']['ethereum_address'])) {
+    form_set_error('ethereum_address', t('Ethereum addresses must begin with "0x" and 40 hexadecimals characters must follow.'));
   }
 }
 
@@ -117,8 +117,8 @@ function ethereum_user_form_validate($form, &$form_state) {
 function ethereum_user_form_submit($form, &$form_state) {
   global $user;
   $user_wrapper = entity_metadata_wrapper('user', $user);
-  $address = $form_state['input']['ethereum_user_address'];
-  $user_wrapper->ethereum_user_address->set($address);
+  $address = $form_state['input']['ethereum_address'];
+  $user_wrapper->ethereum_address->set($address);
   $user_wrapper->save();
 }
 
@@ -136,7 +136,7 @@ function _ethereum_user($this_user) {
     $is_the_ethereum_user = TRUE;
   }
   $this_user_wrapper = entity_metadata_wrapper('user', $this_user);
-  $this_user_ethereum_address = $this_user_wrapper->ethereum_user_address->value();
+  $this_user_ethereum_address = $this_user_wrapper->ethereum_address->value();
 
   // Ethereum user address.
   $address = '<div id="ethereum_user_address">';
