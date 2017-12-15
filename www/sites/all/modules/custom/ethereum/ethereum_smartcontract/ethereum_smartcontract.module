@@ -1,0 +1,208 @@
+<?php
+
+/**
+ * @file
+ * Ethereum_smartcontract module file.
+ *
+ * Manages Smart Contracts.
+ */
+
+/**
+ * Implements hook_entity_info().
+ */
+function ethereum_smartcontract_entity_info() {
+
+  $info = array();
+
+  $info['smartcontract'] = array(
+    'label' => t('Smart Contract'),
+    'plural label' => t('Smart Contracts'),
+    'description' => t('Smart Contracts entities.'),
+    'base table' => 'smartcontract',
+    'entity keys' => array(
+      'id' => 'id',
+      'label' => 'name',
+    ),
+    'module' => 'ethereum_smartcontract',
+    'entity class' => 'SmartcontractEntity',
+    'controller class' => 'SmartcontractEntityController',
+    'access callback' => '_ethereum_smartcontract_access_callback',
+    'uri callback' => 'entity_class_uri',
+    'admin ui' => array(
+      'path' => 'admin/config/ethereum/smartcontract',
+      'controller class' => 'EntityDefaultUIController',
+    ),
+    'fieldable' => TRUE,
+    'bundles' => array(
+      'smartcontract' => array(
+        'label' => t('Smart Contract'),
+        'admin' => array(
+          'path' => 'admin/config/ethereum/smartcontract',
+        ),
+      ),
+    ),
+    'views controller class' => 'EntityDefaultViewsController',
+    'extra fields controller class' => 'EntityDefaultExtraFieldsController',
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_entity_property_info().
+ */
+function smartcontract_entity_property_info() {
+
+  $info = array();
+
+  $info['smartcontract']['properties']['id'] = array(
+    'label' => t('ID'),
+    'description' => t('ID of the Smart Contract.'),
+    'type' => 'integer',
+    'schema field' => 'id',
+  );
+
+  $info['smartcontract']['properties']['name'] = array(
+    'label' => t('Name'),
+    'description' => t('Name of the Smart Contract.'),
+    'type' => 'text',
+    'schema field' => 'name',
+  );
+
+  $info['smartcontract']['properties']['description'] = array(
+    'label' => t('Description'),
+    'description' => t('Description of the Smart Contract.'),
+    'type' => 'text',
+    'schema field' => 'description',
+  );
+
+  $info['smartcontract']['properties']['ethereum_address'] = array(
+    'label' => t('Ethereum Address'),
+    'description' => t('Ethereum address of the Smart Contract.'),
+    'type' => 'text',
+    'schema field' => 'abi',
+  );
+
+  $info['smartcontract']['properties']['abi'] = array(
+    'label' => t('Smart Contract ABI'),
+    'description' => t('Application Binary Interface of the Smart Contract.'),
+    'type' => 'text',
+    'schema field' => 'abi',
+  );
+
+  return $info;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function ethereum_smartcontract_menu() {
+
+  $items = array();
+
+  // TODO: We don't really need to view the contract, rather inject it.
+  $items['admin/config/ethereum/smartcontract/view/%'] = array(
+    'title' => 'Smart Contract',
+    'page callback' => '_ethereum_smartcontract_view_smartcontract',
+    'page arguments' => array(5),
+    'access arguments' => array('use ethereum'),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function ethereum_smartcontract_permission() {
+  return array(
+    'manage smart contracts' => array(
+      'title' => t('Manage Smart Contracts'),
+    ),
+  );
+}
+
+/**
+ * Callback function for displaying the individual Smart Contract.
+ */
+function _ethereum_smartcontract_view_smartcontract($id) {
+
+  $smartcontracts = entity_load('smartcontract', array($id));
+  $smartcontract = $smartcontracts[$id];
+
+  drupal_set_title($smartcontract->name);
+
+  $output = entity_view('smartcontract', array($smartcontract));
+
+  return $output;
+
+}
+
+/**
+ * Access callback for Smart Contract entities.
+ */
+function _ethereum_smartcontract_access_callback($op, $smartcontract = NULL, $account = NULL) {
+  if (user_access('manage smart contracts')) {
+    if ($op == 'view' || $op == 'update' || $op == 'create' || $op == 'delete') {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_form().
+ */
+function smartcontract_form($form, &$form_state, $smartcontract = NULL) {
+
+  $form['name'] = array(
+    '#title' => t('Name'),
+    '#type' => 'textfield',
+    '#default_value' => isset($smartcontract->name) ? $smartcontract->name : '',
+    '#required' => TRUE,
+    '#weight' => '-50',
+  );
+
+  $form['description'] = array(
+    '#title' => t('Description'),
+    '#type' => 'textarea',
+    '#default_value' => isset($smartcontract->description) ? $smartcontract->description : '',
+    '#required' => TRUE,
+    '#weight' => '-40',
+  );
+
+  $form['abi'] = array(
+    '#title' => t('Application Binary Interface (ABI)'),
+    '#type' => 'textarea',
+    '#default_value' => isset($smartcontract->abi) ? $smartcontract->abi : '',
+    '#required' => TRUE,
+    '#weight' => '10',
+  );
+
+  field_attach_form('smartcontract', $smartcontract, $form, $form_state);
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => isset($smartcontract->id) ? t('Update Smart Contract') : t('Save Smart Contract'),
+    '#weight' => 50,
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_form_validate().
+ */
+function smartcontract_form_validate($form, &$form_state) {
+  entity_form_field_validate('smartcontract', $form, $form_state);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_form_submit().
+ */
+function smartcontract_form_submit($form, &$form_state) {
+  $smartcontract = entity_ui_form_submit_build_entity($form, $form_state);
+  $smartcontract->save();
+  drupal_set_message(t('The Smart Contract: @name has been saved.', array('@name' => $smartcontract->name)));
+  $form_state['redirect'] = 'admin/config/ethereum/smartcontract';
+}

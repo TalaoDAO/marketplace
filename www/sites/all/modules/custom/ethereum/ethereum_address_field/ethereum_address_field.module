@@ -7,6 +7,8 @@
  * Provides an Ethereum address field.
  */
 
+const ETHEREUM_ADDRESS_FIELD_EXPLORER = 'https://etherscan.io/address/';
+
 /**
  * Implements hook_field_info().
  */
@@ -19,8 +21,8 @@ function ethereum_address_field_field_info() {
       'instance_settings' => array(
         'text_processing' => 0,
       ),
-      'default_widget' => 'text_textfield',
-      'default_formatter' => 'text_default',
+      'default_widget' => 'ethereum_address_text',
+      'default_formatter' => 'ethereum_address_text',
       'property_type' => 'text',
     ),
   );
@@ -55,7 +57,11 @@ function ethereum_address_field_field_is_empty($item, $field) {
 function ethereum_address_field_field_formatter_info() {
   return array(
     'ethereum_address_text' => array(
-      'label' => t('Ethereum address in text'),
+      'label' => t('Plain text'),
+      'field types' => array('ethereum_address'),
+    ),
+    'ethereum_address_link' => array(
+      'label' => t('Link to Etherscan.io'),
       'field types' => array('ethereum_address'),
     ),
   );
@@ -68,12 +74,25 @@ function ethereum_address_field_field_formatter_view($entity_type, $entity, $fie
   $element = array();
 
   switch ($display['type']) {
+
     case 'ethereum_address_text':
       foreach ($items as $delta => $item) {
         $element[$delta] = array(
+          '#markup' => $item['ethereum_address'],
+        );
+      }
+      break;
+
+    case 'ethereum_address_link':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
           '#type' => 'html_tag',
-          '#tag' => 'p',
+          '#tag' => 'a',
           '#value' => $item['ethereum_address'],
+          '#attributes' => array(
+            'href' => ETHEREUM_ADDRESS_FIELD_EXPLORER . $item['ethereum_address'],
+            'target' => '_blank',
+          ),
         );
       }
       break;
@@ -88,7 +107,7 @@ function ethereum_address_field_field_formatter_view($entity_type, $entity, $fie
 function ethereum_address_field_field_widget_info() {
   return array(
     'ethereum_address_text' => array(
-      'label' => t('Ethereum address text'),
+      'label' => t('Text'),
       'field types' => array('ethereum_address'),
     ),
   );

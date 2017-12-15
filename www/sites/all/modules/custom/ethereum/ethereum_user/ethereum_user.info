@@ -9,3 +9,6 @@ dependencies[] = ethereum_address_field
 dependencies[] = ethereum_web3
 dependencies[] = libraries
 dependencies[] = user_hash
+
+; Misc
+configure = admin/config/ethereum/registry/settings
