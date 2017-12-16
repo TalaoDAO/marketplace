@@ -167,7 +167,6 @@ function smartcontract_form($form, &$form_state, $smartcontract = NULL) {
     '#title' => t('Description'),
     '#type' => 'textarea',
     '#default_value' => isset($smartcontract->description) ? $smartcontract->description : '',
-    '#required' => TRUE,
     '#weight' => '-40',
   );
 
