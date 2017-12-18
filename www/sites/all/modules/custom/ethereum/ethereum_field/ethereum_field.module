@@ -44,7 +44,7 @@ function ethereum_field_block_view($delta = '') {
           'fallback' => variable_get('ethereum_web3_node'),
           'field_name' => variable_get('ethfield_contract_fieldname'),
           'user_hash' => $client->hash,
-          'user_address' => $client->ethereum_user_address['und'][0]['ethereum_address'],
+          'user_address' => $client->field_ethereum_user_address['und'][0]['ethereum_address'],
         ),
       ), 'setting');
       drupal_add_js("
@@ -73,7 +73,7 @@ function ethereum_field_field_info() {
       'label' => t('Ethereum field'),
       'description' => t('Ethereum field.'),
       'settings' => array(),
-      'instance_settings' => ['contract_at' => '', 'contract_abi' => '', 'callname' => ''],
+      'instance_settings' => ['smartcontract', 'callname' => ''],
       'default_widget' => 'ethereum_field_widget',
       'default_formatter' => 'ethereum_field_formater',
     ),
@@ -113,14 +113,15 @@ function ethereum_field_field_formatter_view($entity_type, $entity, $field, $ins
       }
         global $user; $client = user_load($user->uid);
         libraries_load('web3');
+        $contract = reset(entity_load('smartcontract', [$settings['smartcontract']]));
         drupal_add_js(array(
           'ethereum_field' => array(
-            'contract_address' => $settings['contract_at'],
-            'contract_abi' => $settings['contract_abi'],
+            'contract_address' => $contract->ethereum_address['und'][0]['ethereum_address'],
+            'contract_abi' => $contract->abi,
             'fallback' => variable_get('ethereum_web3_node'),
             'field_name' => $settings['callname'],
             'user_hash' => $client->hash,
-            'user_address' => $client->ethereum_user_address['und'][0]['ethereum_address'],
+            'user_address' => $client->field_ethereum_user_address['und'][0]['ethereum_address'],
           ),
         ), 'setting');
         drupal_add_js("
@@ -169,23 +170,12 @@ function ethereum_field_field_widget_info() {
 function ethereum_field_field_instance_settings_form($field, $instance) {
   $settings = $instance['settings'];
 
-  $form['contract_reference'] = array(
+  $form['smartcontract'] = array(
      '#type' => 'entityreference',
      '#title' => t('contract'),
+    '#default_value' =>  $settings['smartcontract'],
      '#era_entity_type' => 'smartcontract',  // Mandatory.
   );
-  $form['contract_at'] = [
-    '#type' => 'textfield',
-    '#title' => t('Contract address'),
-    '#default_value' =>  $settings['contract_at'],
-    '#required' => FALSE,
-  ];
-  $form['contract_abi'] = [
-    '#type' => 'textarea',
-    '#title' => t('Contract ABI'),
-    '#default_value' =>  $settings['contract_abi'],
-     '#required' => FALSE,
-  ];
   $form['callname'] = [
     '#type' => 'textfield',
     '#title' => t('Contract method'),
