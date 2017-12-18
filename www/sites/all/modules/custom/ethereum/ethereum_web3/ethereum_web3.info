@@ -5,3 +5,6 @@ core = 7.x
 ; Dependencies
 dependencies[] = libraries
 dependencies[] = ethereum
+
+; Misc
+configure = admin/config/ethereum/web3
