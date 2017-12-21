@@ -79,7 +79,7 @@ function ethereum_smartcontract_install() {
       'widget' => array(
         'type' => 'ethereum_address_text',
       ),
-      '#required' => TRUE,
+      'required' => TRUE,
     );
     field_create_instance($instance);
   }

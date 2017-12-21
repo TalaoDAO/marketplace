@@ -86,12 +86,11 @@ function ethereum_address_field_field_formatter_view($entity_type, $entity, $fie
     case 'ethereum_address_link':
       foreach ($items as $delta => $item) {
         $element[$delta] = array(
-          '#type' => 'html_tag',
-          '#tag' => 'a',
-          '#value' => $item['ethereum_address'],
-          '#attributes' => array(
-            'href' => ETHEREUM_ADDRESS_FIELD_EXPLORER . $item['ethereum_address'],
-            'target' => '_blank',
+          '#theme' => 'link',
+          '#text' => $item['ethereum_address'],
+          '#path' => ETHEREUM_ADDRESS_FIELD_EXPLORER . $item['ethereum_address'],
+          '#options' => array(
+            'html' => FALSE,
           ),
         );
       }
