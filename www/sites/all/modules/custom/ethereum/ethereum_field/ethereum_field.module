@@ -1,0 +1,150 @@
+<?php
+
+/**
+ * @file
+ * Ethereum field module.
+ *
+ * Provides an Ethereum field.
+ */
+
+/**
+ * Implements hook_field_info.
+ */
+function ethereum_field_field_info() {
+  return array(
+    'ethereum_field' => array(
+      'label' => t('Ethereum field'),
+      'description' => t('Ethereum field.'),
+      'settings' => array(),
+      'instance_settings' => ['smartcontract', 'callname' => ''],
+      'default_widget' => 'ethereum_field_widget',
+      'default_formatter' => 'ethereum_field_formater',
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_is_empty.
+ */
+function ethereum_field_field_is_empty($item, $field) {
+  return empty($item['ethereum_field']);
+}
+
+/**
+ * Implements hook_field_formatter_info.
+ */
+function ethereum_field_field_formatter_info() {
+  return array(
+    'ethereum_field_formater' => array(
+      'label' => t('Ethereum dynamic value'),
+      'field types' => array('ethereum_field' ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_preprare_view.
+ */
+function ethereum_field_field_formatter_prepare_view($entity_type, $entities, $field, $instances, $langcode, &$items, $displays) {
+   foreach ($items as $id => $item) {
+    if ($displays[$id]['type'] == 'ethereum_field_formater') {
+          $items[$id][0]['contract_value'] = '';
+      }
+    }
+}
+
+/**
+ * Implements hook_field_formatter_view.
+ */
+function ethereum_field_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  $settings = $instance['settings'];
+  switch ($display['type']) {
+    case 'ethereum_field_formater':
+      global $user; $client = user_load($user->uid);
+      $contract = reset(entity_load('smartcontract', [$settings['smartcontract']]));
+      $name = str_replace(' ', '_', $contract->name)."_".$settings['callname'];
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#markup' => "<span id='eth-field-".$name."'>test</span>"
+        );
+      }
+      libraries_load('web3');
+      drupal_add_js(array(
+          'ethereum_field_'.$name => array(
+            'contract_address' => $contract->ethereum_address['und'][0]['ethereum_address'],
+            'contract_name' => $contract->name,
+            'contract_abi' => $contract->abi,
+            'fallback' => variable_get('ethereum_web3_node'),
+            'field_name' => $settings['callname'],
+            'user_hash' => $client->hash,
+            'user_address' => $client->field_ethereum_user_address['und'][0]['ethereum_address'],
+          ),
+        ), 'setting');
+        drupal_add_js("
+  (function ($) {
+    Drupal.behaviors.ethereum_field_$name = {
+      attach: function (context, settings) {
+        window.addEventListener('load', function () {
+
+          function drupalCall(url, method, callback) {          
+            var drupal = new drupalService();
+            drupal.url = url;
+            drupal.method = method;
+            drupal.callback = callback;
+            drupal.get();
+          }
+
+          drupalCall('http://emh.box.local/api', 'user/1.json',  (data) => {console.log(data); });
+
+          var web3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_field_$name.fallback));
+          var user_address = Drupal.settings.ethereum_field_$name.user_address;
+          var contract_abi = JSON.parse(Drupal.settings.ethereum_field_$name.contract_abi);
+          var contract_address = Drupal.settings.ethereum_field_$name.contract_address;
+          var contract_name = Drupal.settings.ethereum_field_$name.contract_name;
+          var contract = new web3.eth.Contract(contract_abi, contract_address);
+          var user_hash = Drupal.settings.ethereum_field_$name.user_hash;
+          var field_name = Drupal.settings.ethereum_field_$name.field_name;
+          var method = contract.methods[field_name];
+          method(user_address).call().then(function(result){console.log(result); $('#eth-field-$name').html(result); window[field_name] = result; });
+  }); }}}(jQuery));", 'inline');
+
+      drupal_add_js('sites/all/modules/contrib/drupalservicejs/app.js', array('scope' => 'footer'));
+      break;
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_widget_info.
+ */
+function ethereum_field_field_widget_info() {
+  return array(
+    'ethereum_field_widget' => array(
+      'label' => t('Ethereum field'),
+      'field types' => array('ethereum_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_instance_settings_form.
+ */
+function ethereum_field_field_instance_settings_form($field, $instance) {
+  $settings = $instance['settings'];
+
+  $form['smartcontract'] = array(
+     '#type' => 'entityreference',
+     '#title' => t('contract'),
+    '#default_value' =>  $settings['smartcontract'],
+     '#era_entity_type' => 'smartcontract',  // Mandatory.
+  );
+  $form['callname'] = [
+    '#type' => 'textfield',
+    '#title' => t('Contract method'),
+    '#default_value' =>  $settings['callname'],
+    '#required' => FALSE,
+  ];
+  return $form;
+}
