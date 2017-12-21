@@ -13,28 +13,28 @@ function ethereum_user_install() {
   // Clear field cache to recognize the Ethereum address field.
   $fields = field_read_fields(array(), array('include_inactive' => TRUE));
   $field_types = field_info_field_types();
-  if (!isset($field_types['ethereum_address_field_ethereum_address'])) {
+  if (!isset($field_types['ethereum_address'])) {
     field_info_cache_clear();
   }
 
   // Create an Ethereum address field.
-  if (!field_info_field('ethereum_user_address')) {
+  if (!field_info_field('ethereum_address')) {
     $field = array(
-      'field_name' => 'ethereum_user_address',
-      'type' => 'ethereum_address_field_ethereum_address',
+      'field_name' => 'ethereum_address',
+      'type' => 'ethereum_address',
     );
     field_create_field($field);
   }
 
   // Create a field instance and attach it to the User entity.
-  if (!field_info_instance('user', 'ethereum_user_address', 'user')) {
+  if (!field_info_instance('user', 'ethereum_address', 'user')) {
     $instance = array(
-      'field_name' => 'ethereum_user_address',
+      'field_name' => 'ethereum_address',
       'entity_type' => 'user',
       'bundle' => 'user',
       'label' => 'Ethereum address',
       'widget' => array(
-        'type' => 'ethereum_address_field_text',
+        'type' => 'ethereum_address_text',
       ),
     );
     field_create_instance($instance);
@@ -59,7 +59,7 @@ function ethereum_user_install() {
  * Implements hook_uninstall().
  */
 function ethereum_user_uninstall() {
-
+/*
   // Delete role.
   $role_name = 'registered ethereum user';
   if (user_role_load_by_name($role_name)) {
@@ -67,7 +67,8 @@ function ethereum_user_uninstall() {
   }
 
   // Delete Ethereum address field for the User entity.
-  if ($instance = field_info_instance('user', 'ethereum_user_address', 'user')) {
+  if ($instance = field_info_instance('user', 'ethereum_address', 'user')) {
     field_delete_instance($instance);
   }
+*/
 }
