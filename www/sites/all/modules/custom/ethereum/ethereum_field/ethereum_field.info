@@ -1,0 +1,6 @@
+name = Ethereum contract field
+package = Ethereum
+core = 7.x
+
+; Dependencies
+dependencies[] = field
