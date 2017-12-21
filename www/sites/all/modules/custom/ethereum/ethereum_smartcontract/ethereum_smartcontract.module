@@ -108,6 +108,12 @@ function ethereum_smartcontract_menu() {
     'access arguments' => array('use ethereum'),
   );
 
+  $items['admin/config/ethereum/smartcontract/test'] = array(
+    'title' => 'Test',
+    'page callback' => '_ethereum_smartcontract_test',
+    'access arguments' => array('use ethereum'),
+  );
+
   return $items;
 }
 
@@ -204,4 +210,17 @@ function smartcontract_form_submit($form, &$form_state) {
   $smartcontract->save();
   drupal_set_message(t('The Smart Contract: @name has been saved.', array('@name' => $smartcontract->name)));
   $form_state['redirect'] = 'admin/config/ethereum/smartcontract';
+}
+
+/**
+ * Test for SmartContract Entity.
+ */
+function _ethereum_smartcontract_test() {
+
+  $build = array();
+
+  $build['test'] = array(
+    '#markup' => 'test',
+  );
+  return $build;
 }
