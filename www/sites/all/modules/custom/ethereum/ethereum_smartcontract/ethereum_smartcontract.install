@@ -1,0 +1,118 @@
+<?php
+
+/**
+ * @file
+ * Installation hooks for Ethereum Smart Contracts.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function ethereum_smartcontract_schema() {
+
+  $schema = array();
+
+  $schema['smartcontract'] = array(
+    'description' => 'This table stores Smart Contracts.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Smart Contract ID',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'machine_name' => array(
+        'description' => 'Smart Contract machine name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'abi' => array(
+        'description' => 'Smart Contract ABI.',
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+      ),
+      'module' => array(
+        'description' => 'Module providing the Smart Contract.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => NULL,
+      ),
+      'js' => array(
+        'description' => 'Path to the module generic Javascript.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => NULL,
+      ),
+      'name' => array(
+        'description' => 'Smart Contract name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => NULL,
+      ),
+      'description' => array(
+        'description' => 'Smart Contract description.',
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+        'default' => NULL,
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'machine_name' => array('machine_name'),
+    ),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function ethereum_smartcontract_install() {
+
+  // Clear field cache to recognize the Ethereum address field.
+  $fields = field_read_fields(array(), array('include_inactive' => TRUE));
+  $field_types = field_info_field_types();
+  if (!isset($field_types['ethereum_address'])) {
+    field_info_cache_clear();
+  }
+
+  // Create an Ethereum address field if necessary.
+  if (!field_info_field('ethereum_address')) {
+    $field = array(
+      'field_name' => 'ethereum_address',
+      'type' => 'ethereum_address',
+    );
+    field_create_field($field);
+  }
+
+  // Create a field instance and attach to the Ethereum Smart Contract entity.
+  if (!field_info_instance('smartcontract', 'ethereum_address', 'smartcontract')) {
+    $instance = array(
+      'field_name' => 'ethereum_address',
+      'entity_type' => 'smartcontract',
+      'bundle' => 'smartcontract',
+      'label' => 'Ethereum address',
+      'widget' => array(
+        'type' => 'ethereum_address_text',
+      ),
+      'required' => TRUE,
+    );
+    field_create_instance($instance);
+  }
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function ethereum_smartcontract_uninstall() {
+  field_attach_delete_bundle('smartcontract', 'smartcontract');
+}
