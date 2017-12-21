@@ -21,11 +21,39 @@ function ethereum_smartcontract_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
       ),
+      'machine_name' => array(
+        'description' => 'Smart Contract machine name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'abi' => array(
+        'description' => 'Smart Contract ABI.',
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+      ),
+      'module' => array(
+        'description' => 'Module providing the Smart Contract.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => NULL,
+      ),
+      'js' => array(
+        'description' => 'Path to the module generic Javascript.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+        'default' => NULL,
+      ),
       'name' => array(
         'description' => 'Smart Contract name.',
         'type' => 'varchar',
         'length' => 255,
         'not null' => FALSE,
+        'default' => NULL,
       ),
       'description' => array(
         'description' => 'Smart Contract description.',
@@ -34,15 +62,11 @@ function ethereum_smartcontract_schema() {
         'not null' => FALSE,
         'default' => NULL,
       ),
-      'abi' => array(
-        'description' => 'Smart Contract ABI.',
-        'type' => 'text',
-        'size' => 'big',
-        'not null' => FALSE,
-        'default' => NULL,
-      ),
     ),
     'primary key' => array('id'),
+    'indexes' => array(
+      'machine_name' => array('machine_name'),
+    ),
   );
 
   return $schema;
