@@ -7,20 +7,22 @@
  * Provides an Ethereum address field.
  */
 
+const ETHEREUM_ADDRESS_FIELD_EXPLORER = 'https://etherscan.io/address/';
+
 /**
  * Implements hook_field_info().
  */
 function ethereum_address_field_field_info() {
   return array(
-    'ethereum_address_field_ethereum_address' => array(
+    'ethereum_address' => array(
       'label' => t('Ethereum address'),
       'description' => t('Ethereum address.'),
       'settings' => array('max_length' => 42),
       'instance_settings' => array(
         'text_processing' => 0,
       ),
-      'default_widget' => 'text_textfield',
-      'default_formatter' => 'text_default',
+      'default_widget' => 'ethereum_address_text',
+      'default_formatter' => 'ethereum_address_text',
       'property_type' => 'text',
     ),
   );
@@ -34,7 +36,7 @@ function ethereum_address_field_field_validate($entity_type, $entity, $field, $i
     if (!empty($item['ethereum_address'])) {
       if (!preg_match('/^0x[0-9a-f]{40}/is', $item['ethereum_address'])) {
         $errors[$field['field_name']][$langcode][$delta][] = array(
-          'error' => 'ethereum_address_field_invalid',
+          'error' => 'ethereum_address_invalid',
           'message' => t('Ethereum addresses must begin with "0x" and 40 hexadecimals characters must follow.'),
         );
       }
@@ -54,9 +56,13 @@ function ethereum_address_field_field_is_empty($item, $field) {
  */
 function ethereum_address_field_field_formatter_info() {
   return array(
-    'ethereum_address_field_simple_text' => array(
-      'label' => t('Ethereum address in simple text'),
-      'field types' => array('ethereum_address_field_ethereum_address'),
+    'ethereum_address_text' => array(
+      'label' => t('Plain text'),
+      'field types' => array('ethereum_address'),
+    ),
+    'ethereum_address_link' => array(
+      'label' => t('Link to Etherscan.io'),
+      'field types' => array('ethereum_address'),
     ),
   );
 }
@@ -68,12 +74,24 @@ function ethereum_address_field_field_formatter_view($entity_type, $entity, $fie
   $element = array();
 
   switch ($display['type']) {
-    case 'ethereum_address_field_plain_text':
+
+    case 'ethereum_address_text':
       foreach ($items as $delta => $item) {
         $element[$delta] = array(
-          '#type' => 'html_tag',
-          '#tag' => 'p',
-          '#value' => $item['ethereum_address'],
+          '#markup' => $item['ethereum_address'],
+        );
+      }
+      break;
+
+    case 'ethereum_address_link':
+      foreach ($items as $delta => $item) {
+        $element[$delta] = array(
+          '#theme' => 'link',
+          '#text' => $item['ethereum_address'],
+          '#path' => ETHEREUM_ADDRESS_FIELD_EXPLORER . $item['ethereum_address'],
+          '#options' => array(
+            'html' => FALSE,
+          ),
         );
       }
       break;
@@ -87,9 +105,9 @@ function ethereum_address_field_field_formatter_view($entity_type, $entity, $fie
  */
 function ethereum_address_field_field_widget_info() {
   return array(
-    'ethereum_address_field_text' => array(
-      'label' => t('Ethereum address'),
-      'field types' => array('ethereum_address_field_ethereum_address'),
+    'ethereum_address_text' => array(
+      'label' => t('Text'),
+      'field types' => array('ethereum_address'),
     ),
   );
 }
@@ -105,7 +123,7 @@ function ethereum_address_field_field_widget_form(&$form, &$form_state, $field, 
 
   switch ($instance['widget']['type']) {
 
-    case 'ethereum_address_field_text':
+    case 'ethereum_address_text':
       $widget += array(
         '#type' => 'textfield',
         '#default_value' => $value,
@@ -124,7 +142,7 @@ function ethereum_address_field_field_widget_form(&$form, &$form_state, $field, 
  */
 function ethereum_address_field_field_widget_error($element, $error, $form, &$form_state) {
   switch ($error['error']) {
-    case 'ethereum_address_field_invalid':
+    case 'ethereum_address_invalid':
       form_error($element, $error['message']);
       break;
   }
