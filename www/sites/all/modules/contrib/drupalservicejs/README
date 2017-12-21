@@ -1,0 +1,20 @@
+Code examples are available on the project page:
+http://drupal.org/project/drupalservicejs
+
+FAQ:
+Q: Why do I get the error Origin null is not allowed by
+Access-Control-Allow-Origin. (or similar)?
+A: Because you can not use javascript for cross-domain communication. The script
+and drupal site would have to be on the same domain for it to work in a normal
+browser. BUT: If you want to use this for developing a phonegap app, this is no
+problem. Use the chrome flag --disable-web-security to overcome the alert.
+
+Q: How do I use the chrome flag --disable-web-security?
+A: For linux: google-chrome --args -disable-web-security
+For Mac: open -a /Applications/Google\ Chrome --args --disable-web-security
+For windows: C:\Users\myuser\AppData\Local\Google\Chrome\Application\chrome.exe
+--disable-web-security (or similar).
+
+Q: Why do I get "Uncaught SyntaxError: Unexpected token {" (or other errors for
+that matter)?
+A: Your javascript is bad. Don't do bad javascript!
