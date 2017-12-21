@@ -6,6 +6,7 @@ core = 7.x
 ; Dependencies
 dependencies[] = entity
 dependencies[] = ethereum_address_field
+dependencies[] = ethereum_smartcontract
 dependencies[] = ethereum_web3
 dependencies[] = libraries
 dependencies[] = user_hash

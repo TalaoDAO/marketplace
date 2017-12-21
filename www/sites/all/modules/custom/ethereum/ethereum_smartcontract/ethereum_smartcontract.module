@@ -21,7 +21,7 @@ function ethereum_smartcontract_entity_info() {
     'base table' => 'smartcontract',
     'entity keys' => array(
       'id' => 'id',
-      'label' => 'name',
+      'label' => 'machine_name',
     ),
     'module' => 'ethereum_smartcontract',
     'entity class' => 'SmartcontractEntity',
@@ -271,9 +271,30 @@ function _ethereum_smartcontract_test() {
 
   $build = array();
 
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'smartcontract')
+    ->propertyCondition('machine_name', 'drupal_register')
+    ->range(0, 1);
+  $result = $query->execute();
+
+  if ($result) {
+    $smartcontract_id = current(current($result))->id;
+
+    // Entity load method.
+    $smartcontract = reset(entity_load('smartcontract', array($smartcontract_id)));
+    object_log('entity_load', $smartcontract);
+
+    // Entity metadata wrapper method.
+    $wrapper = entity_metadata_wrapper('smartcontract', $smartcontract_id);
+    $abi = $wrapper->abi->value();
+    object_log('abi', $abi);
+  }
+
   $build['test'] = array(
     '#markup' => 'test',
   );
+
   return $build;
 }
 
