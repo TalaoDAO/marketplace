@@ -62,18 +62,11 @@ function smartcontract_entity_property_info() {
     'schema field' => 'id',
   );
 
-  $info['smartcontract']['properties']['name'] = array(
-    'label' => t('Name'),
-    'description' => t('Name of the Smart Contract.'),
+  $info['smartcontract']['properties']['machine_name'] = array(
+    'label' => t('Machine name'),
+    'description' => t('Machine name of the Smart Contract.'),
     'type' => 'text',
-    'schema field' => 'name',
-  );
-
-  $info['smartcontract']['properties']['description'] = array(
-    'label' => t('Description'),
-    'description' => t('Description of the Smart Contract.'),
-    'type' => 'text',
-    'schema field' => 'description',
+    'schema field' => 'machine_name',
   );
 
   $info['smartcontract']['properties']['ethereum_address'] = array(
@@ -88,6 +81,34 @@ function smartcontract_entity_property_info() {
     'description' => t('Application Binary Interface of the Smart Contract.'),
     'type' => 'text',
     'schema field' => 'abi',
+  );
+
+  $info['smartcontract']['properties']['module'] = array(
+    'label' => t('Module'),
+    'description' => t('Module providing Smart Contract.'),
+    'type' => 'text',
+    'schema field' => 'machine_name',
+  );
+
+  $info['smartcontract']['properties']['js'] = array(
+    'label' => t('Javascript'),
+    'description' => t('Path to the module generic Javascript.'),
+    'type' => 'text',
+    'schema field' => 'js',
+  );
+
+  $info['smartcontract']['properties']['name'] = array(
+    'label' => t('Name'),
+    'description' => t('Name of the Smart Contract.'),
+    'type' => 'text',
+    'schema field' => 'name',
+  );
+
+  $info['smartcontract']['properties']['description'] = array(
+    'label' => t('Description'),
+    'description' => t('Description of the Smart Contract.'),
+    'type' => 'text',
+    'schema field' => 'description',
   );
 
   return $info;
@@ -165,16 +186,30 @@ function smartcontract_form($form, &$form_state, $smartcontract = NULL) {
     '#title' => t('Name'),
     '#type' => 'textfield',
     '#default_value' => isset($smartcontract->name) ? $smartcontract->name : '',
-    '#required' => TRUE,
     '#weight' => '-50',
+  );
+
+  $form['machine_name'] = array(
+    '#title' => t('Machine name'),
+    '#description' => t('A unique machine-readable name containing letters, numbers, and underscores.'),
+    '#type' => 'machine_name',
+    '#machine_name' => array(
+      'exists' => '_ethereum_smartcontract_machine_name_exists',
+    ),
+    '#default_value' => isset($smartcontract->machine_name) ? $smartcontract->machine_name : '',
+    '#required' => TRUE,
+    '#disabled' => isset($smartcontract->machine_name),
+    '#weight' => '-40',
   );
 
   $form['description'] = array(
     '#title' => t('Description'),
     '#type' => 'textarea',
     '#default_value' => isset($smartcontract->description) ? $smartcontract->description : '',
-    '#weight' => '-40',
+    '#weight' => '-30',
   );
+
+  field_attach_form('smartcontract', $smartcontract, $form, $form_state);
 
   $form['abi'] = array(
     '#title' => t('Application Binary Interface (ABI)'),
@@ -184,7 +219,24 @@ function smartcontract_form($form, &$form_state, $smartcontract = NULL) {
     '#weight' => '10',
   );
 
-  field_attach_form('smartcontract', $smartcontract, $form, $form_state);
+  $form['module'] = array(
+    '#title' => t('Module'),
+    '#type' => 'textfield',
+    '#description' => t('Module providing the Smart Contract (optional)'),
+    '#default_value' => isset($smartcontract->module) ? $smartcontract->module : '',
+    '#maxlength' => 21,
+    '#weight' => '20',
+    '#disabled' => TRUE,
+  );
+
+  $form['js'] = array(
+    '#title' => t('Javascript'),
+    '#type' => 'textfield',
+    '#description' => t('Path to generic Javascript (optional, relative to module folder'),
+    '#default_value' => isset($smartcontract->name) ? $smartcontract->name : '',
+    '#weight' => '30',
+    '#disabled' => TRUE,
+  );
 
   $form['submit'] = array(
     '#type' => 'submit',
@@ -223,4 +275,12 @@ function _ethereum_smartcontract_test() {
     '#markup' => 'test',
   );
   return $build;
+}
+
+/**
+ * Check if the machine name is available.
+ */
+function _ethereum_smartcontract_machine_name_exists($value) {
+  $exists = db_query_range('SELECT 1 FROM {smartcontract} WHERE machine_name = :machine_name', 0, 1, array(':machine_name' => $value))->fetchField();
+  return $exists;
 }
