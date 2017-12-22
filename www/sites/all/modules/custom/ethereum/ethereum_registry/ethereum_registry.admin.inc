@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Ethereum user settings.
+ */
+
+/**
+ * Implements hook_admin_form().
+ */
+function ethereum_registry_admin_form() {
+  $form = array();
+
+  $form['ethereum_user_register_drupal_deployed_contract_address'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Deployed contract address for your Ethereum Drupal user registry'),
+    '#default_value' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
+  );
+
+  $form['ethereum_user_register_drupal_deployed_contract_abi'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Deployed contract ABI for your Ethereum Drupal user registry'),
+    '#default_value' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * List the users who signed the Ethereum registry.
+ */
+function _ethereum_registry_list() {
+
+  $header = array(
+    t('User'),
+    t('Ethereum address'),
+  );
+
+  $rows = array();
+
+  $table = theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'caption' => t("Users who signed this site's Ethereum user registry"),
+    'attributes' => array(
+      'id' => 'ethereum_user_registry_list',
+    ),
+  ));
+
+  // Security token for the Ajax callback to retrieve the Drupal user.
+  $token = drupal_random_key();
+  variable_set('ethereum_user_registry_list_token', $token);
+
+  $settings = array(
+    'contract' => array(
+      'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
+      'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
+    ),
+    'node' => variable_get('ethereum_web3_node'),
+    'token' => $token,
+  );
+
+  $render['ethereum_user_registry_list'] = array(
+    '#type' => 'markup',
+    '#markup' => $table,
+    '#attached' => array(
+      'js' => array(
+        array(
+          'data' => array(
+            'ethereum_user' => $settings,
+          ),
+          'type' => 'setting',
+        ),
+        drupal_get_path('module', 'ethereum_user') . '/js/ethereum_user_registry_list.js',
+      ),
+    ),
+  );
+  // Inject local Web3.js if configured so.
+  if (variable_get('ethereum_web3_local_injection')) {
+    $render['ethereum_user_registry_list']['#attached']['libraries_load'][] = array('web3');
+  }
+
+  return $render;
+}

@@ -13,33 +13,6 @@
 function ethereum_user_menu() {
   $items = array();
 
-  $items['admin/config/ethereum/registry'] = array(
-    'title' => 'Users registry',
-    'description' => 'Ethereum users registry.',
-    'page callback' => '_ethereum_user_registry_list',
-    'access arguments' => array('administer site configuration'),
-    'file' => 'ethereum_user.admin.inc',
-    'type' => MENU_NORMAL_ITEM,
-  );
-
-  $items['admin/config/ethereum/registry/callback/%/%'] = array(
-    'page callback' => '_ethereum_user_registry_list_callback',
-    'page arguments' => array(5),
-    'access callback' => '_ethereum_user_registry_list_callback_access',
-    'access arguments' => array(5, 6),
-    'type' => MENU_CALLBACK,
-  );
-
-  $items['admin/config/ethereum/registry/settings'] = array(
-    'title' => 'Settings',
-    'description' => 'Ethereum users registry settings',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ethereum_user_admin_form'),
-    'access arguments' => array('administer site configuration'),
-    'file' => 'ethereum_user.admin.inc',
-    'type' => MENU_NORMAL_ITEM,
-  );
-
   $items['user/%user/ethereum'] = array(
     'title' => 'Ethereum',
     'page callback' => '_ethereum_user',
@@ -138,6 +111,16 @@ function _ethereum_user($this_user) {
   $this_user_wrapper = entity_metadata_wrapper('user', $this_user);
   $this_user_ethereum_address = $this_user_wrapper->ethereum_address->value();
 
+  // Generate user hash, if necessary.
+  if (!$this_user->hash) {
+    $data = array(
+      '@name' => $this_user->name,
+      '!id' => $this_user->uid,
+    );
+    $hash = user_hash_generate();
+    $this_user = user_save($this_user, array('hash' => $hash));
+  }
+
   // Ethereum user address.
   $address = '<div id="ethereum_user_address">';
   $address .= '<h2>' . t('Ethereum address') . '</h2>';
@@ -150,75 +133,33 @@ function _ethereum_user($this_user) {
   $build['ethereum_user_address'] = array(
     '#type' => 'markup',
     '#markup' => $address,
+    '#attached' => array(
+      'js' => array(
+        array(
+          'type' => 'setting',
+          'data' => array(
+            'ethereum_user' => array(
+              'user' => array(
+                'hash' => $this_user->hash,
+                'address' => $this_user_ethereum_address,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
   );
   $build['ethereum_user_address_form'] = drupal_get_form('ethereum_user_form');
-
-  // If the user has an ethereum address:
-  if ($this_user_ethereum_address) {
-
-    // Inject local Web3.js if configured so.
-    if (variable_get('ethereum_web3_local_injection')) {
-      $build['ethereum_user']['#attached']['libraries_load'][] = array('web3');
-    }
-
-    // User registry check.
-    $loader = theme_image(array('path' => '/misc/throbber-active.gif'));
-    $registry = '<div id="ethereum_user_registry">';
-    $registry  .= '<h2>' . t('Ethereum user registry') . '</h2>';
-    $registry  .= '<div id="ethereum_user_registry_wait"><p>' . t('Please wait while we check if you are in our user registry on Ethereum...') . '</p><p>' . $loader . '</p></diV>';
-    $registry  .= '<p id="ethereum_user_registry_validated">' . t('Yes, this account is linked to our Ethereum user registry!') . '</p>';
-    $register_link = ($user->uid == $this_user->uid) ? '<a href="#">' . t('To use Ethereum features with us, please sign our user registry.') . '</a>' : t('User did not sign the registry and you can not do it as an admin');
-    $registry  .= '<p id="ethereum_user_registry_sign">' . $register_link . '</p>';
-    $registry  .= '</div>';
-    $build['ethereum_user_registry'] = array(
-      '#type' => 'markup',
-      '#markup' => $registry,
-      '#attached' => array(
-        'css' => array(
-          drupal_get_path('module', 'ethereum_user') . '/css/ethereum_user_registry.css',
-        ),
-        'js' => array(
-          drupal_get_path('module', 'ethereum_user') . '/js/ethereum_user_register_drupal.js',
-        ),
-      ),
-    );
-
-    // Generate user hash, if necessary.
-    if (!$this_user->hash) {
-      $data = array(
-        '@name' => $this_user->name,
-        '!id' => $this_user->uid,
-      );
-      $hash = user_hash_generate();
-      $this_user = user_save($this_user, array('hash' => $hash));
-    }
-
-    // Pass variables to JS.
-    drupal_add_js(array(
-      'ethereum_user' => array(
-        'contract' => array(
-          'address' => variable_get('ethereum_user_register_drupal_deployed_contract_address'),
-          'abi' => variable_get('ethereum_user_register_drupal_deployed_contract_abi'),
-        ),
-        'node' => variable_get('ethereum_web3_node'),
-        'token' => variable_get('ethereum_user_registry_list_token'),
-        'user' => array(
-          'hash' => $this_user->hash,
-          'address' => $this_user_ethereum_address,
-        ),
-      ),
-    ), 'setting');
-  }
 
   /*
    * Defines hook_ethereum_user_tab().
    *
-   * array $render
-   * string $ethereum_user_address
+   * array $build
+   * int $uid User ID
    */
   foreach (module_implements('ethereum_user_tab') as $module) {
     $function = $module . '_ethereum_user_tab';
-    $function($build, $this_user_ethereum_address);
+    $function($build, $this_user->uid);
   }
 
   // Return the content to Drupal Render API.
