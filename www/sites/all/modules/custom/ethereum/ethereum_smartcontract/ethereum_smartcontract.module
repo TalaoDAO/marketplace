@@ -21,26 +21,17 @@ function ethereum_smartcontract_entity_info() {
     'base table' => 'smartcontract',
     'entity keys' => array(
       'id' => 'id',
-      'label' => 'machine_name',
+      'label' => 'name',
     ),
     'module' => 'ethereum_smartcontract',
-    'entity class' => 'SmartcontractEntity',
-    'controller class' => 'SmartcontractEntityController',
+    'entity class' => 'Entity',
+    'controller class' => 'EntityAPIController',
     'access callback' => '_ethereum_smartcontract_access_callback',
-    'uri callback' => 'entity_class_uri',
     'admin ui' => array(
       'path' => 'admin/config/ethereum/smartcontract',
       'controller class' => 'EntityDefaultUIController',
     ),
     'fieldable' => TRUE,
-    'bundles' => array(
-      'smartcontract' => array(
-        'label' => t('Smart Contract'),
-        'admin' => array(
-          'path' => 'admin/config/ethereum/smartcontract',
-        ),
-      ),
-    ),
     'views controller class' => 'EntityDefaultViewsController',
     'extra fields controller class' => 'EntityDefaultExtraFieldsController',
   );
@@ -62,18 +53,25 @@ function smartcontract_entity_property_info() {
     'schema field' => 'id',
   );
 
+  $info['smartcontract']['properties']['name'] = array(
+    'label' => t('Name'),
+    'description' => t('Name of the Smart Contract.'),
+    'type' => 'text',
+    'schema field' => 'name',
+  );
+
+  $info['smartcontract']['properties']['description'] = array(
+    'label' => t('Description'),
+    'description' => t('Description of the Smart Contract.'),
+    'type' => 'text',
+    'schema field' => 'description',
+  );
+
   $info['smartcontract']['properties']['machine_name'] = array(
     'label' => t('Machine name'),
     'description' => t('Machine name of the Smart Contract.'),
     'type' => 'text',
     'schema field' => 'machine_name',
-  );
-
-  $info['smartcontract']['properties']['ethereum_address'] = array(
-    'label' => t('Ethereum Address'),
-    'description' => t('Ethereum address of the Smart Contract.'),
-    'type' => 'text',
-    'schema field' => 'abi',
   );
 
   $info['smartcontract']['properties']['abi'] = array(
@@ -95,20 +93,7 @@ function smartcontract_entity_property_info() {
     'description' => t('Path to the module generic Javascript.'),
     'type' => 'text',
     'schema field' => 'js',
-  );
-
-  $info['smartcontract']['properties']['name'] = array(
-    'label' => t('Name'),
-    'description' => t('Name of the Smart Contract.'),
-    'type' => 'text',
-    'schema field' => 'name',
-  );
-
-  $info['smartcontract']['properties']['description'] = array(
-    'label' => t('Description'),
-    'description' => t('Description of the Smart Contract.'),
-    'type' => 'text',
-    'schema field' => 'description',
+    'setter callback' => 'entity_property_verbatim_set',
   );
 
   return $info;
@@ -233,7 +218,7 @@ function smartcontract_form($form, &$form_state, $smartcontract = NULL) {
     '#title' => t('Javascript'),
     '#type' => 'textfield',
     '#description' => t('Path to generic Javascript (optional, relative to module folder'),
-    '#default_value' => isset($smartcontract->name) ? $smartcontract->name : '',
+    '#default_value' => isset($smartcontract->js) ? $smartcontract->js : '',
     '#weight' => '30',
     '#disabled' => TRUE,
   );
@@ -274,26 +259,33 @@ function _ethereum_smartcontract_test() {
   $query = new EntityFieldQuery();
   $query
     ->entityCondition('entity_type', 'smartcontract')
-    ->propertyCondition('machine_name', 'drupal_register')
+    ->propertyCondition('machine_name', 'register_drupal')
     ->range(0, 1);
   $result = $query->execute();
 
   if ($result) {
+
+    // Test.
     $smartcontract_id = current(current($result))->id;
 
     // Entity load method.
     $smartcontract = reset(entity_load('smartcontract', array($smartcontract_id)));
-    object_log('entity_load', $smartcontract);
+    dpm($smartcontract);
 
     // Entity metadata wrapper method.
     $wrapper = entity_metadata_wrapper('smartcontract', $smartcontract_id);
     $abi = $wrapper->abi->value();
-    object_log('abi', $abi);
+    dpm($abi);
   }
 
   $build['test'] = array(
     '#markup' => 'test',
   );
+
+  $contracts = entity_load('smartcontract');
+  dpm($contracts);
+
+  dpm(drupal_get_library('ethereum_smartcontract', 'register_drupal'));
 
   return $build;
 }
@@ -304,4 +296,56 @@ function _ethereum_smartcontract_test() {
 function _ethereum_smartcontract_machine_name_exists($value) {
   $exists = db_query_range('SELECT 1 FROM {smartcontract} WHERE machine_name = :machine_name', 0, 1, array(':machine_name' => $value))->fetchField();
   return $exists;
+}
+
+/**
+ * Implements hook_library().
+ */
+function ethereum_smartcontract_library() {
+
+  $libraries = array();
+
+  // Get the Smart Contracts.
+  $contracts = entity_load('smartcontract');
+
+  // Include each contract as a library.
+  foreach ($contracts as $contract) {
+
+    $wrapper = entity_metadata_wrapper('smartcontract', $contract);
+    $libraries[$contract->machine_name] = array(
+      'title' => $contract->name,
+      'js' => array(
+        drupal_get_path('module', 'ethereum_smartcontract') . '/js/ethereum_smartcontract_load.js' => array(
+          'scope' => 'footer',
+        ),
+        array(
+          'type' => 'setting',
+          'data' => array(
+            'ethereum_smartcontract' => array(
+              'contracts' => array(
+                $contract->machine_name => array(
+                  'abi' => $contract->abi,
+                  'address' => $wrapper->ethereum_address->value(),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    if ($contract->module && $contract->js) {
+      $libraries[$contract->machine_name]['js'][drupal_get_path('module', $contract->module) . '/' . $contract->js] = array(
+        'scope' => 'footer',
+      );
+    }
+  }
+
+  return $libraries;
+}
+
+/**
+ * Load a Smart Contract.
+ */
+function _ethereum_smartcontract_load($machine_name) {
+  drupal_add_library('ethereum_smartcontract', $machine_name);
 }
