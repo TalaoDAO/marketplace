@@ -9,7 +9,3 @@ dependencies[] = ethereum
 dependencies[] = ethereum_address_field
 dependencies[] = ethereum_web3
 dependencies[] = libraries
-
-; Classes autoloading
-files[] = src/Controller/SmartcontractController.php
-files[] = src/Entity/SmartcontractEntity.php

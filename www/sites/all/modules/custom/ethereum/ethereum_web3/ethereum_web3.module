@@ -43,3 +43,23 @@ function ethereum_web3_menu() {
 
   return $items;
 }
+
+/**
+ * Implements hook_init().
+ */
+function ethereum_web3_init() {
+
+  // Local injection of web3, if enabled.
+  if (variable_get('ethereum_web3_local_injection')) {
+
+    // Try to load the library.
+    if (($library = libraries_load('web3')) && !empty($library['loaded'])) {
+
+      // Pass settings to JS.
+      $settings = array(
+        'node' => variable_get('ethereum_web3_node'),
+      );
+      drupal_add_js(array('ethereum_web3' => $settings), 'setting');
+    }
+  }
+}
