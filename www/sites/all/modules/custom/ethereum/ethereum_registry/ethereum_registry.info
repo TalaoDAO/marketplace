@@ -1,14 +1,11 @@
-name = Ethereum user
+name = Ethereum registry
 description = Allows users to sign a User Registry contract on Ethereum.
 package = Ethereum
 core = 7.x
 
 ; Dependencies
-dependencies[] = entity
-dependencies[] = ethereum_address_field
-dependencies[] = ethereum_web3
-dependencies[] = libraries
-dependencies[] = user_hash
+dependencies[] = ethereum_smartcontract
+dependencies[] = ethereum_user
 
 ; Misc
 configure = admin/config/ethereum/registry/settings
