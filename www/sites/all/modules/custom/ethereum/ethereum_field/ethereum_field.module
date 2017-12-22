@@ -74,11 +74,12 @@ function ethereum_field_field_formatter_view($entity_type, $entity, $field, $ins
           'ethereum_field_'.$name => array(
             'contract_address' => $contract->ethereum_address['und'][0]['ethereum_address'],
             'contract_name' => $contract->name,
+            'contract_physical_name' => $name,
             'contract_abi' => $contract->abi,
             'fallback' => variable_get('ethereum_web3_node'),
             'field_name' => $settings['callname'],
             'user_hash' => $client->hash,
-            'user_address' => $client->field_ethereum_user_address['und'][0]['ethereum_address'],
+            'user_address' => $client->ethereum_address['und'][0]['ethereum_address'],
           ),
         ), 'setting');
         drupal_add_js("
@@ -95,18 +96,24 @@ function ethereum_field_field_formatter_view($entity_type, $entity, $field, $ins
             drupal.get();
           }
 
-          drupalCall('http://emh.box.local/api', 'user/1.json',  (data) => {console.log(data); });
+          //drupalCall('http://emh.box.local/api', 'user/1.json',  (data) => {console.log(data); });
 
-          var web3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_field_$name.fallback));
+          window.web3 = new Web3(new Web3.providers.HttpProvider(Drupal.settings.ethereum_field_$name.fallback));
           var user_address = Drupal.settings.ethereum_field_$name.user_address;
           var contract_abi = JSON.parse(Drupal.settings.ethereum_field_$name.contract_abi);
           var contract_address = Drupal.settings.ethereum_field_$name.contract_address;
           var contract_name = Drupal.settings.ethereum_field_$name.contract_name;
+          var contract_physical_name = Drupal.settings.ethereum_field_$name.contract_physical_name;
           var contract = new web3.eth.Contract(contract_abi, contract_address);
           var user_hash = Drupal.settings.ethereum_field_$name.user_hash;
           var field_name = Drupal.settings.ethereum_field_$name.field_name;
-          var method = contract.methods[field_name];
-          method(user_address).call().then(function(result){console.log(result); $('#eth-field-$name').html(result); window[field_name] = result; });
+          Drupal.settings.ethereum = {};
+          Drupal.settings.ethereum.contracts = {};
+          Drupal.settings.ethereum.contracts[contract_name] = {abi:contract_abi, address:contract_address, name:contract_physical_name, instance:contract};
+          if (field_name != '') {
+            var method = contract.methods[field_name];
+            method(user_address).call().then(function(result){console.log(result); $('#eth-field-$name').html(result); window[field_name] = result; });
+          }
   }); }}}(jQuery));", 'inline');
 
       drupal_add_js('sites/all/modules/contrib/drupalservicejs/app.js', array('scope' => 'footer'));
