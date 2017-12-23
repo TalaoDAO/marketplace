@@ -4,7 +4,7 @@
  * @file
  * Ethereum registry.
  *
- * Allows users to sign a User Registry contract on Ethereum.
+ * Allows users to sign a Register Drupal contract on Ethereum.
  */
 
 /**
@@ -15,8 +15,8 @@ function ethereum_registry_menu() {
 
   $items['admin/config/ethereum/registry'] = array(
     'title' => 'Users registry',
-    'description' => 'Ethereum users registry.',
-    'page callback' => '_ethereum_user_registry_list',
+    'description' => 'Ethereum registry.',
+    'page callback' => '_ethereum_registry_list',
     'access arguments' => array('administer site configuration'),
     'file' => 'ethereum_registry.admin.inc',
     'type' => MENU_NORMAL_ITEM,
@@ -59,7 +59,10 @@ function ethereum_registry_ethereum_user_tab(&$build, $uid) {
   if ($this_user_ethereum_address) {
 
     // User registry check.
-    $loader = theme_image(array('path' => '/misc/throbber-active.gif'));
+    $loader = theme_image(array(
+      'path' => '/misc/throbber-active.gif',
+      'attributes' => '',
+    ));
     $registry = '<div id="ethereum_registry">';
     $registry  .= '<h2>' . t('Ethereum registry') . '</h2>';
     $registry  .= '<div id="ethereum_registry_wait"><p>' . t('Please wait while we check if you are in our user registry on Ethereum...') . '</p><p>' . $loader . '</p></diV>';
@@ -74,6 +77,15 @@ function ethereum_registry_ethereum_user_tab(&$build, $uid) {
         'css' => array(
           drupal_get_path('module', 'ethereum_registry') . '/css/ethereum_registry.css',
         ),
+        'js' => array(
+          array(
+            'type' => 'file',
+            'data' => drupal_get_path('module', 'ethereum_registry') . '/js/ethereum_registry.js',
+            array(
+              'scope' => 'footer',
+            ),
+          ),
+        ),
       ),
     );
     $build['ethereum_registry']['#attached']['library'][] = array('ethereum_smartcontract', 'register_drupal');
@@ -85,6 +97,7 @@ function ethereum_registry_ethereum_user_tab(&$build, $uid) {
  */
 function _ethereum_registry_list_callback($hash) {
 
+  // Remove 0x.
   $hash = substr($hash, 2);
 
   $user = db_select('users', 'u')
