@@ -135,22 +135,6 @@ function ethereum_smartcontract_permission() {
 }
 
 /**
- * Callback function for displaying the individual Smart Contract.
- */
-function _ethereum_smartcontract_view_smartcontract($id) {
-
-  $smartcontracts = entity_load('smartcontract', array($id));
-  $smartcontract = $smartcontracts[$id];
-
-  drupal_set_title($smartcontract->name);
-
-  $output = entity_view('smartcontract', array($smartcontract));
-
-  return $output;
-
-}
-
-/**
  * Access callback for Smart Contract entities.
  */
 function _ethereum_smartcontract_access_callback($op, $smartcontract = NULL, $account = NULL) {
@@ -250,47 +234,6 @@ function smartcontract_form_submit($form, &$form_state) {
 }
 
 /**
- * Test for SmartContract Entity.
- */
-function _ethereum_smartcontract_test() {
-
-  $build = array();
-
-  $query = new EntityFieldQuery();
-  $query
-    ->entityCondition('entity_type', 'smartcontract')
-    ->propertyCondition('machine_name', 'register_drupal')
-    ->range(0, 1);
-  $result = $query->execute();
-
-  if ($result) {
-
-    // Test.
-    $smartcontract_id = current(current($result))->id;
-
-    // Entity load method.
-    $smartcontract = reset(entity_load('smartcontract', array($smartcontract_id)));
-    dpm($smartcontract);
-
-    // Entity metadata wrapper method.
-    $wrapper = entity_metadata_wrapper('smartcontract', $smartcontract_id);
-    $abi = $wrapper->abi->value();
-    dpm($abi);
-  }
-
-  $build['test'] = array(
-    '#markup' => 'test',
-  );
-
-  $contracts = entity_load('smartcontract');
-  dpm($contracts);
-
-  dpm(drupal_get_library('ethereum_smartcontract', 'register_drupal'));
-
-  return $build;
-}
-
-/**
  * Check if the machine name is available.
  */
 function _ethereum_smartcontract_machine_name_exists($value) {
@@ -308,12 +251,13 @@ function ethereum_smartcontract_library() {
   // Get the Smart Contracts.
   $contracts = entity_load('smartcontract');
 
-  // Include each contract as a library.
+  // Register each contract as a library.
   foreach ($contracts as $contract) {
 
     $wrapper = entity_metadata_wrapper('smartcontract', $contract);
     $libraries[$contract->machine_name] = array(
       'title' => $contract->name,
+      'version' => 'N/A',
       'js' => array(
         drupal_get_path('module', 'ethereum_smartcontract') . '/js/ethereum_smartcontract_load.js' => array(
           'scope' => 'footer',
@@ -344,7 +288,12 @@ function ethereum_smartcontract_library() {
 }
 
 /**
- * Load a Smart Contract.
+ * Helper function to load a Smart Contract.
+ *
+ * For convenience.
+ * Instead of using this, it's better to attach the library to a render array.
+ *
+ * @see ethereum_registry/ethereum_registry_ethereum_user_tab()
  */
 function _ethereum_smartcontract_load($machine_name) {
   drupal_add_library('ethereum_smartcontract', $machine_name);
