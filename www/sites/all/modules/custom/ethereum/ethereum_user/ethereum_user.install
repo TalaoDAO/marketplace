@@ -59,7 +59,7 @@ function ethereum_user_install() {
  * Implements hook_uninstall().
  */
 function ethereum_user_uninstall() {
-/*
+
   // Delete role.
   $role_name = 'registered ethereum user';
   if (user_role_load_by_name($role_name)) {
@@ -70,5 +70,5 @@ function ethereum_user_uninstall() {
   if ($instance = field_info_instance('user', 'ethereum_address', 'user')) {
     field_delete_instance($instance);
   }
-*/
+
 }

@@ -1,5 +1,5 @@
 name = Ethereum user
-description = Allows users to sign a User Registry contract on Ethereum.
+description = Allows users to use Ethereum, provide an address field and a dashboard.
 package = Ethereum
 core = 7.x
 
@@ -9,6 +9,3 @@ dependencies[] = ethereum_address_field
 dependencies[] = ethereum_web3
 dependencies[] = libraries
 dependencies[] = user_hash
-
-; Misc
-configure = admin/config/ethereum/registry/settings
