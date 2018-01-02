@@ -429,8 +429,6 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
   
   global $user;
   $values = $form_state['values'];
-
-  ddl($values, 'values');
   
   $emails = array();
   // Cleans the received emails list
@@ -534,7 +532,6 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
       '#items' => $recorded_emails,
     ));
 
-    ddl($record_list, 'list');
     drupal_set_message(t('You just sent invitations to: !emails', array('!emails' => $record_list)));
   }
 }
