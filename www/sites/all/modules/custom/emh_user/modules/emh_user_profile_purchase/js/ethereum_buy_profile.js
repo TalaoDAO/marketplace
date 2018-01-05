@@ -35,14 +35,18 @@
           });
         }
 
-        token_emh_contract = Drupal.settings.ethereum_smartcontract.contracts.token_erc20;
-        user_register_contract = Drupal.settings.ethereum_smartcontract.contracts.user_register;
+        token_emh_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('token_erc20');
+        user_register_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('register_drupal');
         clientAddress = Drupal.settings.emh_blockchain.clientAddress;
         expertAddress = Drupal.settings.emh_blockchain.expertAddress;
         clientName = Drupal.settings.emh_blockchain.clientName;
         expertName = Drupal.settings.emh_blockchain.expertName;
         clientHash = Drupal.settings.emh_blockchain.clientHash;
         expertHash = Drupal.settings.emh_blockchain.expertHash;
+
+        console.log(expertAddress); console.log(clientAddress);
+        console.log(expertHash); console.log(clientHash);
+        console.log(expertName); console.log(clientName);
 
         clientRegistered = false; //async
         expertRegistered = false; //async
