@@ -72,33 +72,37 @@
     var eid = <?=$entity_id?>;
     var expertid = <?php $entity = reset(entity_load('webform_submission', [$entity_id])); print $entity->uid; ?>;
     console.log(expertid);
-          function drupalCall(url, method, callback) {          
+    function drupalCall(url, method, callback) {          
             var drupal = new drupalService();
             drupal.url = url;
             drupal.method = method;
             drupal.callback = callback;
             drupal.get();
-          }
-          window.contract = Drupal.settings.ethereum.contracts.Freelancer.instance;
+    }
+        window.contract = Drupal.settings.ethereum.contracts.Freelancer.instance;
+        contract.methods.owner().call().then(ownerAccount => {
           window.expert_hash = null;
           window.client_hash = null;
-          drupalCall('http://emh.box.local/api', 'user/'+userid+'.json',  (data) => {
+          var host = window.location.hostname;
+          var root = 'http://'+host+'/api';
+          drupalCall(root, 'user/'+userid+'.json',  (data) => {
             console.log(data);
             client_hash = data.hash;
             console.log(client_hash);
             contract.methods.validateFreelancerByHash(client_hash).call().then (client_id => {
               console.log(client_id);
-              drupalCall('http://emh.box.local/api', 'user/'+expertid+'.json',  (doto) => {
+              drupalCall(root, 'user/'+expertid+'.json',  (doto) => {
                 expert_hash = doto.hash;
                 console.log(expert_hash);
                 contract.methods.validateFreelancerByHash(expert_hash).call().then( expert_id => {
                   console.log(expert_id);
-                  contract.methods.registeraclientrating(expert_id, '0x00a329c0648769A73afAc7F9381E08FB43dBEA72', 100).send({from:client_id}).then( ()=>{return null;});
+                  contract.methods.registeraclientrating(expert_id, ownerAccount, 100).send({from:client_id}).then( ()=>{return null;});
                   return null;
                 });
               });
             });
           });
+        });
   }
 
 </script>
