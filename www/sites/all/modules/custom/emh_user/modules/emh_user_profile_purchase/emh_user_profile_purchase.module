@@ -89,6 +89,8 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
 
   $_user = user_load($user->uid);
   $_account = user_load($account->uid);
+  _ethereum_smartcontract_load('token_erc20');
+  _ethereum_smartcontract_load('user_register');
   drupal_add_js(array(
     'emh_blockchain' => array(
       'token_emh_deployed_contract_address_fallback' => variable_get('emh_blockchain_TokenEMH_deployed_contract_address_fallback'),
