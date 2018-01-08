@@ -1749,3 +1749,9 @@ function emh_configuration_update_7087() {
   module_enable(array('ft_opencalais'));
 }
 
+/**
+ * ADD: ft_virality.
+ */
+function emh_configuration_update_7088() {
+  module_enable(array('ft_virality'));
+}
