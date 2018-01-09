@@ -277,7 +277,9 @@ function emh_virality_invitation_form($form, &$form_state) {
   //if (isset($parameters['request']) || $form_state['submitted']) {
 
   if (isset($parameters['request'])) {
-    $nid = $parameters['request'];
+    if(emh_virality_is_request_all_experts($parameters['request'])) {
+      $nid = $parameters['request'];
+    }
   }
   /* elseif (isset($_SESSION['invite_expert_request'])) {
      $nid = $_SESSION['invite_expert_request'];
@@ -943,22 +945,46 @@ function emh_virality_node_view($node, $view_mode, $langcode) {
   global $base_url;
   switch ($node->type) {
     case 'request' :
-      $node->content['sponsorship'] = [
-        '#attributes' => [
-          'class' => [
-            'btn',
-            'btn-flash',
-            'icon-user',
+      if(emh_virality_is_request_all_experts($node->nid)) {
+        $node->content['sponsorship'] = [
+          '#attributes' => [
+            'class' => [
+              'btn',
+              'btn-flash',
+              'icon-user',
+            ],
+            'href' => [
+              $base_url . '/' . drupal_get_path_alias('invitations') . '?request=' . $node->nid,
+            ],
           ],
-          'href' => [
-            $base_url . '/' . drupal_get_path_alias('invitations') . '?request=' . $node->nid,
-          ],
-        ],
-        '#theme' => 'html_tag',
-        '#tag' => 'a',
-        '#value' => t('Invite experts'),
-      ];
+          '#theme' => 'html_tag',
+          '#tag' => 'a',
+          '#value' => t('Invite experts'),
+        ];
+      }
 
       break;
   }
+}
+
+/**
+ * Test to know if the node is "All Experts"
+ * @param $nid
+ *
+ * @return bool
+ */
+function emh_virality_is_request_all_experts($nid) {
+
+    $node = node_load($nid);
+    if($node && $node->type == 'request') {
+      $circles = $node->og_group_ref['und'];
+      foreach ($circles as $circle) {
+        if($circle['target_id'] == '314') {
+          return TRUE;
+        }
+      }
+    }
+
+
+  return FALSE;
 }
