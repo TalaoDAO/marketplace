@@ -521,15 +521,6 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
 
     try {
 
-      $language = 'en';
-      if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-        // detect language
-        $langue = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        $langue = strtolower(substr($langue[0], 0, 2));
-
-        $language = $langue;
-      }
-
       $request = NULL;
       $message = NULL;
       $params = NULL;
