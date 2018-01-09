@@ -221,7 +221,7 @@ function emh_virality_block_view($delta = '') {
  */
 function emh_virality_move_points_after($txn_id, $transaction, $source, $destination) {
   // If some credits moved from node to user
-  if ($transaction['source_type'] == 'node' && $transaction['dest_type'] == 'user') {
+  if ($transaction['source_type'] == 'user' && $transaction['dest_type'] == 'user') {
     $query = db_select('emh_invitation', 'i')
       ->fields('i', ['invitation_id'])
       ->condition('referral_id', $destination->uid)
@@ -519,17 +519,23 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
 
     try {
 
+      $language = 'en';
+      if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        // detect language
+        $langue = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        $langue = strtolower(substr($langue[0], 0, 2));
+
+        $language = $langue;
+      }
+
       $request = NULL;
       $message = NULL;
-      $language = 'en';
       $params = NULL;
       if (isset($form_state['request_nid'])) {
         $request = $form_state['request_nid'];
         $params = [
           'nid' => $request,
         ];
-        $node = node_load($request);
-        $language = $node->language;
 
         //choose template email
         if (!empty($email['message'])) {
@@ -563,8 +569,6 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
       $invitation->save();
 
       //prepare template to send email
-
-
       pet_send_mail($template_email, [
         [
           'mail' => $mail,
