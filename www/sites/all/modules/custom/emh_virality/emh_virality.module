@@ -1026,8 +1026,6 @@ function emh_virality_is_request_all_experts($nid) {
       }
     }
   }
-
-
-
+  
   return FALSE;
 }
