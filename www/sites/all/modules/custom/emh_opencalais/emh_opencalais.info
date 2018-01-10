@@ -1,6 +1,6 @@
 ; $Id:
-name = eMindHub - Opencalais
+name = EMH Opencalais
 description = Add tags for Request
 core = 7.x
-package = eMindHub
+package = EMH
 dependencies[] = opencalais
