@@ -676,7 +676,7 @@ function emh_virality_user_insert(&$edit, $account, $category) {
       ->fields([
         'updated_at' => time(),
         'referral_id' => $account->uid,
-        'status' => EmhInvitation::STATUS_WAITING,
+        'status' => EmhInvitation::STATUS_REGISTERED,
       ])
       ->condition('referral_mail', $account->mail)
       ->condition('status', EmhInvitation::STATUS_SENT)
@@ -697,10 +697,50 @@ function emh_virality_user_update(&$edit, $account, $category) {
       ->fields([
         'updated_at' => time(),
         'referral_id' => $account->uid,
-        'status' => EmhInvitation::STATUS_WAITING,
+        'status' => EmhInvitation::STATUS_REGISTERED,
       ])
       ->condition('referral_mail', $account->mail)
       ->condition('status', EmhInvitation::STATUS_SENT)
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_webform_submission_insert().
+ */
+function emh_virality_webform_submission_insert($node, $submission) {
+
+  // If the node is a request and answer no draft
+  if ($node->type == 'request' && !$submission->is_draft) {
+    // Changes status from "registered" to "waiting"
+    $user = user_load($submission->uid);
+    db_update('emh_invitation')
+      ->fields([
+        'updated_at' => time(),
+        'status' => EmhInvitation::STATUS_WAITING,
+      ])
+      ->condition('referral_mail', $user->mail)
+      ->condition('status', EmhInvitation::STATUS_REGISTERED)
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_webform_submission_update().
+ */
+function emh_virality_webform_submission_update($node, $submission) {
+
+  // If the node is a request and answer no draft
+  if ($node->type == 'request' && !$submission->is_draft) {
+    // Changes status from "registered" to "waiting"
+    $user = user_load($submission->uid);
+    db_update('emh_invitation')
+      ->fields([
+        'updated_at' => time(),
+        'status' => EmhInvitation::STATUS_WAITING,
+      ])
+      ->condition('referral_mail', $user->mail)
+      ->condition('status', EmhInvitation::STATUS_REGISTERED)
       ->execute();
   }
 }
@@ -842,6 +882,9 @@ function emh_virality_show_user_history($account = NULL) {
       case EmhInvitation::STATUS_SENT:
         $status = t('Invitation sent.');
         break;
+      case EmhInvitation::STATUS_REGISTERED:
+        $status = t('Registered on eMindHub.');
+        break;
       case EmhInvitation::STATUS_WAITING:
         $status = t('Waiting to be recognized.');
         break;
@@ -972,17 +1015,18 @@ function emh_virality_node_view($node, $view_mode, $langcode) {
  */
 function emh_virality_is_request_all_experts($nid) {
 
-    $node = node_load($nid);
-    if($node && $node->type == 'request') {
-      $circles = $node->og_group_ref['und'];
-      foreach ($circles as $circle) {
+  $node = node_load($nid);
+  if($node && $node->type == 'request') {
+    $circles = $node->og_group_ref['und'];
+    foreach ($circles as $circle) {
 
-        // see node table for to know nid circle
-        if($circle['target_id'] == '314') {
-          return $node;
-        }
+      // see node table for to know nid circle
+      if($circle['target_id'] == '314') {
+        return $node;
       }
     }
+  }
+
 
 
   return FALSE;

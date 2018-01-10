@@ -13,17 +13,21 @@ class EmhInvitation extends Entity {
   /**
    * Sent status: the invited person isn't registered yet.
    */
-  const STATUS_SENT       = 0;
+  const STATUS_SENT         = 0;
+  /**
+   * Registered status: the invited person is registered.
+   */
+  const STATUS_REGISTERED   = 1;
   /**
    * Waiting status: the invited person is registered but hasn't been selected
    * by a business user for one of its answers.
    */
-  const STATUS_WAITING    = 1;
+  const STATUS_WAITING      = 2;
   /**
    * Validated status: the invited person has been selected
    * by a business user for one of its answers.
    */
-  const STATUS_VALIDATED  = 2;
+  const STATUS_VALIDATED    = 3;
 
 
   public function __construct($values = array()) {
@@ -44,6 +48,10 @@ class EmhInvitation extends Entity {
 
   public function isSent() {
     return ($this->status == self::STATUS_SENT);
+  }
+
+  public function isRegistered() {
+    return ($this->status == self::STATUS_REGISTERED);
   }
 
   public function isWaiting() {
