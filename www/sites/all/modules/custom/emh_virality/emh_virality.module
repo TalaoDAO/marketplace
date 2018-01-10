@@ -521,20 +521,16 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
 
     try {
 
-      $language = 'en';
-      if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-        // detect language
-        $langue = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-        $langue = strtolower(substr($langue[0], 0, 2));
-
-        $language = $langue;
-      }
-
       $request = NULL;
       $message = NULL;
       $params = NULL;
-      if (isset($form_state['request_nid'])) {
+      $language = 'en';
+      if (isset($form_state['request_nid']) &&
+        ($node = emh_virality_is_request_all_experts($form_state['request_nid']))) {
+
+        //request sponsorship
         $request = $form_state['request_nid'];
+        $language = $node->language;
         $params = [
           'nid' => $request,
         ];
@@ -549,6 +545,7 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
         }
       }
       else {
+        //general sponsorhip
         if (!empty($email['message'])) {
           $template_email = 'emh_sponsorship_general';
           $message = $email['message'];
@@ -968,10 +965,10 @@ function emh_virality_node_view($node, $view_mode, $langcode) {
 }
 
 /**
- * Test to know if the node is "All Experts"
- * @param $nid
+ * Test to know if the node is "All Experts".
+ * @param $nid Nid of node
  *
- * @return bool
+ * @return bool|mixed
  */
 function emh_virality_is_request_all_experts($nid) {
 
@@ -979,8 +976,10 @@ function emh_virality_is_request_all_experts($nid) {
     if($node && $node->type == 'request') {
       $circles = $node->og_group_ref['und'];
       foreach ($circles as $circle) {
+
+        // see node table for to know nid circle
         if($circle['target_id'] == '314') {
-          return TRUE;
+          return $node;
         }
       }
     }
