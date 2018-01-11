@@ -1,0 +1,11 @@
+name = FT Config pages
+description = Config pages
+core = 7.x
+package = EMH
+version = 7.x-1.0
+dependencies[] = config_pages
+dependencies[] = entity
+features[config_pages_type][] = emindhub
+features[config_pages_type][] = homepage
+features[features_api][] = api:2
+project path = sites/all/modules/features
