@@ -1,0 +1,19 @@
+name = Config Pages
+description = Provides entity for site configuration (this module is derivative from Model module https://drupal.org/project/model)
+core = 7.x
+package = QTools
+version = "7.x-1.5"
+configure = admin/config/development/config_pages_types
+
+dependencies[] = entity
+
+files[] = config_pages.admin.inc
+files[] = config_pages.type.admin.inc
+files[] = plugins/panelizer/entity/PanelizerEntityConfigPages.class.php
+
+; Information added by Drupal.org packaging script on 2016-07-22
+version = "7.x-1.8"
+core = "7.x"
+project = "config_pages"
+datestamp = "1469192666"
+
