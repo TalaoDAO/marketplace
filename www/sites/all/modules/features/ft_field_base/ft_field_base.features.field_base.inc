@@ -774,7 +774,7 @@ function ft_field_base_field_default_field_bases() {
     'field_name' => 'field_expertise',
     'field_permissions' => array(
       'owner_field' => 'Comment',
-      'type' => 0,
+      'type' => 2,
     ),
     'indexes' => array(
       'tid' => array(
