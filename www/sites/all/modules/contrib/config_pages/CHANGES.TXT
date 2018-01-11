@@ -1,0 +1,33 @@
+7.x-1.5
+- Bug fiixes (Exception due to unfinished TODO with panelizer class)
+
+7.x-1.4
+- Confirmation form added for clear action
+- Added api to provide context switching links (language context switch included)
+- EXPERIMENTAL! Added panelizer support with IPE, so you can have "different pages" per context (language for example) for same drupal path
+- Minor fixes
+
+7.x-1.3
+- Documentation fixed
+
+7.x-1.2
+- Silly me forget to change bundle argument position :( FIXED.
+
+7.x-1.1
+- Menu entry moved from "admin/config/config_pages_types" to "admin/config/development/config_pages_types"
+to be inline with Drupal standards.
+- Coder review for coding standards.
+
+7.x-0.06
+- Added context support for CP render
+- Added select widget for CP (text field only supported)
+
+7.x-1.05
+- domain (Domain module) context added
+
+7.x-1.04
+- Supports for embed field colections to be imported/exported
+- Embed Field collections will be recreated if you import page from another content
+- Config metawrapper avaialble through config_pages_config()
+- Minor fixes
+- config_pages_get() now accept field names instead of settings manes
