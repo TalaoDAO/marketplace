@@ -49,6 +49,6 @@
 <menu>
 	<ul>
 		<li>test</li>
-		<li>test</li>
+		<li>test Guillaume</li>
 	</ul>
 </menu>
