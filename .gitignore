@@ -22,6 +22,8 @@ var
 .idea
 .DS_Store
 *.DS_Store
+/.Trash*
+
 nbproject
 .hg
 atlassian-ide-plugin.xml
