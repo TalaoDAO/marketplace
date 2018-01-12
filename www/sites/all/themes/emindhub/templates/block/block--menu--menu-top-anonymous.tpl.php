@@ -45,4 +45,10 @@
  * @ingroup themeable
  */
 ?>
-<?php print $content; ?>
+<?php //print $content; ?>
+<menu>
+	<ul>
+		<li>test</li>
+		<li>test</li>
+	</ul>
+</menu>
