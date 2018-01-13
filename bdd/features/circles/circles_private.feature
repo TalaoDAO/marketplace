@@ -20,13 +20,13 @@ Feature: Private Circle
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education    | og_user_node   | field_mail                      | field_entreprise       | field_working_status | field_domaine | field_address:country |
-    | client1 | emindhub.test+client1@gmail.com | business | Bruce            | WAYNE           | 0612345678                  | Chef de groupe     | Justice League | emindhub.test+client1@gmail.com | Wayne Entreprise       | Freelancer           | Maintenance   | US                    |
-    | client2 | emindhub.test+client2@gmail.com | business | Peter            | PARKER           | 0612345679                  | Chef de groupe     | Avengers | emindhub.test+client2@gmail.com | Daily Buggle       | Freelancer           | Maintenance   | US                    |
+    | client1 | emindhub.test+client1@gmail.com | business | Bruce            | WAYNE           | 0612345678                  | Chef de groupe     | Justice League | emindhub.test+client1@gmail.com | Wayne Entreprise       | Freelancer           | Aviation   | US                    |
+    | client2 | emindhub.test+client2@gmail.com | business | Peter            | PARKER           | 0612345679                  | Chef de groupe     | Avengers | emindhub.test+client2@gmail.com | Daily Buggle       | Freelancer           | Aviation   | US                    |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node   | field_mail                      | field_entreprise    | field_working_status | field_domaine | field_address:country |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial    | Avengers       | emindhub.test+expert1@gmail.com | Marvel Studios      | Employee             | Blockchain        | US                    |
-    | expert4 | emindhub.test+expert4@gmail.com | expert   | Barry            | Hallen          | 0712345673                  | Eclair rouge     | Justice League | emindhub.test+expert4@gmail.com | DC Comics           | Employee             | Helicopters   | US                    |
+    | expert4 | emindhub.test+expert4@gmail.com | expert   | Barry            | Hallen          | 0712345673                  | Eclair rouge     | Justice League | emindhub.test+expert4@gmail.com | DC Comics           | Employee             | Energy   | US                    |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref   | author  | field_expiration_date  | status  |
