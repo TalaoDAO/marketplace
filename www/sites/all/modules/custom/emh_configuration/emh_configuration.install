@@ -14,7 +14,7 @@ function emh_configuration_update_dependencies() {
   );
   $dependencies['emh_configuration'][7083] = array(
     'emh_points' => 7116,
-    'emh_points_earnings' => 7103, 
+    'emh_points_earnings' => 7103,
   );
 
   return $dependencies;
@@ -1706,7 +1706,7 @@ function emh_configuration_update_7082() {
  */
 function emh_configuration_update_7083() {
   _emh_points_earnings_retroactive();
-  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/txn_data_context_retroactive.sql"); 
+  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/txn_data_context_retroactive.sql");
   module_enable(['emh_linkedin']);
 }
 
@@ -1718,10 +1718,10 @@ function emh_configuration_update_7084() {
   variable_set('opencalais_api_key', 'WgnZlNyGrLVfgZpyFb04chAUthY9xJFT');
   variable_set('opencalais_autotagging', array(
       0 => 'social_tags',
-      'request' => '2' 
+      'request' => '2'
   ));
   variable_set('opencalais_nodefields', array(
-      'request' => 1 
+      'request' => 1
   ));
 }
 
@@ -1730,7 +1730,7 @@ function emh_configuration_update_7084() {
  */
 function emh_configuration_update_7085() {
   exec("drush fra -y");
-  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/domains_to_sector.sql"); 
+  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/domains_to_sector.sql");
 }
 
 /**
@@ -1749,3 +1749,9 @@ function emh_configuration_update_7087() {
   module_enable(array('ft_opencalais'));
 }
 
+/**
+ * ADD: enable config_pages module.
+ */
+function emh_configuration_update_7088() {
+  module_enable(array('config_pages'));
+}
