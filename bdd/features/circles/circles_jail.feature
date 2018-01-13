@@ -7,7 +7,7 @@ Feature: Jail Circles test
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education    | og_user_node       | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
     | expert1 | emindhub.test+expert1@gmail.com | expert   | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | Smart Mobility     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Aviation   | US                    |
-    | client1 | emindhub.test+client1@gmail.com | business | Charle           | XAVIER          |                             |                    | Smart Mobility     | emindhub.test+client2@gmail.com | Marvel Entertainment | Freelancer           | Engines       | US                    |
+    | client1 | emindhub.test+client1@gmail.com | business | Charle           | XAVIER          |                             |                    | Smart Mobility     | emindhub.test+client2@gmail.com | Marvel Entertainment | Freelancer           | Connected Car       | US                    |
 
     Given the user "expert1" is a member of the group "Smart Mobility"
     Given the user "client1" is a member of the group "Smart Mobility"
