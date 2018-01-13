@@ -1750,8 +1750,8 @@ function emh_configuration_update_7087() {
 }
 
 /**
- * ADD: enable config_pages module.
+ * ADD: enable config_pages module and feature.
  */
 function emh_configuration_update_7088() {
-  module_enable(array('config_pages'));
+  module_enable(['config_pages', 'fd_config_pages']);
 }
