@@ -808,6 +808,23 @@ class FeatureContext extends DrupalContext {
   public function cleanupForNoDelay(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
     variable_set('emh_request_notification_delay', '1');
   }
+
+  /**
+   * @AfterScenario @invitation
+   */
+  public function cleanSendInvitation(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
+    db_delete("emh_invitation")
+      ->condition("referral_mail", "emindhub.test+batman@gmail.com")
+      ->execute();
+
+    db_delete("emh_invitation")
+      ->condition("referral_mail", "emindhub.test+superman@gmail.com")
+      ->execute();
+
+    db_delete("emh_invitation")
+      ->condition("referral_mail", "emindhub.test+flash@gmail.com")
+      ->execute();
+  }
 }
 
 /**

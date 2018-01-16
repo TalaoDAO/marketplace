@@ -27,12 +27,16 @@ Feature: Request
     Given the user "expert1" is a member of the group "All experts"
     Given the user "client2" is a member of the group "X-Men"
 
+    Given I give "client1" 500 emh credits
+
     Given "request" content:
       | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
       | How to become a superhero?  | Blockchain        | All experts     | client1 | 2020-02-08 17:45:00    | 1       |
+      | How to join the x-men?  | Blockchain        | X-Men     | client2 | 2020-02-08 18:45:00    | 1       |
 
   @email @nodelay
   Scenario: An author can to send a general invitation
+    Given the test email system is enabled
     Given I am logged in as "client1"
     When I go to homepage
     And I click "Invite experts" in the "content" region
@@ -51,15 +55,23 @@ Feature: Request
     And I should see "emindhub.test+superman@gmail.com"
     And I should see "Invitation sent."
 
+
+  Scenario: An author can to access invitation page since a request not for All Experts
+    Given I am logged in as "client2"
+    When I go to homepage
+    And I click "How to join the x-men?" in the "content" region
+    Then I should not see the button "Invite experts"
+
   @email @nodelay
-  Scenario: An author can to send a invitation about a request
+  Scenario: An user send an invitation and new user validated.
+    Given the test email system is enabled
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "How to become a superhero?" in the "content" region
     And I click "Invite experts" in the "content" region
     Then I should see "How to become a superhero?"
 
-    Given I fill in "Barry" for "First Name"
+    When I fill in "Barry" for "First Name"
     And I fill in "Hallen" for "Name"
     And I fill in "emindhub.test+flash@gmail.com" for "Mail"
     And I fill in "Hello, I'm Flash" for "Message"
@@ -69,6 +81,72 @@ Feature: Request
     And I should see "Invitation sent."
     And the last email to "emindhub.test+flash@gmail.com" should contain "Hello Barry,"
     And the email should contain "Hello, I'm Flash"
+
+
+  #Scenario: An user validated invitation
+    When I visit "user/logout"
+    And I visit 'expert/register'
+    And I fill in "Barry" for "First Name"
+    And I fill in "Hallen" for "Last Name"
+    And I fill in "emindhub.test+flash@gmail.com" for "mail"
+    And I fill in "test" for "pass[pass1]"
+    And I fill in "test" for "pass[pass2]"
+    And I check the box "I agree to the Terms of use document"
+    And I press the "Create new account" button
+    Then I should see the text "A confirmation message with further instructions has been sent to your e-mail address."
+
+    Given I am logged in as the admin
+    When I go to "admin/people"
+    And I click "edit" in the "Barry HALLEN" row
+    And I select the radio button "Member"
+    And I select "France" from "Country"
+    And I fill in "Airbus" for "field_entreprise[und][0][target_id]"
+      #Notice: "Position" don't work because it's exists also in "Last position(s)" group field
+    And I fill in "academics" for "field_position[und]"
+    And I select "Freelancer" from "Working status"
+    And I fill in "2048" for "Domain"
+    And I press "Save"
+    And I press "Save"
+    Then I should see "The changes have been saved."
+
+    When I go to "user/logout"
+    And I visit 'user/login'
+    And I fill in "emindhub.test+flash@gmail.com" for "name"
+    And I fill in "test" for "pass"
+    And I press the "Log in" button
+    Then I should see the text "Log out"
+
+    When I go to homepage
+    And I click "How to become a superhero?" in the "content" region
+    And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
+    And I press "Publish"
+
+    Given I am logged in as "client1"
+    When I go to homepage
+    And I click "How to become a superhero?" in the "content" region
+    And I click "Access profile for 100 credits" in the "content" region
+    Then I press "Access profile"
+
+    Given I am logged in as "expert1"
+    When I go to "invitations"
+    Then I should see "emindhub.test+flash@gmail.com"
+    And I should see "Invitation validated."
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/credits/transaction-log"
+    Then I should see "eMindHub rewards Iron MAN for a validated invitation"
+
+
+  @invitation
+  Scenario: Delete new user
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/people"
+    And I click "edit" in the "Barry HALLEN" row
+    And I press "Cancel account"
+    And I press "Cancel account"
+    And I wait 5 seconds
+    And I follow meta refresh
+    Then I should see the text "has been deleted."
 
   #Scenario: An author can edit its own request
   #  Given I am logged in as "client1"
