@@ -98,7 +98,7 @@ function ft_content_type_field_default_field_bases() {
       'max_length' => 255,
       'user_role_field' => array(
         1 => 0,
-        2 => 2,
+        2 => 0,
         3 => 0,
         4 => 0,
         5 => 0,
