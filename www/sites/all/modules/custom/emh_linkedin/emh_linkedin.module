@@ -150,7 +150,6 @@ function emh_linkedin_hybridauth_user_login($account, $data) {
     
     $fields = _emh_linkedin_vget_user_page_linkedin_fields();
     $profile = emh_linkedin_get_profile_fields($user->uid, $fields);
-    
     foreach ($profile as $key => $value) {
       $item = array(
           'name' => $key,

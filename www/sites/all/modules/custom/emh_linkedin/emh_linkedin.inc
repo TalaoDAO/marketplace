@@ -115,7 +115,7 @@ function _emh_linkedin_fields_build_profile() {
       'num-connections',
       'summary',
       'positions',
-      'picture-url',
+      'picture-urls::(original)',
       'email-address',
       'public-profile-url',
       'headline' 
@@ -135,7 +135,7 @@ function _emh_linkedin_fields_user_update() {
       'location',
       'summary',
       'positions',
-      'picture-url',
+      'picture-urls::(original)',
       'email-address',
       'public-profile-url',
       'headline' 
@@ -282,8 +282,10 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         
         break;
       
-      case 'picture-url' :
-        $url = $item;
+      case 'picture-urls' :
+        $url = $item['picture-url'];
+        
+        
         // download profile image LinkedIn
         $nom_img = $user->name . ".jpg";
         $dir_name = EMH_LINKEDIN_DIR_IMAGE;
@@ -307,15 +309,37 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           }
         }
         
+        
         $handle = fopen($url, 'r');
+        
+        
         $file = file_save_data($handle, $drupal_uri, FILE_EXISTS_REPLACE);
+        fclose($handle);
+        
+        //delete linkedin logo
+        $img = image_load($drupal_uri);
+        ddl($img, 'image load');
+      	$rogne = 0.90;
+      	$width = (Integer)($img->info['width']*$rogne);
+      	$height = (Integer)($img->info['height']*$rogne);
+      	image_crop($img, 0, 0, $width, $height );
+      	image_save($img);
+      
+      	$file = file_load($file->fid);
+        $file->metadata['height'] = $height; 
+	      $file->metadata['width'] = $width;
+	      $file->height = $height;
+	      $file->width = $width;
+	      file_save($file);
+	      file_usage_add($file, 'imagefield_crop', 'file', $file->fid);
+	      
+        $user->field_photo['und'][0]['uri'] = $drupal_uri;
         $user->field_photo['und'][0]['fid'] = $file->fid;
         $user->field_photo['und'][0]['cropbox_x'] = 0;
         $user->field_photo['und'][0]['cropbox_y'] = 0;
-        $user->field_photo['und'][0]['cropbox_height'] = 110;
-        $user->field_photo['und'][0]['cropbox_width'] = 110;
+        $user->field_photo['und'][0]['cropbox_height'] = $file->height;
+        $user->field_photo['und'][0]['cropbox_width'] = $file->width;
 
-        fclose($handle);
         
         break;
       
@@ -472,7 +496,8 @@ function _emh_linkedin_list_fields($type = 'auth') {
       'public-profile-url',
       'positions',
       'educations',
-      'current-share' 
+      'current-share',
+      'picture-urls::(original)'
   );
   if ($type == 'auth') {
     $standard_fields = array(
