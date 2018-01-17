@@ -72,7 +72,7 @@ Feature: Request
     Then I should see "How to become a superhero?"
 
     When I fill in "Barry" for "First Name"
-    And I fill in "Hallen" for "Name"
+    And I fill in "Allen" for "Name"
     And I fill in "emindhub.test+flash@gmail.com" for "Mail"
     And I fill in "Hello, I'm Flash" for "Message"
     And I press the "edit-submit" button
@@ -82,12 +82,10 @@ Feature: Request
     And the last email to "emindhub.test+flash@gmail.com" should contain "Hello Barry,"
     And the email should contain "Hello, I'm Flash"
 
-
-  #Scenario: An user validated invitation
     When I visit "user/logout"
     And I visit 'expert/register'
     And I fill in "Barry" for "First Name"
-    And I fill in "Hallen" for "Last Name"
+    And I fill in "Allen" for "Last Name"
     And I fill in "emindhub.test+flash@gmail.com" for "mail"
     And I fill in "test" for "pass[pass1]"
     And I fill in "test" for "pass[pass2]"
@@ -97,7 +95,7 @@ Feature: Request
 
     Given I am logged in as the admin
     When I go to "admin/people"
-    And I click "edit" in the "Barry HALLEN" row
+    And I click "edit" in the "Barry ALLEN" row
     And I select the radio button "Member"
     And I select "France" from "Country"
     And I fill in "Airbus" for "field_entreprise[und][0][target_id]"
@@ -108,6 +106,11 @@ Feature: Request
     And I press "Save"
     And I press "Save"
     Then I should see "The changes have been saved."
+
+    Given I am logged in as "expert1"
+    When I go to "invitations"
+    Then I should see "emindhub.test+flash@gmail.com"
+    And I should see "Registered on eMindHub."
 
     When I go to "user/logout"
     And I visit 'user/login'
@@ -120,6 +123,11 @@ Feature: Request
     And I click "How to become a superhero?" in the "content" region
     And I fill in "How to become a superhero?" with "Everybody can be, trust me, I'm the best we known."
     And I press "Publish"
+
+    Given I am logged in as "expert1"
+    When I go to "invitations"
+    Then I should see "emindhub.test+flash@gmail.com"
+    And I should see "Waiting to be recognized."
 
     Given I am logged in as "client1"
     When I go to homepage
@@ -135,27 +143,19 @@ Feature: Request
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
     Then I should see "eMindHub rewards Iron MAN for a validated invitation"
+    And I should have "400" credits on "client1" user
+    And I should have "15" earnings on "expert1" user
+    And I should have "30" earnings on "emindhub.test+flash@gmail.com" user mail
+
 
 
   @invitation
   Scenario: Delete new user
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/people"
-    And I click "edit" in the "Barry HALLEN" row
+    And I click "edit" in the "Barry ALLEN" row
     And I press "Cancel account"
     And I press "Cancel account"
     And I wait 5 seconds
     And I follow meta refresh
     Then I should see the text "has been deleted."
-
-  #Scenario: An author can edit its own request
-  #  Given I am logged in as "client1"
-  #  When I go to homepage
-  #  And I click "How to become a superhero?" in the "content" region
-  #  And I click "Edit" in the "primary tabs" region
-  #  And I select "770" from "field_request_type[und]"
-  #  Then I should see "Edit Request How to become a superhero?" in the "title" region
-
-  #  Given I enter "This is my request." for "Describe your request"
-  #  And I press "Save"
-  #  Then I should see the success message "Request How to become a superhero? has been updated."

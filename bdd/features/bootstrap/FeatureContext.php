@@ -144,6 +144,44 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @param int $earnings
+   *   Amount of earnings.
+   * @param string $name
+   *   User name.
+   *
+   * @Then I should have :earnings earnings on :name user
+   */
+  public function assertUserEarnings($earnings, $name) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($users[$name]->uid, TRUE);
+    if (!($user->emh_earnings == (int) $earnings)) {
+      throw new \Exception(sprintf('The user with "%s" title should have %s earnings instead of %s.', $name, $earnings, $user->emh_earnings));
+    }
+  }
+
+  /**
+   * @param int $earnings
+   *   Amount of earnings.
+   * @param string $mail
+   *   User mail.
+   *
+   * @Then I should have :earnings earnings on :mail user mail
+   */
+  public function assertUserMailEarnings($earnings, $mail) {
+    $user = user_load_by_mail($mail);
+    if(!$user) {
+      throw new \Exception(sprintf('No user with %s mail is registered with the driver.', $mail));
+    }
+
+    if (!($user->emh_earnings == (int) $earnings)) {
+      throw new \Exception(sprintf('The user with "%s" title should have %s earnings instead of %s.', $user->name, $earnings, $user->emh_earnings));
+    }
+  }
+
+  /**
    * @Then I should have :points credits on :title node
    */
   public function assertNodePoints($points, $title) {
