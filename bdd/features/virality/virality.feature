@@ -143,10 +143,11 @@ Feature: Request
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
     Then I should see "eMindHub rewards Iron MAN for a validated invitation"
+    And I should see "Move credits from Barry Allen to eMindHub."
+    And I should see "Captain AMERICA buy Barry Allen profile on \"How to become a superhero?\" request"
     And I should have "400" credits on "client1" user
     And I should have "15" earnings on "expert1" user
     And I should have "30" earnings on "emindhub.test+flash@gmail.com" user mail
-
 
 
   @invitation
