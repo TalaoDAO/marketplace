@@ -20,24 +20,24 @@ const EMH_VIRALITY_TXN_CONTEXT_USER_SPONSOR = 'user_sponsor';
  * Implements hook_menu().
  */
 function emh_virality_menu() {
-  $items = array();
+  $items = [];
 
   // Route for the invitation page of the current user
-  $items['invitations'] = array(
+  $items['invitations'] = [
     'title' => 'Invitations',
     'page callback' => 'emh_virality_show_user_history',
     'access callback' => 'emh_virality_user_history_access',
-  );
+  ];
 
   // Route for the invitation page of a specific user
-  $items['user/%user/invitations'] = array(
+  $items['user/%user/invitations'] = [
     'title' => 'Invitations',
     'page callback' => 'emh_virality_show_user_history',
-    'page arguments' => array(1),
+    'page arguments' => [1],
     'access callback' => 'emh_virality_user_history_access',
-    'access arguments' => array(1),
+    'access arguments' => [1],
     'type' => MENU_LOCAL_TASK,
-  );
+  ];
 
   return $items;
 }
@@ -47,10 +47,10 @@ function emh_virality_menu() {
  * Implements hook_permission().
  */
 function emh_virality_permission() {
-  return array(
-    'invite experts' => array('title' => t('Invite Experts')),
-    'view others invitations history' => array('title' => t('View others invitations history')),
-  );
+  return [
+    'invite experts' => ['title' => t('Invite Experts')],
+    'view others invitations history' => ['title' => t('View others invitations history')],
+  ];
 }
 
 /**
@@ -86,8 +86,7 @@ function emh_virality_user_history_access($account = NULL) {
     if (user_access('invite experts')) {
       return TRUE;
     }
-  }
-  // If the user tries to access the invitations history of a specific user (/user/%/invitations)
+  } // If the user tries to access the invitations history of a specific user (/user/%/invitations)
   else {
     if ($account->uid == $user->uid) {
       return TRUE;
@@ -110,17 +109,17 @@ function emh_virality_user_history_access($account = NULL) {
  * Implements hook_entity_info().
  */
 function emh_virality_entity_info() {
-  $entities = array();
+  $entities = [];
 
   // Defines the emh_invitation entity
-  $entities['emh_invitation'] = array(
+  $entities['emh_invitation'] = [
     'label' => t('Invitation'),
     'entity class' => 'EmhInvitation',
     'controller class' => 'EntityAPIController',
     'base table' => 'emh_invitation',
     'fieldable' => FALSE,
-    'entity keys' => array('id' => 'invitation_id'),
-  );
+    'entity keys' => ['id' => 'invitation_id'],
+  ];
 
   return $entities;
 }
@@ -130,7 +129,7 @@ function emh_virality_entity_info() {
  * Loads a single invitation entity.
  */
 function emh_invitation_load($id, $reset = FALSE) {
-  $entity = entity_load('emh_invitation', array($id), array(), $reset);
+  $entity = entity_load('emh_invitation', [$id], [], $reset);
   return !empty($entity) ? reset($entity) : NULL;
 }
 
@@ -138,7 +137,7 @@ function emh_invitation_load($id, $reset = FALSE) {
 /**
  * Loads multiple invitation entities.
  */
-function emh_invitation_load_multiple($ids = FALSE, $conditions = array(), $reset = FALSE) {
+function emh_invitation_load_multiple($ids = FALSE, $conditions = [], $reset = FALSE) {
   return entity_load('emh_invitation', $ids, $conditions, $reset);
 }
 
@@ -152,9 +151,9 @@ function emh_invitation_load_multiple($ids = FALSE, $conditions = array(), $rese
  * Implements hook_block_info().
  */
 function emh_virality_block_info() {
-  $blocks = array();
+  $blocks = [];
 
-  $blocks['invitation_form'] = array(
+  $blocks['invitation_form'] = [
     'info' => t('Virality - Invitation form'),
     'status' => 1,
     'region' => 'content',
@@ -162,7 +161,7 @@ function emh_virality_block_info() {
     'visibility' => BLOCK_VISIBILITY_LISTED,
     'pages' => "user/*/invitations\ninvitations",
     'cache' => DRUPAL_CACHE_PER_ROLE,
-  );
+  ];
 
   return $blocks;
 }
@@ -172,7 +171,7 @@ function emh_virality_block_info() {
  * Implements hook_block_view().
  */
 function emh_virality_block_view($delta = '') {
-  $block = array();
+  $block = [];
 
   switch ($delta) {
     case 'invitation_form':
@@ -184,19 +183,19 @@ function emh_virality_block_view($delta = '') {
 
       if ($reward > 0) {
         $text = 'You can earn credits by inviting <b>experts</b> in your network to join eMindHub and answer clients requests. You will get a reward (' . variable_get('emh_virality_expert_invitation_reward', 50) . ' credits per expert) the first time each the new expert you sponsored is selected by a client for the quality of his contribution.<br />'
-                . 'We remind you that you can monetize your credits once you have reached a threshold of at least ' . variable_get('emh_points_monetization_threshold', '1500') . ' credits.';
+          . 'We remind you that you can monetize your credits once you have reached a threshold of at least ' . variable_get('emh_points_monetization_threshold', '1500') . ' credits.';
 
-        $block = array(
+        $block = [
           'subject' => t('Invite experts and earn credits!'),
-          'content' => array(
-            'text' => array(
+          'content' => [
+            'text' => [
               '#theme' => 'html_tag',
               '#tag' => 'p',
-              '#value' => t($text, array('!amount' => $reward)),
-            ),
+              '#value' => t($text, ['!amount' => $reward]),
+            ],
             'form' => drupal_get_form('emh_virality_invitation_form'),
-          ),
-        );
+          ],
+        ];
       }
       break;
   }
@@ -222,9 +221,9 @@ function emh_virality_block_view($delta = '') {
  */
 function emh_virality_move_points_after($txn_id, $transaction, $source, $destination) {
   // If some credits moved from node to user
-  if ($transaction['source_type'] == 'node' && $transaction['dest_type'] == 'user') {
+  if ($transaction['source_type'] == 'user' && $transaction['dest_type'] == 'user') {
     $query = db_select('emh_invitation', 'i')
-      ->fields('i', array('invitation_id'))
+      ->fields('i', ['invitation_id'])
       ->condition('referral_id', $destination->uid)
       ->condition('status', EmhInvitation::STATUS_WAITING)
       ->orderBy('created_at', 'ASC')
@@ -245,20 +244,19 @@ function emh_virality_move_points_after($txn_id, $transaction, $source, $destina
         // Rewards the referrer
         $referrer = user_load($invitation->referrer_id);
 
-        $log_vars = array(
+        $log_vars = [
           '@referrer' => emh_points_format_entity($referrer),
           '@id' => $invitation->invitation_id,
-        );
+        ];
 
-        emh_points_give_points($referrer, array(
+        emh_points_give_points($referrer, [
           'points' => _emh_virality_get_invitation_reward($referrer),
           'log' => t('eMindHub rewards @referrer for a validated invitation', $log_vars),
           'txn_context' => EMH_VIRALITY_TXN_CONTEXT_USER_SPONSOR,
-        ));
-      }
-      catch (Exception $e) {
+        ]);
+      } catch (Exception $e) {
         $db_trans->rollback();
-        watchdog('emh_virality', 'The reward processus for a viral invitation failed: @error', array('@error' => $e->getMessage()), WATCHDOG_ERROR);
+        watchdog('emh_virality', 'The reward processus for a viral invitation failed: @error', ['@error' => $e->getMessage()], WATCHDOG_ERROR);
       }
     }
   }
@@ -274,41 +272,165 @@ function emh_virality_move_points_after($txn_id, $transaction, $source, $destina
  * Builds the invitation form.
  */
 function emh_virality_invitation_form($form, &$form_state) {
-  $form['emails'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Emails'),
-    '#required' => TRUE,
-    '#attributes' => array(
-      'placeholder' => t('Add emails separated by comma'),
-    ),
-  );
 
-  $form['submit'] = array(
+  $parameters = drupal_get_query_parameters();
+  //if (isset($parameters['request']) || $form_state['submitted']) {
+
+  if (isset($parameters['request'])) {
+    if(emh_virality_is_request_all_experts($parameters['request'])) {
+      $nid = $parameters['request'];
+    }
+  }
+  /* elseif (isset($_SESSION['invite_expert_request'])) {
+     $nid = $_SESSION['invite_expert_request'];
+   }*/
+
+  if (isset($nid) && is_numeric($nid)) {
+
+    $node = node_load($nid);
+    //$_SESSION['invite_expert_request'] = $nid;
+    if ($node && $node->type == 'request') {
+      $form_state['request_nid'] = $node->nid;
+
+      $form['sponsorship_request'] = [
+        '#markup' => '<h3>' . $node->title . '</h3>',
+      ];
+    }
+
+  }
+
+  $form['#tree'] = TRUE;
+  $form['sponsorship_fieldset'] = [
+    '#type' => 'fieldset',
+    '#title' => t('Invite experts'),
+    '#prefix' => '<div id="sponsorship-fieldset-wrapper">',
+    '#suffix' => '</div>',
+  ];
+
+  if (empty($form_state['num_experts'])) {
+    $form_state['num_experts'] = 1;
+  }
+  for ($i = 0; $i < $form_state['num_experts']; $i++) {
+    $form['sponsorship_fieldset']['expert'][$i] = [
+      '#tree' => TRUE,
+      '#type' => 'fieldset',
+      '#title' => t('One expert'),
+      '#prefix' => '<div id="invite-expert-wrapper">',
+      '#suffix' => '</div>',
+    ];
+
+    $form['sponsorship_fieldset']['expert'][$i]['name'] = [
+      '#type' => 'textfield',
+      '#title' => t('Name'),
+      '#required' => TRUE,
+    ];
+    $form['sponsorship_fieldset']['expert'][$i]['first_name'] = [
+      '#type' => 'textfield',
+      '#title' => t('First Name'),
+      '#required' => TRUE,
+    ];
+    $form['sponsorship_fieldset']['expert'][$i]['mail'] = [
+      '#type' => 'textfield',
+      '#title' => t('Mail'),
+      '#required' => TRUE,
+    ];
+    $form['sponsorship_fieldset']['expert'][$i]['message'] = [
+      '#type' => 'textarea',
+      '#title' => t('Message'),
+    ];
+  }
+  $form['sponsorship_fieldset']['add_expert'] = [
+    '#type' => 'submit',
+    '#value' => t('Add one more'),
+    '#submit' => ['emh_virality_add_more_add_one'],
+    '#ajax' => [
+      'callback' => 'emh_virality_add_more_callback',
+      'wrapper' => 'sponsorship-fieldset-wrapper',
+    ],
+  ];
+  if ($form_state['num_experts'] > 1) {
+    $form['sponsorship_fieldset']['remove_name'] = [
+      '#type' => 'submit',
+      '#value' => t('Remove one'),
+      '#submit' => ['emh_virality_add_more_remove_one'],
+      '#ajax' => [
+        'callback' => 'emh_virality_add_more_callback',
+        'wrapper' => 'sponsorship-fieldset-wrapper',
+      ],
+    ];
+  }
+  //}
+  /*else {
+    emh_virality_form_email($form);
+  }*/
+  //}
+  /*else {
+    emh_virality_form_email($form);
+  }*/
+
+  //}
+  /*else {
+    emh_virality_form_email($form);
+  }*/
+
+  $form['submit'] = [
     '#type' => 'submit',
     '#value' => t('Send invitation'),
-  );
+  ];
 
   return $form;
 }
 
+/*
+function emh_virality_form_email(&$form) {
+  $form['emails'] = [
+    '#type' => 'textarea',
+    '#title' => t('Emails'),
+    '#required' => TRUE,
+    '#attributes' => [
+      'placeholder' => t('Add emails separated by comma'),
+    ],
+  ];
+}*/
 
 /**
  * Validation callback of the invitation form.
  */
 function emh_virality_invitation_form_validate($form, &$form_state) {
+
   $values = $form_state['values'];
 
-  $emails = explode(',', $values['emails']);
+  /*if (isset($values['emails'])) {
+    $emails = explode(',', $values['emails']);
 
-  if (count($emails) > VIRAL_INVITATIONS_MAX) {
-    form_set_error('emails', t('You can not send more than !max invitations at the same time', array('!max' => VIRAL_INVITATIONS_MAX)));
-  }
-
-  foreach ($emails as $email) {
-    if (($email = trim($email)) && (!valid_email_address($email))) {
-      form_set_error('emails', t('This email is not valid: @email', array('@email' => $email)));
+    if (count($emails) > VIRAL_INVITATIONS_MAX) {
+      form_set_error('emails', t('You can not send more than !max invitations at the same time', ['!max' => VIRAL_INVITATIONS_MAX]));
     }
+
+    foreach ($emails as $email) {
+      if (($email = trim($email)) && (!valid_email_address($email))) {
+        form_set_error('emails', t('This email is not valid: @email', ['@email' => $email]));
+      }
+    }
+  }*/
+
+  if (isset($values['sponsorship_fieldset'])) {
+    $experts = $values['sponsorship_fieldset']['expert'];
+
+    if (count($experts) > VIRAL_INVITATIONS_MAX) {
+      form_set_error('emails', t('You can not send more than !max invitations at the same time', ['!max' => VIRAL_INVITATIONS_MAX]));
+    }
+
+    foreach ($experts as $expert) {
+      $email = $expert['mail'];
+      if (($email = trim($email)) && (!valid_email_address($email))) {
+        form_set_error('emails', t('This email is not valid: @email', ['@email' => $email]));
+      }
+
+    }
+
   }
+
 }
 
 
@@ -316,20 +438,44 @@ function emh_virality_invitation_form_validate($form, &$form_state) {
  * Submit callback of the invitation form.
  */
 function emh_virality_invitation_form_submit($form, &$form_state) {
+
   global $user;
   $values = $form_state['values'];
 
+  $emails = [];
   // Cleans the received emails list
-  $valid_emails = array();
-  foreach (explode(',', $values['emails']) as $email) {
-    if ($email = trim($email)) {
-      $valid_emails[] = $email;
+  /*if (isset($values['emails'])) {
+    $emails = explode(',', $values['emails']);
+  }
+  elseif (isset($values['sponsorship_fieldset'])) {
+    $emails = $values['sponsorship_fieldset']['expert'];
+  }*/
+  if (isset($values['sponsorship_fieldset'])) {
+    $emails = $values['sponsorship_fieldset']['expert'];
+  }
+
+  $valid_emails = [];
+  foreach ($emails as $email) {
+    /*if (isset($values['sponsorship_fieldset'])) {
+      $email_expert = $email['mail'];
+    }
+    else {
+      $email_expert = $email;
+    }*/
+    $email_expert = $email['mail'];
+
+    if ($email_expert = trim($email_expert)) {
+      /*if (isset($values['sponsorship_fieldset'])) {
+        $email['mail'] = $email_expert;
+      }*/
+      $email['mail'] = $email_expert;
+      $valid_emails[] = $email_expert;
     }
   }
 
   // Retrieves the emails already used by users
   $query = db_select('users', 'u')
-    ->fields('u', array('mail'))
+    ->fields('u', ['mail'])
     ->condition('mail', $valid_emails, 'IN');
 
   // TODO:this may represents thousands (millions?) of email, some day... hope we'll get 25Go of RAM per PHP process
@@ -341,7 +487,7 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
   // TODO: create temporary table, with index on that table, let MySQl check with joins which records should be removed
   // this way no record is loaded into the PHP memory.
   $query = db_select('emh_invitation', 'i')
-    ->fields('i', array('referral_mail'))
+    ->fields('i', ['referral_mail'])
     ->condition('referral_mail', $valid_emails, 'IN');
 
   $invited_emails = $query->execute()->fetchCol();
@@ -349,44 +495,121 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
   // Records each invitation if:
   // - the email doesn't already exist in the users table
   // - the email hasn't already been invited
-  $recorded_emails = array();
+  $recorded_emails = [];
 
-  foreach ($valid_emails as $email) {
-    if (in_array($email, $user_emails)) {
+  foreach ($emails as $email) {
+
+    $mail = NULL;
+    if (isset($values['sponsorship_fieldset'])) {
+      $mail = $email['mail'];
+    }
+    /*else {
+      $mail = $email;
+    }*/
+
+
+    if (in_array($mail, $user_emails)) {
       // SECURITY: check user is present on site ? should I know that?
-      drupal_set_message(t('@email is already registered on eMindHub, the invitation hasn\'t been sent', array('@email' => $email)), 'warning');
+      drupal_set_message(t('@email is already registered on eMindHub, the invitation hasn\'t been sent', ['@email' => $mail]), 'warning');
       continue;
     }
 
-    if (in_array($email, $invited_emails)) {
-      drupal_set_message(t('@email has already been sponsored, the invitation hasn\'t been sent', array('@email' => $email)), 'warning');
+    if (in_array($mail, $invited_emails)) {
+      drupal_set_message(t('@email has already been sponsored, the invitation hasn\'t been sent', ['@email' => $mail]), 'warning');
       continue;
     }
 
     try {
-      $invitation = new EmhInvitation(array(
+
+      $request = NULL;
+      $message = NULL;
+      $params = NULL;
+      $language = 'en';
+      if (isset($form_state['request_nid']) &&
+        ($node = emh_virality_is_request_all_experts($form_state['request_nid']))) {
+
+        //request sponsorship
+        $request = $form_state['request_nid'];
+        $language = $node->language;
+        $params = [
+          'nid' => $request,
+        ];
+
+        //choose template email
+        if (!empty($email['message'])) {
+          $template_email = 'emh_sponsorship_request';
+          $message = $email['message'];
+        }
+        else {
+          $template_email = 'emh_sponsorship_request_without_message';
+        }
+      }
+      else {
+        //general sponsorhip
+        if (!empty($email['message'])) {
+          $template_email = 'emh_sponsorship_general';
+          $message = $email['message'];
+        }
+        else {
+          $template_email = 'emh_sponsorship_general_without_message';
+        }
+      }
+
+
+      //if (isset($values['sponsorship_fieldset'])) {
+      $invitation = new EmhInvitation([
         'referrer_id' => $user->uid,
-        'referral_mail' => $email,
+        'referral_mail' => $mail,
         'created_at' => time(),
-      ));
+        'request_id' => $request,
+        'message' => $message,
+      ]);
 
       $invitation->save();
 
-      $recorded_emails[] = check_plain($email);
-    }
-    catch (Exception $e) {
-      watchdog('emh_virality', t('Invitation recording failed: @error', array('@error' => $e->getMessage())));
+      //prepare template to send email
+      pet_send_mail($template_email, [
+        [
+          'mail' => $mail,
+          'uid' => $user->uid,
+          'first_name' => $email['first_name'],
+          'last_name' => $email['name'],
+          'referrer_message' => $message,
+        ],
+      ],
+        $params, $language);
+
+
+      /*}
+      else {
+        $invitation = new EmhInvitation([
+          'referrer_id' => $user->uid,
+          'referral_mail' => $email,
+          'created_at' => time(),
+          'request_id' => $request,
+        ]);
+      }*/
+
+
+      $recorded_emails[] = check_plain($mail);
+    } catch (Exception $e) {
+      $text = t('Invitation recording failed: @error', ['@error' => $e->getMessage()]);
+      watchdog('emh_virality', $text);
     }
   }
 
   // Displays a success message if some invitations have been recorded
   if (count($recorded_emails)) {
-    $record_list = theme('item_list', array(
+    $record_list = theme('item_list', [
       '#theme' => 'item_list',
       '#items' => $recorded_emails,
-    ));
+    ]);
 
-    drupal_set_message(t('You just sent invitations to: !emails', array('!emails' => $record_list)));
+    // Special indentation for to fix a bug from the module coder review.
+    drupal_set_message(t(
+      'You just sent invitations to: !emails',
+      ['!emails' => $record_list]
+    ));
   }
 }
 
@@ -410,12 +633,31 @@ function emh_virality_form_alter(&$form, &$form_state, $form_id) {
 
 
 /**
- * Additional submit callback for forms placed in the invitations history page.
+ * Additional submit callback for forms placed in the invitations history
+ * page.
  */
 function emh_virality_invitations_history_forms_submit($form, &$form_state) {
   $form_state['redirect'] = 'invitations';
 }
 
+/**
+ * Additional submit callbacks for to add and remove an user form.
+ */
+function emh_virality_add_more_add_one($form, &$form_state) {
+  $form_state['num_experts']++;
+  $form_state['rebuild'] = TRUE;
+}
+
+function emh_virality_add_more_callback($form, $form_state) {
+  return $form['sponsorship_fieldset'];
+}
+
+function emh_virality_add_more_remove_one($form, &$form_state) {
+  if ($form_state['num_experts'] > 1) {
+    $form_state['num_experts']--;
+  }
+  $form_state['rebuild'] = TRUE;
+}
 
 //----------------------------------------------------------------------
 //-- USERS
@@ -428,14 +670,14 @@ function emh_virality_invitations_history_forms_submit($form, &$form_state) {
 function emh_virality_user_insert(&$edit, $account, $category) {
   // If the user is already enabled
   if ($account->status == 1 && in_array('expert', $account->roles)) {
-    // Changes status from "sent" to "waiting"
+    // Changes status from "sent" to "registered"
     // and sets the referral ID
     db_update('emh_invitation')
-      ->fields(array(
+      ->fields([
         'updated_at' => time(),
         'referral_id' => $account->uid,
-        'status' => EmhInvitation::STATUS_WAITING,
-      ))
+        'status' => EmhInvitation::STATUS_REGISTERED,
+      ])
       ->condition('referral_mail', $account->mail)
       ->condition('status', EmhInvitation::STATUS_SENT)
       ->execute();
@@ -449,16 +691,56 @@ function emh_virality_user_insert(&$edit, $account, $category) {
 function emh_virality_user_update(&$edit, $account, $category) {
   // If the user has been enabled
   if ($account->status == 1 && $account->original->status == 0 && in_array('expert', $account->roles)) {
-    // Changes status from "sent" to "waiting"
+    // Changes status from "sent" to "registered"
     // and sets the referral ID
     db_update('emh_invitation')
-      ->fields(array(
+      ->fields([
         'updated_at' => time(),
         'referral_id' => $account->uid,
-        'status' => EmhInvitation::STATUS_WAITING,
-      ))
+        'status' => EmhInvitation::STATUS_REGISTERED,
+      ])
       ->condition('referral_mail', $account->mail)
       ->condition('status', EmhInvitation::STATUS_SENT)
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_webform_submission_insert().
+ */
+function emh_virality_webform_submission_insert($node, $submission) {
+
+  // If the node is a request and answer no draft
+  if ($node->type == 'request' && !$submission->is_draft) {
+    // Changes status from "registered" to "waiting"
+    $user = user_load($submission->uid);
+    db_update('emh_invitation')
+      ->fields([
+        'updated_at' => time(),
+        'status' => EmhInvitation::STATUS_WAITING,
+      ])
+      ->condition('referral_mail', $user->mail)
+      ->condition('status', EmhInvitation::STATUS_REGISTERED)
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_webform_submission_update().
+ */
+function emh_virality_webform_submission_update($node, $submission) {
+
+  // If the node is a request and answer no draft
+  if ($node->type == 'request' && !$submission->is_draft) {
+    // Changes status from "registered" to "waiting"
+    $user = user_load($submission->uid);
+    db_update('emh_invitation')
+      ->fields([
+        'updated_at' => time(),
+        'status' => EmhInvitation::STATUS_WAITING,
+      ])
+      ->condition('referral_mail', $user->mail)
+      ->condition('status', EmhInvitation::STATUS_REGISTERED)
       ->execute();
   }
 }
@@ -473,21 +755,35 @@ function emh_virality_user_update(&$edit, $account, $category) {
  * Implements hook_token_info().
  */
 function emh_virality_token_info() {
-  $tokens = array();
+  $tokens = [];
 
-  $tokens['tokens']['emh_invitation']['referrer-firstname'] = array(
+  $tokens['tokens']['emh_invitation']['referrer-firstname'] = [
     'name' => t('Referrer firstname'),
     'description' => t('Invitation referrer firstname'),
     'type' => 'text',
     'entity-token' => TRUE,
-  );
+  ];
 
-  $tokens['tokens']['emh_invitation']['referrer-lastname'] = array(
+  $tokens['tokens']['emh_invitation']['referrer-lastname'] = [
     'name' => t('Referrer lastname'),
     'description' => t('Invitation referrer lastname'),
     'type' => 'text',
     'entity-token' => TRUE,
-  );
+  ];
+
+  $tokens['tokens']['emh_invitation']['referral-firstname'] = [
+    'name' => t('Referral firstname'),
+    'description' => t('Invitation referral firstname'),
+    'type' => 'text',
+    'entity-token' => TRUE,
+  ];
+
+  $tokens['tokens']['emh_invitation']['referral-lastname'] = [
+    'name' => t('Referral lastname'),
+    'description' => t('Invitation referral lastname'),
+    'type' => 'text',
+    'entity-token' => TRUE,
+  ];
 
   return $tokens;
 }
@@ -496,8 +792,9 @@ function emh_virality_token_info() {
 /**
  * Implements hook_tokens().
  */
-function emh_virality_tokens($type, $tokens, array $data = array(), array $options = array()) {
-  $replacements = array();
+function emh_virality_tokens($type, $tokens, array $data = [], array $options = []) {
+  $replacements = [];
+
 
   if ($type == 'emh_invitation') {
     foreach ($tokens as $name => $original) {
@@ -515,11 +812,39 @@ function emh_virality_tokens($type, $tokens, array $data = array(), array $optio
           $lastname = field_get_items('user', $referrer, 'field_last_name');
           $replacements[$original] = empty($lastname[0]['safe_value']) ? '' : trim($lastname[0]['safe_value']);
           break;
+
+        case 'referral-firstname':
+          $invitation = $data['emh_invitation'];
+          $firstname = $invitation->referral_first_name;
+          $replacements[$original] = empty($firstname) ? '' : trim($firstname);
+
+          break;
+
+        case 'referral-lastname':
+          $invitation = $data['emh_invitation'];
+          $lastname = $invitation->referral_last_name;
+          $replacements[$original] = empty($lastname) ? '' : trim($lastname);
+          break;
       }
     }
   }
 
   return $replacements;
+}
+
+/**
+ * Implements hook_pet_substitutions_alter().
+ */
+function emh_virality_pet_substitutions_alter(&$substitutions, $params) {
+  // Make my tokens available to PET
+  if (isset($params['pet_recipients'][0]['last_name'])) {
+    $substitutions['emh_invitation'] = (object) [
+      'referrer_id' => $params['pet_uid'],
+      'referral_last_name' => $params['pet_recipients'][0]['last_name'],
+      'referral_first_name' => $params['pet_recipients'][0]['first_name'],
+      'message' => $params['pet_recipients'][0]['referrer_message'],
+    ];
+  }
 }
 
 
@@ -530,6 +855,7 @@ function emh_virality_tokens($type, $tokens, array $data = array(), array $optio
 
 function emh_virality_show_user_history($account = NULL) {
   global $user;
+  global $base_url;
 
   if (current_path() == 'invitations') {
     menu_set_active_item('user/' . $user->uid . '/invitations');
@@ -542,48 +868,66 @@ function emh_virality_show_user_history($account = NULL) {
   $query = db_select('emh_invitation', 'i')
     ->extend('PagerDefault')
     ->element(2)
-    ->fields('i', array())
+    ->fields('i', [])
     ->condition('referrer_id', $account->uid)
     ->orderBy('updated_at', 'DESC')
     ->limit(30);
 
   $invitations = $query->execute()->fetchAll(PDO::FETCH_OBJ);
 
-  $rows = array();
+  $rows = [];
   foreach ($invitations as $invitation) {
     // Prepares status
     switch ($invitation->status) {
-      case EmhInvitation::STATUS_SENT:      $status = t('Invitation sent.'); break;
-      case EmhInvitation::STATUS_WAITING:   $status = t('Waiting to be recognized.'); break;
-      case EmhInvitation::STATUS_VALIDATED: $status = t('Invitation validated.'); break;
+      case EmhInvitation::STATUS_SENT:
+        $status = t('Invitation sent.');
+        break;
+      case EmhInvitation::STATUS_REGISTERED:
+        $status = t('Registered on eMindHub.');
+        break;
+      case EmhInvitation::STATUS_WAITING:
+        $status = t('Waiting to be recognized.');
+        break;
+      case EmhInvitation::STATUS_VALIDATED:
+        $status = t('Invitation validated.');
+        break;
     }
 
-    $rows[] = array(
+    $request = NULL;
+    if (isset($invitation->request_id)) {
+      $node = node_load($invitation->request_id);
+      $request = '<a href="' . $base_url . '/node/' . $invitation->request_id . '">'
+        . $node->title . '<a/>';
+    }
+
+
+    $rows[] = [
       $invitation->referral_mail,
       format_date($invitation->updated_at, 'short_date'),
       $status,
-    );
+      $request,
+    ];
   }
 
-  $build = array();
+  $build = [];
 
-  $build['title'] = array(
+  $build['title'] = [
     '#theme' => 'html_tag',
     '#tag' => 'h2',
     '#value' => t('Invitations statement'),
-  );
+  ];
 
-  $build['table'] = array(
+  $build['table'] = [
     '#theme' => 'table',
-    '#header' => array(t('Email'), t('Date'), t('Status')),
+    '#header' => [t('Email'), t('Date'), t('Status'), t('Request')],
     '#rows' => $rows,
     '#empty' => t('No invitation.'),
-  );
+  ];
 
-  $build['pager'] = array(
+  $build['pager'] = [
     '#theme' => 'pager',
     '#element' => 2,
-  );
+  ];
 
   drupal_alter('invitations_history_page', $build, $account);
 
@@ -618,7 +962,7 @@ function emh_virality_user_is_referrer($referral, $referrer = NULL) {
     $referrer = $user->uid;
   }
   $query = db_select('emh_invitation', 'i')
-    ->fields('i', array('invitation_id'))
+    ->fields('i', ['invitation_id'])
     ->condition('referrer_id', $referrer)
     ->condition('referral_id', $referral)
     ->condition('status', EmhInvitation::STATUS_VALIDATED);
@@ -626,5 +970,64 @@ function emh_virality_user_is_referrer($referral, $referrer = NULL) {
   if (!empty($referring)) {
     return TRUE;
   }
+  return FALSE;
+}
+
+
+//----------------------------------------------------------------------
+//-- REQUEST
+//----------------------------------------------------------------------
+
+/*
+ * Implements hook_node_view().
+ */
+function emh_virality_node_view($node, $view_mode, $langcode) {
+  global $base_url;
+  switch ($node->type) {
+    case 'request' :
+      if(emh_virality_is_request_all_experts($node->nid)) {
+        $node->content['sponsorship'] = [
+          '#attributes' => [
+            'class' => [
+              'btn',
+              'btn-flash',
+              'icon-user',
+            ],
+            'href' => [
+              $base_url . '/' . drupal_get_path_alias('invitations') . '?request=' . $node->nid,
+            ],
+          ],
+          '#theme' => 'html_tag',
+          '#tag' => 'a',
+          '#value' => t('Invite experts'),
+        ];
+      }
+
+      break;
+  }
+}
+
+/**
+ * Test to know if the node is "All Experts".
+ * @param $nid Nid of node
+ *
+ * @return bool|mixed
+ */
+function emh_virality_is_request_all_experts($nid) {
+
+  $node = node_load($nid);
+  if($node && $node->type == 'request') {
+    $circles = $node->og_group_ref['und'];
+    foreach ($circles as $circle) {
+
+      // see node table for to know nid circle
+      if($circle['target_id'] == '314') {
+        return $node;
+      }
+    }
+  }
+
+
+
   return FALSE;
 }
