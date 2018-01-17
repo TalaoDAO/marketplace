@@ -182,6 +182,25 @@ class FeatureContext extends DrupalContext {
   }
 
   /**
+   * @param int $points
+   *   Amount of points.
+   * @param string $mail
+   *   User mail.
+   *
+   * @Then I should have :points credits on :mail user mail
+   */
+  public function assertUserMailPoints($points, $mail) {
+    $user = user_load_by_mail($mail);
+    if(!$user) {
+      throw new \Exception(sprintf('No user with %s mail is registered with the driver.', $mail));
+    }
+
+    if (!($user->emh_points == (int) $points)) {
+      throw new \Exception(sprintf('The user with "%s" title should have %s credits instead of %s.', $user->name, $points, $user->emh_points));
+    }
+  }
+
+  /**
    * @Then I should have :points credits on :title node
    */
   public function assertNodePoints($points, $title) {
