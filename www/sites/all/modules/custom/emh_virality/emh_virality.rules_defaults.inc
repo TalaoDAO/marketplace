@@ -8,7 +8,7 @@
 /**
  * Implements hook_default_rules_configuration().
  * @ingroup rules
- */
+ *//*
 function emh_virality_default_rules_configuration() {
   $rules = array();
 
@@ -35,3 +35,4 @@ function emh_virality_default_rules_configuration() {
 
   return $rules;
 }
+*/
