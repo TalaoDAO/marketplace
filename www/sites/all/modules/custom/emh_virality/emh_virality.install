@@ -8,69 +8,75 @@
  * Implements hook_schema().
  */
 function emh_virality_schema() {
-  $schema = array();
+  $schema = [];
 
-  $schema['emh_invitation'] = array(
+  $schema['emh_invitation'] = [
     'description' => 'Stores invitations made by the users to unregistered people',
-    'fields' => array(
-      'invitation_id' => array(
+    'fields' => [
+      'invitation_id' => [
         'description' => 'Invitation uniq identifier',
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => TRUE,
-      ),
-      'created_at' => array(
+      ],
+      'created_at' => [
         'description' => 'Creation timestamp of the invitation',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
-      ),
-      'updated_at' => array(
+      ],
+      'updated_at' => [
         'description' => 'Update timestamp of the invitation',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
-      ),
-      'referrer_id' => array(
+      ],
+      'referrer_id' => [
         'description' => 'ID of the referrer user',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
-      ),
-      'referral_id' => array(
+      ],
+      'referral_id' => [
         'description' => 'ID of the referral user',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => FALSE,
-      ),
-      'referral_mail' => array(
+      ],
+      'referral_mail' => [
         'description' => 'Email of the referral user',
         'type' => 'varchar',
         'length' => 255,
         'not null' => TRUE,
-      ),
-      'request_id' => array(
+      ],
+      'request_id' => [
         'description' => 'Request ID (nid) the invitation is linked to',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => FALSE,
-      ),
-      'status' => array(
+      ],
+      'status' => [
         'description' => 'Status of the invitation (pending, validated, ...)',
         'type' => 'int',
         'size' => 'tiny',
         'not null' => TRUE,
         'default' => 0,
-      ),
-    ),
-    'primary key' => array('invitation_id'),
-    'unique keys' => array(
-      'unique_invitation' => array('referrer_id', 'referral_mail'),
-    ),
+      ],
+      'message' => [
+        'description' => 'Personal message to sponsor a request.',
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => FALSE,
+      ],
+    ],
+    'primary key' => ['invitation_id'],
+    'unique keys' => [
+      'unique_invitation' => ['referrer_id', 'referral_mail'],
+    ],
     //'indexes' => array(),
-  );
+  ];
 
   return $schema;
 }
@@ -93,12 +99,13 @@ function emh_virality_uninstall() {
 }
 
 /**
- * Extend access to the Invitations tab to authentificated users + Invitations history to webmasters.
+ * Extend access to the Invitations tab to authentificated users + Invitations
+ * history to webmasters.
  */
 function emh_virality_update_7001() {
-  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('invite experts'));
-  user_role_grant_permissions(3, array('view others invitations history')); // Administrator role
-  user_role_grant_permissions(6, array('view others invitations history')); // Webmaster role
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, ['invite experts']);
+  user_role_grant_permissions(3, ['view others invitations history']); // Administrator role
+  user_role_grant_permissions(6, ['view others invitations history']); // Webmaster role
 }
 
 /**
@@ -108,11 +115,23 @@ function emh_virality_update_7002() {
   $module = 'emh_virality';
   $delta = 'invitation_form';
   db_update('block')
-    ->fields(array(
+    ->fields([
       'visibility' => '1',
       'pages' => "user/*/invitations\ninvitations",
-    ))
+    ])
     ->condition('module', $module)
     ->condition('delta', $delta)
     ->execute();
+}
+
+function emh_virality_update_7003() {
+  if (!db_field_exists('emh_invitation', 'message')) {
+    $spec = [
+      'description' => 'Personal message to sponsor a request.',
+      'type' => 'text',
+      'size' => 'big',
+      'not null' => FALSE,
+    ];
+    db_add_field('emh_invitation', 'message', $spec);
+  }
 }
