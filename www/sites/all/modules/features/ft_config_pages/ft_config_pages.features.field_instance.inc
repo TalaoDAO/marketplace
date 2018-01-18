@@ -89,6 +89,58 @@ function ft_config_pages_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'config_pages-homepage-field_hp_domains_link'.
+  $field_instances['config_pages-homepage-field_hp_domains_link'] = array(
+    'bundle' => 'homepage',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_default',
+        'weight' => 9,
+      ),
+    ),
+    'entity_type' => 'config_pages',
+    'field_name' => 'field_hp_domains_link',
+    'label' => 'Link',
+    'required' => 1,
+    'settings' => array(
+      'absolute_url' => 1,
+      'attributes' => array(
+        'class' => '',
+        'configurable_class' => 0,
+        'configurable_title' => 0,
+        'rel' => '',
+        'target' => 'default',
+        'title' => '',
+      ),
+      'display' => array(
+        'url_cutoff' => 80,
+      ),
+      'enable_tokens' => 1,
+      'entity_translation_sync' => FALSE,
+      'rel_remove' => 'default',
+      'title' => 'required',
+      'title_label_use_field_label' => 0,
+      'title_maxlength' => 20,
+      'title_value' => '',
+      'url' => 0,
+      'user_register_form' => FALSE,
+      'validate_url' => 1,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'link',
+      'settings' => array(),
+      'type' => 'link_field',
+      'weight' => 3,
+    ),
+  );
+
   // Exported field_instance: 'config_pages-homepage-field_hp_domains_title'.
   $field_instances['config_pages-homepage-field_hp_domains_title'] = array(
     'bundle' => 'homepage',
@@ -305,6 +357,7 @@ function ft_config_pages_field_default_field_instances() {
   t('Client');
   t('Domains');
   t('Image');
+  t('Link');
   t('Testimonies');
   t('Title');
 
