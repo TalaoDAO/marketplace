@@ -6,7 +6,7 @@
     "jorgegc/behat-drupal-extension": "*"
   },
   "require-dev": {
-    "ciaranmcnulty/behat-stepthroughextension" : "dev-master"
+    "ciaranmcnulty/behat-stepthroughextension" : "dev-master",
     "symfony/stopwatch": "~2.2"
   },
   "config": {

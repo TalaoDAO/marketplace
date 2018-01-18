@@ -68,8 +68,13 @@
 						<?php print format_date($elements['#node']->created, 'short_date'); ?>
 					<?php endif; ?>
 
+					
+          
 				</div>
-
+				<?php if (user_access('invite experts')) : ?>
+            <?php print render($content['sponsorship']); ?>
+          <?php endif; ?>
+				
 			</div>
 
 			<?php if ($node->uid !== $user->uid) : ?>

@@ -1750,6 +1750,13 @@ function emh_configuration_update_7087() {
 }
 
 /**
+ * ADD: enable ft_virality.
+ */
+function emh_configuration_update_7088() {
+  module_enable(array('ft_virality'));
+}
+
+/**
  * ADD: enable config_pages module and feature, change menu.
  */
 function emh_configuration_update_7089() {
