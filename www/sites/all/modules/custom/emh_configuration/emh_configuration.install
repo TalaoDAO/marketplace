@@ -1750,8 +1750,48 @@ function emh_configuration_update_7087() {
 }
 
 /**
- * ADD: enable config_pages module and feature.
+ * ADD: enable config_pages module and feature, change menu.
  */
 function emh_configuration_update_7088() {
-  module_enable(['config_pages', 'fd_config_pages']);
+  cache_clear_all('*', 'cache', TRUE);
+  module_enable(['config_pages', 'ft_config_pages']);
+
+  // db_update('menu_links')
+  //   ->fields(array(
+  //     'link_path' => '<nolink>',
+  //     'link_title' => 'Communities',
+  //     'weight' => '0',
+  //     'expanded' => '1',
+  //   ))
+  //   ->condition('menu_name', 'menu-top-anonymous')
+  //   ->condition('link_path', 'node/268')
+  //   ->execute();
+  //
+  // db_update('menu_links')
+  //   ->fields(array(
+  //     'link_title' => 'Fields of expertise',
+  //     'plid' => '4965',
+  //   ))
+  //   ->condition('menu_name', 'menu-top-anonymous')
+  //   ->condition('link_path', 'domains')
+  //   ->execute();
+  //
+  // db_update('menu_links')
+  //   ->fields(array(
+  //     'link_title' => 'Requests',
+  //     'expanded' => '1',
+  //     'weight' => '5',
+  //   ))
+  //   ->condition('menu_name', 'menu-top-anonymous')
+  //   ->condition('link_path', 'open-requests')
+  //   ->execute();
+  //
+  // db_update('menu_links')
+  //   ->fields(array(
+  //     'link_title' => 'Blog',
+  //     'weight' => '10',
+  //   ))
+  //   ->condition('menu_name', 'menu-top-anonymous')
+  //   ->condition('link_path', 'publications')
+  //   ->execute();
 }
