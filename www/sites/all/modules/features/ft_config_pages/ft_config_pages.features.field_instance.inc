@@ -826,9 +826,9 @@ function ft_config_pages_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => NULL,
+        'module' => 'color_field',
         'settings' => array(),
-        'type' => NULL,
+        'type' => 'color_field_default_formatter',
         'weight' => 0,
       ),
     ),
@@ -842,9 +842,9 @@ function ft_config_pages_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => NULL,
+      'module' => 'color_field',
       'settings' => array(),
-      'type' => NULL,
+      'type' => 'color_field_default_widget',
       'weight' => 1,
     ),
   );
