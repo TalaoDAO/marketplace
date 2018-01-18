@@ -27,13 +27,14 @@ function ft_config_pages_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Clients',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-hp-clients field-group-fieldset',
         'required_fields' => 1,
         'id' => '',
+        'classes' => 'group-hp-clients field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
     ),
   );
   $field_groups[''] = $field_group;
@@ -53,6 +54,7 @@ function ft_config_pages_field_group_info() {
     'children' => array(
       0 => 'field_hp_domains_title',
       1 => 'field_hp_domains',
+      2 => 'field_hp_domains_link',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

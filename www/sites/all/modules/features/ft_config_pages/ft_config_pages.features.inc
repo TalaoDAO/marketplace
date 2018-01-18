@@ -41,3 +41,12 @@ function ft_config_pages_default_config_pages_type() {
   }');
   return $items;
 }
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function ft_config_pages_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "field_group" && $api == "field_group") {
+    return array("version" => "1");
+  }
+}
