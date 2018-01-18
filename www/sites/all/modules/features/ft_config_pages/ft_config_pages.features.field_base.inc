@@ -106,6 +106,7 @@ function ft_config_pages_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
+<<<<<<< 3e0b3ff288ba92bd73c3e1004815cb88d43c1961
   // Exported field_base: 'field_hp_domains_link'.
   $field_bases['field_hp_domains_link'] = array(
     'active' => 1,
@@ -140,6 +141,8 @@ function ft_config_pages_field_default_field_bases() {
     'type' => 'link_field',
   );
 
+=======
+>>>>>>> featrue update
   // Exported field_base: 'field_hp_domains_title'.
   $field_bases['field_hp_domains_title'] = array(
     'active' => 1,

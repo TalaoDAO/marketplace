@@ -89,6 +89,7 @@ function ft_config_pages_field_default_field_instances() {
     ),
   );
 
+<<<<<<< 3e0b3ff288ba92bd73c3e1004815cb88d43c1961
   // Exported field_instance: 'config_pages-homepage-field_hp_domains_link'.
   $field_instances['config_pages-homepage-field_hp_domains_link'] = array(
     'bundle' => 'homepage',
@@ -141,6 +142,8 @@ function ft_config_pages_field_default_field_instances() {
     ),
   );
 
+=======
+>>>>>>> featrue update
   // Exported field_instance: 'config_pages-homepage-field_hp_domains_title'.
   $field_instances['config_pages-homepage-field_hp_domains_title'] = array(
     'bundle' => 'homepage',
@@ -357,7 +360,10 @@ function ft_config_pages_field_default_field_instances() {
   t('Client');
   t('Domains');
   t('Image');
+<<<<<<< 3e0b3ff288ba92bd73c3e1004815cb88d43c1961
   t('Link');
+=======
+>>>>>>> featrue update
   t('Testimonies');
   t('Title');
 
