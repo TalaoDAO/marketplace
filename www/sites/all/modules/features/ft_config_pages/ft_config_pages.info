@@ -11,7 +11,10 @@ dependencies[] = field_collection
 dependencies[] = field_group
 dependencies[] = filefield_paths
 dependencies[] = image
+<<<<<<< 3e0b3ff288ba92bd73c3e1004815cb88d43c1961
 dependencies[] = link
+=======
+>>>>>>> featrue update
 dependencies[] = options
 features[config_pages_type][] = emindhub
 features[config_pages_type][] = homepage
@@ -20,7 +23,10 @@ features[features_api][] = api:2
 features[field_base][] = field_client_image
 features[field_base][] = field_hp_clients_client
 features[field_base][] = field_hp_domains
+<<<<<<< 3e0b3ff288ba92bd73c3e1004815cb88d43c1961
 features[field_base][] = field_hp_domains_link
+=======
+>>>>>>> featrue update
 features[field_base][] = field_hp_domains_title
 features[field_base][] = field_hp_solutions_title
 features[field_base][] = field_hp_testimonies
@@ -31,7 +37,10 @@ features[field_group][] = group_hp_solutions|config_pages|homepage|form
 features[field_group][] = group_hp_testimonies|config_pages|homepage|form
 features[field_instance][] = config_pages-homepage-field_hp_clients_client
 features[field_instance][] = config_pages-homepage-field_hp_domains
+<<<<<<< 3e0b3ff288ba92bd73c3e1004815cb88d43c1961
 features[field_instance][] = config_pages-homepage-field_hp_domains_link
+=======
+>>>>>>> featrue update
 features[field_instance][] = config_pages-homepage-field_hp_domains_title
 features[field_instance][] = config_pages-homepage-field_hp_solutions_title
 features[field_instance][] = config_pages-homepage-field_hp_testimonies
