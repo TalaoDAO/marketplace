@@ -23,7 +23,7 @@ function ft_config_pages_field_group_info() {
     'label' => 'Clients',
     'weight' => '2',
     'children' => array(
-      0 => 'field_hp_clients_client',
+      0 => 'field_hp_clients',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -73,6 +73,97 @@ function ft_config_pages_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_hp_hero|config_pages|homepage|form';
+  $field_group->group_name = 'group_hp_hero';
+  $field_group->entity_type = 'config_pages';
+  $field_group->bundle = 'homepage';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Hero',
+    'weight' => '0',
+    'children' => array(
+      0 => 'field_hero_title',
+      1 => 'field_hp_hero_link',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Hero',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-hp-hero field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups[''] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_hp_how|config_pages|homepage|form';
+  $field_group->group_name = 'group_hp_how';
+  $field_group->entity_type = 'config_pages';
+  $field_group->bundle = 'homepage';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'How we work',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_hp_how_title',
+      1 => 'field_hp_how_need',
+      2 => 'field_hp_how_have',
+      3 => 'field_hp_how_text',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'How we work',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-hp-how field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups[''] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_hp_slides|config_pages|homepage|form';
+  $field_group->group_name = 'group_hp_slides';
+  $field_group->entity_type = 'config_pages';
+  $field_group->bundle = 'homepage';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Slides',
+    'weight' => '7',
+    'children' => array(
+      0 => 'field_hp_slides',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Slides',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-hp-slides field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups[''] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_hp_solutions|config_pages|homepage|form';
   $field_group->group_name = 'group_hp_solutions';
   $field_group->entity_type = 'config_pages';
@@ -84,6 +175,7 @@ function ft_config_pages_field_group_info() {
     'weight' => '3',
     'children' => array(
       0 => 'field_hp_solutions_title',
+      1 => 'field_hp_solutions_link',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -116,13 +208,45 @@ function ft_config_pages_field_group_info() {
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Testimonies',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-hp-testimonies field-group-fieldset',
         'required_fields' => 1,
         'id' => '',
+        'classes' => 'group-hp-testimonies field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $field_groups[''] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_hp_why|config_pages|homepage|form';
+  $field_group->group_name = 'group_hp_why';
+  $field_group->entity_type = 'config_pages';
+  $field_group->bundle = 'homepage';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Why eMindHub',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_hp_why_title',
+      1 => 'field_hp_why_need',
+      2 => 'field_hp_why_have',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Why eMindHub',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'id' => '',
+        'classes' => 'group-hp-why field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
     ),
   );
   $field_groups[''] = $field_group;
@@ -131,8 +255,12 @@ function ft_config_pages_field_group_info() {
   // Included for use with string extractors like potx.
   t('Clients');
   t('Domains');
+  t('Hero');
+  t('How we work');
+  t('Slides');
   t('Solutions');
   t('Testimonies');
+  t('Why eMindHub');
 
   return $field_groups;
 }
