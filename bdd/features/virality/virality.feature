@@ -16,7 +16,7 @@ Feature: Request
 
     Given users:
       | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
-      | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | All experts  | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    | Real-time                    |
+      | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | All experts  | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Aviation   | US                    | Real-time                    |
       | client2 | emindhub.test+client2@gmail.com | business | Charles          | XAVIER       | 0607080901                | Xavier Institute   | X-Men        | emindhub.test+client2@gmail.com | Marvel Studios | Freelancer           | Engines       | US                   | Real-time                    |
 
     Given users:
