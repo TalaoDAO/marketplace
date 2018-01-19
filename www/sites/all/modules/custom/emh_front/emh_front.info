@@ -1,0 +1,6 @@
+name = EMH Front
+description = Frontpage.
+package = EMH
+dependencies[] = config_pages
+dependencies[] = ft_config_pages
+core = 7.x
