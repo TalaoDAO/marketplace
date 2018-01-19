@@ -21,7 +21,7 @@ function ft_config_pages_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Clients',
-    'weight' => '2',
+    'weight' => '3',
     'children' => array(
       0 => 'field_hp_clients',
     ),
@@ -50,7 +50,7 @@ function ft_config_pages_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Domains',
-    'weight' => '1',
+    'weight' => '2',
     'children' => array(
       0 => 'field_hp_domains_title',
       1 => 'field_hp_domains',
@@ -85,6 +85,7 @@ function ft_config_pages_field_group_info() {
     'children' => array(
       0 => 'field_hero_title',
       1 => 'field_hp_hero_link',
+      2 => 'field_hp_hero_experts',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -111,7 +112,7 @@ function ft_config_pages_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'How we work',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_hp_how_title',
       1 => 'field_hp_how_need',
@@ -143,7 +144,7 @@ function ft_config_pages_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Slides',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_hp_slides',
     ),
@@ -172,7 +173,7 @@ function ft_config_pages_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Solutions',
-    'weight' => '3',
+    'weight' => '4',
     'children' => array(
       0 => 'field_hp_solutions_title',
       1 => 'field_hp_solutions_link',
@@ -202,7 +203,7 @@ function ft_config_pages_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Testimonies',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_hp_testimonies',
     ),
@@ -231,7 +232,7 @@ function ft_config_pages_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Why eMindHub',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_hp_why_title',
       1 => 'field_hp_why_need',
