@@ -1,0 +1,63 @@
+<?php
+
+/**
+ * @file
+ * EMH Frontpage.
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function emh_front_block_info() {
+  $blocks = array();
+
+  $blocks['emh_footer'] = array(
+    'info' => t('EMH - Footer'),
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function emh_front_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+
+    case 'emh_footer':
+      $block = [
+        'content' => [
+          '#theme' => 'emh_footer',
+        ],
+      ];
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function emh_front_theme() {
+  $config = config_pages_config('footer');
+  $partners = array();
+  foreach ($config->field_partners->getIterator() as $delta => $partner) {
+    object_log('partner', $partner);
+    $partners[] = [
+      'img' => '',
+    ];
+  }
+  return [
+    'emh_footer' => [
+      'variables' => [
+        'partners_title' => $config->field_footer_partners_text->value(),
+        'partners' => $partners,
+      ],
+      'template' => 'emh_footer',
+      'path' => drupal_get_path('module', 'emh_front') . '/theme',
+    ],
+  ];
+}
