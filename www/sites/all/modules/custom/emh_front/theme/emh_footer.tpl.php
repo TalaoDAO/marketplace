@@ -5,12 +5,11 @@
  * EMH Footer template.
  *
  * Available variables:
- * - @string $partners_title.
+ * - @string $title.
  * - @array $partners.
  */
-
+ddl($partners);
 print $partners_title;
 foreach ($partners as $partner) {
-  print_r($partner);
 }
 ?>
