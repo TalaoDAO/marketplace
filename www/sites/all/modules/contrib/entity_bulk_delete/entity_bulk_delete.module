@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * Implements hook_cron_queue_info().
+ */
+function entity_bulk_delete_cron_queue_info() {
+  $queues['entity_bulk_delete'] = array(
+    'worker callback' => '_entity_bulk_delete_process',
+    'time' => 60,
+  );
+  return $queues;
+}
+
+/**
+ * Queue worker callback to delete entities.
+ */
+function _entity_bulk_delete_process($item) {
+  entity_bulk_delete($item['entity_type'], $item['entity_ids']);
+}
+
+/**
+ * Bulk delete entities.
+ *
+ * This attempts to run a function called $entity_type_delete_multiple() rather
+ * than entity_delete_multiple() since the latter only deletes entities one at
+ * a time compared to the native _delete_multiple() functions.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param array $ids
+ *   An array of entity IDs to delete.
+ * @param bool $lazy
+ *   If TRUE the entities will be queued for deletion at a later time. If FALSE
+ *   (default) the entities will be deleted immediately.
+ */
+function entity_bulk_delete($entity_type, array $ids, $lazy = FALSE) {
+  if ($lazy) {
+    /** @var DrupalReliableQueueInterface $queue */
+    $queue = DrupalQueue::get('entity_bulk_delete', TRUE);
+    $queue->createItem(array(
+      'entity_type' => $entity_type,
+      'entity_ids' => $ids,
+    ));
+  }
+  else {
+    $function = $entity_type . '_delete_multiple';
+    if (function_exists($function)) {
+      $function($ids);
+    }
+    else {
+      entity_delete_multiple($entity_type, $ids);
+    }
+  }
+}
+
+/**
+ * Returns an EntityFieldQuery object for querying entities to delete.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param array $bundles
+ *   (optional) An array of bundle keys to specifically delete.
+ *
+ * @return EntityFieldQuery
+ */
+function _entity_bulk_delete_query($entity_type, array $bundles = array()) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', $entity_type);
+  if (!empty($bundles)) {
+    $query->entityCondition('bundle', $bundles);
+  }
+  if ($entity_type == 'user') {
+    // Prevent deletion of user 0 (anonymous) or user 1 (super-administrator).
+    $query->entityCondition('entity_id', array(0, 1), 'NOT IN');
+  }
+  $query->entityOrderby('entity_id');
+  $query->addTag('DANGEROUS_ACCESS_CHECK_OPT_OUT');
+  $query->addTag('entity_bulk_delete');
+  return $query;
+}
