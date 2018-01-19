@@ -4,7 +4,8 @@ Drupal.behaviors.emindhub = {
   attach: function (context, settings) {
     var node;
     filter =     { acceptNode: function(node) {
-      if (node.parentNode.className == "request-left") return( NodeFilter.FILTER_REJECT );
+      var className = node.parentNode.className;
+      if (className == "request-left" || className == 'content submissions-list' || className == 'section user-submission') return( NodeFilter.FILTER_REJECT );
       return( NodeFilter.FILTER_ACCEPT );
       }
     }
