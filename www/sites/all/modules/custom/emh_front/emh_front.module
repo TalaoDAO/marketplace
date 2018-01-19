@@ -24,17 +24,28 @@ function emh_front_block_info() {
 function emh_front_block_view($delta = '') {
   $block = array();
 
+  $config = config_pages_config('footer');
+
   switch ($delta) {
 
     case 'emh_footer':
+      $partners = array();
+      foreach ($config->field_partners->value() as $partner) {
+        $collection = entity_metadata_wrapper('field_collection_item', $partner);
+        $image = $collection->field_partners_image->value();
+        $partners[] = [
+          'image' => $image,
+        ];
+      }
       $block = [
         'content' => [
           '#theme' => 'emh_footer',
+          '#partners_title' => $config->field_footer_partners_text->value(),
+          '#partners' => $partners,
         ],
       ];
       break;
   }
-
   return $block;
 }
 
@@ -42,22 +53,16 @@ function emh_front_block_view($delta = '') {
  * Implements hook_theme().
  */
 function emh_front_theme() {
-  $config = config_pages_config('footer');
-  $partners = array();
-  foreach ($config->field_partners->getIterator() as $delta => $partner) {
-    object_log('partner', $partner);
-    $partners[] = [
-      'img' => '',
-    ];
-  }
-  return [
-    'emh_footer' => [
-      'variables' => [
-        'partners_title' => $config->field_footer_partners_text->value(),
-        'partners' => $partners,
-      ],
-      'template' => 'emh_footer',
-      'path' => drupal_get_path('module', 'emh_front') . '/theme',
+  $theme = array();
+
+  $theme['emh_footer'] = [
+    'template' => 'emh_footer',
+    'path' => drupal_get_path('module', 'emh_front') . '/theme',
+    'variables' => [
+      'partners_title' => $partners_title,
+      'partners' => $partners,
     ],
   ];
+
+  return $theme;
 }
