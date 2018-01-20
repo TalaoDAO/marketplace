@@ -1,0 +1,16 @@
+name = Ghost Examples
+description = "Provides a set of interfaces for defining abstract data"
+core = 7.x
+
+hidden = TRUE
+
+dependencies[] = registry_autoload
+
+registry_autoload[] = PSR-4
+
+; Information added by Drupal.org packaging script on 2016-06-28
+version = "7.x-1.0-beta6"
+core = "7.x"
+project = "ghost"
+datestamp = "1467080944"
+

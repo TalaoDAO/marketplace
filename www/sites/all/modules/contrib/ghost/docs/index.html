@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Ghost</title>
+  <link rel="stylesheet" href="pnx-doc.css" />
+</head>
+<body>
+
+<div class="content">
+  <h1>Ghost</h1>
+
+  <p><strong>This is a developer module to assist in building forward-compatible, object-oriented modules. If you are not writing modules or instructed by another module, do not install this.</strong></p>
+
+  <p>Ghost contains a number of object-oriented components for building Drupal sites which have previously been part of other modules.</p>
+
+  <ul>
+    <li><a href="#1">Object oriented Page Controllers</a></li>
+    <li><a href="#2">Object oriented Form Controllers</a> (with some Drupal 8 compatibility)</li>
+    <li><a href="#3">Block plugins</a></li>
+    <li><a href="#4">Logger</a></li>
+    <li><a href="#5">Display Suite Field Prototypes</a></li>
+    <li><a href="#6">Field Formatter plugins</a></li>
+  </ul>
+
+  <h2><a name="1"></a>Page Controller</h2>
+
+  <p><strong>Status:</strong> Working</p>
+
+  <p>Page Controller provides a standardised Controller class for object-oriented page callbacks in Drupal 7, a bit like Drupal 8 page controllers.</p>
+
+  <p>This functionality was previously part of the <a href="http://drupal.org/project/page_controller">Page Controller</a> module, which is no longer supported.</p>
+
+  <ul>
+    <li><a href="http://cgit.drupalcode.org/ghost/plain/docs/page_controller.html?h=7.x-1.x">Page Controller documentation</a></li>
+  </ul>
+
+  <h2><a name="2"></a>Form Controller</h2>
+
+  <p><strong>Status:</strong> Working</p>
+
+  <p>Provides object-oriented Form Controllers, with a structure similar to
+    Drupal 8.</p>
+
+  <ul>
+    <li><a href="http://cgit.drupalcode.org/ghost/plain/form_controller.html?h=7.x-1.x">Form Controller documentation</a></li>
+  </ul>
+
+  <h2><a name="3"></a>Block plugins</h2>
+
+  <p><strong>Status:</strong> Working</p>
+
+  <p>Allows to you create new Blocks using a plugin discovery mechanism, instead of using hook_block_info() et al.</p>
+
+  <ul>
+    <li><a href="http://cgit.drupalcode.org/ghost/plain/block_plugins.html?h=7.x-1.x">Block plugin documentation</a></li>
+  </ul>
+
+  <h2><a name="4"></a>Logger</h2>
+
+  <p><strong>Status:</strong> Working</p>
+
+  <p>An extensible Logging class. Provides watchdog() logging out-of-the-box, but can be extended to support other loggers, or enhance your development process with better logging conditions.</p>
+  <ul>
+    <li><a href="http://cgit.drupalcode.org/ghost/plainlogger.html?h=7.x-1.x">Logger documentation</a></li>
+  </ul>
+
+  <h2><a name="5"></a>Display Suite Field Prototypes</h2>
+
+  <p><strong>Status:</strong> Working for Function field types only</p>
+
+  <p>Small helper class for declaring Fields in Display Suite.</p>
+
+  <p>This functionality was previously part of the <a href="http://drupal.org/project/ds_fp">Display Suite Field Prototypes</a> module, which is no longer supported.</p>
+  <ul>
+    <li><a href="http://cgit.drupalcode.org/ghost/plain/ds_field_prototypes.html?h=7.x-1.x">Prototype documentation</a></li>
+  </ul>
+
+  <h2><a name="6"></a>Field Formatter plugins</h2>
+
+  <p><strong>Status:</strong> Working</p>
+
+  <p>Allows you to create Field Formatters as ctools plugins, instead of splitting your field implementation across six functions.</p>
+  <ul>
+    <li><a href="http://cgit.drupalcode.org/ghost/plain/formatter_plugins.html?h=7.x-1.x">Formatter documentation</a></li>
+  </ul>
+</div>
+</body>
+</html>
