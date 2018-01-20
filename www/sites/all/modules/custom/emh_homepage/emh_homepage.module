@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * EMH Homepage.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function emh_homepage_menu() {
+  $items = array();
+  $items['emh_homepage'] = array(
+    'title' => 'Home',
+    'page callback' => '_emh_homepage',
+    'access arguments' => array('access content'),
+  );
+  return $items;
+}
+
+/**
+ * Helper function to render the front page.
+ */
+function _emh_homepage() {
+  $config = config_pages_config('homepage');
+  drupal_set_title($config->field_hp_hero_title->value());
+  return config_pages_render('homepage');
+}
