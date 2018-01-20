@@ -6,6 +6,15 @@
  */
 
 /**
+ * Implements hook_init().
+ */
+function emh_homepage_init() {
+  if (current_path() == 'emh_homepage') {
+    libraries_load('slick');
+  }
+}
+
+/**
  * Implements hook_menu().
  */
 function emh_homepage_menu() {
