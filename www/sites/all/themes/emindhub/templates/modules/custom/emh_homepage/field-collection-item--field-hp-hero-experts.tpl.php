@@ -32,10 +32,11 @@
  * Help!
  *
  * See all variables: ddl($content).
- * Then display the page and go to http://emh-drupal-vm/admin/reports/debug.
+ * Then display the page and go to http://emh-drupal-vm/admin/reports/debug
  */
 
 $classes .= $content['field_hp_experts_popup'][0]['#markup'] == 'Open' ? ' emh-popup-open' : ' emh-popup-closed';
+$classes .= ' ' . $content['field_hp_experts_popup_direction'][0]['#markup'];
 ?>
 
 <div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
