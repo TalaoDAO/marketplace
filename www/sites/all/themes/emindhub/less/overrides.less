@@ -2,6 +2,26 @@
 @tablet:  ~"screen and (min-width: @{screen-sm-min})";
 @normal:  ~"screen and (min-width: @{screen-md-min})";
 @wide:    ~"screen and (min-width: @{screen-lg-min})";
+@mobileDevices: ~"screen and (max-width: 767px)";
+@desktop-view: ~"screen and (min-width: 768px)";
+@mobile-view: ~"screen and (max-width: 767px)";
+
+@media @mobile-view{
+  .desktop{
+    display: none!important;
+  }
+  .mobile{
+    display: block;
+  }
+}
+@media @desktop-view{
+  .desktop{
+    display: block;
+  }
+  .mobile{
+    display: none!important;
+  }
+}
 
 // Drop shadows.
 .box-shadow(@shadow) {
