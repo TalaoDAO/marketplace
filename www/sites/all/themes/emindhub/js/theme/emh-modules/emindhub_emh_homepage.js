@@ -19,6 +19,19 @@
       $('.slick-how-need').slick();
       $('.slick-how-have').slick();
 
+      // Animated Gif on hover.
+      $(function () {
+        $('.vocabulary-domaine img').each(function () {
+          var src = $(this).attr('src');
+          var gif = $(this).parent().attr("data-src");
+          $(this).hover(function () {
+            $(this).attr('src', gif);
+          }, function () {
+            $(this).attr('src', src);
+          });
+        });
+      });
+
 
 
 
