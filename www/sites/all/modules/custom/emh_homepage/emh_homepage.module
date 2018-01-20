@@ -35,3 +35,14 @@ function _emh_homepage() {
   drupal_set_title($config->field_hp_hero_title->value());
   return config_pages_render('homepage');
 }
+
+/**
+ * Implements hook_taxonomy_term_view().
+ */
+function emh_homepage_taxonomy_term_view($term, $view_mode, $langcode) {
+  if ($term->vid == '2') {
+    if ($view_mode != 'teaser') {
+      drupal_goto('domains');
+    }
+  }
+}
