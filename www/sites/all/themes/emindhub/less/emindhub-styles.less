@@ -90,11 +90,23 @@ body.logged-in {
 	background-color: #fff;
 
 	.navbar-toggle {
-		background-color: @gray-lighter;
-		border-color: @navbar-default-border;
+		background-color: transparent;
+		border-color: transparent;
 
 		.icon-bar {
-			background-color: @gray;
+			background-color: #004769;
+			width: 29px;
+			height: 3px;
+			&:nth-child(odd){
+				right: 5px;
+				top: 13px;
+				position: absolute;
+			}
+			&:last-child{
+				right: 8px;
+				top: 21px;
+				position: absolute;
+			}
 		}
 	}
 }
