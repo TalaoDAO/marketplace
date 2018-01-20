@@ -69,7 +69,8 @@ global $base_url; ?>
         </div>
       <?php endif; ?>
 
-      <div class="container">
+      <div class="row nomargin">
+      <div class="container-fluid">
 
         <?php if (!empty($page['highlighted'])): ?>
         <div class="highlighted jumbotron">
@@ -77,7 +78,7 @@ global $base_url; ?>
         </div>
         <?php endif; ?>
 
-        <div class="row">
+        <div class="row nomargin">
 
           <?php if (!empty($page['sidebar_first'])) : ?>
           <?php if ($is_front) : ?>
@@ -114,6 +115,7 @@ global $base_url; ?>
 
         </div>
 
+      </div>
       </div>
 
       <?php if (!empty($page['bottom']) || !empty($page['bottom_right'])): ?>

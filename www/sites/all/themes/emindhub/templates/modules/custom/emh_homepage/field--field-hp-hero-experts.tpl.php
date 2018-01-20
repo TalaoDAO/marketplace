@@ -10,7 +10,3 @@
     <?php endforeach; ?>
   </div>
 </div>
-
-<?php
-ddl($items);
-?>
