@@ -1226,6 +1226,45 @@ function ft_config_pages_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'field_collection_item-field_hp_hero_experts-field_hp_experts_popup_direction'.
+  $field_instances['field_collection_item-field_hp_hero_experts-field_hp_experts_popup_direction'] = array(
+    'bundle' => 'field_hp_hero_experts',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_hp_experts_popup_direction',
+    'label' => 'Popup direction',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 0,
+      ),
+      'type' => 'options_buttons',
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance:
   // 'field_collection_item-field_hp_hero_experts-field_hp_experts_position'.
   $field_instances['field_collection_item-field_hp_hero_experts-field_hp_experts_position'] = array(
     'bundle' => 'field_hp_hero_experts',
@@ -2025,6 +2064,7 @@ function ft_config_pages_field_default_field_instances() {
   t('Partners');
   t('Photo');
   t('Popup');
+  t('Popup direction');
   t('Position');
   t('Slide');
   t('Solutions - Link');
