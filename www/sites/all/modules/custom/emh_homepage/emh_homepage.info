@@ -1,5 +1,5 @@
-name = EMH Front
-description = Frontpage.
+name = EMH Homepage
+description = Homepage.
 package = EMH
 dependencies[] = config_pages
 dependencies[] = ft_config_pages
