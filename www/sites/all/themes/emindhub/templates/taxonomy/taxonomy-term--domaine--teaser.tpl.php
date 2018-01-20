@@ -47,7 +47,9 @@ ddl($content);
 
   <div class="content">
 
-    <?php print render($content['field_image']); ?>
+    <div data-src="<?php print render($content['field_file']); ?>">
+      <?php print render($content['field_image']); ?>
+    </div>
     <?php print render($content['name_field']); ?>
 
   </div>
