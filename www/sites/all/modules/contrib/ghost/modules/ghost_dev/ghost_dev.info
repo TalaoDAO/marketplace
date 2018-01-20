@@ -1,0 +1,14 @@
+name = Ghost Developer Tools
+description = "Provides developer tools for working with Ghost"
+core = 7.x
+
+dependencies[] = ghost
+dependencies[] = registry_autoload
+
+registry_autoload[] = PSR-4
+; Information added by Drupal.org packaging script on 2016-06-28
+version = "7.x-1.0-beta6"
+core = "7.x"
+project = "ghost"
+datestamp = "1467080944"
+
