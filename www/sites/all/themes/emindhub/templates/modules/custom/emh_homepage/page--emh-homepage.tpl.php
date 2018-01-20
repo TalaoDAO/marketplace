@@ -41,8 +41,8 @@ global $base_url; ?>
 
       <?php if (!empty($page['topmenu']) || !empty($page['navigation'])): ?>
         <div id="navbar" class="navbar-collapse collapse">
-          <?php print render($page['topmenu']); ?>
-          <?php print render($page['navigation']); ?>
+            <?php print render($page['topmenu']); ?>
+            <?php print render($page['navigation']); ?>
         </div>
       <?php endif; ?>
 
