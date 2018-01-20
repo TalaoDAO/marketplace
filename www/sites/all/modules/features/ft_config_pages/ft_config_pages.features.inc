@@ -14,9 +14,24 @@ function ft_config_pages_default_config_pages_type() {
     "label" : "eMindHub",
     "weight" : "0",
     "data" : {
-      "menu" : { "path" : "admin\\/config\\/emindhub", "type" : "140" },
+      "menu" : { "path" : "admin\\/config\\/emindhub", "type" : 6 },
       "context" : { "group" : {
-          "config_pages:language" : 0,
+          "config_pages:language" : "config_pages:language",
+          "config_pages:host" : 0,
+          "config_pages:domain" : 0
+        }
+      }
+    },
+    "emh_earnings" : 0
+  }');
+  $items['footer'] = entity_import('config_pages_type', '{
+    "type" : "footer",
+    "label" : "Footer",
+    "weight" : "0",
+    "data" : {
+      "menu" : { "path" : "admin\\/config\\/emindhub\\/footer", "type" : "132" },
+      "context" : { "group" : {
+          "config_pages:language" : "config_pages:language",
           "config_pages:host" : 0,
           "config_pages:domain" : 0
         }
@@ -31,7 +46,7 @@ function ft_config_pages_default_config_pages_type() {
     "data" : {
       "menu" : { "path" : "admin\\/config\\/emindhub\\/homepage", "type" : "132" },
       "context" : { "group" : {
-          "config_pages:language" : 0,
+          "config_pages:language" : "config_pages:language",
           "config_pages:host" : 0,
           "config_pages:domain" : 0
         }
