@@ -79,7 +79,7 @@ gulp.task('watch', () => {
 });
 
 gulp.task('lint', () => {
-    return gulp.src(['js/theme/*.js', '!node_modules/**', '!vendor/**', '!dist/**'])
+    return gulp.src(['js/theme/*.js', 'js/modules/**/**/*.js', '!node_modules/**', '!vendor/**', '!dist/**'])
         .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failAfterError());

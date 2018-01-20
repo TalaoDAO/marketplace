@@ -27,27 +27,26 @@
  * @see template_preprocess_entity()
  * @see template_process()
  */
+
+/**
+ * Help!
+ *
+ * See all variables: ddl($content).
+ * Then display the page and go to http://emh-drupal-vm/admin/reports/debug.
+ */
+
+$classes .= $content['field_hp_experts_popup'][0]['#markup'] == 'Open' ? ' emh-popup-open' : ' emh-popup-closed';
 ?>
+
 <div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
   <div class="content"<?php print $content_attributes; ?>>
-    <?php
 
-$popup_open = $content['field_hp_experts_popup'][0]['#markup'] == 'Open' ? TRUE : FALSE;
+  <?php
+    print render($content['field_hp_experts_image']);
+    print render($content['field_hp_experts_name']);
+    print render($content['field_hp_experts_position']);
+    print render($content['field_hp_experts_domains']);
+  ?>
 
-if ($popup_open) {
-  print render($content['field_hp_experts_image']);
-  print render($content['field_hp_experts_name']);
-  print render($content['field_hp_experts_position']);
-  print render($content['field_hp_experts_domains']);
-  print render($content['field_hp_experts_popup']);
-}
-else {
-  print render($content['field_hp_experts_image']);
-  print render($content['field_hp_experts_name']);
-  print render($content['field_hp_experts_position']);
-  print render($content['field_hp_experts_domains']);
-  print render($content['field_hp_experts_popup']);
-}
-    ?>
   </div>
 </div>
