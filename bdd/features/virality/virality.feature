@@ -30,12 +30,12 @@ Feature: Request
     Given I give "client1" 500 emh credits
 
     Given "request" content:
-      | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
+      | title                       | field_domaine     | og_group_ref    | author  | field_expiration_date  | status  |
       | How to become a superhero?  | Blockchain        | All experts     | client1 | 2020-02-08 17:45:00    | 1       |
-      | How to join the x-men?  | Blockchain        | X-Men     | client2 | 2020-02-08 18:45:00    | 1       |
+      | How to join the x-men?      | Blockchain        | X-Men           | client2 | 2020-02-08 18:45:00    | 1       |
 
   @email @nodelay
-  Scenario: An author can to send a general invitation
+  Scenario: An author can send a general invitation
     Given the test email system is enabled
     Given I am logged in as "client1"
     When I go to homepage
@@ -54,16 +54,18 @@ Feature: Request
     And I should see "emindhub.test+batman@gmail.com"
     And I should see "emindhub.test+superman@gmail.com"
     And I should see "Invitation sent."
+    And the last email to "emindhub.test+batman@gmail.com" should contain "Captain AMERICA invites you to join eMindHub"
+    And the last email to "emindhub.test+superman@gmail.com" should contain "Captain AMERICA invites you to join eMindHub"
 
 
-  Scenario: An author can to access invitation page since a request not for All Experts
+  Scenario: A client cannot access invitation page from a request
     Given I am logged in as "client2"
     When I go to homepage
     And I click "How to join the x-men?" in the "content" region
     Then I should not see the button "Invite experts"
 
   @email @nodelay
-  Scenario: An user send an invitation and new user validated.
+  Scenario: An user send an invitation to new user that endup validated.
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits"
     Then I fill in "Cost of profile purchase" with "100"
@@ -75,17 +77,27 @@ Feature: Request
     And I click "How to become a superhero?" in the "content" region
     And I click "Invite experts" in the "content" region
     Then I should see "How to become a superhero?"
-
     When I fill in "Barry" for "First Name"
     And I fill in "Allen" for "Name"
     And I fill in "emindhub.test+flash@gmail.com" for "Mail"
-    And I fill in "Hello, I'm Flash" for "Message"
+    And I fill in "Hello Flash, join us" for "Message"
     And I press the "edit-submit" button
     Then I should see the message "You just sent invitations to:"
     And I should see "emindhub.test+flash@gmail.com"
     And I should see "Invitation sent."
     And the last email to "emindhub.test+flash@gmail.com" should contain "Hello Barry,"
-    And the email should contain "Hello, I'm Flash"
+    And the email should contain "Hello Flash, join us"
+
+    #Same test but with generic email
+    When I go to homepage
+    And I click "How to become a superhero?" in the "content" region
+    And I click "Invite experts" in the "content" region
+    Then I should see "How to become a superhero?"
+    When I fill in "Bruce" for "First Name"
+    And I fill in "Wayne" for "Name"
+    And I fill in "emindhub.test+batman@gmail.com" for "Mail"
+    And I press the "edit-submit" button
+    And the last email to "emindhub.test+batman@gmail.com" should contain "recommanded"
 
     When I visit "user/logout"
     And I visit 'expert/register'
