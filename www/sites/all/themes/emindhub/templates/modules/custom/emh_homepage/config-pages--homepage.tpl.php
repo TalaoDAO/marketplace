@@ -16,6 +16,7 @@
     <?php print render($content['field_hp_hero_title']); ?>
     <?php print render($content['field_hp_hero_link']); ?>
     <?php print render($content['field_hp_hero_experts']); ?>
+    <div id="particles-js"></div>
   </div>
 </div>
 
