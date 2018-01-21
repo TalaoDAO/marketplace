@@ -10,7 +10,7 @@
  * render($content['field_hp_hero_title']) => renders the hp hero title fields.
  */
 
-ddl($content);
+//ddl($content);
 ?>
 
 <div class="container-fluid hp-hero">
