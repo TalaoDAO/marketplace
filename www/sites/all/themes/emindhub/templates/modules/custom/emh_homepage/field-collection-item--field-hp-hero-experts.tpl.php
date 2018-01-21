@@ -28,15 +28,13 @@
  * @see template_process()
  */
 
-//ddl($content);
-
 $popup_status = $content['field_hp_experts_popup'][0]['#markup'];
 $popup_direction = $content['field_hp_experts_popup_direction'][0]['#markup'];
 $popup_classes = 'hp-expert-popup ' . $popup_status . ' ' . $popup_direction;
 ?>
 
 <div class="hp-expert-image">
-  <?php print render($content['field_hp_experts_image']); ?>
+  <?php print render($content['field_photo']); ?>
 </div>
 <div class="<?php print $popup_classes; ?>">
   <?php
