@@ -29,7 +29,7 @@
  */
 ?>
 <div class="hp-testimony-item">
-  <?php print render($content['field_testimony_photo']); ?>
+  <?php print render($content['field_photo']); ?>
   <?php print render($content['field_testimony_name']); ?>
   <?php print render($content['field_testimony_position']); ?>
   <?php print render($content['field_testimony_text']); ?>
