@@ -31,6 +31,7 @@
       });
       /**
        * ajout des classes bootstrap sur hp-domains
+       * TODO
        */
       $('.field-name-field-hp-domains .field-items .field-item') .addClass('col-xs-6 col-sm-3');
 
