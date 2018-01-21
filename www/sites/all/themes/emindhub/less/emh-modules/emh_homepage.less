@@ -92,6 +92,25 @@
 
 		}
 	}
+	.hp-domains-see-more{
+		width: 157px;
+		height: 42px;
+		border-radius: 100px;
+		border: solid 1px #007eb3;
+		color: #007eb3;
+		font-size: 18px;
+		transform: translate(-50%);
+		-webkit-transform: translate(-50%);
+		margin-top: 30px;
+		margin-bottom: 40px;
+		margin-left: 50%;
+		display: block;
+		text-align: center;
+		padding: 7px;
+		&:hover{
+			text-decoration: none;
+		}
+	}
 }
 
 ///client domain
@@ -104,5 +123,70 @@
 		.flex-display(@display: flex);
 		.justify-content(@justify: space-around );
 		.align-items(@align: center);
+	}
+}
+
+////ho sollutions
+.hp-solutions {
+	.field-name-field-hp-solutions-title{
+		margin-top: 80px;
+	}
+	.field-name-field-hp-solutions-slides-blue{
+		.field-collection-view {
+			display: inline-block;
+			width: auto;
+			//white-space: nowrap;
+			.field-name-field-slide-title{
+				font-size: 20px;
+				font-weight: bold;
+				text-align: center;
+				color: #0a2c3f;
+				-webkit-text-stroke: 1px #005174;
+			}
+			.maclasse{
+				font-size: 14px;
+				font-weight: normal;
+				text-align: center;
+				color: #0a2c3f;
+				-webkit-text-stroke: 1px #005174;
+				margin-top: 40px;
+			}
+		}
+	}
+	.field-name-field-hp-solutions-slides-orange {
+		border-radius: 19px;
+		background-color: #ffffff;
+		border-style: solid;
+		border-width: 1px;
+		border-image-source: linear-gradient(210deg, #fbd249, #f5a623);
+		border-image-slice: 1;
+		.field-name-field-slide-surtitle{
+			.field-name-field-slide-surtitle{
+				background: linear-gradient(254deg, #fbd249, #f5a623);
+				display: block;
+				padding: 20px 10px 20px 10px;
+				color: white;
+
+			}
+		}
+		a{
+			background: linear-gradient(253deg, #fbd249, #f5a623);
+			width: 135px;
+			height: 40px;
+			border-radius: 100px;
+			font-size: 20px;
+			color: white;
+			padding: 7px;
+			transform: translate(-50%);
+			-webkit-transform: translate(-50%);
+			margin-top: 30px;
+			margin-bottom: 40px;
+			margin-left: 50%;
+			display: block;
+			text-align: center;
+			&:hover{
+				text-decoration: none;
+			}
+		}
 	}
 }
