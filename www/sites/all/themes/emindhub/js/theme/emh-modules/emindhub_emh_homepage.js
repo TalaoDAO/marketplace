@@ -6,10 +6,6 @@
 
   Drupal.behaviors.emindhub_emh_homepage = {
     attach: function (context, settings) {
-
-
-
-
       // Normal JS in here. Use $() instead of jQuery(), like:
       $('.emh-popup-closed').hide();
 
@@ -35,6 +31,12 @@
        */
       $('.field-name-field-hp-domains .field-items .field-item') .addClass('col-xs-6 col-sm-3');
 
+      /**
+       * ajout des classe boobtstrap sur hp-solutions
+       * TODO
+       */
+      $('.hp-solutions .field-name-field-hp-solutions-slides-blue') .addClass('col-xs-12 col-sm-8');
+      $('.hp-solutions .field-name-field-hp-solutions-slides-orange') .addClass('col-xs-12 col-sm-4');
     }
   }
 }(jQuery));
