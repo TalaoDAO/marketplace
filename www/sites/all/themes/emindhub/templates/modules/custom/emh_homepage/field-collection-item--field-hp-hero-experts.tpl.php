@@ -28,26 +28,20 @@
  * @see template_process()
  */
 
-/**
- * Help!
- *
- * See all variables: ddl($content).
- * Then display the page and go to http://emh-drupal-vm/admin/reports/debug
- */
+//ddl($content);
 
-$classes .= $content['field_hp_experts_popup'][0]['#markup'] == 'Open' ? ' emh-popup-open' : ' emh-popup-closed';
-$classes .= ' ' . $content['field_hp_experts_popup_direction'][0]['#markup'];
+$popup_status = $content['field_hp_experts_popup'][0]['#markup'];
+$popup_direction = $content['field_hp_experts_popup_direction'][0]['#markup'];
+$popup_classes = 'hp-expert-popup ' . $popup_status . ' ' . $popup_direction;
 ?>
 
-<div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-  <div class="content"<?php print $content_attributes; ?>>
-
+<div class="hp-expert-image">
+  <?php print render($content['field_hp_experts_image']); ?>
+</div>
+<div class="<?php print $popup_classes; ?>">
   <?php
-    print render($content['field_hp_experts_image']);
     print render($content['field_hp_experts_name']);
     print render($content['field_hp_experts_position']);
     print render($content['field_hp_experts_domains']);
   ?>
-
-  </div>
 </div>

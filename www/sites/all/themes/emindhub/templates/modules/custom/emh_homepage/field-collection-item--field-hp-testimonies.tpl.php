@@ -28,10 +28,9 @@
  * @see template_process()
  */
 ?>
-<div class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-  <div class="content"<?php print $content_attributes; ?>>
-    <?php
-      print render($content);
-    ?>
-  </div>
+<div class="hp-testimony-item">
+  <?php print render($content['field_testimony_photo']); ?>
+  <?php print render($content['field_testimony_name']); ?>
+  <?php print render($content['field_testimony_position']); ?>
+  <?php print render($content['field_testimony_text']); ?>
 </div>
