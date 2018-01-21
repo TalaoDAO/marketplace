@@ -233,6 +233,16 @@ function emindhub_preprocess_field(&$variables) {
     $variables['item_attributes_array'][$delta]['class'] = $item_classes;
     $variables['item_attributes_array'][$delta]['class'][] = $delta % 2 ? 'even' : 'odd';
   }
+
+	if ($variables['element']['#field_name'] == 'field_slide') {
+    $variables['theme_hook_suggestions'][] = 'field__custom_suggestion';
+  }
+	elseif ($variables['element']['#field_name'] == 'field_hp_testimonies') {
+    $variables['theme_hook_suggestions'][] = 'field__collection_hp_testimonies';
+  }
+	elseif ($variables['element']['#field_name'] == 'field_hp_hero_experts') {
+    $variables['theme_hook_suggestions'][] = 'field__collection_hp_hero_experts';
+  }
 }
 
 /**
@@ -552,5 +562,16 @@ function emindhub_preprocess_webform_submission_information(&$vars) {
     // $vars['comment_answer'] = _emh_request_submission_flags_get_comment($vars['submission']->sid);
     $vars['comment_answer'] = flag_create_link('comment_answer', $vars['submission']->sid);
     $vars['comment'] = emh_request_submission_flags_get_flag_field_value('comment_answer', 'field_comment_answer', $vars['submission'], $vars['node']);
+  }
+}
+
+function emindhub_field_attach_view_alter(&$output, $context) {
+  // First check we're dealing with a field collection field.
+  if(!empty($output['field_hp_testimonies'])) {
+    // Now check for our specific field collection field.
+    if ($output['field_hp_testimonies']['#field_name'] === 'field_hp_testimonies' ) {
+      // Alter the prefix.
+      $output['field_hp_testimonies']['#prefix'] = '';
+    }
   }
 }
