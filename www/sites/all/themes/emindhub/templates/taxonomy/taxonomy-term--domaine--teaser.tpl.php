@@ -40,8 +40,6 @@
  *
  * @ingroup themeable
  */
-
-ddl($content);
 ?>
 <div id="taxonomy-term-<?php print $term->tid; ?>" class="<?php print $classes; ?>">
 
