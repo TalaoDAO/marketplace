@@ -6,7 +6,13 @@
 
   Drupal.behaviors.emindhub_emh_homepage = {
     attach: function (context, settings) {
-      // Normal JS in here. Use $() instead of jQuery(), like:
+
+      // Particles.
+      particlesJS.load('particles-js', 'sites/all/themes/emindhub/particles.json', function () {
+        console.log('callback - particles.js config loaded');
+      });
+
+      // Close closed popups.
       $('.popup-closed').hide();
 
       // Sliders.
