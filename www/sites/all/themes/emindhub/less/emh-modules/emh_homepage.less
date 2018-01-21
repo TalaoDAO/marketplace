@@ -10,3 +10,99 @@
 		padding: 0;
 	}
 }
+///refonte hp
+
+//// hp-hero
+.hp-hero{
+	background: url('../images/img-hp/big-planet.png')no-repeat center 125px , linear-gradient(63deg, #005174, #007eb3);
+	height: 562px;
+	.field-name-field-hp-hero-title{
+		font-size: 48px;
+		text-align: center;
+		color: #ffffff;
+		margin-top: 60px;
+		margin-bottom: 50px;
+	}
+	.hp-join-us{
+		.flex-display(@display: flex);
+		.justify-content(@justify: center);
+		.align-items(@align: center);
+		width: 157px;
+		height: 42px;
+		border-radius: 100px;
+		background: linear-gradient(77deg, #5fb8df, #007eb3);
+		box-shadow: 0 10px 38px 0 rgba(0, 0, 0, 0.56);
+		-webkit-box-shadow: 0 10px 38px 0 rgba(0, 0, 0, 0.56);
+		overflow: hidden;
+		color: white;
+		text-align: center;
+		font-size: 18px;
+		margin-left: 50%;
+		transform: translate(-50%);
+		-webkit-transform: translate(-50%);
+
+		&:hover{
+			text-decoration: none;
+		}
+	}
+	.hero-expert-0,.hero-expert-1, .hero-expert-2,.hero-expert-3,.hero-expert-4,.hero-expert-5,.hero-expert-6,.hero-expert-7{
+		display: inline-block;
+		width: auto;
+	}
+	.field-name-field-hp-experts-image{
+		display: inline-block;
+		position: relative;
+		width: auto;
+		img{
+			border-radius: 50%;
+			-webkit-border-radius: 50%;
+			border: 3px solid white;
+		}
+	}
+}
+
+////expertise domain
+.field-name-field-hp-domains-title,
+.field-name-field-hp-solutions-title,
+.field-name-field-hp-why-title,
+.field-name-field-hp-how-title{
+	font-size: 28px;
+	text-align: center;
+	color: #0a2c3f;
+}
+.hp-domains {
+	background: white;
+	.field-name-field-hp-domains-title{
+		margin-top: 60px;
+		margin-bottom: 60px;
+	}
+	.field-item{
+		display: block;
+		img{
+			margin: 0 auto;
+		}
+		.field-type-text{
+			font-size: 18px;
+			text-align: center;
+			color: #005174;
+			margin: 15px auto 15px 50%;
+			display: inline-block;
+			transform: translate(-50%);
+			-webkit-transform: translate(-50%);
+
+		}
+	}
+}
+
+///client domain
+
+.hp-clients {
+	background: url('../images/img-hp/planet-side.png')no-repeat left center, linear-gradient(79deg, #005174, #007eb3);
+	.field-items{
+		min-height:226px;
+
+		.flex-display(@display: flex);
+		.justify-content(@justify: space-around );
+		.align-items(@align: center);
+	}
+}
