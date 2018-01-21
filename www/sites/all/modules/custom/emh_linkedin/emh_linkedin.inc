@@ -18,42 +18,42 @@ define('EMH_LINKEDIN_DIR_IMAGE', 'sites/default/files/picture');
 function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
   // Get sure library is loaded before doing anything.
   emh_linkedin_init();
-  
+
   $base_url = "https://api.linkedin.com/v1/people/";
-  
+
   $session = _hybridauth_session_load_by_uid($uid);
   $data_session = hybridauth_get_instance()->getSessionData();
   $data = unserialize($session['data']);
-  
+
   $row = array(
       'token_key' => unserialize($data['hauth_session.linkedin.token.access_token']),
-      'token_secret' => unserialize($data['hauth_session.linkedin.token.access_token_secret']) 
+      'token_secret' => unserialize($data['hauth_session.linkedin.token.access_token_secret'])
   );
-  
+
   if (! $row || empty($row)) {
     // This account does not have any LinkedIn account associated with.
     $response = array(
         'status' => '401',
         'error-code' => 'custom',
-        'message' => 'No LinkedIn account is associated with this user' 
+        'message' => 'No LinkedIn account is associated with this user'
     );
     if (variable_get('emh_linkedin_debug_mode', 0) == 1) {
       drupal_set_message(t('Linkedin debug : @status : @message', array(
           '@status' => $response['status'],
-          '@message' => $response['message'] 
+          '@message' => $response['message']
       )));
     }
     return $response;
   }
-  
+
   $session = _hybridauth_session_load_by_uid($uid);
   $data = unserialize($session['data']);
-  
+
   $tokens = array(
       'token_key' => unserialize($data['hauth_session.linkedin.token.access_token']),
-      'token_secret' => unserialize($data['hauth_session.linkedin.token.access_token_secret']) 
+      'token_secret' => unserialize($data['hauth_session.linkedin.token.access_token_secret'])
   );
-  
+
   if (! $tokens) {
     // We don't have any LinkedIn account associated with the user viewing the profile.
     // Make the request on the behalf on viewed user and switch to public profile.
@@ -65,19 +65,19 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
     // Fetch profile. Fields returned will depend on the relationships between viewing/viewed users
     $identity = db_select('hybridauth_identity', 'ha_id')->fields('ha_id')->condition('uid', $uid, '=')->execute()->fetchAssoc();
     $authname = $identity['provider_identifier'];
-    
+
     $append = 'id=' . $authname;
     $type = 'auth';
   }
-  
+
   $tokens = (array) $tokens;
   $append .= _emh_linkedin_build_fields_request($fields, $type);
   $url = $base_url . $append;
   $response = emh_linkedin_get_request_fields($url, $tokens);
-  
+
   if (isset($response['error']['status']) && ($response['error']['status'] == 401 || $response['error']['status'] == 403)) {
     // No relationships between users, switch back to public profile and retry
-    
+
     $tokens = (array) $row;
     $append = '~:public';
     $append .= _emh_linkedin_build_fields_request($fields, 'public');
@@ -94,7 +94,7 @@ function _emh_linkedin_get_profile_fields($uid, $fields = array()) {
     if (isset($response['error-code'])) {
       drupal_set_message(t('Linkedin debug : LinkedIn.com answered "@status : @message', array(
           '@status' => $response['status'],
-          '@message' => $response['message'] 
+          '@message' => $response['message']
       )));
     }
   }
@@ -118,9 +118,9 @@ function _emh_linkedin_fields_build_profile() {
       'picture-urls::(original)',
       'email-address',
       'public-profile-url',
-      'headline' 
+      'headline'
   );
-  
+
   return $fields;
 }
 
@@ -138,9 +138,9 @@ function _emh_linkedin_fields_user_update() {
       'picture-urls::(original)',
       'email-address',
       'public-profile-url',
-      'headline' 
+      'headline'
   );
-  
+
   return $fields;
 }
 
@@ -154,7 +154,7 @@ function _emh_linkedin_get_user_fields($user) {
     if ($value)
       $fields[] = $key;
   }
-  
+
   return $fields;
 }
 
@@ -168,16 +168,16 @@ function _emh_linkedin_fields_default_user_update() {
   $fields = array(
       'first-name',
       'last-name',
-      'num-connections' 
+      'num-connections'
   );
-  
+
   return $fields;
 }
 
 /**
  * Return boolean if user can to update profile to linkedin.
  *
- * @param unknown $user          
+ * @param unknown $user
  * @return unknown|boolean
  */
 function _emh_linkedin_update_user($user) {
@@ -189,25 +189,25 @@ function _emh_linkedin_update_user($user) {
 function _emh_linkedin_fields_to_user_fields($field, $user) {
   if (isset($field['value'])) {
     $item = $field['value'];
-    
+
     switch ($field['name']) {
-      
+
       case 'location' :
-        
+
         $country_code = strtoupper($item['country']['code']);
         $country = country_get_list()[$country_code];
-        
+
         $city = $item['name'];
-        
+
         $city = substr($city, 0, strrpos($city, ','));
         $city = substr($city, 0, strrpos($city, ' '));
-        
+
         if (empty($user->field_address)) {
-          
+
           if (strcmp($country, $item['name']) != 0) {
             $user->field_address['und'][0]['locality'] = $city;
           }
-          
+
           $user->field_address['und'][0]['country'] = $country_code;
         }
         else {
@@ -222,9 +222,9 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           }
         }
         break;
-      
+
       case 'num-connections' :
-        
+
         if (empty($user->field_nb_contacts_linkedin)) {
           $user->field_nb_contacts_linkedin['und'][0]['value'] = $item;
         }
@@ -235,7 +235,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           }
         }
         break;
-      
+
       case 'summary' :
         if (empty($user->field_employment_history)) {
           $user->field_employment_history['und'][0]['value'] = $item;
@@ -247,11 +247,11 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           }
         }
         break;
-      
+
       case 'positions' :
-        
+
         $multiple = FALSE;
-        
+
         if (array_key_exists(0, $item['position'])) {
           $taille = count($item['position']);
           $multiple = TRUE;
@@ -259,7 +259,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         else {
           $taille = 1;
         }
-        
+
         /*
          * for($i = 0 ; $i < $taille ; $i++) {
          * if($multiple) {
@@ -277,26 +277,26 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         else {
           $position = $item['position'];
         }
-        
+
         $user = _emh_update_position($user, $position, 0);
-        
+
         break;
-      
+
       case 'picture-urls' :
         $url = $item['picture-url'];
-        
-        
+
+
         // download profile image LinkedIn
         $nom_img = $user->name . ".jpg";
         $dir_name = EMH_LINKEDIN_DIR_IMAGE;
         $path = $dir_name . "/" . $nom_img;
-        
+
         $drupal_uri = file_build_uri("picture/" . $nom_img);
-        
+
         // test if user have changed him linkedin picture
         if (isset($user->field_photo['und'][0]['fid'])) {
           $old = $user->field_photo['und'][0]['fid'];
-          
+
           $md5image1 = md5(file_get_contents($url)); // linkedin
           $md5image2 = md5(file_get_contents($path)); // local
           if ($md5image1 != $md5image2) {
@@ -308,31 +308,30 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
             break;
           }
         }
-        
-        
+
+
         $handle = fopen($url, 'r');
-        
-        
+
+
         $file = file_save_data($handle, $drupal_uri, FILE_EXISTS_REPLACE);
         fclose($handle);
-        
+
         //delete linkedin logo
         $img = image_load($drupal_uri);
-        ddl($img, 'image load');
       	$rogne = 0.90;
       	$width = (Integer)($img->info['width']*$rogne);
       	$height = (Integer)($img->info['height']*$rogne);
       	image_crop($img, 0, 0, $width, $height );
       	image_save($img);
-      
+
       	$file = file_load($file->fid);
-        $file->metadata['height'] = $height; 
+        $file->metadata['height'] = $height;
 	      $file->metadata['width'] = $width;
 	      $file->height = $height;
 	      $file->width = $width;
 	      file_save($file);
 	      file_usage_add($file, 'imagefield_crop', 'file', $file->fid);
-	      
+
         $user->field_photo['und'][0]['uri'] = $drupal_uri;
         $user->field_photo['und'][0]['fid'] = $file->fid;
         $user->field_photo['und'][0]['cropbox_x'] = 0;
@@ -340,12 +339,12 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         $user->field_photo['und'][0]['cropbox_height'] = $file->height;
         $user->field_photo['und'][0]['cropbox_width'] = $file->width;
 
-        
+
         break;
-      
+
       case 'public-profile-url' :
         $profile_URL = $item;
-        
+
         if (empty($user->field_linkedin['und'][0]['url'])) {
           $user->field_linkedin['und'][0]['url'] = $profile_URL;
         }
@@ -356,9 +355,9 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           }
         }
         break;
-      
+
       case 'headline' :
-        
+
         if (empty($user->field_titre_metier['und'][0]['value'])) {
           $user->field_titre_metier['und'][0]['value'] = $item;
         }
@@ -371,7 +370,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         break;
     }
   }
-  
+
   return $user;
 }
 
@@ -379,29 +378,29 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
  * Update user data for multiple position fields.
  */
 function _emh_update_position($user, $position, $i) {
-  
+
   // field_position
   $title = $position['title'];
-  
+
   if (! empty($title)) {
-    
+
     $vocab = taxonomy_vocabulary_machine_name_load('position');
-    
+
     if (empty($term = taxonomy_get_term_by_name($title, $vocab->machine_name))) {
       // add a new term
       $new_term = (object) array(
           'name' => $title,
           'description' => $title,
-          'vid' => $vocab->vid 
+          'vid' => $vocab->vid
       );
-      
+
       taxonomy_term_save($new_term);
       $term = taxonomy_get_term_by_name($title, $vocab->machine_name);
     }
     // update
     $term_tmp = $term;
     $term = array_shift($term_tmp);
-    
+
     if (empty($user->field_position)) {
       $user->field_position['und'][$i]['tid'] = $term->tid;
     }
@@ -412,19 +411,19 @@ function _emh_update_position($user, $position, $i) {
       }
     }
   }
-  
+
   // field_entreprise
   $company_name = $position['company']['name'];
   $node_name = 'corporate';
-  
+
   if (! empty($company_name)) {
-    
+
     $company_name = emh_suppr_accents($company_name, 'ISO-8859-1');
-    
+
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node')->entityCondition('bundle', $node_name)->propertyCondition('title', $company_name, 'like');
     $result = $query->execute();
-    
+
     if (isset($result['node'])) {
       $company = array_shift($result['node']);
     }
@@ -439,11 +438,11 @@ function _emh_update_position($user, $position, $i) {
       $company->status = 1; // (1 or 0): published or not
       $company->promote = 1; // (1 or 0): promoted to front page
       $company->comment = 0; // 0 = comments disabled, 1 = read only, 2 = read/write
-      
+
       $company = node_submit($company); // Prepare node for saving
       node_save($company);
     }
-    
+
     if (empty($user->field_entreprise)) {
       $user->field_entreprise['und'][$i]['target_id'] = $company->nid;
     }
@@ -454,7 +453,7 @@ function _emh_update_position($user, $position, $i) {
       }
     }
   }
-  
+
   // field_description_activities
   if (empty($user->field_description_activities)) {
     if (isset($position['summary'])) {
@@ -511,7 +510,7 @@ function _emh_linkedin_list_fields($type = 'auth') {
         'im-accounts',
         'twitter-accounts',
         'date-of-birth',
-        'main-address' 
+        'main-address'
     );
     $fields = array_merge($fields, $standard_fields);
   }
@@ -521,8 +520,8 @@ function _emh_linkedin_list_fields($type = 'auth') {
 /**
  * Filter the requested fields to match the type of profile (public or auth).
  *
- * @param unknown $fields          
- * @param string $type          
+ * @param unknown $fields
+ * @param string $type
  * @return string
  */
 function _emh_linkedin_build_fields_request($fields, $type = 'auth') {
@@ -548,7 +547,7 @@ function _emh_linkedin_build_fields_request($fields, $type = 'auth') {
 function _emh_linkedin_get_request_fields($url, $tokens) {
   // Get sure library is loaded before doing anything.
   emh_linkedin_init();
-  
+
   $signature = new OAuthSignatureMethod_HMAC_SHA1();
   // LinkedIn key and key secret from Hybridauth module
   $consumer_key = variable_get('hybridauth_provider_LinkedIn_keys_key', '');
@@ -564,7 +563,7 @@ function _emh_linkedin_get_request_fields($url, $tokens) {
   if (isset($response['error-code'])) {
     $message = t('Linkedin : LinkedIn.com answered "@status : @message', array(
         '@status' => $response['status'],
-        '@message' => $response['message'] 
+        '@message' => $response['message']
     ));
     if (variable_get('emh_linkedin_debug_mode', 0) == 1) {
       drupal_set_message($message, 'warning');
@@ -582,21 +581,21 @@ function _emh_linkedin_parse_fields($contents) {
   if (! $contents) {
     return array();
   }
-  
+
   if (! function_exists('xml_parser_create')) { // Get the XML parser of PHP - PHP must have this module for the parser to work
     if (variable_get('emh_linkedin_debug_mode', 0) == 1) {
       drupal_set_message(t('Unable to find PHP parser. This module needs php-xml lib'), 'warning');
     }
     return array();
   }
-  
+
   $parser = xml_parser_create('');
   xml_parser_set_option($parser, XML_OPTION_TARGET_ENCODING, "UTF-8"); // http://minutillo.com/steve/weblog/2004/6/17/php-xml-and-character-encodings-a-tale-of-sadness-rage-and-data-loss
   xml_parser_set_option($parser, XML_OPTION_CASE_FOLDING, 0);
   xml_parser_set_option($parser, XML_OPTION_SKIP_WHITE, 1);
   xml_parse_into_struct($parser, trim($contents), $xml_values);
   xml_parser_free($parser);
-  
+
   if (! $xml_values) {
     return;
   }
@@ -604,7 +603,7 @@ function _emh_linkedin_parse_fields($contents) {
   $parents = array();
   $opened_tags = array();
   $arr = array();
-  
+
   $current = &$xml_array; // Reference
                           // Go through the tags.
   $repeated_tag_index = array(); // Multiple tags with same name will be turned into an array
@@ -613,10 +612,10 @@ function _emh_linkedin_parse_fields($contents) {
                                 // This command will extract these variables into the foreach scope
                                 // tag(string), type(string), level(int), attributes(array).
     extract($data); // We could use the array by itself, but this cooler.
-    
+
     $result = array();
     $attributes_data = array();
-    
+
     if (isset($value)) {
       $result = $value;
     }
@@ -629,7 +628,7 @@ function _emh_linkedin_parse_fields($contents) {
           $current[$tag . '_attr'] = $attributes_data;
         }
         $repeated_tag_index[$tag . '_' . $level] = 1;
-        
+
         $current = &$current[$tag];
       }
       else { // There was another element with the same tag name
@@ -640,10 +639,10 @@ function _emh_linkedin_parse_fields($contents) {
         else { // This section will make the value an array if multiple tags with the same name appear together
           $current[$tag] = array(
               $current[$tag],
-              $result 
+              $result
           ); // This will combine the existing item and the new item together to make an array
           $repeated_tag_index[$tag . '_' . $level] = 2;
-          
+
           if (isset($current[$tag . '_attr'])) { // The attribute of the last(0th) tag must be moved as well
             $current[$tag]['0_attr'] = $current[$tag . '_attr'];
             unset($current[$tag . '_attr']);
@@ -666,13 +665,13 @@ function _emh_linkedin_parse_fields($contents) {
         if (isset($current[$tag][0]) && is_array($current[$tag])) { // If it is already an array...
                                                                     // ...push the new element into that array.
           $current[$tag][$repeated_tag_index[$tag . '_' . $level]] = $result;
-          
+
           $repeated_tag_index[$tag . '_' . $level] ++;
         }
         else { // If it is not an array...
           $current[$tag] = array(
               $current[$tag],
-              $result 
+              $result
           ); // ...Make it an array using using the existing value and the new value
           $repeated_tag_index[$tag . '_' . $level] = 2; // 0 and 1 index is already taken
         }
@@ -682,6 +681,6 @@ function _emh_linkedin_parse_fields($contents) {
       $current = &$parent[$level - 1];
     }
   }
-  
+
   return ($xml_array);
 }
