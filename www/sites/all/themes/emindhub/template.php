@@ -235,7 +235,7 @@ function emindhub_preprocess_field(&$variables) {
   }
 
 	if ($variables['element']['#field_name'] == 'field_slide') {
-    $variables['theme_hook_suggestions'][] = 'field__custom_suggestion';
+    $variables['theme_hook_suggestions'][] = 'field__collection_slide';
   }
 	elseif ($variables['element']['#field_name'] == 'field_hp_testimonies') {
     $variables['theme_hook_suggestions'][] = 'field__collection_hp_testimonies';

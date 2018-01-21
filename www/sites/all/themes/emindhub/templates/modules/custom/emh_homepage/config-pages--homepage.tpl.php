@@ -57,7 +57,7 @@
 <div class="container-fluid hp-why">
   <div class="container">
     <?php print render($content['field_hp_why_title']); ?>
-    <ul class="nav nav-tabs" role="tablist">
+    <ul role="tablist">
       <li role="presentation" class="active"><a href="#why-need" aria-controls="why-need" role="tab" data-toggle="tab"><?php print t('You need expertise'); ?></a></li>
       <li role="presentation"><a href="#why-have" aria-controls="why-have" role="tab" data-toggle="tab"><?php print t('You have expertise'); ?></a></li>
     </ul>
@@ -75,7 +75,7 @@
 <div class="container-fluid hp-how">
   <div class="container">
     <?php print render($content['field_hp_how_title']); ?>
-    <ul class="nav nav-tabs" role="tablist">
+    <ul role="tablist">
       <li role="presentation" class="active"><a href="#how-need" aria-controls="how-need" role="tab" data-toggle="tab"><?php print t('You need expertise'); ?></a></li>
       <li role="presentation"><a href="#how-have" aria-controls="how-have" role="tab" data-toggle="tab"><?php print t('You have expertise'); ?></a></li>
     </ul>
