@@ -277,7 +277,7 @@ function emh_virality_invitation_form($form, &$form_state) {
   //if (isset($parameters['request']) || $form_state['submitted']) {
 
   if (isset($parameters['request'])) {
-    if(emh_virality_is_request_all_experts($parameters['request'])) {
+    if (emh_virality_is_request_all_experts($parameters['request'])) {
       $nid = $parameters['request'];
     }
   }
@@ -299,10 +299,18 @@ function emh_virality_invitation_form($form, &$form_state) {
 
   }
 
+  if (isset($form_state['id_remove'])) {
+    $id_remove = $form_state['id_remove'];
+    $tab_expert = $form_state['values']['sponsorship_fieldset']['expert'];
+    unset($tab_expert[$id_remove]);
+    $form_state['values']['sponsorship_fieldset']['expert'] = array_merge([], $tab_expert);
+  }
+
   $form['#tree'] = TRUE;
+  $form['#attached']['css'] = [
+    drupal_get_path('module', 'emh_virality') . '/theme/emh_virality.css',
+  ];
   $form['sponsorship_fieldset'] = [
-    '#type' => 'fieldset',
-    '#title' => t('Invite experts'),
     '#prefix' => '<div id="sponsorship-fieldset-wrapper">',
     '#suffix' => '</div>',
   ];
@@ -311,6 +319,7 @@ function emh_virality_invitation_form($form, &$form_state) {
     $form_state['num_experts'] = 1;
   }
   for ($i = 0; $i < $form_state['num_experts']; $i++) {
+
     $form['sponsorship_fieldset']['expert'][$i] = [
       '#tree' => TRUE,
       '#type' => 'fieldset',
@@ -323,42 +332,56 @@ function emh_virality_invitation_form($form, &$form_state) {
       '#type' => 'textfield',
       '#title' => t('Last Name'),
       '#required' => TRUE,
+      '#prefix' => '<div class="sponsorship-fieldset-last-name">',
+      '#suffix' => '</div>',
     ];
     $form['sponsorship_fieldset']['expert'][$i]['first_name'] = [
       '#type' => 'textfield',
       '#title' => t('First Name'),
       '#required' => TRUE,
+      '#prefix' => '<div class="sponsorship-fieldset-first-name">',
+      '#suffix' => '</div>',
     ];
     $form['sponsorship_fieldset']['expert'][$i]['mail'] = [
       '#type' => 'textfield',
       '#title' => t('Mail'),
       '#required' => TRUE,
+      '#prefix' => '<div class="sponsorship-fieldset-mail">',
+      '#suffix' => '</div>',
     ];
     $form['sponsorship_fieldset']['expert'][$i]['message'] = [
       '#type' => 'textarea',
       '#title' => t('Message'),
+      '#prefix' => '<div class="sponsorship-fieldset-message">',
+      '#suffix' => '</div>',
     ];
+
+    $form['sponsorship_fieldset']['expert'][$i]['remove_name'] = [
+      '#type' => 'submit',
+      '#value' => t('Remove ' . $i),
+      '#submit' => ['emh_virality_add_more_remove_one'],
+      '#prefix' => '<div class="sponsorship-button-remove">',
+      '#suffix' => '</div>',
+      '#ajax' => [
+        'callback' => 'emh_virality_remove_callback',
+        'wrapper' => 'sponsorship-fieldset-wrapper',
+        'parameters' => ['param1' => $i],
+      ],
+    ];
+
+
   }
   $form['sponsorship_fieldset']['add_expert'] = [
     '#type' => 'submit',
     '#value' => t('Add one more'),
+    '#id' => 'emh-virality-button-add-more-expert',
     '#submit' => ['emh_virality_add_more_add_one'],
     '#ajax' => [
       'callback' => 'emh_virality_add_more_callback',
       'wrapper' => 'sponsorship-fieldset-wrapper',
     ],
   ];
-  if ($form_state['num_experts'] > 1) {
-    $form['sponsorship_fieldset']['remove_name'] = [
-      '#type' => 'submit',
-      '#value' => t('Remove one'),
-      '#submit' => ['emh_virality_add_more_remove_one'],
-      '#ajax' => [
-        'callback' => 'emh_virality_add_more_callback',
-        'wrapper' => 'sponsorship-fieldset-wrapper',
-      ],
-    ];
-  }
+
   //}
   /*else {
     emh_virality_form_email($form);
@@ -376,6 +399,7 @@ function emh_virality_invitation_form($form, &$form_state) {
   $form['submit'] = [
     '#type' => 'submit',
     '#value' => t('Send invitation'),
+    '#id' => 'emh-virality-send-invitation',
   ];
 
   return $form;
@@ -414,7 +438,8 @@ function emh_virality_invitation_form_validate($form, &$form_state) {
     }
   }*/
 
-  if (isset($values['sponsorship_fieldset'])) {
+  if (isset($values['sponsorship_fieldset'])
+    && $values['triggering_element']['#value'] == 'Send invitation') {
     $experts = $values['sponsorship_fieldset']['expert'];
 
     if (count($experts) > VIRAL_INVITATIONS_MAX) {
@@ -426,7 +451,6 @@ function emh_virality_invitation_form_validate($form, &$form_state) {
       if (($email = trim($email)) && (!valid_email_address($email))) {
         form_set_error('emails', t('This email is not valid: @email', ['@email' => $email]));
       }
-
     }
 
   }
@@ -515,7 +539,7 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
     }
 
     if (in_array($mail, $invited_emails)) {
-      drupal_set_message(t('@email has already been sponsored, the invitation hasn\'t been sent', ['@email' => $mail]), 'warning');
+      drupal_set_message(t('@email has already been invited, the invitation hasn\'t been sent', ['@email' => $mail]), 'warning');
       continue;
     }
 
@@ -650,11 +674,32 @@ function emh_virality_add_more_add_one($form, &$form_state) {
   $form_state['rebuild'] = TRUE;
 }
 
+function emh_virality_remove_callback($form, $form_state) {
+  $form_expert = $form['sponsorship_fieldset']['expert'];
+  $experts = $form_state['values']['sponsorship_fieldset']['expert'];
+  for ($i = 0; $i < $form_state['num_experts']; $i++) {
+    $form_expert[$i]['last_name']['#value'] = $experts[$i]['last_name'];
+    $form_expert[$i]['first_name']['#value'] = $experts[$i]['first_name'];
+    $form_expert[$i]['mail']['#value'] = $experts[$i]['mail'];
+    $form_expert[$i]['message']['#value'] = $experts[$i]['message'];
+  }
+  $form['sponsorship_fieldset']['expert'] = $form_expert;
+  return $form['sponsorship_fieldset'];
+}
+
 function emh_virality_add_more_callback($form, $form_state) {
   return $form['sponsorship_fieldset'];
 }
 
 function emh_virality_add_more_remove_one($form, &$form_state) {
+  if (isset($form_state['id_remove'])) {
+    unset($form_state['id_remove']);
+  }
+
+  if ($form_state['triggering_element']) {
+    $form_state['id_remove'] = $form_state['triggering_element']['#ajax']['parameters']['param1'];
+  }
+
   if ($form_state['num_experts'] > 1) {
     $form_state['num_experts']--;
   }
@@ -882,16 +927,16 @@ function emh_virality_show_user_history($account = NULL) {
     // Prepares status
     switch ($invitation->status) {
       case EmhInvitation::STATUS_SENT:
-        $status = t('Invitation sent.');
+        $status = t('Invited');
         break;
       case EmhInvitation::STATUS_REGISTERED:
-        $status = t('Registered on eMindHub.');
+        $status = t('Registered');
         break;
       case EmhInvitation::STATUS_WAITING:
-        $status = t('Waiting to be recognized.');
+        $status = t('Answered to a request');
         break;
       case EmhInvitation::STATUS_VALIDATED:
-        $status = t('Invitation validated.');
+        $status = t('Validated');
         break;
     }
 
@@ -900,8 +945,9 @@ function emh_virality_show_user_history($account = NULL) {
       $node = node_load($invitation->request_id);
       $request = '<a href="' . $base_url . '/node/' . $invitation->request_id . '">'
         . $node->title . '<a/>';
-    } else {
-      $request = "You did not recommand " . $invitation->referral_firstname ." for a specific request";
+    }
+    else {
+      $request = "You did not recommand " . $invitation->referral_firstname . " for a specific request";
     }
 
 
@@ -989,7 +1035,7 @@ function emh_virality_node_view($node, $view_mode, $langcode) {
   global $base_url;
   switch ($node->type) {
     case 'request' :
-      if(emh_virality_is_request_all_experts($node->nid)) {
+      if (emh_virality_is_request_all_experts($node->nid)) {
         $node->content['sponsorship'] = [
           '#attributes' => [
             'class' => [
@@ -1013,6 +1059,7 @@ function emh_virality_node_view($node, $view_mode, $langcode) {
 
 /**
  * Test to know if the node is "All Experts".
+ *
  * @param $nid Nid of node
  *
  * @return bool|mixed
@@ -1020,17 +1067,16 @@ function emh_virality_node_view($node, $view_mode, $langcode) {
 function emh_virality_is_request_all_experts($nid) {
 
   $node = node_load($nid);
-  if($node && $node->type == 'request') {
+  if ($node && $node->type == 'request') {
     $circles = $node->og_group_ref['und'];
     foreach ($circles as $circle) {
 
       // see node table for to know nid circle
-      if($circle['target_id'] == '314') {
+      if ($circle['target_id'] == '314') {
         return $node;
       }
     }
   }
-
 
 
   return FALSE;
