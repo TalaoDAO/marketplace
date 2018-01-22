@@ -947,10 +947,6 @@ function emh_virality_show_user_history($account = NULL) {
     } else {
       $request = "You did not recommand " . $invitation->referral_firstname ." for a specific request";
     }
-    else {
-      $request = "You did not recommand " . $invitation->referral_firstname . " for a specific request";
-    }
-
 
     $rows[] = [
       $invitation->referral_mail,
