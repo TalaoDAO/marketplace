@@ -41,18 +41,24 @@
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-9">
-        <?php print render($content['field_hp_solutions_slides_blue']); ?>
-        <?php print render($content['field_hp_solutions_link']); ?>
+        <div class="public">
+          <?php print render($content['field_hp_solutions_slides_blue']); ?>
+          <?php print render($content['field_hp_solutions_link']); ?>
+        </div>
       </div>
       <div class="col-xs-12 col-sm-3">
-        <?php print render($content['field_hp_solutions_slides_orange']); ?>
+        <div class="private">
+          <?php print render($content['field_hp_solutions_slides_orange']); ?>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container-fluid hp-testimonies">
-  <?php print render($content['field_hp_testimonies']); ?>
+<div class="container-fluid hp-testimonials">
+  <div class="hp-testimonies col-sm-5 col-sm-offset-7">
+    <?php print render($content['field_hp_testimonies']); ?>
+  </div>
 </div>
 
 <div class="container-fluid hp-why">
