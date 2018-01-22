@@ -1,7 +1,10 @@
 <?php
 
 function emindhub_preprocess_html(&$variables) {
-	drupal_add_css('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i' , array('type' => 'external'));
+
+  drupal_add_js(drupal_get_path('theme', 'emindhub'). '/js/token-hack.js', ['group' => JS_THEME]);
+
+  drupal_add_css('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i' , array('type' => 'external'));
 
   drupal_add_css('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' , array('type' => 'external'));
   drupal_add_css('https://fonts.googleapis.com/css?family=Open+Sans:300i,400i,600,600i,700i' , array('type' => 'external'));
