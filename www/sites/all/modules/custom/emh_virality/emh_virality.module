@@ -944,6 +944,8 @@ function emh_virality_show_user_history($account = NULL) {
       $node = node_load($invitation->request_id);
       $request = '<a href="' . $base_url . '/node/' . $invitation->request_id . '">'
         . $node->title . '<a/>';
+    } else {
+      $request = "You did not recommand " . $invitation->referral_firstname ." for a specific request";
     }
     else {
       $request = "You did not recommand " . $invitation->referral_firstname . " for a specific request";
