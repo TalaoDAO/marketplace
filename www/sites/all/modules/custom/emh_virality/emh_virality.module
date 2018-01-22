@@ -438,8 +438,7 @@ function emh_virality_invitation_form_validate($form, &$form_state) {
     }
   }*/
 
-  if (isset($values['sponsorship_fieldset'])
-    && $values['triggering_element']['#value'] == 'Send invitation') {
+  if (isset($values['sponsorship_fieldset'])) {
     $experts = $values['sponsorship_fieldset']['expert'];
 
     if (count($experts) > VIRAL_INVITATIONS_MAX) {
