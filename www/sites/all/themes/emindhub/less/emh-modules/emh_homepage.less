@@ -1,3 +1,6 @@
+.no-padding {
+	padding:0;
+}
 
 .page-emh-homepage {
 	.nomargin {
@@ -91,8 +94,16 @@
 	}
 	.field-item{
 		display: block;
-		img{
-			margin: 0 auto;
+		&:before{
+			display: block;
+			width: 81px;
+			height: 81px;
+			background: linear-gradient(47deg, #002e42, #007eb3 97%), linear-gradient(46deg, #005174, #007eb3);
+		}
+		.content{
+			img{
+				margin: 0 auto;
+			}
 		}
 		.field-type-text{
 			font-size: 18px;
@@ -139,16 +150,23 @@
 	}
 }
 
-////ho sollutions
+////hp sollutions
 .hp-solutions {
+	font-family: @font-open;
 	.field-name-field-hp-solutions-title{
 		margin-top: 80px;
+		margin-bottom: 100px;
 	}
-	.field-name-field-hp-solutions-slides-blue{
+	.public{
 		.field-collection-view {
 			display: inline-block;
 			width: auto;
-			//white-space: nowrap;
+			.field-name-field-slide-image{
+				height: 80px;
+				img{
+					margin: 0 auto;
+				}
+			}
 			.field-name-field-slide-title{
 				font-size: 20px;
 				font-weight: bold;
@@ -156,33 +174,93 @@
 				color: #0a2c3f;
 				-webkit-text-stroke: 1px #005174;
 			}
-			.maclasse{
-				font-size: 14px;
+			.field-name-field-slide-text{
+				.field-item{
+					font-size: 14px;
+					font-weight: normal;
+					text-align: center;
+					color: #0a2c3f;
+					-webkit-text-stroke: 1px #005174;
+					margin-top: 40px;
+				}
+			}
+		}
+		.field-name-field-hp-solutions-link{
+			a{
 				font-weight: normal;
+				font-style: normal;
+				font-stretch: normal;
+				line-height: normal;
+				letter-spacing: normal;
+				font-family: @font-family-sans-serif;
+				width: 221px;
+				height: 40px;
+				border-radius: 100px;
+				background-color: #005174;
+				color: white;
 				text-align: center;
-				color: #0a2c3f;
-				-webkit-text-stroke: 1px #005174;
-				margin-top: 40px;
+				padding: 7px;
+				font-size: 20px;
+				margin-top: 5px;
+				margin-left: 50%;
+				display: block;
+				transform: translate(-50%);
+				-webkit-transform: translate(-50%);
+				&:hover{
+					text-decoration: none;
+				}
 			}
 		}
 	}
-	.field-name-field-hp-solutions-slides-orange {
-		border-radius: 19px;
+	.private{
+		width: 206px;
+		margin-top: -60px;
 		background-color: #ffffff;
-		border-style: solid;
-		border-width: 1px;
-		border-image-source: linear-gradient(210deg, #fbd249, #f5a623);
-		border-image-slice: 1;
+		margin-left: auto;
+		border: 1px solid  #f5a623;
+		border-radius: 19px;
+		-webkit-border-radius: 19px;
 		.field-name-field-slide-surtitle{
-			.field-name-field-slide-surtitle{
-				background: linear-gradient(254deg, #fbd249, #f5a623);
-				display: block;
-				padding: 20px 10px 20px 10px;
-				color: white;
-
-			}
+			-webkit-border-top-right-radius: 19px ;
+			-webkit-border-top-left-radius: 19px ;
+			border-top-right-radius: 19px;
+			border-top-left-radius: 19px;
+			background: linear-gradient(254deg, #fbd249, #f5a623);
+			display: block;
+			padding: 20px 10px 20px 10px;
+			color: white;
+			text-align: center;
+			margin-bottom: 15px;
+		}
+		img{
+			margin:0 auto;
+		}
+		.field-name-field-slide-title{
+			border-top-right-radius: 19px;
+			border-top-left-radius: 19px;
+			font-size: 20px;
+			font-weight: normal;
+			font-style: normal;
+			font-stretch: normal;
+			line-height: normal;
+			letter-spacing: normal;
+			text-align: center;
+			color: #f5a623;
+		}
+		.field-name-field-slide-text{
+			font-family: @font-open;
+			font-size: 14px;
+			text-align: center;
+			color: #0a2c3f;
+			width: 80%;
+			margin-left: 23px;
 		}
 		a{
+			font-weight: normal;
+			font-style: normal;
+			font-stretch: normal;
+			line-height: normal;
+			letter-spacing: normal;
 			background: linear-gradient(253deg, #fbd249, #f5a623);
 			width: 135px;
 			height: 40px;
@@ -199,6 +277,60 @@
 			text-align: center;
 			&:hover{
 				text-decoration: none;
+			}
+		}
+	}
+}
+.slick-slide{
+	outline: 0!important;
+}
+///hp testimonial
+.hp-testimonials{
+	margin-top: 100px;
+	height: 226px;
+	background: url('../images/img-hp/planet-side.png')no-repeat left center, linear-gradient(79deg, #005174, #007eb3);
+	.hp-testimonies{
+		outline: 0;
+		.hp-testimony-item{
+			display: inline-block;
+			margin-top: 30px;
+			img{
+				display: inline-block;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				-webkit-border-radius: 50%;
+				border: 3px solid white;
+			}
+			.field-type-text{
+				display: inline-block;
+				color: white;
+				&.field-name-field-testimony-name{
+					font-size: 20px;
+					font-weight: bold;
+					color: #f5a623;
+					margin-top: -80px;
+					margin-bottom: 30px;
+					margin-left: 90px;
+					display: block;
+				}
+				&.field-name-field-testimony-position{
+					display: block;
+					width: auto;
+					margin-left: 93px;
+					margin-top: -30px;
+				}
+			}
+			blockquote{
+				&.field-name-field-testimony-text{
+					color: white;
+					font-size: 14px;
+					font-weight: lighter;
+					margin-left: 90px;
+					border-left: none!important;
+					padding-left:0!important;
+					max-width: 550px;
+				}
 			}
 		}
 	}

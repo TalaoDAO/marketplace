@@ -37,6 +37,7 @@
       // Change some classes.
       $('.hp-solutions .col-sm-9 .col-sm-3') .removeClass('col-sm-3').addClass('col-sm-4');
       $('.hp-solutions .col-sm-3 .col-sm-3') .removeClass('col-sm-3');
+      $('.private .col-xs-12') .addClass('no-padding radius');
     }
   }
 }(jQuery));
