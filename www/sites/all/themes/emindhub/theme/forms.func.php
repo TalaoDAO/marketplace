@@ -254,11 +254,12 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['field_cv'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 }
 
-function emindhub_form_process_password_confirm($element) {
+/* TODO : check why it makes bootstrap buggy 
+function emindhub_form_process_password_confirm($element, &$form_state, &$form) {
   $element['pass1']['#title'] = t('New password');
   $element['pass2']['#title'] = t('Confirm new password');
   return $element;
-}
+}*/
 
 /**
  * Implements hook_form_FORM_ID_alter().
