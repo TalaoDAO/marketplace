@@ -5,7 +5,10 @@ Drupal.behaviors.emindhub = {
     var node;
     filter =     { acceptNode: function(node) {
       var className = node.parentNode.className;
-      if (className == "request-left" || className == 'content submissions-list' || className == 'section user-submission') return( NodeFilter.FILTER_REJECT );
+      if (className == "request-left" // request main content
+        || className == 'views-field views-field-emh-answer' // submissions by all users
+        || className == 'section user-submission' // user own submission
+      ) return( NodeFilter.FILTER_REJECT );
       return( NodeFilter.FILTER_ACCEPT );
       }
     }
