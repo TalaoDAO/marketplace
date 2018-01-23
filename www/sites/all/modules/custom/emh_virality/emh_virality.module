@@ -1039,14 +1039,23 @@ function emh_virality_node_view($node, $view_mode, $langcode) {
               'btn',
               'btn-flash',
               'icon-user',
+
+            ],
+            'id' => [
+              'btn-sponsorship',
             ],
             'href' => [
               $base_url . '/' . drupal_get_path_alias('invitations') . '?request=' . $node->nid,
             ],
           ],
+          '#attached' => [
+            'css' => [
+              drupal_get_path('module', 'emh_virality') . '/theme/emh_virality.css',
+            ],
+          ],
           '#theme' => 'html_tag',
           '#tag' => 'a',
-          '#value' => t('Invite experts'),
+          '#value' => t('Recommand an expert'),
         ];
       }
 
