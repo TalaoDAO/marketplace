@@ -194,8 +194,8 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $form['account']['pass']['#process'] = $process;
 
   if ($form['field_first_name'] && $form['field_last_name']) {
-    $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
-    $form['field_last_name']['#suffix'] = '</div>';
+    // $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
+    // $form['field_last_name']['#suffix'] = '</div>';
   }
 
   // Reduce email description for better Bootstrap display (tooltip)
@@ -253,13 +253,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   // $form['field_photo'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
   $form['field_cv'][LANGUAGE_NONE][0]['#process'][] = 'emindhub_my_file_element_process';
 }
-
-/* TODO : check why it makes bootstrap buggy 
-function emindhub_form_process_password_confirm($element, &$form_state, &$form) {
-  $element['pass1']['#title'] = t('New password');
-  $element['pass2']['#title'] = t('Confirm new password');
-  return $element;
-}*/
 
 /**
  * Implements hook_form_FORM_ID_alter().
@@ -325,27 +318,6 @@ function emindhub_form_user_register_form_expert_alter(&$form, &$form_state, $fo
     '#markup' => '<p class="emh-title-baseline">' . t('You can directly login with your LinkedIn account or complete the form below to create your account.') . '</p>',
     '#weight' => '-999',
   );
-}
-
-/**
- * Implementation of hook_element_info_alter().
- */
-function emindhub_element_info_alter(&$type) {
-  if (isset($type['password_confirm'])) {
-    $type['password_confirm']['#process'][] = 'emindhub_process_password_confirm';
-  }
-}
-
-/**
- * Function emindhub_process_password_confirm() for editing label.
- */
-function emindhub_process_password_confirm($element) {
-  if ($element['#array_parents'][0] == 'account') {
-    $element['pass1']['#prefix'] = '<div class="row">';
-    $element['pass2']['#suffix'] = '</div>';
-  }
-
-  return $element;
 }
 
 /**
