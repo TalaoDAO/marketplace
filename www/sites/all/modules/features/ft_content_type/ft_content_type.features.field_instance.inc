@@ -3435,6 +3435,41 @@ function ft_content_type_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_activities_linkedin'.
+  $field_instances['user-user-field_activities_linkedin'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 48,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_activities_linkedin',
+    'label' => 'Description of activities',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => 0,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => 10,
+      ),
+      'type' => 'text_textarea',
+      'weight' => 7,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_address'.
   $field_instances['user-user-field_address'] = array(
     'bundle' => 'user',
@@ -3595,41 +3630,6 @@ function ft_content_type_field_default_field_instances() {
       ),
       'type' => 'file_generic',
       'weight' => 15,
-    ),
-  );
-
-  // Exported field_instance: 'user-user-field_description_activities'.
-  $field_instances['user-user-field_description_activities'] = array(
-    'bundle' => 'user',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 17,
-      ),
-    ),
-    'entity_type' => 'user',
-    'field_name' => 'field_description_activities',
-    'label' => 'Description of activities',
-    'required' => 0,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => 0,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 10,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 7,
     ),
   );
 
@@ -3917,7 +3917,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 51,
+      'weight' => 8,
     ),
   );
 
