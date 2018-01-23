@@ -34,7 +34,7 @@ Feature: Request
       | How to become a superhero?  | Blockchain        | All experts     | client1 | 2020-02-08 17:45:00    | 1       |
       | How to join the x-men?      | Blockchain        | X-Men           | client2 | 2020-02-08 18:45:00    | 1       |
 
-  @email @nodelay
+  @email @nodelay @invitation
   Scenario: An author can send a general invitation
     Given the test email system is enabled
     Given I am logged in as "client1"
@@ -43,17 +43,17 @@ Feature: Request
     Then I should see "Invite experts and earn credits!"
 
     Given I fill in "Bruce" for "First Name"
-    And I fill in "Wayne" for "Name"
+    And I fill in "Wayne" for "Last Name"
     And I fill in "emindhub.test+batman@gmail.com" for "Mail"
     And I press "Add one more"
-    When I fill in "Kent" for "sponsorship_fieldset[expert][1][name]"
+    When I fill in "Kent" for "sponsorship_fieldset[expert][1][last_name]"
     And I fill in "Clark" for "sponsorship_fieldset[expert][1][first_name]"
     And I fill in "emindhub.test+superman@gmail.com" for "sponsorship_fieldset[expert][1][mail]"
-    And I press the "edit-submit" button
+    And I press the "emh-virality-send-invitation" button
     Then I should see the message "You just sent invitations to:"
     And I should see "emindhub.test+batman@gmail.com"
     And I should see "emindhub.test+superman@gmail.com"
-    And I should see "Invitation sent."
+    And I should see "Invited"
     And the last email to "emindhub.test+batman@gmail.com" should contain "Captain AMERICA invites you to join eMindHub"
     And the last email to "emindhub.test+superman@gmail.com" should contain "Captain AMERICA invites you to join eMindHub"
 
@@ -81,10 +81,10 @@ Feature: Request
     And I fill in "Allen" for "Name"
     And I fill in "emindhub.test+flash@gmail.com" for "Mail"
     And I fill in "Hello Flash, join us" for "Message"
-    And I press the "edit-submit" button
+    And I press the "emh-virality-send-invitation" button
     Then I should see the message "You just sent invitations to:"
     And I should see "emindhub.test+flash@gmail.com"
-    And I should see "Invitation sent."
+    And I should see "Invited"
     And the last email to "emindhub.test+flash@gmail.com" should contain "Hello Barry,"
     And the email should contain "Hello Flash, join us"
 
@@ -96,7 +96,7 @@ Feature: Request
     When I fill in "Bruce" for "First Name"
     And I fill in "Wayne" for "Name"
     And I fill in "emindhub.test+batman@gmail.com" for "Mail"
-    And I press the "edit-submit" button
+    And I press the "emh-virality-send-invitation" button
     And the last email to "emindhub.test+batman@gmail.com" should contain "recommanded"
 
     When I visit "user/logout"
@@ -127,7 +127,7 @@ Feature: Request
     Given I am logged in as "expert1"
     When I go to "invitations"
     Then I should see "emindhub.test+flash@gmail.com"
-    And I should see "Registered on eMindHub."
+    And I should see "Registered"
 
     When I go to "user/logout"
     And I visit 'user/login'
@@ -144,7 +144,7 @@ Feature: Request
     Given I am logged in as "expert1"
     When I go to "invitations"
     Then I should see "emindhub.test+flash@gmail.com"
-    And I should see "Waiting to be recognized."
+    And I should see "Answered to a request"
 
     Given I am logged in as "client1"
     When I go to homepage
@@ -155,7 +155,7 @@ Feature: Request
     Given I am logged in as "expert1"
     When I go to "invitations"
     Then I should see "emindhub.test+flash@gmail.com"
-    And I should see "Invitation validated."
+    And I should see "Validated"
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
