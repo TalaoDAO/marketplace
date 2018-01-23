@@ -9,52 +9,52 @@
  */
 function emh_linkedin_admin($form, &$form_state) {
   // LinkedIn API credentials
-  $form['linkedin'] = array(
-      '#title' => t('Base settings'),
-      '#type' => 'fieldset',
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE 
-  );
-  
-  $form['linkedin']['emh_linkedin_liboauth_path'] = array(
-      '#default_value' => variable_get('emh_linkedin_liboauth_path', ''),
-      '#title' => t('OAuth library full path (including filename)'),
-      '#type' => 'textfield',
-      '#description' => t('Linkedin module needs the OAuth php library from http://code.google.com/p/oauth/. You can either download OAuth.php from there and specify the full path here or install the OAuth module from http://drupal.org/project/oauth (both 6.x-2 and 6.x-3 versions are supported)') 
-  );
-  
-  $form['linkedin']['emh_linkedin_debug_mode'] = array(
-      '#default_value' => variable_get('emh_linkedin_debug_mode', 0),
-      '#title' => t('Turn on debug mode'),
-      '#type' => 'checkbox' 
-  );
-  
+  $form['linkedin'] = [
+    '#title' => t('Base settings'),
+    '#type' => 'fieldset',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+
+  $form['linkedin']['emh_linkedin_liboauth_path'] = [
+    '#default_value' => variable_get('emh_linkedin_liboauth_path', ''),
+    '#title' => t('OAuth library full path (including filename)'),
+    '#type' => 'textfield',
+    '#description' => t('Linkedin module needs the OAuth php library from http://code.google.com/p/oauth/. You can either download OAuth.php from there and specify the full path here or install the OAuth module from http://drupal.org/project/oauth (both 6.x-2 and 6.x-3 versions are supported)'),
+  ];
+
+  $form['linkedin']['emh_linkedin_debug_mode'] = [
+    '#default_value' => variable_get('emh_linkedin_debug_mode', 0),
+    '#title' => t('Turn on debug mode'),
+    '#type' => 'checkbox',
+  ];
+
   // User profile settings when user registration
-  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('LinkedIn fields'),
-      '#description' => t('Choose what fields to retrieve from a user LinkedIn profile.'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE 
-  );
-  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['warning'] = array(
-      '#type' => 'markup',
-      '#value' => '<ul>' . '<li>' . t('Be sure to observe what you are allowed to do with the data by checking the "Business and Legal" documents at http://developer.linkedin.com/community/apis?view=documents.') . '</li>' . '<li>' . t('A description of each field is available at http://developer.linkedin.com/docs/DOC-1061.') . '</li>' . '<li>' . t('Also, please note that the visibility of each field depends on the relation between the viewing and the viewed user at LinkedIn and his visibilty settings : be careful when theming the output.') . '<li>' . '<li>' . t('And finally, the output might be buggy for some of them and will probably need some theming work.') . '<li>' . '</ul>' 
-  );
+  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields'] = [
+    '#type' => 'fieldset',
+    '#title' => t('LinkedIn fields'),
+    '#description' => t('Choose what fields to retrieve from a user LinkedIn profile.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  ];
+  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['warning'] = [
+    '#type' => 'markup',
+    '#value' => '<ul>' . '<li>' . t('Be sure to observe what you are allowed to do with the data by checking the "Business and Legal" documents at http://developer.linkedin.com/community/apis?view=documents.') . '</li>' . '<li>' . t('A description of each field is available at http://developer.linkedin.com/docs/DOC-1061.') . '</li>' . '<li>' . t('Also, please note that the visibility of each field depends on the relation between the viewing and the viewed user at LinkedIn and his visibilty settings : be careful when theming the output.') . '<li>' . '<li>' . t('And finally, the output might be buggy for some of them and will probably need some theming work.') . '<li>' . '</ul>',
+  ];
   module_load_include('inc', 'emh_linkedin');
   $fields = _emh_linkedin_list_fields('auth');
-  $options = array();
+  $options = [];
   foreach ($fields as $field) {
     $options[$field] = $field;
   }
-  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['emh_linkedin_user_page_linkedin_fields'] = array(
-      '#type' => 'checkboxes',
-      '#default_value' => _emh_linkedin_vget_user_page_linkedin_fields(),
-      '#options' => $options 
-  );
-  
+  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['emh_linkedin_user_page_linkedin_fields'] = [
+    '#type' => 'checkboxes',
+    '#default_value' => _emh_linkedin_vget_user_page_linkedin_fields(),
+    '#options' => $options,
+  ];
+
   $form['#submit'][] = 'emh_linkedin_admin_submit';
-  
+
   return system_settings_form($form);
 }
 
@@ -76,17 +76,17 @@ function emh_linkedin_user_update_submit(&$form_state) {
   $user_fields = _emh_linkedin_get_user_fields($user_update);
   $fields = array_merge($user_fields, _emh_linkedin_fields_default_user_update());
   $profile = emh_linkedin_get_profile_fields($user->uid, $fields);
-  
+
   foreach ($profile as $key => $value) {
-    $item = array(
-        'name' => $key,
-        'value' => $value 
-    );
+    $item = [
+      'name' => $key,
+      'value' => $value,
+    ];
     $user_update = _emh_linkedin_fields_to_user_fields($item, $user_update);
   }
   user_save($user_update);
-  
-  if (! isset($profile['error'])) {
+
+  if (!isset($profile['error'])) {
     drupal_set_message(t('Successful Update.'));
   }
 }
@@ -96,13 +96,13 @@ function emh_linkedin_user_update_submit(&$form_state) {
  * Add our settings to user/%user/edit/emh_linkedin.
  */
 function emh_linkedin_linkedin_user_settings_page($account) {
-  $elems = array();
+  $elems = [];
   if (variable_get('emh_linkedin_user_page_enabled', 0) > 0 && user_access('display LinkedIn profile')) {
-    $elems['emh_linkedin_user_page_enabled'] = array(
-        '#type' => 'checkbox',
-        '#default_value' => isset($account->data['emh_linkedin_user_page_enabled']) ? $account->data['emh_linkedin_user_page_enabled'] : 0,
-        '#title' => t('Display an abstract of your LinkedIn page on your current profile page') 
-    );
+    $elems['emh_linkedin_user_page_enabled'] = [
+      '#type' => 'checkbox',
+      '#default_value' => isset($account->data['emh_linkedin_user_page_enabled']) ? $account->data['emh_linkedin_user_page_enabled'] : 0,
+      '#title' => t('Display an abstract of your LinkedIn page on your current profile page'),
+    ];
     return $elems;
   }
   return;
@@ -113,23 +113,23 @@ function emh_linkedin_linkedin_user_settings_page($account) {
  */
 function emh_linkedin_user_settings($account) {
   $output = '';
-  $check = emh_linkedin_get_profile_fields($account->uid, array(
-      'first-name',
-      'last-name',
-      'public-profile-url' 
-  ), TRUE);
-  
+  $check = emh_linkedin_get_profile_fields($account->uid, [
+    'first-name',
+    'last-name',
+    'public-profile-url',
+  ], TRUE);
+
   if (isset($check['error-code'])) {
     $output .= t('You must first authorize LinkedIn integration to use related features.');
   }
   else {
-    $output .= t('Your account is associated with @name !public_profile.', array(
-        '@name' => $check['first-name'] . ' ' . $check['last-name'],
-        '!public_profile' => l($check['public-profile-url'], $check['public-profile-url']) 
-    ));
+    $output .= t('Your account is associated with @name !public_profile.', [
+      '@name' => $check['first-name'] . ' ' . $check['last-name'],
+      '!public_profile' => l($check['public-profile-url'], $check['public-profile-url']),
+    ]);
     $form = drupal_get_form('emh_linkedin_user_settings_form', $account);
     $output .= drupal_render($form);
-    
+
     $form = drupal_get_form('emh_linkedin_user_update_form', $account->uid);
     $output .= drupal_render($form);
   }
@@ -140,16 +140,16 @@ function emh_linkedin_user_settings($account) {
  * Form to update user linkedin data.
  */
 function emh_linkedin_user_update_form($form, $form_state, $uid) {
-  $form = array();
+  $form = [];
   $form['#user'] = $uid;
-  
-  $form['submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Update') 
-  );
-  
+
+  $form['submit'] = [
+    '#type' => 'submit',
+    '#value' => t('Update'),
+  ];
+
   $form['#submit'][] = 'emh_linkedin_user_update_submit';
-  
+
   return $form;
 }
 
@@ -157,16 +157,16 @@ function emh_linkedin_user_update_form($form, $form_state, $uid) {
  * Take users to linkedin auth page.
  */
 function emh_linkedin_user_enable_form($form, $form_state, $uid) {
-  $form = array();
+  $form = [];
   $form['#user'] = $uid;
   $form['#action'] = url('/hybridauth/window/LinkedIn?destination=node/323&destination_error=node/323&width=800&height=500&iframe=TRUE');
-  
-  $form['submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Go to LinkedIn'),
-      '#suffix' => '<p class="description">' . t('You will be taken to the LinkedIn website in order to complete the process.') . '</p>' 
-  );
-  
+
+  $form['submit'] = [
+    '#type' => 'submit',
+    '#value' => t('Go to LinkedIn'),
+    '#suffix' => '<p class="description">' . t('You will be taken to the LinkedIn website in order to complete the process.') . '</p>',
+  ];
+
   return $form;
 }
 
@@ -174,35 +174,35 @@ function emh_linkedin_user_enable_form($form, $form_state, $uid) {
  * Form to save user settings about LinkedIn fields.
  */
 function emh_linkedin_user_settings_form($form, &$form_state, $account) {
-  $form = array();
-  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('LinkedIn fields'),
-      '#description' => t('Choose what fields to retrieve from a user LinkedIn profile.'),
-      '#collapsible' => TRUE,
-      '#collapsed' => FALSE 
-  );
-  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['warning'] = array(
-      '#type' => 'markup',
-      '#value' => '<ul>' . '<li>' . t('Be sure to observe what you are allowed to do with the data by checking the "Business and Legal" documents at http://developer.linkedin.com/community/apis?view=documents.') . '</li>' . '<li>' . t('A description of each field is available at http://developer.linkedin.com/docs/DOC-1061.') . '</li>' . '<li>' . t('Also, please note that the visibility of each field depends on the relation between the viewing and the viewed user at LinkedIn and his visibilty settings : be careful when theming the output.') . '<li>' . '<li>' . t('And finally, the output might be buggy for some of them and will probably need some theming work.') . '<li>' . '</ul>' 
-  );
+  $form = [];
+  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields'] = [
+    '#type' => 'fieldset',
+    '#title' => t('LinkedIn fields'),
+    '#description' => t('Choose what fields to retrieve from my LinkedIn profile.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  ];
+  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['warning'] = [
+    '#type' => 'markup',
+    '#value' => '<ul>' . '<li>' . t('Be sure to observe what you are allowed to do with the data by checking the "Business and Legal" documents at http://developer.linkedin.com/community/apis?view=documents.') . '</li>' . '<li>' . t('A description of each field is available at http://developer.linkedin.com/docs/DOC-1061.') . '</li>' . '<li>' . t('Also, please note that the visibility of each field depends on the relation between the viewing and the viewed user at LinkedIn and his visibilty settings : be careful when theming the output.') . '<li>' . '<li>' . t('And finally, the output might be buggy for some of them and will probably need some theming work.') . '<li>' . '</ul>',
+  ];
   module_load_include('inc', 'emh_linkedin');
   $fields = _emh_linkedin_fields_user_update();
-  $options = array();
+  $options = [];
   foreach ($fields as $field) {
-    $options[$field] = $field;
+    $options[$field] = emh_linkedin_format_name_field($field);
   }
-  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['emh_linkedin_user_page_linkedin_fields'] = array(
-      '#type' => 'checkboxes',
-      '#default_value' => _emh_linkedin_fields_user($account->uid),
-      '#options' => $options 
-  );
-  
+  $form['emh_linkedin']['user_page']['emh_linkedin_user_page_fields']['emh_linkedin_user_page_linkedin_fields'] = [
+    '#type' => 'checkboxes',
+    '#default_value' => _emh_linkedin_fields_user($account->uid),
+    '#options' => $options,
+  ];
+
   $form = system_settings_form($form);
-  
-  
+
+
   $form['#submit'][] = 'emh_linkedin_user_submit';
-  
+
   return $form;
 }
 
@@ -220,7 +220,50 @@ function emh_linkedin_user_submit($form, &$form_state) {
       $user_settings->data['emh_linkedin_fields'][$key] = FALSE;
     }
   }
-  
+
   user_save($user_settings);
 }
 
+/**
+ * Return a good format
+ *
+ * @param $name Name of the linkedin field
+ *
+ * @return null|string
+ */
+function emh_linkedin_format_name_field($name) {
+  switch ($name) {
+    case 'location' :
+      return 'Location';
+      break;
+
+    case 'summary' :
+      return 'Work experience';
+      break;
+
+    case 'positions':
+      return 'Position';
+      break;
+
+    case 'picture-urls::(original)':
+      return 'Profil picture';
+      break;
+
+    case 'email-address':
+      return 'Email adress';
+      break;
+
+    case 'public-profile-url':
+      return 'Link to my LinkedIn profile';
+      break;
+
+    case 'headline':
+      return 'Headline';
+      break;
+
+    default :
+      return NULL;
+      break;
+
+  }
+}
