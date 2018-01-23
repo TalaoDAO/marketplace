@@ -193,11 +193,6 @@ function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $process[] = 'emindhub_form_process_password_confirm';
   $form['account']['pass']['#process'] = $process;
 
-  if ($form['field_first_name'] && $form['field_last_name']) {
-    // $form['field_first_name']['#prefix'] = '<div class="form-group-2col row">';
-    // $form['field_last_name']['#suffix'] = '</div>';
-  }
-
   // Reduce email description for better Bootstrap display (tooltip)
   $form['account']['mail']['#description'] = t('All e-mails from the system will be sent to this address. The e-mail address will only be used if you wish to receive a new password or certain news or notifications by e-mail.');
 
