@@ -119,7 +119,7 @@ function _emh_linkedin_fields_build_profile() {
     'last-name',
     'location',
     'num-connections',
-    'summary',
+    //'summary',
     'positions',
     'picture-urls::(original)',
     'email-address',
@@ -139,7 +139,7 @@ function _emh_linkedin_fields_user_update() {
   // Basic Profile LinkedIn Fields
   $fields = [
     'location',
-    'summary',
+    //'summary',
     'positions',
     'picture-urls::(original)',
     'email-address',
@@ -198,7 +198,6 @@ function _emh_linkedin_update_user($user) {
 function _emh_linkedin_fields_to_user_fields($field, $user) {
   if (isset($field['value'])) {
     $item = $field['value'];
-
     switch ($field['name']) {
 
       case 'location' :
@@ -467,7 +466,7 @@ function _emh_update_position($user, $position, $i) {
   }
 
   // field_activities_linkedin
-  if (empty($user->field_activities_linkedin)) {
+  /*if (empty($user->field_activities_linkedin)) {
     if (isset($position['summary'])) {
       $user->field_activities_linkedin['und'][$i]['value'] = $position['summary'];
     }
@@ -479,7 +478,7 @@ function _emh_update_position($user, $position, $i) {
         $user->field_activities_linkedin['und'][$i]['value'] = $position['summary'];
       }
     }
-  }
+  }*/
   return $user;
 }
 
@@ -497,7 +496,7 @@ function _emh_linkedin_list_fields($type = 'auth') {
     'email-address',
     'headline',
     'industry',
-    'summary',
+    //'summary',
     'specialties',
     'honors',
     'interests',

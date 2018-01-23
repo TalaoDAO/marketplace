@@ -333,6 +333,7 @@ function emh_linkedin_user_access($account) {
       No module is implementing hook_linkedin_user_edit_perms. Enable at least one submodule and check permissions'));
       return FALSE;
     }
+    $permissions = '';
     foreach ($perms as $perm) {
       $permissions .= $perm . ', ';
     }
