@@ -37,6 +37,7 @@ function emh_linkedin_menu() {
   $items['user/%user/emh_linkedin'] = [
     'title' => 'Linkedin',
     'type' => MENU_LOCAL_TASK,
+    'type' => MENU_LOCAL_TASK,
     'page callback' => 'emh_linkedin_display',
     'page arguments' => [
       1,
