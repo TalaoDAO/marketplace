@@ -605,7 +605,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'og_user_node',
       1 => 'field_telephone',

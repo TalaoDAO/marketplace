@@ -16,8 +16,8 @@ function emh_linkedin_init() {
   else {
     drupal_add_css(drupal_get_path('module', 'emh_linkedin') . '/emh_linkedin.css');
   }
-  
-  if (! @include_once (variable_get('emh_linkedin_liboauth_path', ''))) {
+
+  if (!@include_once(variable_get('emh_linkedin_liboauth_path', ''))) {
     if (file_exists(drupal_get_path('module', 'oauth_common') . '/lib/OAuth.php')) {
       variable_set('emh_linkedin_liboauth_path', drupal_get_path('module', 'oauth_common') . '/lib/OAuth.php');
     }
@@ -31,52 +31,53 @@ function emh_linkedin_init() {
  * Implements hook_menu.
  */
 function emh_linkedin_menu() {
-  $items = array();
-  
+  $items = [];
+
   // LinkedIn profile tab for users
-  $items['user/%user/emh_linkedin'] = array(
-      'title' => 'Linkedin',
-      'type' => MENU_LOCAL_TASK,
-      'page callback' => 'emh_linkedin_display',
-      'page arguments' => array(
-          1 
-      ),
-      'access callback' => 'emh_linkedin_display_access',
-      'access arguments' => array(
-          1 
-      ),
-      'file' => 'emh_linkedin.pages.inc' 
-  );
-  
+  $items['user/%user/emh_linkedin'] = [
+    'title' => 'Linkedin',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'emh_linkedin_display',
+    'page arguments' => [
+      1,
+    ],
+    'access callback' => 'emh_linkedin_display_access',
+    'access arguments' => [
+      1,
+    ],
+    'file' => 'emh_linkedin.pages.inc',
+  ];
+
   // global settings form
-  $items['admin/config/services/emh_linkedin'] = array(
-      'title' => 'LinkedIn integration',
-      'description' => 'linkedin module settings',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array(
-          'emh_linkedin_admin' 
-      ),
-      'access arguments' => array(
-          'administer site configuration' 
-      ),
-      'file' => 'emh_linkedin.pages.inc' 
-  );
-  
+  $items['admin/config/services/emh_linkedin'] = [
+    'title' => 'LinkedIn integration',
+    'description' => 'linkedin module settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => [
+      'emh_linkedin_admin',
+    ],
+    'access arguments' => [
+      'administer site configuration',
+    ],
+    'file' => 'emh_linkedin.pages.inc',
+  ];
+
   // User settings form : used by submodules.
-  $items['user/%user/edit/emh_linkedin'] = array(
-      'title' => 'Linkedin',
-      'type' => MENU_LOCAL_TASK,
-      'page callback' => 'emh_linkedin_user_settings',
-      'file' => 'emh_linkedin.pages.inc',
-      'page arguments' => array(
-          1 
-      ),
-      'access callback' => 'emh_linkedin_user_access', // access arguments don't support multiple arguments, so create our access handler
-      'access arguments' => array(
-          1 
-      ) 
-  );
-  
+  $items['user/%user/edit/emh_linkedin'] = [
+    'title' => 'Linkedin',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'emh_linkedin_user_settings',
+    'file' => 'emh_linkedin.pages.inc',
+    'page arguments' => [
+      1,
+    ],
+    'access callback' => 'emh_linkedin_user_access',
+    // access arguments don't support multiple arguments, so create our access handler
+    'access arguments' => [
+      1,
+    ],
+  ];
+
   return $items;
 }
 
@@ -87,19 +88,19 @@ function emh_linkedin_display_access($account) {
   if (variable_get('emh_linkedin_user_page_enabled', 0) < 1) {
     return FALSE;
   }
-  if (! user_access('display LinkedIn profile', $account)) {
+  if (!user_access('display LinkedIn profile', $account)) {
     return FALSE;
   }
-  if (! isset($account->data['emh_linkedin_user_page_enabled']) || $account->data['emh_linkedin_user_page_enabled'] != 1) {
+  if (!isset($account->data['emh_linkedin_user_page_enabled']) || $account->data['emh_linkedin_user_page_enabled'] != 1) {
     return FALSE;
   }
   global $user;
-  if (! user_access('access user profiles') && $user->uid != $account->uid) {
+  if (!user_access('access user profiles') && $user->uid != $account->uid) {
     return FALSE;
   }
-  $check = emh_linkedin_get_profile_fields($account->uid, array(
-      'id' 
-  ));
+  $check = emh_linkedin_get_profile_fields($account->uid, [
+    'id',
+  ]);
   if (isset($check['error-code'])) { // no need to display an empty tab
     return FALSE;
   }
@@ -110,21 +111,22 @@ function emh_linkedin_display_access($account) {
  * Implements hook_permission().
  */
 function emh_linkedin_permission() {
-  return array(
-      'display LinkedIn profile' => array(
-          'title' => t('display LinkedIn profile'),
-          'description' => t('Display own LinkedIn profile on user page.') 
-      ) 
-  );
+  return [
+    'display LinkedIn profile' => [
+      'title' => t('display LinkedIn profile'),
+      'description' => t('Display own LinkedIn profile on user page.'),
+    ],
+  ];
 }
 
 /**
- * Let Linkedin module know what permissions are available at user/%user/edit/emh_linkedin
+ * Let Linkedin module know what permissions are available at
+ * user/%user/edit/emh_linkedin
  */
 function emh_linkedin_user_edit_perms() {
-  return array(
-      'display LinkedIn profile' 
-  );
+  return [
+    'display LinkedIn profile',
+  ];
 }
 
 /**
@@ -132,12 +134,12 @@ function emh_linkedin_user_edit_perms() {
  */
 function emh_linkedin_hybridauth_user_login($account, $data) {
   module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
-  
+
   $user = user_load($account->uid, TRUE);
-  
+
   //new user is created
   if (_emh_linkedin_update_user($user)) {
-    
+
     // Try to get HybridAuth instance.
     if ($hybridauth = hybridauth_get_instance()) {
       if (is_object($hybridauth)) {
@@ -147,14 +149,14 @@ function emh_linkedin_hybridauth_user_login($account, $data) {
         }
       }
     }
-    
+
     $fields = _emh_linkedin_vget_user_page_linkedin_fields();
     $profile = emh_linkedin_get_profile_fields($user->uid, $fields);
     foreach ($profile as $key => $value) {
-      $item = array(
-          'name' => $key,
-          'value' => $value 
-      );
+      $item = [
+        'name' => $key,
+        'value' => $value,
+      ];
       $user = _emh_linkedin_fields_to_user_fields($item, $user);
     }
     $user->data['emh_linkedin_update'] = FALSE;
@@ -165,13 +167,13 @@ function emh_linkedin_hybridauth_user_login($account, $data) {
 /**
  * Implements hook_hybridauth_identity_added()
  * First use of hybridauth for an user.
- * For this module, this function is used when a user has already 
+ * For this module, this function is used when a user has already
  * created and using hybridauth for the first time.
  */
 function emh_linkedin_hybridauth_identity_added($account, $data) {
   module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
-  
-  if(!_emh_linkedin_update_user($account)) {
+
+  if (!_emh_linkedin_update_user($account)) {
     // Try to get HybridAuth instance.
     if ($hybridauth = hybridauth_get_instance()) {
       if (is_object($hybridauth)) {
@@ -181,17 +183,17 @@ function emh_linkedin_hybridauth_identity_added($account, $data) {
         }
       }
     }
-    
+
     //$user = user_load($account->uid);
     $user_fields = _emh_linkedin_fields_user_update();
-    $fields = array();
+    $fields = [];
     foreach ($user_fields as $value) {
       $fields[$value] = FALSE;
     }
     $account->data['emh_linkedin_fields'] = $fields;
-    
+
     $account->data['emh_linkedin_update'] = FALSE;
-    
+
     user_save($account);
   }
 }
@@ -203,12 +205,12 @@ function emh_linkedin_hybridauth_identity_added($account, $data) {
 function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {
   module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
   $user_fields = _emh_linkedin_fields_user_update();
-  $fields = array();
+  $fields = [];
   foreach ($user_fields as $value) {
     $fields[$value] = TRUE;
   }
   $userinfo['data']['emh_linkedin_fields'] = $fields;
-  
+
   $userinfo['data']['emh_linkedin_update'] = TRUE;
 }
 
@@ -217,8 +219,9 @@ function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {
  */
 function emh_linkedin_file_delete($file) {
   $path = EMH_LINKEDIN_DIR_IMAGE . '/' . $file->origname;
-  if (file_exists($path))
+  if (file_exists($path)) {
     unlink($path);
+  }
 }
 
 /**
@@ -226,10 +229,12 @@ function emh_linkedin_file_delete($file) {
  */
 function emh_linkedin_user_delete($account) {
   variable_del('emh_linkedin_user_page_linkedin_fields_' . $account->uid);
-  
-  if(emh_linkedin_is_linkedin_user($account->uid)) {
+
+  if (emh_linkedin_is_linkedin_user($account->uid)) {
     $file = file_load($account->field_photo['und'][0]['fid']);
-    if ($file) file_delete($file, TRUE);
+    if ($file) {
+      file_delete($file, TRUE);
+    }
   }
 }
 
@@ -237,7 +242,7 @@ function emh_linkedin_user_delete($account) {
  * Helper function : wraps around variable_get.
  */
 function _emh_linkedin_vget_user_page_linkedin_fields() {
-  $fields = array();
+  $fields = [];
   $var_fields = variable_get('emh_linkedin_user_page_linkedin_fields', _emh_linkedin_fields_build_profile());
   foreach ($var_fields as $field) {
     if ($field !== 0) {
@@ -250,14 +255,15 @@ function _emh_linkedin_vget_user_page_linkedin_fields() {
 /**
  * Return an array containing all linkedin field which user want to update them.
  *
- * @param unknown $uid          
+ * @param unknown $uid
+ *
  * @return unknown[]
  */
 function _emh_linkedin_fields_user($uid) {
   $user = user_load($uid);
-  $fields = array();
+  $fields = [];
   $var_fields = (array) $user->data['emh_linkedin_fields'];
-  
+
   if (isset($var_fields)) {
     foreach ($var_fields as $key => $field) {
       if ($field) {
@@ -265,27 +271,31 @@ function _emh_linkedin_fields_user($uid) {
       }
     }
   }
-  
+
   return $fields;
 }
 
 /**
  * Let us retrieve profile fields.
  * Returns an array contening the fields requested.
+ *
  * @params
  * $uid : the uid of the user we want to access infos
- * $fields : the fields we want to retrieve, as an array (see http://developer.linkedin.com/docs/DOC-1061 for complete list).
+ * $fields : the fields we want to retrieve, as an array (see
+ *   http://developer.linkedin.com/docs/DOC-1061 for complete list).
  */
-function emh_linkedin_get_profile_fields($uid, $fields = array()) {
+function emh_linkedin_get_profile_fields($uid, $fields = []) {
   module_load_include('inc', 'emh_linkedin');
   return _emh_linkedin_get_profile_fields($uid, $fields);
 }
 
 /**
  * Returns an array contening the fields requested.
+ *
  * @params
  * $url : full request url to a linkedin API ressource (see API doc for syntax)
- * $tokens : the user tokens, as an array containing keys 'token_key' and 'token_secret' with their value
+ * $tokens : the user tokens, as an array containing keys 'token_key' and
+ *   'token_secret' with their value
  */
 function emh_linkedin_get_request_fields($url, $tokens) {
   module_load_include('inc', 'emh_linkedin');
@@ -312,10 +322,10 @@ function emh_linkedin_user_access($account) {
   if (variable_get('emh_linkedin_debug_mode', 0) == 1) {
     if ($user->uid != $account->uid) {
       drupal_set_message(t('LinkedIn debug : Access denied to /emh_linkedin/token/@requested.<br />
-      Requesting user (uid @requesting) is different from the requested account (uid @requested)', array(
-          '@requested' => $account->uid,
-          '@requesting' => $user->uid 
-      )));
+      Requesting user (uid @requesting) is different from the requested account (uid @requested)', [
+        '@requested' => $account->uid,
+        '@requesting' => $user->uid,
+      ]));
       return FALSE;
     }
     if (empty($perms)) {
@@ -327,26 +337,29 @@ function emh_linkedin_user_access($account) {
       $permissions .= $perm . ', ';
     }
     drupal_set_message(t('LinkedIn debug : Access denied to /linkedin/token/@requested.<br />
-      User must have at least one of these permissions : @permissions', array(
-        '@permissions' => $permissions 
-    )));
+      User must have at least one of these permissions : @permissions', [
+      '@permissions' => $permissions,
+    ]));
   }
-  
+
   return FALSE;
 }
 
 /**
  * To see if the user has linked their LinkedIn profile
+ *
  * @param unknown $uid
+ *
  * @return boolean
  */
 function emh_linkedin_is_linkedin_user($uid) {
-  
+
   $isLinkedin = _hybridauth_identity_load_by_uid($uid);
-	
-	if($isLinkedin == NULL){
-	  return FALSE;
-	} else {
-	  return TRUE;
-	}
+
+  if ($isLinkedin == NULL) {
+    return FALSE;
+  }
+  else {
+    return TRUE;
+  }
 }

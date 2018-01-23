@@ -1763,3 +1763,10 @@ function emh_configuration_update_7089() {
   cache_clear_all('*', 'cache', TRUE);
   module_enable(['config_pages', 'ft_config_pages']);
 }
+
+/**
+ * ADD: enable emh_linkedin module.
+ */
+function emh_configuration_update_7090() {
+  module_enable(['emh_linkedin']);
+}
