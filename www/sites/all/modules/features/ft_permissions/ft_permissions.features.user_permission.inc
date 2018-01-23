@@ -815,6 +815,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'user',
   );
 
+  // Exported permission: 'administer previewable email templates'.
+  $permissions['administer previewable email templates'] = array(
+    'name' => 'administer previewable email templates',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'pet',
+  );
+
   // Exported permission: 'administer rules'.
   $permissions['administer rules'] = array(
     'name' => 'administer rules',
@@ -2442,6 +2451,17 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'page_manager',
+  );
+
+  // Exported permission: 'use previewable email templates'.
+  $permissions['use previewable email templates'] = array(
+    'name' => 'use previewable email templates',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'business' => 'business',
+      'expert' => 'expert',
+    ),
+    'module' => 'pet',
   );
 
   // Exported permission: 'view field_force_public_answer'.
