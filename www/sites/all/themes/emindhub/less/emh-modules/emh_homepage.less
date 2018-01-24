@@ -62,17 +62,53 @@
 		}
 	}
 	.hero-expert-0,.hero-expert-1, .hero-expert-2,.hero-expert-3,.hero-expert-4,.hero-expert-5,.hero-expert-6,.hero-expert-7{
-		display: inline-block;
-		width: auto;
+
 	}
-	.field-name-field-hp-experts-image{
-		display: inline-block;
-		position: relative;
-		width: auto;
-		img{
+	.hero-expert{
+		position: absolute;
+		.hp-expert-image{
 			border-radius: 50%;
 			-webkit-border-radius: 50%;
-			border: 3px solid white;
+			border: 5px solid white;
+			width: 60px;
+			height: 60px;
+			overflow: hidden;
+		}
+		.hp-expert-popup{
+			background: white;
+			padding: 15px;
+			border-radius: 14px;
+			border: solid 3px #005174;
+			.field-name-field-hp-experts-name {
+				color: #f5a623;
+				font-size: 14px;
+			}
+			.field-name-field-hp-experts-position{
+				font-size: 12px;
+				line-height: 1.08;
+				text-align: left;
+				color: #005174;
+			}
+			.field-name-field-hp-experts-domains{
+				.field-items{
+					.flex-display(@display: flex);
+					.justify-content(@justify: space-between);
+					.align-items(@align: center);
+					margin-bottom: 10px;
+					margin-top: 10px;
+					.field-item{
+						font-size: 9px;
+						text-align: center;
+						color: #0a2c3f;
+						background-color: #459DC4;
+						border-radius: 7px;
+						height: 14px;
+						width: auto;
+						padding: 0.5px 5px;
+						margin-right: 3px;
+					}
+				}
+			}
 		}
 	}
 }
@@ -331,6 +367,238 @@
 					padding-left:0!important;
 					max-width: 550px;
 				}
+			}
+		}
+		.slick-active{
+			background: url('../images/img-hp/quote.png')no-repeat center 30px;
+		}
+		.slick-arrow{
+			display: none!important;
+		}
+		.slick-dots{
+			margin-left: 50%;
+			transform: translate(-50%);
+			-webkit-transform: translate(-50%);
+			li{
+				list-style-type: none;
+				display: inline-block;
+				margin-right: 5px;
+				outline: 0!important;
+				position: relative;
+				width: 12px;
+				height: 12px;
+				background-color: #f4f4f4;
+				border: solid 1px #979797;
+				font-size: 0;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				button{
+					display: none;
+				}
+			}
+			li.slick-active{
+				width: 12px!important;
+				height: 12px!important;
+				background-color: #005174!important;
+				border: solid 3px #f4f4f4!important;
+			}
+		}
+	}
+}
+
+////hp-wy
+.hp-why{
+	.field-name-field-hp-why-title{
+		margin-top: 100px;
+		margin-bottom: 80px;
+	}
+	ul{
+		.flex-display(@display: flex);
+		.justify-content(@justify: space-around);
+		.align-items(@align: center);
+		li.active{
+			list-style-type: none;
+			width: 294px;
+			height: 63px;
+			border-radius: 8px;
+			border: solid 3px #005174;
+			a{
+				font-weight: bold;
+				text-align: center;
+				color: #0a2c3f;
+			}
+		}
+		li{
+			display: inline-block;
+			width: 294px;
+			height: 63px;
+			border-radius: 8px;
+			border: solid 1px #f5a623;
+			text-align: center;
+			-webkit-transition: all linear 0.1s;
+			.flex-display(@display: flex);
+			.flex-direction(@direction: column);
+			.justify-content(@justify: center);
+			.align-items(@align: center);
+			a{
+				font-size:20px;
+				text-align: center;
+				color: #f5a623;
+				text-decoration: none;
+				transition: all linear 0.1s;
+				-webkit-transition: all linear 0.1s;
+				display: block;
+				width: 100%;
+				height: 100%;
+				padding-top: 5%;
+			}
+		}
+	}
+	.field-name-field-hp-why-need-slides, .field-name-field-hp-why-have-slides{
+		font-family: @font-open;
+		margin-top: 80px;
+		.field-name-field-slide-image{
+			.flex-display(@display: flex);
+			.justify-content(@justify: center);
+			.align-items(@align: center);
+			.field-items{
+				min-height: 70px;
+			}
+			img{
+				margin: 0 auto;
+			}
+		}
+		.field-name-field-slide-title{
+			font-size: 18px;
+			font-weight: 500;
+			text-align: center;
+			color: #0a2c3f;
+			margin-top: 40px;
+			margin-bottom: 33px;
+			height: 30px;
+		}
+		.field-name-field-slide-text{
+			font-size: 14px;
+			text-align: center;
+			color: #0a2c3f;
+		}
+	}
+	.tab-pane{
+		transition: all linear 0.1s;
+		-webkit-transition: all linear 0.1s;
+	}
+}
+
+///hp
+
+.hp-how{
+	background-color: #F6FAFC;
+	margin-top: 80px;
+	.field-name-field-hp-how-title{
+		margin-top: 100px;
+		margin-bottom: 80px;
+	}
+	ul{
+		.flex-display(@display: flex);
+		.justify-content(@justify: space-around);
+		.align-items(@align: center);
+		li.active{
+			list-style-type: none;
+			width: 294px;
+			height: 63px;
+			border-radius: 8px;
+			border: solid 3px #005174;
+			a{
+				font-weight: bold;
+				text-align: center;
+				color: #0a2c3f;
+			}
+		}
+		li{
+			display: inline-block;
+			width: 294px;
+			height: 63px;
+			border-radius: 8px;
+			border: solid 1px #f5a623;
+			text-align: center;
+			-webkit-transition: all linear 0.1s;
+			.flex-display(@display: flex);
+			.flex-direction(@direction: column);
+			.justify-content(@justify: center);
+			.align-items(@align: center);
+			a{
+				font-size: 20px;
+				text-align: center;
+				color: #f5a623;
+				text-decoration: none;
+				transition: all linear 0.1s;
+				-webkit-transition: all linear 0.1s;
+				display: block;
+				width: 100%;
+				height: 100%;
+				padding-top: 5%;
+			}
+		}
+	}
+}
+
+/* bootstrap hack: fix content width inside hidden tabs */
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+	display: block;     /* undo display:none          */
+	height: 0;          /* height:0 is also invisible */
+	overflow-y: hidden; /* no-overflow                */
+}
+.tab-content > .active,
+.pill-content > .active {
+	height: auto;       /* let the content decide it  */
+} /* bootstrap hack end */
+
+#how-need, #how-have{
+	///gestion des sliders
+	.slick-slide{
+		position: relative;
+		margin-top: 40px;
+		margin-bottom: 40px;
+		.flex-display(@display: flex);
+		.justify-content(@justify: space-between);
+		.align-items(@align: center);
+		.field-collection-view{
+			.flex-display(@display: flex);
+			.flex-direction(@direction: column);
+			.justify-content(@justify: center);
+			.align-items(@align: center);
+			padding: 15px;
+			width: 100%;
+			height: 233px;
+			background-color: #ffffff;
+			box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.3);
+			-webkit-box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.3);
+		}
+		.field-name-field-slide-title,.field-name-field-slide-text{
+			font-weight: bold;
+			text-align: center;
+			color: #0a2c3f;
+		}
+		.field-name-field-slide-title{
+			font-size: 18px;
+			text-transform: uppercase;
+			position: absolute;
+			top: 25px;
+		}
+		.field-name-field-slide-text{
+			font-size: 14px;
+		}
+		.field-name-field-slide-image{
+			padding-bottom: 15px;
+			overflow: hidden;
+			img{
+				max-width: 70px;
+				max-height: 70px;
+				.flex-display(@display: flex);
+				.flex-direction(@direction: column);
+				.justify-content(@justify: center);
+				.align-items(@align: center);
 			}
 		}
 	}
