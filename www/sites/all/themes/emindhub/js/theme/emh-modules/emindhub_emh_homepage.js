@@ -16,11 +16,60 @@
       $('.popup-closed').hide();
 
       // Sliders.
-      $('.hp-testimonies').slick();
-      // TODO fix tabs and sliders: https://github.com/kenwheeler/slick/issues/619#issuecomment-67228390
-      $('.field-name-field-hp-how-need-slides .field-collection-container').slick();
-      $('.field-name-field-hp-how-have-slides .field-collection-container').slick();
 
+      $('.hp-testimonies').slick({
+        dots: true,
+        speed: 500,
+        autoplay: true,
+        slidesToShow: 1,
+        infinite: true,
+        responsive: [{
+          breakpoint: 769,
+          settings: {
+            slidesToShow: 1,
+            dots: false
+          }
+        }]
+      });
+
+      /**
+       * need expertise
+       */
+      $('.field-name-field-hp-how-need-slides .field-collection-container').slick({
+        slidesToShow: 4,
+        autoplay: true,
+        dots: false,
+        arrows: false,
+        infinite: true,
+        responsive: [{
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            centerMode: true,
+            centerPadding: '5%'
+          }
+        }]
+      });
+      /**
+       * have expertise
+       */
+      $('.field-name-field-hp-how-have-slides .field-collection-container').slick({
+        slidesToShow: 4,
+        autoplay: true,
+        dots: false,
+        arrows: false,
+        infinite: true,
+        responsive: [{
+          breakpoint: 767,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            centerMode: true,
+            centerPadding: '5%'
+          }
+        }]
+      });
       // Animated Gif on hover.
       $(function () {
         $('.vocabulary-domaine img').each(function () {
