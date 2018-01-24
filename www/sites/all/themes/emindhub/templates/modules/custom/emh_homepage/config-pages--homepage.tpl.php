@@ -56,7 +56,7 @@
 </div>
 
 <div class="container-fluid hp-testimonials">
-  <div class="hp-testimonies col-sm-5 col-sm-offset-7">
+  <div class="hp-testimonies col-xs-12 col-sm-5 col-sm-offset-7">
     <?php print render($content['field_hp_testimonies']); ?>
   </div>
 </div>
