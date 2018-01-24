@@ -62,7 +62,7 @@ Feature: Request
     Given I am logged in as "client2"
     When I go to homepage
     And I click "How to join the x-men?" in the "content" region
-    Then I should not see the button "Invite experts"
+    Then I should not see the button "Recommand an expert"
 
   @email @nodelay
   Scenario: An user send an invitation to new user that endup validated.
@@ -75,7 +75,7 @@ Feature: Request
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "How to become a superhero?" in the "content" region
-    And I click "Invite experts" in the "content" region
+    And I click "Recommand an expert" in the "content" region
     Then I should see "How to become a superhero?"
     When I fill in "Barry" for "First Name"
     And I fill in "Allen" for "Name"
@@ -91,7 +91,7 @@ Feature: Request
     #Same test but with generic email
     When I go to homepage
     And I click "How to become a superhero?" in the "content" region
-    And I click "Invite experts" in the "content" region
+    And I click "Recommand an expert" in the "content" region
     Then I should see "How to become a superhero?"
     When I fill in "Bruce" for "First Name"
     And I fill in "Wayne" for "Name"

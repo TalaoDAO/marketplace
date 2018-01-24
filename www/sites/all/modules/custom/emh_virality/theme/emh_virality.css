@@ -1,3 +1,4 @@
+/*invitation form*/
 #emh-virality-button-add-more-expert {
     float: left;
 }
@@ -26,4 +27,12 @@
 
 .sponsorship-button-remove {
     float: left;
+}
+
+/*request*/
+#btn-sponsorship {
+    background-color: #009FE3;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-left: 100px;
 }
