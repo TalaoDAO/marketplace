@@ -272,9 +272,6 @@ function emh_virality_move_points_after($txn_id, $transaction, $source, $destina
  * Builds the invitation form.
  */
 function emh_virality_invitation_form($form, &$form_state) {
-
-
-  drupal_add_js(drupal_get_path('module', 'emh_virality') . '/theme/emh_virality.js');
   $parameters = drupal_get_query_parameters();
   //if (isset($parameters['request']) || $form_state['submitted']) {
 
