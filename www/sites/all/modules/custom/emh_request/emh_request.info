@@ -16,3 +16,5 @@ files[] = views/views_handler_field_emh_request_type.inc
 files[] = views/views_handler_field_emh_request_answer_count.inc
 files[] = views/emh_request_webform_handler_field_is_draft.inc
 files[] = views/emh_request_webform_handler_filter_is_draft.inc
+
+stylesheets[all][] = css/detectLanguage.css
