@@ -12,8 +12,16 @@
         console.log('callback - particles.js config loaded');
       });
 
-      // Close closed popups.
-      $('.popup-closed').hide();
+      // Close open popups expert.
+		var $expert = $('.hp-expert-popup');
+		$( ".hero-expert .hp-expert-image" ).css('cursor','pointer').click(function() {
+			event.stopPropagation();
+			var $exp = $(this).next('.hp-expert-popup').stop(true).slideToggle(100);
+			$expert.not($exp).filter(':visible').stop(true).slideUp();
+		});
+		$(document).click( function(){
+			$('.hp-expert-popup').hide();
+		});
 
       // Sliders.
 
@@ -27,7 +35,7 @@
           breakpoint: 769,
           settings: {
             slidesToShow: 1,
-            dots: false
+            dots: true
           }
         }]
       });
@@ -87,6 +95,25 @@
       $('.hp-solutions .col-sm-9 .col-sm-3') .removeClass('col-sm-3').addClass('col-sm-4');
       $('.hp-solutions .col-sm-3 .col-sm-3') .removeClass('col-sm-3');
       $('.private .col-xs-12') .addClass('no-padding radius');
-    }
+
+
+		/**
+		 * attention creation d'élément en jquery car non présent dans le thème
+		 */
+		/**
+		 * creation des tags dans hp-domain correspondance less dans emh_homepage.less ligne 174
+		 */
+		$( ".field-name-field-hp-domains .container .even" ).append( "<span class='tag-new'>new</span>" );
+		$( ".field-name-field-hp-domains .container .odd" ).append( "<span class='tag-soon'>soon</span>" );
+		/**
+		 * juste au dessus du footer le dernier texte less ligne 653
+		 */
+		$( "<div class='container lastWrapper'><p>48 hours a typical cycles</p></div>" ).insertAfter( ".hp-how .container .tab-content" );
+
+		/**
+		 * todo responsive
+		 */
+
+	}
   }
 }(jQuery));
