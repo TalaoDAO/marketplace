@@ -190,7 +190,6 @@ function emindhub_form_user_pass_alter(&$form, &$form_state) {
 function emindhub_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
   $element_info = element_info('password_confirm');
   $process = $element_info['#process'];
-  $process[] = 'emindhub_form_process_password_confirm';
   $form['account']['pass']['#process'] = $process;
 
   // Reduce email description for better Bootstrap display (tooltip)
