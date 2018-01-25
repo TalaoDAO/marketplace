@@ -12,6 +12,9 @@
 function _emindhub_colorize_button($text) {
   // Text values containing these specific strings, which are matched first.
   $specific_strings = array(
+    'btn-primary' => array(
+      t('Save as draft'),
+    ),
     // 'btn-primary' => array(
     //   t('Download feature'),
     // ),
