@@ -16,9 +16,11 @@
 ///refonte hp
 
 #particles-js {
-	width: 66%;
+	width: 63%;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 10%;
+	height: 250px;
 	// TODO fix it like here: http://legitsoulja.info/
 	canvas {
     // position: absolute;
@@ -29,15 +31,26 @@
 }
 
 //// hp-hero
+.hp-expert-popup{
+	display: none;
+}
 .hp-hero{
 	background: url('../images/img-hp/big-planet.png')no-repeat center 125px , linear-gradient(63deg, #005174, #007eb3);
 	height: 562px;
+	.container{
+		position: relative;
+	}
 	.field-name-field-hp-hero-title{
 		font-size: 48px;
 		text-align: center;
 		color: #ffffff;
 		margin-top: 60px;
 		margin-bottom: 50px;
+		@media @mobile-view{
+			margin-top: 91px;
+			width: 103%;
+			font-size: 30px;
+		}
 	}
 	.hp-join-us{
 		.flex-display(@display: flex);
@@ -56,16 +69,115 @@
 		margin-left: 50%;
 		transform: translate(-50%);
 		-webkit-transform: translate(-50%);
-
 		&:hover{
 			text-decoration: none;
 		}
+		@media @mobile-view{
+			position: absolute;
+			top: 480px;
+		}
 	}
-	.hero-expert-0,.hero-expert-1, .hero-expert-2,.hero-expert-3,.hero-expert-4,.hero-expert-5,.hero-expert-6,.hero-expert-7{
-
+	.popup-up{
+		margin-top: -173px;
+		margin-left: -10px;
+		position: relative;
+		z-index: 1;
+		&:after{
+			position: absolute;
+			display: block;
+			content: '';
+			background:url('../images/img-hp/popuparrow.png')no-repeat center center;
+			width:33px;
+			height:18px;
+			bottom: -17px;
+			left: 20px;
+		}
+	}
+	.popup-down{
+		margin-top: 15px;
+		position: relative;
+		margin-left: -10px;
+		z-index: 300;
+		@media @mobile-view{
+			margin-left: -115px;
+		}
+		&:after{
+			position: absolute;
+			display: block;
+			content: '';
+			background:url('../images/img-hp/popuparrow.png')no-repeat center center;
+			width:33px;
+			height:18px;
+			top: -17px;
+			right: 20px;
+			transform: rotate(180deg);
+			-webkit-transform: rotate(180deg);
+			-ms-transform: rotate(180deg);
+			@media @mobile-view{
+				left: 125px;
+			}
+		}
+	}
+	.hero-expert-0{
+		top: 84%;
+		left: 35%;
+		@media @mobile-view{
+			display: none;
+		}
+	}
+	.hero-expert-1{
+		top: 64%;
+		left: 19%;
+		@media @mobile-view{
+			display: none;
+		}
+	}
+	.hero-expert-2{
+		top: 52%;
+		left: 24%;
+		@media @mobile-view{
+			left: 0;
+		}
+	}
+	.hero-expert-3{
+		top: 49%;
+		left: 38%;
+		@media @mobile-view{
+		display: none;
+	}
+	}
+	.hero-expert-4{
+		top: 55%;
+		left: 75%;
+		@media @mobile-view{
+		display: none;
+	}
+	}
+	.hero-expert-5{
+		top: 50%;
+		left: 57%;
+		@media @mobile-view{
+			display: none;
+		}
+	}
+	.hero-expert-6{
+		top: 84%;
+		left: 57%;
+		@media @mobile-view{
+			display: none;
+		}
+	}
+	.hero-expert-7{
+		top: 66%;
+		left: 74%;
+		@media @mobile-view{
+			left: 75%;
+			top: 50%;
+		}
 	}
 	.hero-expert{
 		position: absolute;
+		z-index: 100;
 		.hp-expert-image{
 			border-radius: 50%;
 			-webkit-border-radius: 50%;
@@ -79,6 +191,8 @@
 			padding: 15px;
 			border-radius: 14px;
 			border: solid 3px #005174;
+			max-height: 97px;
+			min-width: 197px;
 			.field-name-field-hp-experts-name {
 				color: #f5a623;
 				font-size: 14px;
@@ -92,7 +206,7 @@
 			.field-name-field-hp-experts-domains{
 				.field-items{
 					.flex-display(@display: flex);
-					.justify-content(@justify: space-between);
+					.justify-content(@justify: center);
 					.align-items(@align: center);
 					margin-bottom: 10px;
 					margin-top: 10px;
@@ -124,6 +238,12 @@
 }
 .hp-domains {
 	background: white;
+	.container{
+		@media @mobile-view{
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
 	.field-name-field-hp-domains-title{
 		margin-top: 60px;
 		margin-bottom: 60px;
@@ -171,6 +291,47 @@
 			text-decoration: none;
 		}
 	}
+	.even, .odd{
+		position: relative;
+		min-height: 185px;
+		.tag-new, .tag-soon{
+			position: absolute;
+			padding-top: 2px;
+			font-size: 14px;
+			font-weight: bold;
+			text-align: center;
+			text-transform: uppercase;
+			z-index: 10;
+			width: 76px;
+			height: 23px;
+			border-radius: 15px;
+			-webkit-border-radius: 15px;
+			background-color: #fafafa;
+			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+			-webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+			top: 30px;
+			left: 97px;
+			@media @mobile-view{
+				left: 46px;
+			}
+		}
+		.tag-new{
+			color: #fa5656;
+			&.hide{
+				display: none;
+			}
+			&.show{
+				display: block;
+			}
+		}
+		//si on aoute la classe hide on cache
+		.tag-soon{
+			color: #f5a623;
+			&.hide{
+				display: none;
+			}
+		}
+	}
 }
 
 ///client domain
@@ -189,6 +350,12 @@
 ////hp sollutions
 .hp-solutions {
 	font-family: @font-open;
+	.col-sm-9{
+		@media @tablet-view{
+			padding-right: 0;
+			max-width: 530px;
+		}
+	}
 	.field-name-field-hp-solutions-title{
 		margin-top: 80px;
 		margin-bottom: 100px;
@@ -218,6 +385,10 @@
 					color: #0a2c3f;
 					-webkit-text-stroke: 1px #005174;
 					margin-top: 40px;
+					@media @mobile-view{
+						margin-top: 20px;
+						margin-bottom: 40px;
+					}
 				}
 			}
 		}
@@ -256,6 +427,11 @@
 		border: 1px solid  #f5a623;
 		border-radius: 19px;
 		-webkit-border-radius: 19px;
+		@media @mobile-view{
+			margin-top: 40px;
+			margin-left: 50%;
+			transform: translate(-50%);
+		}
 		.field-name-field-slide-surtitle{
 			-webkit-border-top-right-radius: 19px ;
 			-webkit-border-top-left-radius: 19px ;
@@ -327,6 +503,10 @@
 	background: url('../images/img-hp/planet-side.png')no-repeat left center, linear-gradient(79deg, #005174, #007eb3);
 	.hp-testimonies{
 		outline: 0;
+		@media @tablet-view{
+			margin-left: 0;
+			width: 100%;
+		}
 		.hp-testimony-item{
 			display: inline-block;
 			margin-top: 30px;
@@ -366,6 +546,9 @@
 					border-left: none!important;
 					padding-left:0!important;
 					max-width: 550px;
+					@media @mobile-view{
+						font-size: 11px;
+					}
 				}
 			}
 		}
@@ -416,6 +599,10 @@
 		.flex-display(@display: flex);
 		.justify-content(@justify: space-around);
 		.align-items(@align: center);
+		@media @mobile-view{
+			padding-left: 0;
+			margin-left: 0;
+		}
 		li.active{
 			list-style-type: none;
 			width: 294px;
@@ -440,6 +627,16 @@
 			.flex-direction(@direction: column);
 			.justify-content(@justify: center);
 			.align-items(@align: center);
+			&:first-child{
+				@media @mobile-view{
+					margin-right: 15px;
+				}
+			}
+			&:last-child{
+				@media @mobile-view{
+					margin-left: 15px;
+				}
+			}
 			a{
 				font-size:20px;
 				text-align: center;
@@ -451,6 +648,10 @@
 				width: 100%;
 				height: 100%;
 				padding-top: 5%;
+				@media @mobile-view{
+					font-size: 14px;
+					padding-top: 12%;
+				}
 			}
 		}
 	}
@@ -476,11 +677,21 @@
 			margin-top: 40px;
 			margin-bottom: 33px;
 			height: 30px;
+			@media @tablet-view{
+				font-size: 16px;
+			}
+			@media @mobile-view{
+				margin-top: 15px;
+				margin-bottom: 22px;
+			}
 		}
 		.field-name-field-slide-text{
 			font-size: 14px;
 			text-align: center;
 			color: #0a2c3f;
+			@media @mobile-view{
+				margin-bottom: 40px;
+			}
 		}
 	}
 	.tab-pane{
@@ -489,11 +700,15 @@
 	}
 }
 
-///hp
+///hp how
 
 .hp-how{
 	background-color: #F6FAFC;
 	margin-top: 80px;
+	@media @mobile-view{
+		padding-left: 0;
+		margin-left: 0;
+	}
 	.field-name-field-hp-how-title{
 		margin-top: 100px;
 		margin-bottom: 80px;
@@ -502,6 +717,11 @@
 		.flex-display(@display: flex);
 		.justify-content(@justify: space-around);
 		.align-items(@align: center);
+		padding-bottom: 50px;
+		@media @mobile-view{
+			margin-left: 0;
+			padding-left: 0;
+		}
 		li.active{
 			list-style-type: none;
 			width: 294px;
@@ -526,6 +746,16 @@
 			.flex-direction(@direction: column);
 			.justify-content(@justify: center);
 			.align-items(@align: center);
+			&:first-child{
+				@media @mobile-view{
+					margin-right: 15px;
+				}
+			}
+			&:last-child{
+				@media @mobile-view{
+					margin-left: 15px;
+				}
+			}
 			a{
 				font-size: 20px;
 				text-align: center;
@@ -536,9 +766,17 @@
 				display: block;
 				width: 100%;
 				height: 100%;
-				padding-top: 5%;
+				padding-top: 12%;
+				@media @mobile-view{
+					font-size:  15px;
+				}
 			}
 		}
+	}
+	.tab-content{
+		background: url('../images/img-hp/fleche.png')no-repeat bottom center;
+		padding-bottom: 40px;
+		margin-bottom: 30px;
 	}
 }
 
@@ -603,3 +841,16 @@
 		}
 	}
 }
+
+.lastWrapper{
+	margin-bottom: 80px;
+	p{
+		font-size: 15px;
+		font-weight: bold;
+		text-align: center;
+		color: #005174;
+		text-transform: uppercase;
+	}
+}
+
+
