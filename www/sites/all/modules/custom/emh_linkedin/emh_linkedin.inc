@@ -326,7 +326,6 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
 
         //delete linkedin logo
         $img = image_load($drupal_uri);
-        ddl($img, 'image load');
         $rogne = 0.90;
         $width = (Integer) ($img->info['width'] * $rogne);
         $height = (Integer) ($img->info['height'] * $rogne);
