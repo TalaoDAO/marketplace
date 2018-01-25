@@ -374,9 +374,10 @@ function emindhub_beautiful_form_actions(&$form, $actions, $label = 'primary') {
 				if ( !$first ) {
 	        $first = TRUE;
 	        $actions[$action]['first'] = TRUE;
-
-					if ( $label == 'primary' ) $pull_right = ' pull-right';
-					else $pull_right = '';
+					if ($form['#form_id'] != 'user_login') {
+						if ( $label == 'primary' ) $pull_right = ' pull-right';
+						else $pull_right = '';
+					}
 	        $form['actions'][$action]['#prefix'] = '<div class="btn-group btn-group-' . $label . $pull_right . '" role="group" aria-label="' . $label . ' actions">';
 	      }
 			}
