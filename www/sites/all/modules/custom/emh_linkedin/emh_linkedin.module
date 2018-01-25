@@ -71,7 +71,7 @@ function emh_linkedin_menu() {
     'page arguments' => [
       1,
     ],
-    'access callback' => 'emh_linkedin_user_access',
+    'access callback' => FALSE, // TODO : retore 'emh_linkedin_user_access' when import is correct
     // access arguments don't support multiple arguments, so create our access handler
     'access arguments' => [
       1,
