@@ -322,7 +322,7 @@ function emh_virality_invitation_form($form, &$form_state) {
     $form['sponsorship_fieldset']['expert'][$i] = [
       '#tree' => TRUE,
       '#type' => 'fieldset',
-      '#title' => t('One expert'),
+      '#title' => t('Invitation'),
       '#prefix' => '<div id="invite-expert-wrapper">',
       '#suffix' => '</div>',
     ];
