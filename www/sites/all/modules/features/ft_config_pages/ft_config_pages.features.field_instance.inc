@@ -133,10 +133,11 @@ function ft_config_pages_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'entityreference',
         'settings' => array(
-          'bypass_access' => FALSE,
-          'link' => FALSE,
+          'links' => 0,
+          'use_content_language' => 1,
+          'view_mode' => 'teaser',
         ),
-        'type' => 'entityreference_label',
+        'type' => 'entityreference_entity_view',
         'weight' => 4,
       ),
     ),
@@ -178,13 +179,14 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'config_pages',
+    'fences_wrapper' => 'no_wrapper',
     'field_name' => 'field_hp_domains_link',
     'label' => 'Domains - Link',
     'required' => 1,
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
-        'class' => '',
+        'class' => 'hp-domains-see-more',
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',
@@ -230,6 +232,7 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'config_pages',
+    'fences_wrapper' => 'h2',
     'field_name' => 'field_hp_domains_title',
     'label' => 'Domains - Title',
     'required' => 1,
@@ -303,13 +306,14 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'config_pages',
+    'fences_wrapper' => 'no_wrapper',
     'field_name' => 'field_hp_hero_link',
     'label' => 'Hero - Link',
     'required' => 1,
     'settings' => array(
       'absolute_url' => 1,
       'attributes' => array(
-        'class' => '',
+        'class' => 'hp-join-us',
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',
@@ -355,6 +359,7 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'config_pages',
+    'fences_wrapper' => 'h1',
     'field_name' => 'field_hp_hero_title',
     'label' => 'Hero - Title',
     'required' => 1,
@@ -371,41 +376,6 @@ function ft_config_pages_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 21,
-    ),
-  );
-
-  // Exported field_instance: 'config_pages-homepage-field_hp_how_have'.
-  $field_instances['config_pages-homepage-field_hp_how_have'] = array(
-    'bundle' => 'homepage',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 20,
-      ),
-    ),
-    'entity_type' => 'config_pages',
-    'field_name' => 'field_hp_how_have',
-    'label' => 'How - Have - Title',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 18,
     ),
   );
 
@@ -444,41 +414,6 @@ function ft_config_pages_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => 19,
-    ),
-  );
-
-  // Exported field_instance: 'config_pages-homepage-field_hp_how_need'.
-  $field_instances['config_pages-homepage-field_hp_how_need'] = array(
-    'bundle' => 'homepage',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 18,
-      ),
-    ),
-    'entity_type' => 'config_pages',
-    'field_name' => 'field_hp_how_need',
-    'label' => 'How - Need - Title',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 16,
     ),
   );
 
@@ -571,6 +506,7 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'config_pages',
+    'fences_wrapper' => 'h2',
     'field_name' => 'field_hp_how_title',
     'label' => 'How - Title',
     'required' => 1,
@@ -736,6 +672,7 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'config_pages',
+    'fences_wrapper' => 'h2',
     'field_name' => 'field_hp_solutions_title',
     'label' => 'Solutions - Title',
     'required' => 1,
@@ -793,41 +730,6 @@ function ft_config_pages_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'config_pages-homepage-field_hp_why_have'.
-  $field_instances['config_pages-homepage-field_hp_why_have'] = array(
-    'bundle' => 'homepage',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 15,
-      ),
-    ),
-    'entity_type' => 'config_pages',
-    'field_name' => 'field_hp_why_have',
-    'label' => 'Why - Have - Title',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 15,
-    ),
-  );
-
   // Exported field_instance: 'config_pages-homepage-field_hp_why_have_slides'.
   $field_instances['config_pages-homepage-field_hp_why_have_slides'] = array(
     'bundle' => 'homepage',
@@ -863,41 +765,6 @@ function ft_config_pages_field_default_field_instances() {
       'settings' => array(),
       'type' => 'field_collection_embed',
       'weight' => 16,
-    ),
-  );
-
-  // Exported field_instance: 'config_pages-homepage-field_hp_why_need'.
-  $field_instances['config_pages-homepage-field_hp_why_need'] = array(
-    'bundle' => 'homepage',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 13,
-      ),
-    ),
-    'entity_type' => 'config_pages',
-    'field_name' => 'field_hp_why_need',
-    'label' => 'Why - Need - Title',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 13,
     ),
   );
 
@@ -955,6 +822,7 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'config_pages',
+    'fences_wrapper' => 'h2',
     'field_name' => 'field_hp_why_title',
     'label' => 'Why - Title',
     'required' => 1,
@@ -986,7 +854,7 @@ function ft_config_pages_field_default_field_instances() {
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => 'square_thumbnail',
+          'image_style' => '',
         ),
         'type' => 'image',
         'weight' => 0,
@@ -1080,75 +948,7 @@ function ft_config_pages_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 4,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_hp_hero_experts-field_hp_experts_image'.
-  $field_instances['field_collection_item-field_hp_hero_experts-field_hp_experts_image'] = array(
-    'bundle' => 'field_hp_hero_experts',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'image',
-        'settings' => array(
-          'image_link' => '',
-          'image_style' => 'square_thumbnail',
-        ),
-        'type' => 'image',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_hp_experts_image',
-    'label' => 'Image',
-    'required' => 1,
-    'settings' => array(
-      'alt_field' => 1,
-      'default_image' => 0,
-      'entity_translation_sync' => FALSE,
-      'file_directory' => '',
-      'file_extensions' => 'png gif jpg jpeg',
-      'filefield_paths' => array(
-        'active_updating' => 0,
-        'file_name' => array(
-          'options' => array(
-            'pathauto' => 0,
-            'slashes' => 0,
-            'transliterate' => 0,
-          ),
-          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
-        ),
-        'file_path' => array(
-          'options' => array(
-            'pathauto' => 0,
-            'slashes' => 0,
-            'transliterate' => 0,
-          ),
-          'value' => 'experts/images',
-        ),
-        'redirect' => FALSE,
-        'retroactive_update' => 0,
-      ),
-      'filefield_paths_enabled' => 1,
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'image',
-      'settings' => array(
-        'preview_image_style' => 'thumbnail',
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'image_image',
-      'weight' => 1,
+      'weight' => 3,
     ),
   );
 
@@ -1169,6 +969,7 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'field_collection_item',
+    'fences_wrapper' => 'div_div_div',
     'field_name' => 'field_hp_experts_name',
     'label' => 'Name',
     'required' => 1,
@@ -1184,7 +985,7 @@ function ft_config_pages_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -1209,6 +1010,7 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'field_collection_item',
+    'fences_wrapper' => 'div_div_div',
     'field_name' => 'field_hp_experts_popup',
     'label' => 'Popup',
     'required' => 1,
@@ -1221,7 +1023,7 @@ function ft_config_pages_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 5,
+      'weight' => 4,
     ),
   );
 
@@ -1246,6 +1048,7 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'field_collection_item',
+    'fences_wrapper' => 'div_div_div',
     'field_name' => 'field_hp_experts_popup_direction',
     'label' => 'Popup direction',
     'required' => 1,
@@ -1256,11 +1059,9 @@ function ft_config_pages_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(
-        'display_label' => 0,
-      ),
+      'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -1296,7 +1097,86 @@ function ft_config_pages_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_hp_hero_experts-field_photo'.
+  $field_instances['field_collection_item-field_hp_hero_experts-field_photo'] = array(
+    'bundle' => 'field_hp_hero_experts',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'fences_wrapper' => 'no_wrapper',
+    'field_name' => 'field_photo',
+    'label' => 'Photo',
+    'required' => 1,
+    'settings' => array(
+      'alt_field' => 1,
+      'default_image' => 0,
+      'entity_translation_sync' => FALSE,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'experts/photos',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'imagefield_crop',
+      'settings' => array(
+        'collapsible' => 2,
+        'croparea' => '500x500',
+        'custom_ratio' => '',
+        'enforce_minimum' => 1,
+        'enforce_ratio' => 1,
+        'gif_processing' => 'convert',
+        'preview_image_style' => 'thumbnail',
+        'preview_image_width' => '',
+        'progress_indicator' => 'throbber',
+        'resolution' => '100x100',
+        'select_maximum_area' => 1,
+        'validate_resolution' => 1,
+      ),
+      'type' => 'imagefield_crop_widget',
+      'weight' => 0,
     ),
   );
 
@@ -1387,7 +1267,7 @@ function ft_config_pages_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'field_collection',
         'settings' => array(
           'add' => 'Add',
@@ -1426,7 +1306,7 @@ function ft_config_pages_field_default_field_instances() {
     'description' => 'Only 1',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'field_collection',
         'settings' => array(
           'add' => 'Add',
@@ -1457,44 +1337,8 @@ function ft_config_pages_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'field_collection_item-field_hp_testimonies-field_testimony_name'.
-  $field_instances['field_collection_item-field_hp_testimonies-field_testimony_name'] = array(
-    'bundle' => 'field_hp_testimonies',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'field_collection_item',
-    'field_name' => 'field_testimony_name',
-    'label' => 'Name',
-    'required' => 1,
-    'settings' => array(
-      'entity_translation_sync' => FALSE,
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 40,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 1,
-    ),
-  );
-
-  // Exported field_instance:
-  // 'field_collection_item-field_hp_testimonies-field_testimony_photo'.
-  $field_instances['field_collection_item-field_hp_testimonies-field_testimony_photo'] = array(
+  // 'field_collection_item-field_hp_testimonies-field_photo'.
+  $field_instances['field_collection_item-field_hp_testimonies-field_photo'] = array(
     'bundle' => 'field_hp_testimonies',
     'deleted' => 0,
     'description' => '',
@@ -1504,14 +1348,15 @@ function ft_config_pages_field_default_field_instances() {
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => 'square_thumbnail',
+          'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 3,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'field_collection_item',
-    'field_name' => 'field_testimony_photo',
+    'fences_wrapper' => 'no_wrapper',
+    'field_name' => 'field_photo',
     'label' => 'Photo',
     'required' => 1,
     'settings' => array(
@@ -1550,13 +1395,59 @@ function ft_config_pages_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'image',
+      'module' => 'imagefield_crop',
       'settings' => array(
+        'collapsible' => 2,
+        'croparea' => '500x500',
+        'custom_ratio' => '',
+        'enforce_minimum' => 1,
+        'enforce_ratio' => 1,
+        'gif_processing' => 'convert',
         'preview_image_style' => 'thumbnail',
+        'preview_image_width' => '',
         'progress_indicator' => 'throbber',
+        'resolution' => '150x150',
+        'select_maximum_area' => 1,
+        'validate_resolution' => 1,
       ),
-      'type' => 'image_image',
+      'type' => 'imagefield_crop_widget',
       'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'field_collection_item-field_hp_testimonies-field_testimony_name'.
+  $field_instances['field_collection_item-field_hp_testimonies-field_testimony_name'] = array(
+    'bundle' => 'field_hp_testimonies',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'field_name' => 'field_testimony_name',
+    'label' => 'Name',
+    'required' => 1,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 40,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
     ),
   );
 
@@ -1573,7 +1464,7 @@ function ft_config_pages_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 2,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -1609,10 +1500,11 @@ function ft_config_pages_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 3,
       ),
     ),
     'entity_type' => 'field_collection_item',
+    'fences_wrapper' => 'blockquote',
     'field_name' => 'field_testimony_text',
     'label' => 'Text',
     'required' => 1,
@@ -2052,9 +1944,7 @@ function ft_config_pages_field_default_field_instances() {
   t('Hero - Link');
   t('Hero - Title');
   t('How - Have - Slides');
-  t('How - Have - Title');
   t('How - Need - Slides');
-  t('How - Need - Title');
   t('How - Text');
   t('How - Title');
   t('Image');
@@ -2076,9 +1966,7 @@ function ft_config_pages_field_default_field_instances() {
   t('Text');
   t('Title');
   t('Why - Have - Slides');
-  t('Why - Have - Title');
   t('Why - Need - Slides');
-  t('Why - Need - Title');
   t('Why - Title');
 
   return $field_instances;
