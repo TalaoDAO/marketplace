@@ -37,7 +37,7 @@ function ft_config_pages_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_hp_clients|config_pages|homepage|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -68,7 +68,7 @@ function ft_config_pages_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_hp_domains|config_pages|homepage|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -99,7 +99,7 @@ function ft_config_pages_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_hp_hero|config_pages|homepage|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -133,7 +133,7 @@ function ft_config_pages_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_hp_how|config_pages|homepage|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -165,7 +165,7 @@ function ft_config_pages_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_hp_solutions|config_pages|homepage|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -194,7 +194,7 @@ function ft_config_pages_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_hp_testimonies|config_pages|homepage|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -227,7 +227,7 @@ function ft_config_pages_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_hp_why|config_pages|homepage|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.

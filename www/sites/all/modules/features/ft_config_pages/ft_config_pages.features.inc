@@ -24,21 +24,6 @@ function ft_config_pages_default_config_pages_type() {
     },
     "emh_earnings" : 0
   }');
-  $items['footer'] = entity_import('config_pages_type', '{
-    "type" : "footer",
-    "label" : "Footer",
-    "weight" : "0",
-    "data" : {
-      "menu" : { "path" : "admin\\/config\\/emindhub\\/footer", "type" : "132" },
-      "context" : { "group" : {
-          "config_pages:language" : "config_pages:language",
-          "config_pages:host" : 0,
-          "config_pages:domain" : 0
-        }
-      }
-    },
-    "emh_earnings" : 0
-  }');
   $items['homepage'] = entity_import('config_pages_type', '{
     "type" : "homepage",
     "label" : "Homepage",
