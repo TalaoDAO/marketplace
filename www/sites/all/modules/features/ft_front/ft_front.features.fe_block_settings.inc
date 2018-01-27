@@ -229,41 +229,5 @@ open-requests',
     'visibility' => 0,
   );
 
-  $export['block-emh_partners'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'machine_name' => 'emh_partners',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(
-      'anonymous user' => 1,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'footer_bottom',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -39,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-      'smartmobility' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'smartmobility',
-        'weight' => -39,
-      ),
-    ),
-    'title' => 'Our partners',
-    'visibility' => 0,
-  );
-
   return $export;
 }
