@@ -49,6 +49,7 @@
       <?php print render($content['field_image']); ?>
     </div>
     <?php print render($content['name_field']); ?>
+    <span class="tag-<?php print render($content['field_domain_label']); ?>"><?php print render($content['field_domain_label']); ?></span>
 
   </div>
 
