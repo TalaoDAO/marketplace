@@ -1,6 +1,6 @@
 .footer {
   .emh-module;
-  background-color: @brand-primary;
+  background-color: #00151d;
   color: #fff;
   padding-top: @grid-gutter-width;
   padding-bottom: @grid-gutter-width;
@@ -35,15 +35,13 @@
     font-weight: 600;
   }
 
-  hr {
-    border-color: @sky-blue;
-  }
-
   .footer-logo {
-    .make-sm-column(3);
+    margin-top: 20px;
     font-size: 13px;
     font-weight: 600;
     .text-uppercase;
+    padding-left: 0;
+    padding-right: 0;
 
     img {
       max-width: 250px;
@@ -52,27 +50,16 @@
       display: block;
     }
   }
-  .footer-nav {
-    .make-sm-column(4);
+  .footer-links {
+      margin-top: 30px;
   }
-  .footer-contact {
-    .make-sm-column(3);
-    .make-md-column(2);
-  }
-  .footer-social {
-    .make-sm-column(2);
-
-    .social-network {
-  		width: 35px;
-  		height: 35px;
-      > img {
-        border: 1px solid @sky-blue;
-      }
-  	}
-  }
-  .footer-credits {
-      .text-center;
-      color: @cloud;
+  .footer-partners {
+    margin-top: 60px;
+    text-align: center;
+    p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
   }
 
   @media (max-width: @screen-xs-max) {
