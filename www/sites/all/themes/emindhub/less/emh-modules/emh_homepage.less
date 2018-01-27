@@ -21,17 +21,10 @@
 	margin-right: auto;
 	margin-top: 10%;
 	height: 250px;
-	// TODO fix it like here: http://legitsoulja.info/
-	canvas {
-    // position: absolute;
-    // width: 100%;
-    // height: 100%;
-    // z-index: 999;
-	}
 }
 
-//// hp-hero
-.hp-expert-popup{
+// Experts popups.
+.hp-expert-popup.popup-closed {
 	display: none;
 }
 .hp-hero{
@@ -77,6 +70,9 @@
 			top: 480px;
 		}
 	}
+	.hp-expert-popup {
+		z-index: 2;
+	}
 	.popup-up{
 		margin-top: -173px;
 		margin-left: -10px;
@@ -106,7 +102,7 @@
 			display: block;
 			content: '';
 			background:url('../images/img-hp/popuparrow.png')no-repeat center center;
-			width:33px;
+			width: 43px;
 			height:18px;
 			top: -17px;
 			transform: rotate(180deg);
@@ -117,61 +113,62 @@
 			}
 		}
 	}
-	.hero-expert-0{
-		top: 84%;
-		left: 35%;
-		@media @mobile-view{
+	.hero-expert-0 {
+		top: 63%;
+		left: 16%;
+		@media @mobile-view {
+			top: 45%;
+			left: 75%;
+		}
+	}
+	.hero-expert-1 {
+		top: 57%;
+		left: 28%;
+		@media @mobile-view {
 			display: none;
 		}
 	}
-	.hero-expert-1{
-		top: 64%;
-		left: 19%;
-		@media @mobile-view{
-			display: none;
-		}
-	}
-	.hero-expert-2{
-		top: 52%;
-		left: 24%;
-		@media @mobile-view{
+	.hero-expert-2 {
+		top: 67%;
+		left: 38%;
+		@media @mobile-view {
+			top: 57%;
 			left: 0;
 		}
 	}
-	.hero-expert-3{
-		top: 49%;
-		left: 38%;
+	.hero-expert-3 {
+		top: 85%;
+		left: 33%;
 		@media @mobile-view{
-		display: none;
+		  display: none;
+	  }
 	}
-	}
-	.hero-expert-4{
+	.hero-expert-4 {
 		top: 55%;
-		left: 75%;
+		left: 67%;
 		@media @mobile-view{
-		display: none;
+		  display: none;
+	  }
 	}
-	}
-	.hero-expert-5{
+	.hero-expert-5 {
 		top: 50%;
 		left: 57%;
 		@media @mobile-view{
 			display: none;
 		}
 	}
-	.hero-expert-6{
-		top: 84%;
-		left: 57%;
+	.hero-expert-6 {
+		top: 68%;
+		left: 53%;
 		@media @mobile-view{
 			display: none;
 		}
 	}
-	.hero-expert-7{
-		top: 66%;
+	.hero-expert-7 {
+		top: 86%;
 		left: 74%;
 		@media @mobile-view{
-			left: 75%;
-			top: 50%;
+			display: none;
 		}
 	}
 	.hero-expert{
@@ -226,7 +223,7 @@
 	}
 }
 
-////expertise domain
+// Domains.
 .field-name-field-hp-domains-title,
 .field-name-field-hp-solutions-title,
 .field-name-field-hp-why-title,
@@ -243,11 +240,19 @@
 			padding-right: 0;
 		}
 	}
-	.field-name-field-hp-domains-title{
+	.field-name-field-hp-domains-title {
 		margin-top: 60px;
 		margin-bottom: 60px;
 	}
 	.field-item{
+		@media @mobile-view {
+			&:nth-child(5),
+			&:nth-child(6),
+			&:nth-child(7),
+			&:nth-child(8) {
+				display: none;
+			}
+		}
 		display: block;
 		&:before{
 			display: block;
@@ -554,37 +559,6 @@
 		.slick-active{
 			background: url('../images/img-hp/quote.png')no-repeat center 30px;
 		}
-		.slick-arrow{
-			display: none!important;
-		}
-		.slick-dots{
-			margin-left: 50%;
-			transform: translate(-50%);
-			-webkit-transform: translate(-50%);
-			li{
-				list-style-type: none;
-				display: inline-block;
-				margin-right: 5px;
-				outline: 0!important;
-				position: relative;
-				width: 12px;
-				height: 12px;
-				background-color: #f4f4f4;
-				border: solid 1px #979797;
-				font-size: 0;
-				-webkit-border-radius: 50%;
-				border-radius: 50%;
-				button{
-					display: none;
-				}
-			}
-			li.slick-active{
-				width: 12px!important;
-				height: 12px!important;
-				background-color: #005174!important;
-				border: solid 3px #f4f4f4!important;
-			}
-		}
 	}
 }
 
@@ -774,6 +748,9 @@
 	}
 	.tab-content{
 		background: url('../images/img-hp/fleche.png')no-repeat bottom center;
+		@media @mobile-view {
+			background: none;
+		}
 		padding-bottom: 40px;
 		margin-bottom: 30px;
 	}
@@ -852,4 +829,38 @@
 	}
 }
 
-
+/* Sliders */
+.hp-clients,
+.hp-testimonials {
+	.slick-arrow{
+		display: none!important;
+	}
+	.slick-dots{
+		margin-left: 50%;
+		transform: translate(-50%);
+		-webkit-transform: translate(-50%);
+		li{
+			list-style-type: none;
+			display: inline-block;
+			margin-right: 5px;
+			outline: 0!important;
+			position: relative;
+			width: 12px;
+			height: 12px;
+			background-color: #f4f4f4;
+			border: solid 1px #979797;
+			font-size: 0;
+			-webkit-border-radius: 50%;
+			border-radius: 50%;
+			button{
+				display: none;
+			}
+		}
+		li.slick-active{
+			width: 12px!important;
+			height: 12px!important;
+			background-color: #005174!important;
+			border: solid 3px #f4f4f4!important;
+		}
+	}
+}
