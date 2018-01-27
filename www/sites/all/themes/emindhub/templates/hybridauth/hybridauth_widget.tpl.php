@@ -1,9 +1,9 @@
 <p class="reg-option">
-  <span class="line-wrapper">
-    <span class="line"></span>
-  </span>
   <span class="content">
     <span><?php print t('or'); ?></span>
+  </span>
+  <span class="line-wrapper">
+    <span class="line"></span>
   </span>
 </p>
 <div class="hybridauth-widget-wrapper"><?php
