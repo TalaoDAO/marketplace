@@ -2,6 +2,15 @@
 	.form-mandatory {
 		display: none;
 	}
+	.reg-option {
+		clear: both;
+		position: unset;
+		.content {
+			position: unset;
+			top: unset;
+			left: unset;
+		}
+	}
 }
 
 #block-hybridauth-hybridauth,
@@ -63,8 +72,11 @@ form#user-login {
 }
 
 form#user-login-form {
+	.form-actions {
+		margin: 0;
+	}
 	.form-group {
-		margin-bottom: 0;
+		//margin-bottom: 20px;
 	}
 	.form-control {
     max-width: 100%;
