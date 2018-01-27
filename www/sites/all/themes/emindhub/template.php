@@ -72,7 +72,7 @@ function emindhub_environment_indicator_switches($variables) {
 
 
 function emindhub_beautiful_welcome_message() {
-  if ( drupal_is_front_page() && user_is_logged_in() ) {
+  if (user_is_logged_in()) {
     global $user;
     $account = user_load($user->uid);
     $firstName = '';

@@ -16,7 +16,7 @@
   </li>
   <li><span class="navbar-text">|</span></li>
   <li>
-    <a tabindex="1" id="signIn" class="user-menu sign-in" data-placement="bottom" data-html="true" data-trigger="focus" title="<?php print t('Connect'); ?>" data-template='<div class="popover signIn" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content signInContent"></div></div>'><?php print t('Connect'); ?></a>
+    <a tabindex="1" id="signIn" class="user-menu sign-in" data-placement="bottom" data-html="true" title="<?php print t('Connect'); ?>" data-template='<div class="popover signIn" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content signInContent"></div></div>'><?php print t('Connect'); ?></a>
     <div id="signInContent" class="signInContent" style="display: none;">
       <?php $login_block = drupal_get_form('user_login_block'); print drupal_render($login_block); ?>
     </div>
