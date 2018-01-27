@@ -31,9 +31,14 @@ function emh_homepage_menu() {
  * Helper function to render the front page.
  */
 function _emh_homepage() {
-  $config = config_pages_config('homepage');
-  drupal_set_title($config->field_hp_hero_title->value());
-  return config_pages_render('homepage');
+  if (user_is_logged_in()) {
+    drupal_goto('node/323');
+  }
+  else {
+    $config = config_pages_config('homepage');
+    drupal_set_title($config->field_hp_hero_title->value());
+    return config_pages_render('homepage');
+  }
 }
 
 /**
