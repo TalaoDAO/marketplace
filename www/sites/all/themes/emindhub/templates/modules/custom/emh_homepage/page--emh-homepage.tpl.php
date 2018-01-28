@@ -96,6 +96,8 @@ global $base_url; ?>
               <ul class="action-links"><?php print render($action_links); ?></ul>
             <?php endif; ?>
 
+            <?php drupal_set_message('coucou'); ?>
+            <?php print $messages; ?>
             <?php print render($page['content']); ?>
 
           </section>
