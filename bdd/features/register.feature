@@ -24,7 +24,7 @@ Feature: Registration test
       #Notice: "Position" don't work because it's exists also in "Last position(s)" group field
       And I fill in "academics" for "field_position[und]"
       And I select "Freelancer" from "Working status"
-      And I fill in "278" for "Field(s) of expertise"
+      And I fill in "2182" for "Domain"
       And I press "Save"
       And I press "Save"
     Then I should see "The changes have been saved."

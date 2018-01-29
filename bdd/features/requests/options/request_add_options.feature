@@ -16,11 +16,11 @@ Feature: Request
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Aviation   |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  | field_request_type |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
+    | How to become a superhero?  | Blockchain        | Avengers     | client1 | 2020-02-08 17:45:00    | 0       | Mission            |
 
     Given I give "client1" 10000 emh credits
     Given the user "client1" is a member of the group "Avengers"
@@ -55,7 +55,7 @@ Feature: Request
     When I go to "node/add/request"
       And I click "Mission" in the "request_type" region
       And I fill in "Request title or question" with "How to defeat a superhero?"
-      And I select "Energy" from "Fields of expertise"
+      And I select "Blockchain" from "Fields of expertise"
       And I select "Avengers" from "Circles"
       And I check the box "Duration"
     Then I should see "Duration of the mission"

@@ -15,7 +15,7 @@
  */
 class Hybrid_Auth {
 
-	public static $version = "2.4.2-dev";
+	public static $version = "2.9.4";
 
 	/**
 	 * Configuration array
@@ -306,7 +306,7 @@ class Hybrid_Auth {
 
 	/**
 	 * Return array listing all enabled providers as well as a flag if you are connected
-	 * 
+	 *
 	 * <code>
 	 * array(
 	 *   'Facebook' => array(
@@ -352,6 +352,9 @@ class Hybrid_Auth {
 	 * @param string $mode PHP|JS
 	 */
 	public static function redirect($url, $mode = "PHP") {
+		if(!$mode){
+			$mode = 'PHP';
+		}
 		Hybrid_Logger::info("Enter Hybrid_Auth::redirect( $url, $mode )");
 
 		// Ensure session is saved before sending response, see https://github.com/symfony/symfony/pull/12341
@@ -390,7 +393,7 @@ class Hybrid_Auth {
 
 		$protocol = 'http://';
 
-		if ((isset($_SERVER['HTTPS']) && ( $_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1 )) 
+		if ((isset($_SERVER['HTTPS']) && ( $_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1 ))
 				|| (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'))
 		{
 			$protocol = 'https://';

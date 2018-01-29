@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the FT Virality feature.
+ */
+
+include_once 'ft_virality.features.inc';

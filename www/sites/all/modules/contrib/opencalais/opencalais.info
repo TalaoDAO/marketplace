@@ -1,0 +1,25 @@
+name = OpenCalais 
+description = "Performs a service based auto-tagging on nodes using the Thomson Reuters Calais tagging system."
+package = "Other"
+core = 7.x
+
+dependencies[] = entity
+dependencies[] = taxonomy
+
+files[] = opencalais.install
+files[] = opencalais.module
+files[] = opencalais.admin.inc
+files[] = opencalais.utils.inc
+files[] = includes/CalaisMetadata.inc
+files[] = includes/CalaisJsonProcessor.inc
+files[] = includes/CalaisService.inc
+
+
+configure = admin/config/content/opencalais/settings
+
+; Information added by Drupal.org packaging script on 2016-08-11
+version = "7.x-1.3"
+core = "7.x"
+project = "opencalais"
+datestamp = "1470875041"
+

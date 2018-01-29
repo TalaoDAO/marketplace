@@ -1,0 +1,6 @@
+; $Id:
+name = EMH Opencalais
+description = Add tags for Request
+core = 7.x
+package = EMH
+dependencies[] = opencalais

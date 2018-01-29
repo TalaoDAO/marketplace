@@ -1,0 +1,216 @@
+<?php
+
+/**
+ * @file
+ * Log install.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function log_schema() {
+  $schema['log'] = array(
+    'description' => 'Logs',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Log ID',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => 'Log name',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'type' => array(
+        'description' => 'Log type',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+      'uid' => array(
+        'description' => 'The log owner',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'timestamp' => array(
+        'description' => 'Timestamp of the event being logged',
+        'type' => 'int',
+      ),
+      'created' => array(
+        'description' => 'Timestamp when the log was created',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'changed' => array(
+        'description' => 'Timestamp when the log was last modified',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'done' => array(
+        'description' => 'Boolean indicating whether the log is done (the event happened).',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 1,
+      ),
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'name' => array('name'),
+      'type_index' => array('type'),
+      'uid' => array('uid'),
+      'timestamp' => array('timestamp'),
+      'created' => array('created'),
+      'modified' => array('changed'),
+      'done' => array('done'),
+    ),
+  );
+  $schema['log_type'] = array(
+    'description' => 'Stores information about all defined log types.',
+    'fields' => array(
+      'id' => array(
+        'description' => 'Primary Key: Unique log type ID.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'type' => array(
+        'description' => 'The machine-readable name of this log type.',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+      ),
+      'label' => array(
+        'description' => 'The human-readable name of this log type.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'name_pattern' => array(
+        'description' => 'Pattern for auto-generating the log name, using tokens.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'name_edit' => array(
+        'description' => 'Boolean: log name is user editable.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'done' => array(
+        'description' => 'Boolean: automatically mark logs of this type as done.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+
+      // The following fields are required to make Log types exportable via
+      // Entity API and Ctools.
+      'status' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        // Set the default to ENTITY_CUSTOM without using the constant as it is
+        // not safe to use it at this point.
+        'default' => 0x01,
+        'size' => 'tiny',
+        'description' => 'The exportable status of the entity.',
+      ),
+      'module' => array(
+        'description' => 'The name of the providing module if the entity has been defined in code.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+    'unique keys' => array(
+      'type' => array('type'),
+    ),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function log_uninstall() {
+  variable_del('log_admin_theme');
+}
+
+/**
+ * Add a field to log types that allow their names to be editable by users.
+ *
+ * @param array $sandbox
+ *   The update sandbox array.
+ */
+function log_update_7000(array &$sandbox) {
+  $spec = array(
+    'description' => 'Boolean: log name is user editable.',
+    'type' => 'int',
+    'size' => 'tiny',
+    'not null' => TRUE,
+    'default' => 0,
+  );
+  db_add_field('log_type', 'name_edit', $spec);
+}
+
+/**
+ * Add 'timestamp' field to Logs.
+ *
+ * @param array $sandbox
+ *   The update sandbox array.
+ */
+function log_update_7001(array &$sandbox) {
+
+  // Add timestamp field to Logs.
+  $timestamp = array(
+    'description' => 'Timestamp of the event being logged',
+    'type' => 'int',
+  );
+  db_add_field('log', 'timestamp', $timestamp);
+  db_add_index('log', 'timestamp', array('timestamp'));
+}
+
+/**
+ * Add 'done' fields to Logs and Log Types.
+ *
+ * @param array $sandbox
+ *   The update sandbox array.
+ */
+function log_update_7002(array &$sandbox) {
+
+  // Add done field to Logs and Log Types.
+  $done = array(
+    'description' => 'Boolean: automatically mark logs of this type as done.',
+    'type' => 'int',
+    'size' => 'tiny',
+    'not null' => TRUE,
+    'default' => 0,
+  );
+  db_add_field('log', 'done', $done);
+  db_add_field('log_type', 'done', $done);
+  db_add_index('log', 'done', array('done'));
+
+  // Mark all existing log items with timestamps before now as "done".
+  db_query('UPDATE {log} SET done = 1 WHERE timestamp <= :now', array(':now' => REQUEST_TIME));
+}
+
+/**
+ * Change the name of the {log} index to fix SQLite installs.
+ */
+function log_update_7003(&$sandbox) {
+  db_drop_index('log', 'type');
+  db_add_index('log', 'type_index', array('type'));
+}
