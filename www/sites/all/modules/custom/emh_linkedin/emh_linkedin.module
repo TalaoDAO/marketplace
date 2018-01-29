@@ -365,3 +365,26 @@ function emh_linkedin_is_linkedin_user($uid) {
     return TRUE;
   }
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function emh_linkedin_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+  if ($form['#user_category'] == 'account') {
+    $uid = $form['#user']->uid;
+    if(emh_linkedin_is_linkedin_user($uid)) {
+      $path_emh = drupal_get_path('module', 'emh_linkedin');
+      drupal_add_css($path_emh . '/theme/linkedin_button_update.css');
+      $form['submit_update_linkedin'] = [
+        '#type' => 'submit',
+        '#value' => t('Update my profile with LinkedIn'),
+        '#weight' => -20,
+        '#prefix' => '<div class="emh_linkedin_update">',
+        '#suffix' => '</div>',
+        '#submit' => [
+          'emh_linkedin_user_update_submit',
+        ],
+      ];
+    }
+  }
+}
