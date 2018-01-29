@@ -37,7 +37,6 @@ features[features_api][] = api:2
 features[field_base][] = body
 features[field_base][] = comment_body
 features[field_base][] = entity_legal_document_text
-features[field_base][] = field_activities_linkedin
 features[field_base][] = field_address
 features[field_base][] = field_anonymous
 features[field_base][] = field_autoref
