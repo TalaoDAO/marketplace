@@ -32,23 +32,7 @@ function emh_linkedin_init() {
  */
 function emh_linkedin_menu() {
   $items = [];
-
-  // LinkedIn profile tab for users
-  $items['user/%user/emh_linkedin'] = [
-    'title' => 'Linkedin',
-    'type' => MENU_LOCAL_TASK,
-    'type' => MENU_LOCAL_TASK,
-    'page callback' => 'emh_linkedin_display',
-    'page arguments' => [
-      1,
-    ],
-    'access callback' => 'emh_linkedin_display_access',
-    'access arguments' => [
-      1,
-    ],
-    'file' => 'emh_linkedin.pages.inc',
-  ];
-
+  
   // global settings form
   $items['admin/config/services/emh_linkedin'] = [
     'title' => 'LinkedIn integration',
@@ -63,20 +47,14 @@ function emh_linkedin_menu() {
     'file' => 'emh_linkedin.pages.inc',
   ];
 
-  // User settings form : used by submodules.
-  $items['user/%user/edit/emh_linkedin'] = [
-    'title' => 'Linkedin',
-    'type' => MENU_LOCAL_TASK,
+  // Route for the invitation page of a specific user
+  $items['user/%user/emh_linkedin'] = [
+    'title' => 'LinkedIn',
     'page callback' => 'emh_linkedin_user_settings',
-    'file' => 'emh_linkedin.pages.inc',
-    'page arguments' => [
-      1,
-    ],
+    'page arguments' => [1],
     'access callback' => 'emh_linkedin_user_access',
-    // access arguments don't support multiple arguments, so create our access handler
-    'access arguments' => [
-      1,
-    ],
+    'access arguments' => [1],
+    'type' => MENU_LOCAL_TASK,
   ];
 
   return $items;
