@@ -109,7 +109,8 @@ class Hybrid_Providers_Twitter extends Hybrid_Provider_Model_OAuth1 {
 	 * {@inheritdoc}
 	 */
 	function getUserProfile() {
-		$response = $this->api->get('account/verify_credentials.json');
+		$includeEmail = isset($this->config['includeEmail']) ? (bool) $this->config['includeEmail'] : false;
+		$response = $this->api->get('account/verify_credentials.json'. ($includeEmail ? '?include_email=true' : ''));
 
 		// check the last HTTP status code returned
 		if ($this->api->http_code != 200) {
@@ -117,7 +118,7 @@ class Hybrid_Providers_Twitter extends Hybrid_Provider_Model_OAuth1 {
 		}
 
 		if (!is_object($response) || !isset($response->id)) {
-			throw new Exception("User profile request failed! {$this->providerId} api returned an invalid response.", 6);
+			throw new Exception("User profile request failed! {$this->providerId} api returned an invalid response: " . Hybrid_Logger::dumpData( $response ), 6);
 		}
 
 		# store the user profile.  
@@ -129,7 +130,9 @@ class Hybrid_Providers_Twitter extends Hybrid_Provider_Model_OAuth1 {
 		$this->user->profile->profileURL = (property_exists($response, 'screen_name')) ? ("http://twitter.com/" . $response->screen_name) : "";
 		$this->user->profile->webSiteURL = (property_exists($response, 'url')) ? $response->url : "";
 		$this->user->profile->region = (property_exists($response, 'location')) ? $response->location : "";
-
+		if($includeEmail) $this->user->profile->email = (property_exists($response, 'email')) ? $response->email : "";
+		if($includeEmail) $this->user->profile->emailVerified = (property_exists($response, 'email')) ? $response->email : "";
+		
 		return $this->user->profile;
 	}
 

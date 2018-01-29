@@ -18,20 +18,20 @@ Feature: Requests visibility for Expert
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    |
-    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Marvel Entertainment | Freelancer           | Engines       | US                    |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Aviation   | US                    |
+    | client2 | emindhub.test+client2@gmail.com | business | Charle           | XAVIER          |                 |                    | X-Men        | emindhub.test+client2@gmail.com | Marvel Entertainment | Freelancer           | Connected Car       | US                    |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | US                    |
-    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Marvel Entertainment | Employee             | Helicopters   | US                    |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Blockchain        | US                    |
+    | expert4 | emindhub.test+expert4@gmail.com | expert   | Scott            | SUMMERS         | 0712345673      | Bucheron           | X-Men        | emindhub.test+expert4@gmail.com | Marvel Entertainment | Employee             | Energy   | US                    |
 
     Given "request" content:
     | title         | field_domaine  | og_group_ref    | author  | field_expiration_date  | status  |
-    | Fight Magneto | Energy         | X-Men           | client2 | 2020-02-08 17:45:00    | 1       |
-    | Fight Ultron  | Energy, Drones | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
-    | Fight Hydra   | Drones         | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
-    | Fight Thanos  | Drones         | Avengers, X-Men | client1 | 2020-02-08 17:45:00    | 1       |
+    | Fight Magneto | Blockchain         | X-Men           | client2 | 2020-02-08 17:45:00    | 1       |
+    | Fight Ultron  | Blockchain, Aviation | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
+    | Fight Hydra   | Aviation         | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
+    | Fight Thanos  | Aviation         | Avengers, X-Men | client1 | 2020-02-08 17:45:00    | 1       |
 
     Given the user "client1" is an admin of the group "Avengers"
     Given the user "expert1" is a member of the group "Avengers"

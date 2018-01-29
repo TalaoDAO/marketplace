@@ -1,0 +1,1108 @@
+<?php
+
+/**
+ * @file
+ * Log - A general purpose record keeping system.
+ */
+
+/****************************************************************
+ * Drupal hooks
+ * **************************************************************/
+
+/**
+ * Implements hook_permission().
+ */
+function log_permission() {
+  $perms = array(
+    'administer log module' => array(
+      'title' => t('Administer log module'),
+      'description' => t('Gives full access to everything in the log module.'),
+      'restrict access' => TRUE,
+    ),
+    'administer log types' => array(
+      'title' => t('Administer log types'),
+      'restrict access' => TRUE,
+    ),
+    'view all logs' => array(
+      'title' => t('View all log entities'),
+      'description' => t('Allows users to view the full list of log entities.'),
+    ),
+  );
+
+  // Add permissions for each log type.
+  foreach (log_types() as $log_type) {
+    $type = $log_type->type;
+    $ops = array('view', 'edit', 'delete');
+    $scopes = array('any', 'own');
+    $perms += array(
+      "create $type log entities" => array(
+        'title' => t('Create new %type_name log entities', array('%type_name' => $log_type->label)),
+      ),
+    );
+    foreach ($ops as $op) {
+      foreach ($scopes as $scope) {
+        $perms += array(
+          "$op $scope $type log entities" => array(
+            'title' => drupal_ucfirst($op) . ' ' . $scope . ' ' . t('%type_name log entities', array('%type_name' => $log_type->label)),
+          ),
+        );
+      }
+    }
+  }
+
+  return $perms;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function log_menu() {
+  $items = array();
+
+  $items['log/add'] = array(
+    'title' => 'Add log',
+    'page callback' => 'log_add_types_page',
+    'access callback' => 'log_add_access',
+    'file' => 'log.pages.inc',
+  );
+  foreach (log_types() as $type => $info) {
+    $items['log/add/' . $type] = array(
+      'title' => 'Add log',
+      'page callback' => 'log_add',
+      'page arguments' => array(2),
+      'access callback' => 'log_access',
+      'access arguments' => array('create', 2),
+      'file' => 'log.pages.inc',
+    );
+  }
+
+  $log_uri = 'log/%log';
+  $log_uri_argument_position = 1;
+
+  $items[$log_uri] = array(
+    'title callback' => 'entity_label',
+    'title arguments' => array('log', $log_uri_argument_position),
+    'page callback' => 'log_view',
+    'page arguments' => array($log_uri_argument_position),
+    'access callback' => 'log_access',
+    'access arguments' => array('view', $log_uri_argument_position),
+    'file' => 'log.pages.inc',
+  );
+
+  $items[$log_uri . '/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items[$log_uri . '/delete'] = array(
+    'title' => 'Delete log',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('log_delete_form', $log_uri_argument_position),
+    'access callback' => 'log_access',
+    'access arguments' => array('update', $log_uri_argument_position),
+    'file' => 'log.pages.inc',
+  );
+
+  $items[$log_uri . '/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('log_form', $log_uri_argument_position),
+    'access callback' => 'log_access',
+    'access arguments' => array('update', $log_uri_argument_position),
+    'file' => 'log.pages.inc',
+    'type' => MENU_LOCAL_TASK,
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+  );
+
+  // Log settings form.
+  $items['admin/config/log'] = array(
+    'title' => 'Log',
+    'description' => 'Configure log module.',
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('administer log module'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  );
+  $items['admin/config/log/settings'] = array(
+    'title' => 'Log settings',
+    'description' => 'Administer log settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('log_settings_form', 4),
+    'access arguments' => array('administer log module'),
+    'file' => 'log.admin.inc',
+  );
+
+  // Log type delete form.
+  $items['admin/config/log/types/%log_type/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('log_type_form_delete_confirm', 4),
+    'access arguments' => array('administer log types'),
+    'weight' => 1,
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'log.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_admin_paths().
+ */
+function log_admin_paths() {
+
+  // Display log paths with the admin theme, if specified.
+  $paths = array();
+  if (variable_get('log_admin_theme', TRUE)) {
+    $paths = array(
+      'log*' => TRUE,
+    );
+  }
+  return $paths;
+}
+
+/**
+ * Implements hook_entity_info().
+ */
+function log_entity_info() {
+  $return = array(
+    'log' => array(
+      'label' => t('Log'),
+      'entity class' => 'Log',
+      'controller class' => 'LogController',
+      'base table' => 'log',
+      'fieldable' => TRUE,
+      'entity keys' => array(
+        'id' => 'id',
+        'bundle' => 'type',
+        'label' => 'name',
+      ),
+      'bundle keys' => array(
+        'bundle' => 'type',
+      ),
+      'bundles' => array(),
+      'load hook' => 'log_load',
+      'view modes' => array(
+        'full' => array(
+          'label' => t('Default'),
+          'custom settings' => FALSE,
+        ),
+      ),
+      'label callback' => 'entity_class_label',
+      'uri callback' => 'entity_class_uri',
+      'module' => 'log',
+      'access callback' => 'log_access',
+    ),
+  );
+  $return['log_type'] = array(
+    'label' => t('Log type'),
+    'entity class' => 'LogType',
+    'controller class' => 'LogTypeController',
+    'base table' => 'log_type',
+    'fieldable' => FALSE,
+    'bundle of' => 'log',
+    'exportable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'name' => 'type',
+      'label' => 'label',
+    ),
+    'module' => 'log',
+    // Enable the entity API admin UI.
+    'admin ui' => array(
+      'path' => 'admin/config/log/types',
+      'file' => 'log.admin.inc',
+      'controller class' => 'LogTypeUIController',
+    ),
+    'access callback' => 'log_type_access',
+  );
+
+  return $return;
+}
+
+/**
+ * Implements hook_entity_info_alter().
+ *
+ * @inheritdoc
+ */
+function log_entity_info_alter(&$entity_info) {
+  foreach (log_types() as $type => $info) {
+    $entity_info['log']['bundles'][$type] = array(
+      'label' => $info->label,
+      'admin' => array(
+        'path' => 'admin/config/log/types/manage/%log_type',
+        'real path' => 'admin/config/log/types/manage/' . $type,
+        'bundle argument' => 5,
+      ),
+    );
+  }
+}
+
+/**
+ * Implements hook_entity_property_info_alter().
+ */
+function log_entity_property_info_alter(&$info) {
+  $properties = &$info['log']['properties'];
+  $properties['name'] = array(
+    'label' => t('Name'),
+    'description' => t('The name of the log item.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'schema field' => 'name',
+  );
+  $properties['type'] = array(
+    'label' => t('Log type'),
+    'type' => 'token',
+    'description' => t('The type of the log.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer log module',
+    'options list' => 'log_type_get_names',
+    'required' => TRUE,
+    'schema field' => 'type',
+  );
+  $properties['uid'] = array(
+    'label' => t('Owner'),
+    'type' => 'user',
+    'description' => t('The owner of the log.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer log module',
+    'required' => TRUE,
+    'schema field' => 'uid',
+  );
+  $properties['timestamp'] = array(
+    'label' => t('Timestamp'),
+    'type' => 'date',
+    'description' => t('The timestamp of the event being logged.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer log module',
+    'required' => TRUE,
+    'schema field' => 'timestamp',
+  );
+  $properties['created'] = array(
+    'label' => t('Created'),
+    'type' => 'date',
+    'description' => t('The timestamp when the log entity was created.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer log module',
+    'required' => TRUE,
+    'schema field' => 'created',
+  );
+  $properties['changed'] = array(
+    'label' => t('Changed'),
+    'type' => 'date',
+    'description' => t('The timestamp when the log entity was last modified.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer log module',
+    'required' => TRUE,
+    'schema field' => 'changed',
+  );
+  $properties['done'] = array(
+    'label' => t('Done'),
+    'description' => t('Whether the log is done.'),
+    'setter callback' => 'entity_property_verbatim_set',
+    'setter permission' => 'administer log module',
+    'schema field' => 'done',
+    'type' => 'boolean',
+  );
+}
+
+/**
+ * Implements hook_field_extra_fields().
+ */
+function log_field_extra_fields() {
+  $log_types = log_types();
+  $extra_fields = array(
+    'log' => array(),
+  );
+  foreach ($log_types as $type) {
+
+    // Display the name field if names are editable.
+    if ($type->name_edit) {
+      $extra_fields['log'][$type->type]['form']['name'] = array(
+        'label' => t('Name'),
+        'description' => t('The name of the log entry.'),
+        'weight' => -10,
+      );
+    }
+
+    // Display the timestamp field.
+    $extra_fields['log'][$type->type]['form']['timestamp'] = array(
+      'label' => t('Timestamp'),
+      'description' => t('The timestamp of the log entry.'),
+      'weight' => -5,
+    );
+  }
+  return $extra_fields;
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function log_entity_presave($entity, $type) {
+
+  // Only operate on log entities.
+  if ($type != 'log') {
+    return;
+  }
+
+  // Update "changed" value if there was a value mapped to that.
+  if (isset($entity->feeds_item->log_changed)) {
+    $entity->changed = $entity->feeds_item->log_changed;
+  }
+}
+
+/**
+ * Implements hook_log_insert().
+ */
+function log_log_insert($log) {
+
+  // Generate the log's name.
+  log_name_generate($log);
+}
+
+/**
+ * Implements hook_log_update().
+ */
+function log_log_update($log) {
+
+  // Generate the log's name.
+  log_name_generate($log);
+}
+
+/**
+ * Implements hook_action_info().
+ */
+function log_action_info() {
+  return array(
+    'log_done_action' => array(
+      'type' => 'log',
+      'label' => t('Mark as done'),
+      'configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+    'log_undone_action' => array(
+      'type' => 'log',
+      'label' => t('Mark as not done'),
+      'configurable' => FALSE,
+      'triggers' => array('any'),
+    ),
+    'log_clone_action' => array(
+      'type' => 'log',
+      'label' => t('Clone'),
+      'configurable' => TRUE,
+      'triggers' => array('any'),
+    ),
+    'log_reschedule_action' => array(
+      'type' => 'log',
+      'label' => t('Reschedule'),
+      'configurable' => TRUE,
+      'triggers' => array('any'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_filter_info().
+ */
+function log_filter_info() {
+  $filters['log_filter'] = array(
+    'title' => t('Parse log placeholders.'),
+    'description' => t('Create links to logs with [log:ID] placeholders.'),
+    'process callback' => 'log_filter_log',
+    'tips callback' => 'log_filter_log_tips',
+  );
+  return $filters;
+}
+
+/***************************************************************
+ * Log filter callback
+ * *************************************************************/
+
+/**
+ * Parse log placeholders.
+ */
+function log_filter_log($text) {
+
+  // Maintain a static array of log links that have been generated already.
+  $links = &drupal_static(__FUNCTION__);
+
+  // Look for pattern matches and iterate through them.
+  $matches = array();
+  preg_match_all('/\[log:[0-9]+\]/', $text, $matches);
+  if (!empty($matches[0])) {
+    foreach ($matches[0] as $match) {
+
+      // Extract the log id.
+      $id = str_replace('[log:', '', $match);
+      $id = str_replace(']', '', $id);
+
+      // If the log has not been loaded already...
+      if (empty($links[$id])) {
+
+        // Load the log's name from the database.
+        $name = db_query('SELECT name FROM {log} WHERE id = :id', array(':id' => $id))->fetchField();
+
+        // If the name is empty, skip it.
+        if (empty($name)) {
+          continue;
+        }
+
+        // Generate a link with the log's label.
+        $link = l('[Log #' . $id . ': '. check_plain($name) . ']', 'log/' . $id);
+
+        // Store the link in the static cache.
+        $links[$id] = $link;
+      }
+
+      // If a link is available, replace all occurrences of the original token
+      // in the text.
+      if (!empty($links[$id])) {
+        $text = str_replace($match, $links[$id], $text);
+      }
+    }
+  }
+
+  // Return the formatted text.
+  return $text;
+}
+
+/**
+ * Tips for parsing log placeholders.
+ */
+function log_filter_log_tips($filter, $format, $long = FALSE) {
+  if ($long) {
+    return t('Create links to logs with [log:ID] placeholders. Replace ID with the numerical ID of the log. The link will contain the log ID and title.');
+  }
+  else {
+    return t('Create links to logs with [log:ID] placeholders.');
+  }
+}
+
+/***************************************************************
+ * Log action callbacks
+ * *************************************************************/
+
+/**
+ * Action function for log_done_action.
+ *
+ * Marks a log as done.
+ *
+ * @param Log $log
+ *   The log entity object.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function log_done_action(Log $log, $context = array()) {
+
+  // Only proceed if the log is not already done.
+  if ($log->done) {
+    return;
+  }
+
+  // Mark the log as done.
+  $log->done = TRUE;
+
+  // Save the log.
+  log_save($log);
+}
+
+/**
+ * Action function for log_undone_action.
+ *
+ * Marks a log as not done.
+ *
+ * @param Log $log
+ *   The log entity object.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function log_undone_action(Log $log, $context = array()) {
+
+  // Only proceed if the log is already done.
+  if (!$log->done) {
+    return;
+  }
+
+  // Mark the log as done.
+  $log->done = FALSE;
+
+  // Save the log.
+  log_save($log);
+}
+
+/**
+ * Log reschedule action configuration form.
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function log_reschedule_action_form(array $context, array $form_state) {
+  return _log_action_date_form($context, $form_state, 'Reschedule');
+}
+
+/**
+ * Log reschedule action configuration form submit.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function log_reschedule_action_submit(array $form, array $form_state) {
+  return _log_action_date_form_submit($form, $form_state);
+}
+
+/**
+ * Action function for log_reschedule_action.
+ *
+ * Changes the date of a log.
+ *
+ * @param Log $log
+ *   The log entity object.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function log_reschedule_action(Log $log, $context = array()) {
+  _log_action_date_form_action($log, $context);
+}
+
+/**
+ * Log clone action configuration form.
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function log_clone_action_form(array $context, array $form_state) {
+  return _log_action_date_form($context, $form_state, 'Clone', FALSE);
+}
+
+/**
+ * Log clone action configuration form submit.
+ *
+ * @param array $form
+ *   The form array.
+ * @param array $form_state
+ *   The form state array.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function log_clone_action_submit(array $form, array $form_state) {
+  return _log_action_date_form_submit($form, $form_state);
+}
+
+/**
+ * Action function for log_clone_action.
+ *
+ * Clones a log and gives it a new timestamp.
+ *
+ * @param Log $log
+ *   The log entity object.
+ * @param array $context
+ *   Array with parameters for this action.
+ */
+function log_clone_action(Log $log, $context = array()) {
+
+  // Clear the log id.
+  unset($log->id);
+
+  // Set the date and save.
+  _log_action_date_form_action($log, $context);
+}
+
+/**
+ * Log action form with date field (helper function).
+ *
+ * @param array $context
+ *   The context passed into the action form function.
+ * @param array $form_state
+ *   The form state passed into the action form function.
+ * @param string $name
+ *   The action name.
+ * @param bool $default_timestamp
+ *   Whether or not to use the log's timestamp as default (defaults to TRUE).
+ *
+ * @return array
+ *   Returns a form array.
+ */
+function _log_action_date_form(array $context, array $form_state, $name, $default_timestamp = TRUE) {
+
+  // Build a list of the logs being cloned.
+  if (!empty($form_state['selection'])) {
+    $logs = array();
+    $query = db_select('log', 'l');
+    $query->addField('l', 'name');
+    $query->condition('l.id', $form_state['selection']);
+    $results = $query->execute();
+    foreach ($results as $result) {
+      $logs[] = $result->name;
+    }
+
+    // If there is more than one log, theme an item list.
+    if (count($logs) > 1) {
+      $markup = theme('item_list', array('items' => $logs, 'title' => $name . ':'));
+    }
+
+    // Otherwise, display the one.
+    else {
+      $markup = '<h3>' . $name . ' ' . reset($logs) . '</h3>';
+    }
+
+    // Display the log(s) in the form.
+    $form['logs'] = array(
+      '#type' => 'markup',
+      '#markup' => $markup,
+    );
+  }
+
+  // Default timestamp to today.
+  $timestamp = REQUEST_TIME;
+
+  // If only one log item is selected, and the $default_timestamp parameter is
+  // set, use it's timestamp as the default.
+  if (!empty($logs) && count($logs) == 1 && $default_timestamp) {
+    $log_id = reset($form_state['selection']);
+    $log = log_load($log_id);
+    $timestamp = $log->timestamp;
+  }
+
+  // Convert the timestamp to the format Date API expects.
+  $default_value = date('Y-m-d H:i', $timestamp);
+
+  // "Date" field.
+  $form['timestamp'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Date'),
+    '#date_format' => 'M j Y',
+    '#date_type' => DATE_FORMAT_UNIX,
+    '#date_year_range' => '-10:+3',
+    '#default_value' => $default_value,
+    '#required' => TRUE,
+  );
+
+  return $form;
+}
+
+/**
+ * Log action form with date field submit (helper function).
+ *
+ * @param array $form
+ *   The form passed into the action form submit function.
+ * @param array $form_state
+ *   The form state passed into the action form submit function.
+ *
+ * @return array
+ *   Returns an array that will end up in the action's context.
+ */
+function _log_action_date_form_submit(array $form, array $form_state) {
+  return array(
+    'timestamp' => $form_state['values']['timestamp'],
+  );
+}
+
+/**
+ * Log action form with date field (action helper function).
+ *
+ * @param Log $log
+ *   The log passed into the action function.
+ * @param array $context
+ *   The context passed into the action function.
+ */
+function _log_action_date_form_action(Log $log, array $context) {
+
+  // Set the date.
+  $log->timestamp = strtotime($context['timestamp']);
+
+  // Mark the log as "not done".
+  $log->done = FALSE;
+
+  // Save the log.
+  log_save($log);
+}
+
+/***************************************************************
+ * Access functions
+ * *************************************************************/
+
+/**
+ * Access callback for log entities.
+ *
+ * @param string $op
+ *   The operation being performed. One of 'view', 'update', 'create', 'delete'.
+ * @param Log|string $log
+ *   Optionally a specific log entity to check, or a log type.
+ * @param object $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ *
+ * @return bool
+ *   Whether access is allowed or not.
+ */
+function log_access($op, $log = NULL, $account = NULL) {
+  $rights = &drupal_static(__FUNCTION__, array());
+
+  // If $op is not one of the supported ones, deny access.
+  if (!in_array($op, array('create', 'view', 'update', 'delete'), TRUE)) {
+    return FALSE;
+  }
+  // If no user object is supplied, the access check is for the current user.
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  // If no log is provided, check for access to all logs.
+  if (empty($log)) {
+    return user_access('view all logs', $account);
+  }
+
+  // $log may be either an object or a log type. Since log types cannot be
+  // an integer, use either id or type as the static cache id.
+  $cid = is_object($log) ? $log->id : $log;
+
+  // If we've already checked access for this log, user and op, return from
+  // cache.
+  if (isset($rights[$account->uid][$cid][$op])) {
+    return $rights[$account->uid][$cid][$op];
+  }
+
+  // If the user has 'administer log module' permission, grant them access.
+  if (user_access('administer log module', $account)) {
+    $rights[$account->uid][$cid][$op] = TRUE;
+    return TRUE;
+  }
+
+  // Check access to the log based on it's type.
+  $type = is_string($log) ? $log : $log->type;
+  $log_types = log_types();
+  $type_names = array();
+  foreach ($log_types as $name => $log_type) {
+    $type_names[] = $name;
+  }
+  if (in_array($type, $type_names)) {
+    if ($op == 'create' && user_access('create ' . $type . ' log entities', $account)) {
+      $rights[$account->uid][$cid][$op] = TRUE;
+      return TRUE;
+    }
+
+    if ($op == 'view') {
+      if (user_access('view any ' . $type . ' log entities', $account) || (user_access('view own ' . $type . ' log entities', $account) && ($account->uid == $log->uid))) {
+        $rights[$account->uid][$cid][$op] = TRUE;
+        return TRUE;
+      }
+    }
+
+    if ($op == 'update') {
+      if (user_access('edit any ' . $type . ' log entities', $account) || (user_access('edit own ' . $type . ' log entities', $account) && ($account->uid == $log->uid))) {
+        $rights[$account->uid][$cid][$op] = TRUE;
+        return TRUE;
+      }
+    }
+
+    if ($op == 'delete') {
+      if (user_access('delete any ' . $type . ' log entities', $account) || (user_access('delete own ' . $type . ' log entities', $account) && ($account->uid == $log->uid))) {
+        $rights[$account->uid][$cid][$op] = TRUE;
+        return TRUE;
+      }
+    }
+  }
+
+  // If all else fails, deny access.
+  return FALSE;
+}
+
+/**
+ * Access callback: Checks whether the user has permission to add a log.
+ *
+ * @param object|null $account
+ *   Optionally, a user account to check access for.
+ *
+ * @return bool
+ *   Returns TRUE if the user has add permission, otherwise FALSE.
+ */
+function log_add_access($account = NULL) {
+
+  // If no user object is supplied, the access check is for the current user.
+  if (empty($account)) {
+    global $user;
+    $account = $user;
+  }
+
+  // Check each of the log types to see if the user has access.
+  $types = log_types();
+  foreach ($types as $type) {
+    if (log_access('create', $type->type, $account)) {
+      return TRUE;
+    }
+  }
+
+  // If all else fails, deny access.
+  return FALSE;
+}
+
+/**
+ * Access callback for log type.
+ *
+ * @param string $op
+ *   The operation being performed.
+ * @param Log|null $log
+ *   Optionally, a log entity to check access for.
+ *
+ * @return bool
+ *   Returns TRUE if user has access.
+ */
+function log_type_access($op, $log = NULL) {
+  return user_access('administer log types');
+}
+
+/***************************************************************
+ * Log API functions
+ * *************************************************************/
+
+/**
+ * Load a log.
+ *
+ * @param int $id
+ *   The log id.
+ * @param bool $reset
+ *   Boolean: whether or not to reset the entity cache.
+ *
+ * @return Log
+ *   Returns a log entity.
+ */
+function log_load($id, $reset = FALSE) {
+  $logs = log_load_multiple(array($id), array(), $reset);
+  return reset($logs);
+}
+
+/**
+ * Load multiple logs based on certain conditions.
+ *
+ * @param array|bool $ids
+ *   An array of log ids.
+ * @param array $conditions
+ *   An array of log load conditions.
+ * @param bool $reset
+ *   Boolean: whether or not to reset the entity cache.
+ *
+ * @return array
+ *   Returns an array of logs.
+ */
+function log_load_multiple($ids = FALSE, $conditions = array(), $reset = FALSE) {
+  return entity_load('log', $ids, $conditions, $reset);
+}
+
+/**
+ * Save log.
+ *
+ * @param Log $log
+ *   The log entity.
+ */
+function log_save(Log $log) {
+  entity_save('log', $log);
+}
+
+/**
+ * Delete single log.
+ *
+ * @param Log $log
+ *   The log entity.
+ */
+function log_delete(Log $log) {
+  entity_delete('log', entity_id('log', $log));
+}
+
+/**
+ * Delete multiple logs.
+ *
+ * @param array $log_ids
+ *   An array of log ids.
+ */
+function log_delete_multiple(array $log_ids) {
+  entity_delete_multiple('log', $log_ids);
+}
+
+/**
+ * Generate a log name.
+ *
+ * @param Log $log
+ *   The log entity.
+ *
+ * @return string
+ *   The log name.
+ */
+function log_name_generate(Log $log) {
+
+  // If the log doesn't have an id, bail!
+  if (empty($log->id) || !is_numeric($log->id)) {
+    return $log->name;
+  }
+
+  // Load the log type.
+  $log_type = log_type_load($log->type);
+
+  // If the log type's name is editable, only generate a name if
+  // the current name is empty.
+  if (!empty($log_type->name_edit) && !empty($log->name)) {
+    return $log->name;
+  }
+
+  // Get the name pattern from the log type.
+  $pattern = $log_type->name_pattern;
+
+  // If Token is installed, run replacements.
+  if (module_exists('token')) {
+    $name = token_replace($pattern, array('log' => $log), array('clear' => TRUE, 'sanitize' => FALSE));
+  }
+
+  // If Token is not available, at least replace the default [log:id].
+  else {
+    $name = str_replace('[log:id]', $log->id, $pattern);
+  }
+
+  // Strip extraneous spaces (explode on spaces, remove empty items, implode
+  // with spaces).
+  $name = implode(' ', array_filter(explode(' ', $name)));
+
+  // If the name is empty, set it to a sensible default.
+  if (empty($name)) {
+    $name = 'Log ' . $log->id;
+  }
+
+  // If the name length is greater than 255 (the size of the database column),
+  // truncate it with word-safe boundaries and an ellipsis.
+  if (strlen($name) > 255) {
+    $name = truncate_utf8($name, 255, TRUE, TRUE);
+  }
+
+  // Update the log's name in the database.
+  db_update('log')
+    ->fields(array('name' => $name))
+    ->condition('id', $log->id)
+    ->execute();
+
+  // Return it.
+  return $name;
+}
+
+/***************************************************************
+ * Log type API functions
+ * *************************************************************/
+
+/**
+ * Load log type.
+ *
+ * @param string $log_type
+ *   The machine name of the log type to load.
+ *
+ * @return LogType
+ *   Returns the log type requested.
+ */
+function log_type_load($log_type) {
+  return log_types($log_type);
+}
+
+/**
+ * List of log types.
+ *
+ * @param string $type_name
+ *   The name of the log type.
+ *
+ * @return LogType|array
+ *   Returns the log type(s) requested.
+ */
+function log_types($type_name = NULL) {
+  $types = entity_load_multiple_by_name('log_type', isset($type_name) ? array($type_name) : FALSE);
+  return isset($type_name) ? reset($types) : $types;
+}
+
+/**
+ * Save log type entity.
+ *
+ * @param LogType $log_type
+ *   The log type.
+ */
+function log_type_save(LogType $log_type) {
+  entity_save('log_type', $log_type);
+}
+
+/**
+ * Delete single log type.
+ *
+ * @param LogType $log_type
+ *   The log type.
+ */
+function log_type_delete(LogType $log_type) {
+  entity_delete('log_type', entity_id('log_type', $log_type));
+}
+
+/**
+ * Delete multiple log types.
+ *
+ * @param array $log_type_ids
+ *   Array of log type ids.
+ */
+function log_type_delete_multiple(array $log_type_ids) {
+  entity_delete_multiple('log_type', $log_type_ids);
+}
+
+/**
+ * Get the names of all log types.
+ *
+ * @return array
+ *   Returns an array of log type names, keyed by machine name.
+ */
+function log_type_get_names() {
+  $names = array();
+  $types = log_types();
+  foreach ($types as $type) {
+    $names[$type->type] = $type->label;
+  }
+  return $names;
+}
+
+/****************************************************************
+ * Contrib hooks
+ * **************************************************************/
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function log_ctools_plugin_api($owner, $api) {
+  $return = array();
+  if ($owner == 'feeds' && $api == 'plugins') {
+    $return['version'] = 1;
+  }
+  return $return;
+}
+
+/**
+ * Implements hook_feed_plugins().
+ */
+function log_feeds_plugins() {
+  $info = array();
+  $info['LogProcessor'] = array(
+    'name' => 'Log processor',
+    'description' => 'Create and update logs.',
+    'help' => 'Create and update logs from parsed content.',
+    'handler' => array(
+      'parent' => 'FeedsProcessor',
+      'class' => 'LogProcessor',
+      'file' => 'LogProcessor.inc',
+      'path' => drupal_get_path('module', 'log') . '/plugins/feeds',
+    ),
+  );
+  return $info;
+}
