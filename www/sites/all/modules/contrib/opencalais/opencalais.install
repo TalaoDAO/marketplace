@@ -1,0 +1,159 @@
+<?php
+
+/**
+ * @file
+ * The Drupal install file with schema and update hooks.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function opencalais_install() {
+  db_query("UPDATE {system} SET weight = 10 WHERE name = 'opencalais'");
+  foreach (opencalais_get_all_entities() as $entity) {
+    opencalais_create_vocabulary($entity);
+  }
+  //create a queue for bulk processing
+  $queue = DrupalQueue::get('opencalais_tagging_queue');
+  $queue->createQueue();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function opencalais_uninstall() {
+  require __DIR__ . '/opencalais.module';
+  $entities = opencalais_get_all_entities();
+  foreach ($entities as $value) {
+    $machine_name = _opencalais_make_machine_name($value);
+    $taxonomy = taxonomy_vocabulary_machine_name_load($machine_name);
+    taxonomy_vocabulary_delete($taxonomy->vid);
+  }
+  variable_del('opencalais_default_impl');
+  variable_del('opencalais_api_server');
+  variable_del('opencalais_api_key');
+  variable_del('opencalais_tags_in_verticaltab');
+  variable_del('opencalais_bulk_processing_enabled');
+  variable_del('opencalais_bulk_processing_count');
+  cache_clear_all();
+}
+
+/**
+ * Update fields to the new version.
+ *
+ * @param string content_type
+ *   The machine name of the content type to find the fields for.
+ */
+function _opencalais_update_fields_for_content_type($content_type) {
+  $fields = field_info_instances('node', $content_type);
+  $entities = opencalais_get_all_entities();
+  foreach ($entities as $key => $item) {
+    $entities[$key] = opencalais_make_machine_name($item);
+  }
+
+  // Fields will be an empty array if no instances are found.
+  foreach ($fields as $field_name => $field) {
+    if (isset($field['settings']['opencalais']) && $field['settings']['opencalais']) {
+      $main_field = field_info_field($field_name);
+      $opencalais_type = $main_field['settings']['allowed_values'][0]['vocabulary'];
+      if (in_array($opencalais_type, $entities)) {
+        $field['settings']['opencalais'] = $opencalais_type;
+        try {
+          field_update_instance($field);
+          drupal_set_message(t('%field on %type has been successfully updated', array('%field' => $field['label'], '%type' => $content_type)));
+        } 
+        catch (FieldException $fe) {
+          drupal_set_message(t('Unable to update field %field on %type, you will need to manually update it', array('%field' => $field['label'], '%type' => $content_type)), 'error');
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Update existing fields to the new format.
+ */
+function opencalais_update_7001() {
+  drupal_load('module', 'field');
+  drupal_load('module', 'opencalais');
+  $content_types = _opencalais_get_content_types();
+  foreach ($content_types as $ct => $info) {
+    $fields = _opencalais_update_fields_for_content_type($ct);
+  }
+  return t('Fields Successfully Updated');
+}
+
+/**
+ * Update the autotagging variables to be a single variable .
+ */
+function opencalais_update_7002() {
+  drupal_load('module', 'opencalais');
+  $content_types = _opencalais_get_content_types();
+  $new_auto = variable_get('opencalais_autotagging', array());
+  foreach ($content_types as $ct => $info) {
+    $auto = variable_get('opencalais_' . $ct . '_autotagging', FALSE);
+    if ($auto) {
+      $new_auto[$ct] = $auto == 'automatic' ? 1 : 0;
+    }
+    variable_del('opencalais_' . $ct . '_autotagging');
+  }
+  variable_set('opencalais_autotagging', $new_auto);
+  return 'OpenCalais variables successfully updated.';
+}
+
+/**
+ * Update the api server to the one for Thomson Reuters.
+ */
+function opencalais_update_7101() {
+  variable_set('opencalais_api_server', 'api.thomsonreuters.com');
+}
+
+/**
+ * Update to remove semantic proxy class and calls.
+ */
+function opencalais_update_7102() {
+  variable_get('opencalais_default_impl', 'CalaisService');
+}
+
+/**
+ * Update to remove our opencalais_default_impl variable no longer needed.
+ */
+function opencalais_update_7103() {
+  variable_del('opencalais_default_impl');
+}
+
+/**
+ * Remove system references to now removed OpenCalais API module.
+ */
+function opencalais_update_7104() {
+  db_query("DELETE FROM {system} WHERE name = 'opencalais_api'");
+  system_list_reset();
+  module_list(TRUE);
+  registry_update();
+}
+
+/**
+ * Implements hook_requirements().
+ */
+function opencalais_api_requirements($phase) {
+  $requirements = array();
+  $t = get_t();
+  if ($phase == 'runtime') {
+    $apikey = variable_get('opencalais_api_key', FALSE);
+    if ($apikey === FALSE || empty($apikey)) {
+      $settings_uri = array(
+        '!calaissetturi' => l(t('OpenCalais API Settings'),
+        'admin/config/content/opencalais')
+      );
+      $requirements['opencalais-api'] = array(
+        'title' => $t('OpenCalais API'),
+        'value' => $t('API Key is not set.'),
+        'description' => $t('OpenCalais integration module is enabled, but
+                              OpenCalais API Key is not set. Module will not function properly.
+                              Please obtain the key and and set it at !calaissetturi as
+                              soon as possible', $settings_uri),
+        'severity' => REQUIREMENT_ERROR);
+    }
+  }
+  return $requirements;
+}

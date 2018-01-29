@@ -16,12 +16,12 @@ Feature: Request
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | All experts  | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    | Real-time                    |
-    | client2 | emindhub.test+client2@gmail.com | business | Charles          | XAVIER       | 0607080901                | Xavier Institute   | X-Men        | emindhub.test+client2@gmail.com | Marvel Studios | Freelancer           | Engines       | US                   | Real-time                    |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | All experts  | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Aviation   | US                    | Real-time                    |
+    | client2 | emindhub.test+client2@gmail.com | business | Charles          | XAVIER       | 0607080901                | Xavier Institute   | X-Men        | emindhub.test+client2@gmail.com | Marvel Studios | Freelancer           | Connected Car       | US                   | Real-time                    |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy          | US                  | Real-time                    |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670                  | Chieur génial      | All experts  | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Blockchain          | US                  | Real-time                    |
 
     Given the user "client1" is a member of the group "All experts"
     Given the user "expert1" is a member of the group "All experts"
@@ -29,7 +29,7 @@ Feature: Request
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | All experts     | client1 | 2020-02-08 17:45:00    | 1       |
+    | How to become a superhero?  | Blockchain        | All experts     | client1 | 2020-02-08 17:45:00    | 1       |
 
   Scenario: An author can see its own request
     Given I am logged in as "client1"
@@ -78,7 +78,7 @@ Feature: Request
     | Call for heroes | Request heroes | filtered_html | en       | Cercle de test           | edit[og_group_ref][und]=1813 |
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node   | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency |
-    | client5 | emindhub.test+client4@gmail.com | business | Hank             | MCKOY           | 0607080901                  | Xavier Institute | Cercle de test | emindhub.test+client2@gmail.com | Marvel Studios        | Freelancer           | Engines       | US                    | Real-time                    |
+    | client5 | emindhub.test+client4@gmail.com | business | Hank             | MCKOY           | 0607080901                  | Xavier Institute | Cercle de test | emindhub.test+client2@gmail.com | Marvel Studios        | Freelancer           | Connected Car       | US                    | Real-time                    |
 
     Given I am logged in as a user with the "administrator" role
     When I go to "content/cercle-de-test"

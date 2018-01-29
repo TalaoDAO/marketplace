@@ -1,0 +1,582 @@
+<?php
+/**
+ * @file
+ * This module is based on Model module (https://drupal.org/project/model)
+ * and most of the comments left untouched but have entity types renamed.
+ * Suuport for features added.
+ *
+ * Module for the Model Entity - a starting point to create your own Entity
+ * and associated administration interface
+ */
+
+define('CONFIG_PAGES_ET', 'config_pages');
+define('CONFIG_PAGES_PATH_MANAGE_TYPES', 'admin/config/development/config_pages_types');
+
+module_load_include('inc', 'config_pages');
+module_load_include('features.inc', 'config_pages');
+module_load_include('field.inc', 'config_pages');
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function config_pages_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'panels' || $module == 'ctools' || $module == 'entityreference') {
+    return 'plugins/' . $plugin;
+  }
+  if ($module == 'panelizer' && $plugin == 'entity') {
+    return 'plugins/panelizer/entity';
+  }
+}
+
+/**
+ * Implements hook_config_pages_context_groups().
+ */
+function config_pages_config_pages_context_groups() {
+  return array(
+    'config_pages:language' => t('Language'),
+    'config_pages:host' => t('Hostname'),
+    'config_pages:domain' => t('Domain (domain module)'),
+  );
+}
+
+/**
+ * Implements hook_config_pages_context_list().
+ */
+function config_pages_config_pages_context_list($key, $as_links = FALSE) {
+
+  $items = array();
+  $links = array();
+
+  // Only language links are supporte in the module.
+  if ($key == 'language') {
+    $language_list = language_list();
+    $value = module_invoke('config_pages', 'config_pages_context_value', $key);
+    foreach ($language_list as $lng_code => $lng) {
+      $items[$lng_code] = array(
+        'name' => $lng->name,
+        'current' => ($value == $lng->language),
+      );
+    }
+
+    // Transform into links if required.
+    if ($as_links) {
+      foreach ($items as $lng_code => $item) {
+        $lng = $language_list[$lng_code];
+        $links[] = array(
+          'title' => $item['name'],
+          'href' => url($_GET['q'], array('language' => $lng, 'absolute' => TRUE)),
+          'value' => $lng_code,
+        );
+      }
+    }
+  }
+
+  return $as_links ? $links : $items;
+}
+
+/**
+ * Implements hook_config_pages_context_value().
+ */
+function config_pages_config_pages_context_value($key) {
+  global $language;
+
+  // Default value.
+  $value = NULL;
+
+  // Get value for specified context key.
+  switch ($key) {
+    case 'language':
+      $value = $language->language;
+      break;
+    case 'host':
+      $value = $_SERVER['HTTP_HOST'];
+      break;
+    case 'domain':
+      if (module_exists('domain')) {
+        $domain = domain_get_domain();
+        $value = $domain['machine_name'];
+      }
+      else {
+        $value = -1;
+      }
+      break;
+  }
+
+  return $value;
+}
+
+/**
+ * Implements hook_config_pages_context_label().
+ */
+function config_pages_config_pages_context_label($key, $value) {
+  global $language;
+
+  // Default value.
+  $label = NULL;
+
+  // Get value for specified context key.
+  switch ($key) {
+    case 'language':
+      $list = language_list();
+      if (!empty($list[$value])) {
+        $label = t('Language = @lang', array('@lang' => $list[$value]->name));
+      }
+      break;
+    case 'host':
+      $label = t('Host = @host', array('@host' => $_SERVER['HTTP_HOST']));
+      break;
+    case 'domain':
+      if (module_exists('domain')) {
+        $domain = domain_get_domain();
+        $label = t('Domain = @name (@path)', array(
+          '@name' => $domain['machine_name'],
+          '@path' => $domain['path'],
+        ));
+      }
+      else {
+        $label = t('All Domains (module not enabled)');
+      }
+      break;
+  }
+
+  return $label;
+}
+
+/**
+ * Implement hook_theme().
+ */
+function config_pages_theme($existing, $type, $theme, $path) {
+  $hooks['config_pages'] = array(
+    'render element' => 'elements',
+    'template' => 'config_pages',
+  );
+  return $hooks;
+}
+
+/**
+ * Implement hook_entity_info().
+ *
+ * We define two entities here - the actual entity that will hold our domain
+ * specific information and an entity that holds information about the different
+ * types of entities. See here: http://drupal.org/node/977380 for a discussion on this
+ * choice.
+ */
+function config_pages_entity_info() {
+  $return['config_pages'] = array(
+    'label' => t('ConfigPages'),
+    // The entity class and controller class extend the classes provided by the
+    // Entity API
+    'entity class' => 'ConfigPages',
+    'controller class' => 'ConfigPagesController',
+    'base table' => 'config_pages',
+    'fieldable' => TRUE,
+    'entity keys' => array(
+        'id' => 'config_pages_id',
+        'bundle' => 'type',
+    ),
+    // Bundles are defined by the config_pages types below
+    'bundles' => array(),
+    // Bundle keys tell the FieldAPI how to extract information from the bundle objects
+    'bundle keys' => array(
+      'bundle' => 'type',
+    ),
+    'label callback' => 'entity_class_label',
+    'uri callback' => 'entity_class_uri',
+    'creation callback' => 'config_pages_create',
+    'access callback' => 'config_pages_access',
+    'module' => 'config_pages',
+    // The information below is used by the ConfigPagesUIController (which extends the EntityDefaultUIController)
+    'admin ui' => array(
+      'path' => 'config_pagess',
+      'file' => 'config_pages.admin.inc',
+      'controller class' => 'ConfigPagesUIController',
+      'menu wildcard' => '%config_pages',
+    ),
+    'redirect' => FALSE,
+    'view modes' => array(
+      'full' => array(
+        'label' => t('Full content'),
+        'custom settings' => FALSE,
+      ),
+    ),
+  );
+  // The entity that holds information about the entity types
+  $return['config_pages_type'] = array(
+    'label' => t('Config Page'),
+    'entity class' => 'ConfigPagesType',
+    'controller class' => 'ConfigPagesTypeController',
+    'base table' => 'config_pages_type',
+    'fieldable' => FALSE,
+    'bundle of' => 'config_pages',
+    'exportable' => TRUE,
+    'entity keys' => array(
+      'id' => 'id',
+      'name' => 'type',
+      'label' => 'label',
+    ),
+    'access callback' => 'config_pages_type_access',
+    'module' => 'config_pages',
+    // Enable the entity API's admin UI.
+    'admin ui' => array(
+      'path' => CONFIG_PAGES_PATH_MANAGE_TYPES,
+      'file' => 'config_pages.type.admin.inc',
+      'controller class' => 'ConfigPagesTypeUIController',
+    ),
+  );
+  
+  foreach (_config_pages_get_names() as $type => $info) {
+    $return['config_pages']['bundles'][$type] = array(
+      'label' => $info->label,
+      'admin' => array(
+        'path' => CONFIG_PAGES_PATH_MANAGE_TYPES . '/manage/%config_pages_type',
+        'real path' => CONFIG_PAGES_PATH_MANAGE_TYPES . '/manage/' . $type,
+        'bundle argument' => 5,
+        'access arguments' => array('administer config_pages types'),
+      ),
+    );
+  }
+  
+  return $return;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function config_pages_permission() {
+  // We set up permisssions to manage entity types, manage all entities and the
+  // permissions for each individual entity
+  $permissions = array(
+    'administer config_pages types' => array(
+      'title' => t('Administer QTools Config Pages'),
+      'description' => t('Create and delete fields for QTools Config Pages.'),
+    ),
+    'administer config_pagess' => array(
+      'title' => t('Access QTools Config Pages'),
+      'description' => t('Access Any Configuration Pages'),
+    ),
+  );
+
+  //Generate permissions per config_pages
+  foreach (config_pages_get_types() as $type) {
+    $type_name = check_plain($type->type);
+
+    // Edit permission.
+    $permissions += array(
+      "edit any $type_name config_pages" => array(
+        'title' => t('%type_name: Edit Configuration Page', array('%type_name' => $type->label)),
+      ),
+    );
+  }
+  return $permissions;
+}
+
+/**
+ * Determines whether the given user has access to a config_pages.
+ *
+ * @param $op
+ *   The operation being performed. One of 'view', 'update', 'create', 'delete'
+ *   or just 'edit' (being the same as 'create' or 'update').
+ * @param $config_pages
+ *   Optionally a config_pages or a config_pages type to check access for. If nothing is
+ *   given, access for all config_pagess is determined.
+ * @param $account
+ *   The user to check for. Leave it to NULL to check for the global user.
+ * @return boolean
+ *   Whether access is allowed or not.
+ */
+function config_pages_access($op, $config_pages = NULL, $account = NULL) {
+  if (user_access('administer config_pagess', $account)) {
+    return TRUE;
+  }
+  if (is_string($config_pages)) {
+    $tmp = explode(' ', $config_pages);
+    $type_name = array_pop($tmp);
+  }
+  if (is_object($config_pages) && !empty($config_pages->type)) {
+    $type_name = $config_pages->type;
+  }
+  if (!empty($type_name)) {
+    // Edit / Update options.
+    if (in_array($op, array('edit', 'update'))) {
+      return user_access("edit any $type_name config_pages", $account);
+    }
+    elseif ($op == 'view') {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Access callback for the entity API.
+ */
+function config_pages_type_access($op, $type = NULL, $account = NULL) {
+  return user_access('administer config_pages types', $account);
+}
+
+/**
+ * Gets an array of all config_pages types, keyed by the type name.
+ *
+ * @param $type_name
+ *   If set, the type with the given name is returned.
+ * @return ConfigPagesType[]
+ *   Depending whether $type isset, an array of config_pages types or a single one.
+ */
+function config_pages_get_types($type_name = NULL) {
+  // entity_load will get the Entity controller for our config_pages entity and call the load
+  // function of that object - we are loading entities by name here.
+  $types = entity_load_multiple_by_name('config_pages_type', isset($type_name) ? array($type_name) : FALSE);
+  return isset($type_name) ? reset($types) : $types;
+}
+
+/**
+ * Get names for all config_pages types, keyed by the type name.
+ *
+ * @return
+ *   An associative array of objects keyed by type name with
+ *   information about config page type. Each object has properties:
+ *   - name: The machine name.
+ *   - label: The human name.
+ *   - id: The type ID.
+ */
+function _config_pages_get_names() {
+  $names = &drupal_static(__FUNCTION__);
+
+  if (!isset($names)) {
+    $names = db_query('SELECT type, label, id FROM {config_pages_type}')->fetchAllAssoc('type');
+  }
+
+  return $names;
+}
+
+/**
+ * Menu argument loader; Load a config_pages type by string.
+ *
+ * @param $type
+ *   The machine-readable name of a config_pages type to load.
+ * @return
+ *   A config_pages type array or FALSE if $type does not exist.
+ */
+function config_pages_type_load($type) {
+  return config_pages_get_types($type);
+}
+
+/**
+ * Fetch a config_pages object. Make sure that the wildcard you choose
+ * in the config_pages entity definition fits the function name here.
+ *
+ * @param $config_pages_id
+ *   Integer specifying the config_pages id.
+ * @param $reset
+ *   A boolean indicating that the internal cache should be reset.
+ * @return
+ *   A fully-loaded $config_pages object or FALSE if it cannot be loaded.
+ *
+ * @see config_pages_load_multiple()
+ */
+function config_pages_load($config_pages_id, $reset = FALSE) {
+  $config_pagess = config_pages_load_multiple(array($config_pages_id), array(), $reset);
+  return reset($config_pagess);
+}
+
+/**
+ * Load multiple config_pagess based on certain conditions.
+ *
+ * @param $config_pages_ids
+ *   An array of config_pages IDs.
+ * @param $conditions
+ *   An array of conditions to match against the {config_pages} table.
+ * @param $reset
+ *   A boolean indicating that the internal cache should be reset.
+ * @return
+ *   An array of config_pages objects, indexed by config_pages_id.
+ *
+ * @see entity_load()
+ * @see config_pages_load()
+ */
+function config_pages_load_multiple($config_pages_ids = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('config_pages', $config_pages_ids, $conditions, $reset);
+}
+
+/**
+ * Deletes a config_pages.
+ */
+function config_pages_delete(ConfigPages $config_pages) {
+  $config_pages->delete();
+}
+
+/**
+ * Delete multiple config_pagess.
+ *
+ * @param $config_pages_ids
+ *   An array of config_pages IDs.
+ */
+function config_pages_delete_multiple(array $config_pages_ids) {
+  entity_get_controller('config_pages')->delete($config_pages_ids);
+}
+
+/**
+ * Create a config_pages object.
+ */
+function config_pages_create($values = array()) {
+  $entity = entity_get_controller('config_pages')->create($values);
+
+  // Add context.
+  $entity->context = config_pages_context_get($values['type']);
+
+  return $entity;
+}
+
+/**
+ * Saves a config_pages to the database.
+ *
+ * @param $config_pages
+ *   The config_pages object.
+ */
+function config_pages_save(ConfigPages $config_pages) {
+  return $config_pages->save();
+}
+
+/**
+ * Saves a config_pages type to the db.
+ */
+function config_pages_type_save(ConfigPagesType $type) {
+  $type->save();
+}
+
+/**
+ * Deletes a config_pages type from the db.
+ */
+function config_pages_type_delete(ConfigPagesType $type) {
+  $type->delete();
+}
+
+/**
+ * The class used for config_pages entities
+ */
+class ConfigPages extends Entity {
+
+  /**
+   * Constructor.
+   */
+  public function __construct($values = array()) {
+    parent::__construct($values, 'config_pages');
+  }
+
+  /**
+   * Entity callback.
+   */
+  protected function defaultLabel() {
+    return $this->name;
+  }
+
+  /**
+   * URI callback.
+   */
+  protected function defaultUri() {
+    return array('path' => '');
+  }
+
+}
+
+/**
+ * The class used for config_pages type entities
+ */
+class ConfigPagesType extends Entity {
+
+  public $type;
+  public $label;
+
+  /**
+   * Constructor.
+   */
+  public function __construct($values = array()) {
+    parent::__construct($values, 'config_pages_type');
+  }
+
+}
+
+
+/**
+ * The Controller for ConfigPages entities
+ */
+class ConfigPagesController extends EntityAPIController {
+
+  /**
+   * Constructor.
+   */
+  public function __construct($entityType) {
+    parent::__construct($entityType);
+  }
+
+  /**
+   * Create a config_pages - we first set up the values that are specific
+   * to our config_pages schema but then also go through the EntityAPIController
+   * function.
+   *
+   * @param $type
+   *   The machine-readable type of the config_pages.
+   *
+   * @return
+   *   A config_pages object with all default fields initialized.
+   */
+  public function create(array $values = array()) {
+    // Add values that are specific to our ConfigPages
+    $values += array(
+      'config_pages_id' => '',
+      'is_new' => TRUE,
+      'title' => '',
+      'created' => '',
+      'changed' => '',
+      'data' => '',
+    );
+
+    $config_pages = parent::create($values);
+    return $config_pages;
+  }
+
+  /**
+   * Overriding the buldContent function to add entity specific fields
+   */
+  public function buildContent($entity, $view_mode = 'full', $langcode = NULL, $content = array()) {
+    $content = parent::buildContent($entity, $view_mode, $langcode, $content);
+    return $content;
+  }
+
+}
+
+
+/**
+ * The Controller for ConfigPages entities
+ */
+class ConfigPagesTypeController extends EntityAPIControllerExportable {
+
+  /**
+   * Constructor.
+   */
+  public function __construct($entityType) {
+    parent::__construct($entityType);
+  }
+
+   /**
+   * Create a config_pages type - we first set up the values that are specific
+   * to our config_pages type schema but then also go through the EntityAPIController
+   * function.
+   *
+   * @param $type
+   *   The machine-readable type of the config_pages.
+   *
+   * @return
+   *   A config_pages type object with all default fields initialized.
+   */
+  public function create(array $values = array()) {
+    // Add values that are specific to our ConfigPages
+    $values += array(
+      'id' => '',
+      'is_new' => TRUE,
+      'data' => '',
+    );
+    $config_pages_type = parent::create($values);
+    return $config_pages_type;
+  }
+}
