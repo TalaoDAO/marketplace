@@ -32,7 +32,7 @@ function emh_linkedin_init() {
  */
 function emh_linkedin_menu() {
   $items = [];
-  
+
   // global settings form
   $items['admin/config/services/emh_linkedin'] = [
     'title' => 'LinkedIn integration',
