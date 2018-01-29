@@ -93,10 +93,11 @@ class FeatureContext extends DrupalContext {
    * @Given I give :name :points emh credits
    */
   public function assertGiveUserPoints($name, $points) {
-    if (!isset($this->users[$name])) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid);
+    $user = user_load($users[$name]->uid);
     $context = array(
       'points' => $points,
       'log' => 'Behat add credits to user',
@@ -114,10 +115,11 @@ class FeatureContext extends DrupalContext {
    * @Given I remove :name :points emh credits
    */
   public function assertRemoveUserPoints($name, $points) {
-    if (!isset($this->users[$name])) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid);
+    $user = user_load($users[$name]->uid);
     $context = array('points' => $points, 'log' => 'Behat remove credits to user');
     emh_points_remove_points($user, $context);
   }
@@ -131,12 +133,70 @@ class FeatureContext extends DrupalContext {
    * @Then I should have :points credits on :name user
    */
   public function assertUserPoints($points, $name) {
-    if (!isset($this->users[$name])) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid, TRUE);
+    $user = user_load($users[$name]->uid, TRUE);
     if (!($user->emh_points == (int) $points)) {
       throw new \Exception(sprintf('The user with "%s" title should have %s credits instead of %s.', $name, $points, $user->emh_points));
+    }
+  }
+
+  /**
+   * @param int $earnings
+   *   Amount of earnings.
+   * @param string $name
+   *   User name.
+   *
+   * @Then I should have :earnings earnings on :name user
+   */
+  public function assertUserEarnings($earnings, $name) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
+      throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
+    }
+    $user = user_load($users[$name]->uid, TRUE);
+    if (!($user->emh_earnings == (int) $earnings)) {
+      throw new \Exception(sprintf('The user with "%s" title should have %s earnings instead of %s.', $name, $earnings, $user->emh_earnings));
+    }
+  }
+
+  /**
+   * @param int $earnings
+   *   Amount of earnings.
+   * @param string $mail
+   *   User mail.
+   *
+   * @Then I should have :earnings earnings on :mail user mail
+   */
+  public function assertUserMailEarnings($earnings, $mail) {
+    $user = user_load_by_mail($mail);
+    if(!$user) {
+      throw new \Exception(sprintf('No user with %s mail is registered with the driver.', $mail));
+    }
+
+    if (!($user->emh_earnings == (int) $earnings)) {
+      throw new \Exception(sprintf('The user with "%s" title should have %s earnings instead of %s.', $user->name, $earnings, $user->emh_earnings));
+    }
+  }
+
+  /**
+   * @param int $points
+   *   Amount of points.
+   * @param string $mail
+   *   User mail.
+   *
+   * @Then I should have :points credits on :mail user mail
+   */
+  public function assertUserMailPoints($points, $mail) {
+    $user = user_load_by_mail($mail);
+    if(!$user) {
+      throw new \Exception(sprintf('No user with %s mail is registered with the driver.', $mail));
+    }
+
+    if (!($user->emh_points == (int) $points)) {
+      throw new \Exception(sprintf('The user with "%s" title should have %s credits instead of %s.', $user->name, $points, $user->emh_points));
     }
   }
 
@@ -175,10 +235,11 @@ class FeatureContext extends DrupalContext {
     }
     $node = node_load($fnode->nid);
 
-    if (!isset($this->users[$name])) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid);
+    $user = user_load($users[$name]->uid);
     emh_points_move_points($user, $node, (int) $points, 'behat_transfer_user_node');
   }
 
@@ -197,10 +258,11 @@ class FeatureContext extends DrupalContext {
     }
     $node = node_load($fnode->nid);
 
-    if (!isset($this->users[$name])) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid);
+    $user = user_load($users[$name]->uid);
     emh_points_move_points($node, $user, (int) $points, 'behat_transfer_node_user');
   }
 
@@ -444,10 +506,11 @@ class FeatureContext extends DrupalContext {
    * @Then the user :name has :perm permission
    */
   public function theUserHasPermission($name, $perm) {
-    if (!isset($this->users[$name])) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid);
+    $user = user_load($users[$name]->uid);
     if (!user_access($perm, $user)) {
       throw new \Exception('User does not have the required permission');
     }
@@ -457,10 +520,11 @@ class FeatureContext extends DrupalContext {
    * @Then the user :name don't have :perm permission
    */
   public function theUserDontHavePermission($name, $perm) {
-    if (!isset($this->users[$name])) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid);
+    $user = user_load($users[$name]->uid);
     if (user_access($perm, $user)) {
       throw new \Exception('User should not have the required permission');
     }
@@ -664,10 +728,11 @@ class FeatureContext extends DrupalContext {
    * @Given the user :name is a member of the group :title
    */
   public function makeUserMemberOfGroup($name, $title) {
-    if (!isset($this->users[$name])) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
+    if (!isset($users[$name])) {
       throw new \Exception(sprintf('No user with %s name is registered with the driver.', $name));
     }
-    $user = user_load($this->users[$name]->uid);
+    $user = user_load($users[$name]->uid);
     $node = node_load_by_title($title);
     if (!isset($node)) {
       throw new \Exception(sprintf('No node with %s title is found.', $title));
@@ -691,8 +756,9 @@ class FeatureContext extends DrupalContext {
    * @Given the user :name is an admin of the group :title
    */
   public function makeUserAdminOfGroup($name, $title) {
+    $users = $this->users;   // behat 3.4 : $users = $this->getUserManager()->getUsers();
     $this->makeUserMemberOfGroup($name,$title);
-    $user = user_load($this->users[$name]->uid);
+    $user = user_load($users[$name]->uid);
     $node = node_load_by_title($title);
     $gid = $node->nid;
     og_user_roles_role_add($gid, $user->uid, OG_ADMINISTRATOR_ROLE);
@@ -798,6 +864,23 @@ class FeatureContext extends DrupalContext {
    */
   public function cleanupForNoDelay(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
     variable_set('emh_request_notification_delay', '1');
+  }
+
+  /**
+   * @AfterScenario @invitation
+   */
+  public function cleanSendInvitation(Behat\Behat\Hook\Scope\AfterScenarioScope $scope) {
+    db_delete("emh_invitation")
+      ->condition("referral_mail", "emindhub.test+batman@gmail.com")
+      ->execute();
+
+    db_delete("emh_invitation")
+      ->condition("referral_mail", "emindhub.test+superman@gmail.com")
+      ->execute();
+
+    db_delete("emh_invitation")
+      ->condition("referral_mail", "emindhub.test+flash@gmail.com")
+      ->execute();
   }
 }
 

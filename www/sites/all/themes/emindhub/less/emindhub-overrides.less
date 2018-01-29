@@ -412,8 +412,11 @@ input.error,
 
 // TODO: hide this in PHP !
 div.password-strength,
-div.password-suggestions,
-div.password-confirm {
+div.password-help,
+div.password-confirm,
+.form-type-password .progress,
+.form-type-password .label-danger,
+.form-type-password .glyphicon {
   .text-hide;
   display: none !important;
 }
@@ -481,6 +484,11 @@ html.js div.contextual-links-wrapper {
 	}
 }
 
+#user-register-form-expert .form-actions > .btn-group.btn-group-primary,
+#user-register-form-client .form-actions > .btn-group.btn-group-primary,
+#user-login .form-actions > .btn-group.btn-group-primary {
+  text-align: center !important;
+}
 
 .jumbotron {
 	margin-top: @jumbotron-padding;

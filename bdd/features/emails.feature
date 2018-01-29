@@ -21,13 +21,13 @@ Feature: Emails
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_address:country | field_notification_frequency  |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance   | US                    | Real-time                     |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678                  | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Aviation   | US                    | Real-time                     |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_position          | field_address:country | field_notification_frequency  |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron           | MAN               | 0712345670                  | Chieur génial    | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | Avionic Design Engineer | US                    | Real-time                     |
-    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671                  | Modèle           | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       | Employee             | Other         | C.E.O.                  | US                    | Real-time                     |
-    | expert3 | emindhub.test+expert3@gmail.com | expert   | Super            | DUPONT          | 0712345672                  | Modèle           | Avengers     | emindhub.test+expert3@gmail.com | Fluide Glacial       | Employee             | Energy        | C.E.O.                  | FR                    | Real-time                     |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron           | MAN               | 0712345670                  | Chieur génial    | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Blockchain        | Avionic Design Engineer | US                    | Real-time                     |
+    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671                  | Modèle           | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       | Employee             | Space         | C.E.O.                  | US                    | Real-time                     |
+    | expert3 | emindhub.test+expert3@gmail.com | expert   | Super            | DUPONT          | 0712345672                  | Modèle           | Avengers     | emindhub.test+expert3@gmail.com | Fluide Glacial       | Employee             | Blockchain        | C.E.O.                  | FR                    | Real-time                     |
 
     Given the user "client1" is a member of the group "Avengers"
     Given the user "expert1" is a member of the group "Avengers"
@@ -38,7 +38,7 @@ Feature: Emails
     Given the test email system is enabled
     Given "request" content:
     | title                       | field_domaine | og_group_ref    | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
+    | How to become a superhero?  | Blockchain        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       |
 
     Then the last email to "emindhub.test+webmaster1@gmail.com" should contain "Moderate this new request"
       And the last email to "emindhub.test+administrator1@gmail.com" should contain "Moderate this new request"
@@ -58,7 +58,7 @@ Feature: Emails
     Given the test email system is enabled
     Given "request" content:
     | title                            | field_domaine | og_group_ref    | author  | field_expiration_date  | status  | language |
-    | Comment devenir un super-heros ? | Energy        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       | fr       |
+    | Comment devenir un super-heros ? | Blockchain        | Avengers        | client1 | 2020-02-08 17:45:00    | 1       | fr       |
 
     # 1st Cron run to execute the scheduled notification action
     When I run cron
@@ -77,8 +77,8 @@ Feature: Emails
   Scenario: After publishing an answer, the Request Author should be notified by email
     Given "request" content:
     | title                            | field_domaine | og_group_ref | author  | field_expiration_date  | status  | language |
-    | How to become a superhero?       | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | en       |
-    | Comment devenir un super-héros ? | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | fr       |
+    | How to become a superhero?       | Blockchain        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | en       |
+    | Comment devenir un super-héros ? | Blockchain        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       | fr       |
 
     Given the test email system is enabled
 

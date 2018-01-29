@@ -16,16 +16,16 @@ Feature: Request and answers
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine |
-    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Maintenance |
+    | client1 | emindhub.test+client1@gmail.com | business | Captain          | AMERICA         | 0612345678      | Chef de groupe     | Avengers     | emindhub.test+client1@gmail.com | Marvel Studios       | Freelancer           | Aviation |
 
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_position          |
-    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Energy        | Avionic Design Engineer |
-    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       | Employee             | Other         | C.E.O.                  |
+    | expert1 | emindhub.test+expert1@gmail.com | expert   | Iron             | MAN             | 0712345670      | Chieur génial      | Avengers     | emindhub.test+expert1@gmail.com | Marvel Studios       | Employee             | Blockchain        | Avionic Design Engineer |
+    | expert2 | emindhub.test+expert2@gmail.com | expert   | Klark            | KENT            | 0712345671      | Modèle             | Avengers     | emindhub.test+expert2@gmail.com | Marvel Studios       | Employee             | Space         | C.E.O.                  |
 
     Given "request" content:
     | title                       | field_domaine | og_group_ref | author  | field_expiration_date  | status  |
-    | How to become a superhero?  | Energy        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
+    | How to become a superhero?  | Blockchain        | Avengers     | client1 | 2020-02-08 17:45:00    | 1       |
 
     Given the user "client1" is a member of the group "Avengers"
     Given the user "expert1" is a member of the group "Avengers"
@@ -207,7 +207,7 @@ Feature: Request and answers
   Scenario: Only the Circle Admin can unpublish an answer (but cannot edit values)
     Given users:
     | name    | mail                            | roles    | field_first_name | field_last_name | field_address:mobile_number | field_education  | og_user_node | field_mail                      | field_entreprise     | field_working_status | field_domaine | field_position          |
-    | expert3 | emindhub.test+expert3@gmail.com | expert   | Super            | DUPONT          | 0712345672                  | Modèle           | Avengers     | emindhub.test+expert3@gmail.com | Fluide Glacial       | Employee             | Energy        | Avionic Design Engineer |
+    | expert3 | emindhub.test+expert3@gmail.com | expert   | Super            | DUPONT          | 0712345672                  | Modèle           | Avengers     | emindhub.test+expert3@gmail.com | Fluide Glacial       | Employee             | Blockchain        | Avionic Design Engineer |
 
     Given I am logged in as a user with the "administrator" role
 

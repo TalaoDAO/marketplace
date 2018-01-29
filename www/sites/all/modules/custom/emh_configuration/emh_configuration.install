@@ -14,7 +14,7 @@ function emh_configuration_update_dependencies() {
   );
   $dependencies['emh_configuration'][7083] = array(
     'emh_points' => 7116,
-    'emh_points_earnings' => 7103, 
+    'emh_points_earnings' => 7103,
   );
 
   return $dependencies;
@@ -1706,6 +1706,68 @@ function emh_configuration_update_7082() {
  */
 function emh_configuration_update_7083() {
   _emh_points_earnings_retroactive();
-  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/txn_data_context_retroactive.sql"); 
+  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/txn_data_context_retroactive.sql");
+  module_enable(['emh_linkedin']);
+}
+
+
+/**
+ * CHG: Domains become "sectors".
+ */
+function emh_configuration_update_7084() {
+  exec("drush fra -y");
+  exec("drush sql-query --file=$(drush dd)/../deploy/scripts/domains_to_sector.sql");
+}
+
+/**
+ * ADD: enable opencalais module.
+ */
+function emh_configuration_update_7085() {
+  module_enable(array('opencalais'));
+  variable_set('opencalais_api_key', 'WgnZlNyGrLVfgZpyFb04chAUthY9xJFT');
+  variable_set('opencalais_autotagging', array(
+      0 => 'social_tags',
+      'request' => '2'
+  ));
+  variable_set('opencalais_nodefields', array(
+      'request' => 1
+  ));
+}
+
+/**
+ * ADD: enable emh_opencalais module.
+ */
+function emh_configuration_update_7086() {
+  module_enable(array('emh_opencalais'));
+}
+
+/**
+ * ADD: enable log module and ft_opencalais.
+ */
+function emh_configuration_update_7087() {
+  module_enable(array('log'));
+  module_enable(array('log_plan'));
+  module_enable(array('ft_opencalais'));
+}
+
+/**
+ * ADD: enable ft_virality.
+ */
+function emh_configuration_update_7088() {
+  module_enable(array('ft_virality'));
+}
+
+/**
+ * ADD: enable config_pages module and feature, change menu.
+ */
+function emh_configuration_update_7089() {
+  cache_clear_all('*', 'cache', TRUE);
+  module_enable(['config_pages', 'ft_config_pages']);
+}
+
+/**
+ * ADD: enable emh_linkedin module.
+ */
+function emh_configuration_update_7090() {
   module_enable(['emh_linkedin']);
 }
