@@ -3466,7 +3466,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 10,
       ),
       'type' => 'text_textarea',
-      'weight' => 7,
+      'weight' => 28,
     ),
   );
 
@@ -4499,7 +4499,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 28,
+      'weight' => 29,
     ),
   );
 
