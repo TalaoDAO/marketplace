@@ -1,5 +1,5 @@
 <?php
-namespace DetectLanguage;
+//namespace DetectLanguage;
 class Client
 {
   /**
