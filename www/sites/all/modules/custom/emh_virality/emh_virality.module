@@ -817,13 +817,7 @@ function emh_virality_form_alter(&$form, &$form_state, $form_id) {
   // Forms placed in the invitations history page must be submitted to the "/invitations"
   // url if the user is currently viewing its own history
   if (drupal_match_path(current_path(), 'invitations')) {
-    global $user;
-    $account = menu_get_object('user');
-    ddl('je suis là');
-    if ($user->uid == $account->uid) {
-      $form['#action'] = url('my-referrals');
-      $form['#submit'][] = 'emh_virality_invitations_history_forms_submit';
-    }
+    $form['#submit'][] = 'emh_virality_invitations_history_forms_submit';
   }
 }
 
