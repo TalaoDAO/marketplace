@@ -14,6 +14,8 @@ include_once 'emh_request.fields.inc';
 include_once 'emh_request.mail.inc';
 include_once 'emh_request.pages.inc';
 
+include_once 'lib/detectlanguage.php';
+
 const EMH_REQUEST_TXN_CONTEXT_REQUEST = 'request';
 const API_KEY = 'f328813012a01558ace23d5db24f3320';
 
@@ -110,13 +112,24 @@ function emh_request_entity_info_alter(&$entity_info) {
 /**
  * Implements hook_node_presave().
  */
-use \DetectLanguage\DetectLanguage;
+//use \DetectLanguage\DetectLanguage;
 function emh_request_node_presave($node) {
   if ($node->type !== 'request') {
     return;
   }
 
-  module_load_include('php', 'emh_request', 'detectlanguage');
+  //Detect language
+  ddl($node, 'node');
+  $body = $node->body[$node->language][0]['value'];
+  $body = strip_tags($body);
+  $body = htmlspecialchars_decode($body, ENT_COMPAT | ENT_HTML5);
+
+  DetectLanguage::setApiKey(API_KEY);
+  $results = DetectLanguage::detect($body);
+  $node->language = $results[0]->language;
+  ddl($results, 'results');
+
+  //module_load_include('php', 'emh_request', 'detectlanguage');
   if (emh_request_has_option($node, 'questionnaire')) {
     // We create the components on the basis of the field_request_questions values.
     if ($questions = field_get_items('node', $node, 'field_request_questions')) {
@@ -169,16 +182,6 @@ function emh_request_node_presave($node) {
 
     $node->webform['components'] = array('request' => $component);
   }
-
-  //Detect language
-  $body = $node->body[$node->language][0]['value'];
-  $body = strip_tags($body);
-  $body = htmlspecialchars_decode($body, ENT_COMPAT | ENT_HTML5);
-
-  DetectLanguage::setApiKey(API_KEY);
-  $results = DetectLanguage::detect($body);
-  $node->language = $results[0]->language;
-
 }
 
 /**

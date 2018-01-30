@@ -1,5 +1,5 @@
 <?php
-namespace DetectLanguage;
+//namespace DetectLanguage;
 if (!function_exists('json_decode')) {
   throw new Error('DetectLanguage needs the JSON PHP extension.');
 }
