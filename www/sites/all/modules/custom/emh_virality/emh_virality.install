@@ -51,6 +51,18 @@ function emh_virality_schema() {
         'length' => 255,
         'not null' => TRUE,
       ],
+      'referral_firstname' => [
+        'description' => 'First name of the referral user',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ],
+      'referral_lastname' => [
+        'description' => 'Last name of the referral user',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ],
       'request_id' => [
         'description' => 'Request ID (nid) the invitation is linked to',
         'type' => 'int',
@@ -133,5 +145,23 @@ function emh_virality_update_7003() {
       'not null' => FALSE,
     ];
     db_add_field('emh_invitation', 'message', $spec);
+  }
+  if (!db_field_exists('emh_invitation', 'referral_firstname')) {
+    $spec = [
+      'description' => 'First name of the referral user',
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => FALSE,
+    ];
+    db_add_field('emh_invitation', 'referral_firstname', $spec);
+  }
+  if (!db_field_exists('emh_invitation', 'referral_lastname')) {
+    $spec = [
+      'description' => 'Last name of the referral user',
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => FALSE,
+    ];
+    db_add_field('emh_invitation', 'referral_lastname', $spec);
   }
 }
