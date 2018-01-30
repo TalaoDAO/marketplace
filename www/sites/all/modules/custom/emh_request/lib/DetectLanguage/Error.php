@@ -1,5 +1,5 @@
 <?php
-namespace DetectLanguage;
+//namespace DetectLanguage;
 // backwards compatibility
 class DetectLanguageError extends \Exception
 {
