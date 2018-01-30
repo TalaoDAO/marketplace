@@ -34,7 +34,7 @@ Feature: Request
       | How to become a superhero?  | Blockchain        | All experts     | client1 | 2020-02-08 17:45:00    | 1       |
       | How to join the x-men?      | Blockchain        | X-Men           | client2 | 2020-02-08 18:45:00    | 1       |
 
-  @email @nodelay
+  @email @nodelay @invitation
   Scenario: An author can send a general invitation
     Given the test email system is enabled
     Given I am logged in as "client1"
@@ -43,17 +43,17 @@ Feature: Request
     Then I should see "Invite experts and earn credits!"
 
     Given I fill in "Bruce" for "First Name"
-    And I fill in "Wayne" for "Name"
+    And I fill in "Wayne" for "Last Name"
     And I fill in "emindhub.test+batman@gmail.com" for "Mail"
     And I press "Add one more"
-    When I fill in "Kent" for "sponsorship_fieldset[expert][1][name]"
+    When I fill in "Kent" for "sponsorship_fieldset[expert][1][last_name]"
     And I fill in "Clark" for "sponsorship_fieldset[expert][1][first_name]"
     And I fill in "emindhub.test+superman@gmail.com" for "sponsorship_fieldset[expert][1][mail]"
-    And I press the "edit-submit" button
+    And I press the "emh-virality-send-invitation" button
     Then I should see the message "You just sent invitations to:"
     And I should see "emindhub.test+batman@gmail.com"
     And I should see "emindhub.test+superman@gmail.com"
-    And I should see "Invitation sent."
+    And I should see "Invited"
     And the last email to "emindhub.test+batman@gmail.com" should contain "Captain AMERICA invites you to join eMindHub"
     And the last email to "emindhub.test+superman@gmail.com" should contain "Captain AMERICA invites you to join eMindHub"
 
@@ -62,7 +62,7 @@ Feature: Request
     Given I am logged in as "client2"
     When I go to homepage
     And I click "How to join the x-men?" in the "content" region
-    Then I should not see the button "Invite experts"
+    Then I should not see the button "Recommand an expert"
 
   @email @nodelay
   Scenario: An user send an invitation to new user that endup validated.
@@ -75,28 +75,28 @@ Feature: Request
     Given I am logged in as "expert1"
     When I go to homepage
     And I click "How to become a superhero?" in the "content" region
-    And I click "Invite experts" in the "content" region
+    And I click "Recommand an expert" in the "content" region
     Then I should see "How to become a superhero?"
     When I fill in "Barry" for "First Name"
     And I fill in "Allen" for "Name"
     And I fill in "emindhub.test+flash@gmail.com" for "Mail"
     And I fill in "Hello Flash, join us" for "Message"
-    And I press the "edit-submit" button
+    And I press the "emh-virality-send-invitation" button
     Then I should see the message "You just sent invitations to:"
     And I should see "emindhub.test+flash@gmail.com"
-    And I should see "Invitation sent."
+    And I should see "Invited"
     And the last email to "emindhub.test+flash@gmail.com" should contain "Hello Barry,"
     And the email should contain "Hello Flash, join us"
 
     #Same test but with generic email
     When I go to homepage
     And I click "How to become a superhero?" in the "content" region
-    And I click "Invite experts" in the "content" region
+    And I click "Recommand an expert" in the "content" region
     Then I should see "How to become a superhero?"
     When I fill in "Bruce" for "First Name"
     And I fill in "Wayne" for "Name"
     And I fill in "emindhub.test+batman@gmail.com" for "Mail"
-    And I press the "edit-submit" button
+    And I press the "emh-virality-send-invitation" button
     And the last email to "emindhub.test+batman@gmail.com" should contain "recommanded"
 
     When I visit "user/logout"
@@ -119,7 +119,7 @@ Feature: Request
       #Notice: "Position" don't work because it's exists also in "Last position(s)" group field
     And I fill in "academics" for "field_position[und]"
     And I select "Freelancer" from "Working status"
-    And I fill in "2140" for "Domain"
+    And I fill in "2182" for "Domain"
     And I press "Save"
     And I press "Save"
     Then I should see "The changes have been saved."
@@ -127,7 +127,7 @@ Feature: Request
     Given I am logged in as "expert1"
     When I go to "invitations"
     Then I should see "emindhub.test+flash@gmail.com"
-    And I should see "Registered on eMindHub."
+    And I should see "Registered"
 
     When I go to "user/logout"
     And I visit 'user/login'
@@ -144,7 +144,7 @@ Feature: Request
     Given I am logged in as "expert1"
     When I go to "invitations"
     Then I should see "emindhub.test+flash@gmail.com"
-    And I should see "Waiting to be recognized."
+    And I should see "Answered to a request"
 
     Given I am logged in as "client1"
     When I go to homepage
@@ -155,7 +155,7 @@ Feature: Request
     Given I am logged in as "expert1"
     When I go to "invitations"
     Then I should see "emindhub.test+flash@gmail.com"
-    And I should see "Invitation validated."
+    And I should see "Validated"
 
     Given I am logged in as a user with the "administrator" role
     When I go to "admin/emindhub/credits/transaction-log"
