@@ -119,15 +119,24 @@ function emh_request_node_presave($node) {
   }
 
   //Detect language
-  ddl($node, 'node');
-  $body = $node->body[$node->language][0]['value'];
-  $body = strip_tags($body);
-  $body = htmlspecialchars_decode($body, ENT_COMPAT | ENT_HTML5);
+  if(!$node->is_new) {
 
-  DetectLanguage::setApiKey(API_KEY);
-  $results = DetectLanguage::detect($body);
-  $node->language = $results[0]->language;
-  ddl($results, 'results');
+    $body = $node->body[$node->language][0]['value'];
+    $body = strip_tags($body);
+    $body = htmlspecialchars_decode($body, ENT_COMPAT | ENT_HTML5);
+
+    DetectLanguage::setApiKey(API_KEY);
+    $results = DetectLanguage::detect($body);
+    
+    if(!empty($results)) {
+      $node->language = $results[0]->language;
+      if(!isset($node->body[$node->language]) || empty($node->body[$node->language])) {
+        $body_init = array_shift($node->body);
+        $node->body[$node->language][] = $body_init[0];
+      }
+    }
+  }
+
 
   //module_load_include('php', 'emh_request', 'detectlanguage');
   if (emh_request_has_option($node, 'questionnaire')) {
