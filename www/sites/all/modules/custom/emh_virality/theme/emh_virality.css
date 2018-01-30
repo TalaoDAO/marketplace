@@ -1,0 +1,38 @@
+/*invitation form*/
+#emh-virality-button-add-more-expert {
+    float: left;
+}
+
+#emh-virality-send-invitation {
+    float: right;
+}
+
+.sponsorship-fieldset-last-name{
+    float: left;
+    margin-right: 25px;
+}
+.sponsorship-fieldset-first-name {
+    float: left;
+    margin-right: 25px;
+}
+.sponsorship-fieldset-mail{
+    float: left;
+    margin-right: 25px;
+}
+
+.sponsorship-fieldset-message{
+    float: left;
+    width: 100%;
+}
+
+.sponsorship-button-remove {
+    float: left;
+}
+
+/*request*/
+#btn-sponsorship {
+    background-color: #009FE3;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-left: 100px;
+}
