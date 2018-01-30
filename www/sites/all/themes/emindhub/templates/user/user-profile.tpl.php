@@ -157,6 +157,7 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
       <?php print render($user_profile['field_position']); ?>
       <?php print render($user_profile['field_titre_metier']); ?>
       <?php print render($user_profile['field_working_status']); ?>
+      <?php print render($user_profile['field_activities_linkedin']); ?>
     </div>
   <?php endif; ?>
 
