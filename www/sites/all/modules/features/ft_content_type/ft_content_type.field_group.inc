@@ -36,7 +36,8 @@ function ft_content_type_field_group_info() {
       10 => 'field_position',
       11 => 'field_linkedin',
       12 => 'field_twitter',
-      13 => 'account',
+      13 => 'field_activities_linkedin',
+      14 => 'account',
     ),
     'format_type' => 'div',
     'format_settings' => array(
