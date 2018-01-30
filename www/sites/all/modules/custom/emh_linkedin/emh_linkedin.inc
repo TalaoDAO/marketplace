@@ -119,7 +119,7 @@ function _emh_linkedin_fields_build_profile() {
     'last-name',
     'location',
     'num-connections',
-    //'summary',
+    //'summary', //TODO : waiting to fix the problem with field_description_activities
     'positions',
     'picture-urls::(original)',
     'email-address',
@@ -139,7 +139,7 @@ function _emh_linkedin_fields_user_update() {
   // Basic Profile LinkedIn Fields
   $fields = [
     'location',
-    //'summary',
+    //'summary', //waiting to fix the problem with field_description_activities
     'positions',
     'picture-urls::(original)',
     'email-address',
@@ -244,6 +244,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
         }
         break;
 
+       // waiting to fix the problem with field_description_activities
       /*case 'summary' :
         if (empty($user->field_employment_history)) {
           $user->field_employment_history['und'][0]['value'] = $item;
@@ -268,6 +269,7 @@ function _emh_linkedin_fields_to_user_fields($field, $user) {
           $taille = 1;
         }
 
+        //use it for multiple position
         /*
          * for($i = 0 ; $i < $taille ; $i++) {
          * if($multiple) {
@@ -464,6 +466,7 @@ function _emh_update_position($user, $position, $i) {
     }
   }
 
+  //TODO : waiting to fix the problem with field_description_activities
   // field_activities_linkedin
   /*if (empty($user->field_activities_linkedin)) {
     if (isset($position['summary'])) {
@@ -495,7 +498,7 @@ function _emh_linkedin_list_fields($type = 'auth') {
     'email-address',
     'headline',
     'industry',
-    //'summary',
+    //'summary', //TODO : waiting to fix the problem with field_description_activities
     'specialties',
     'honors',
     'interests',
