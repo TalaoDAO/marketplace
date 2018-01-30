@@ -39,6 +39,7 @@ Feature: Request
     Given the test email system is enabled
     Given I am logged in as "client1"
     When I go to homepage
+    And I should see "Referral"
     And I click "Invite experts" in the "content" region
     Then I should see "Invite experts and earn credits!"
 
@@ -119,13 +120,13 @@ Feature: Request
       #Notice: "Position" don't work because it's exists also in "Last position(s)" group field
     And I fill in "academics" for "field_position[und]"
     And I select "Freelancer" from "Working status"
-    And I fill in "2182" for "Domain"
+    And I fill in "2247" for "Domain"
     And I press "Save"
     And I press "Save"
     Then I should see "The changes have been saved."
 
     Given I am logged in as "expert1"
-    When I go to "invitations"
+    When I click "Referral"
     Then I should see "emindhub.test+flash@gmail.com"
     And I should see "Registered"
 
@@ -142,7 +143,7 @@ Feature: Request
     And I press "Publish"
 
     Given I am logged in as "expert1"
-    When I go to "invitations"
+    When I click "Referral"
     Then I should see "emindhub.test+flash@gmail.com"
     And I should see "Answered to a request"
 
@@ -153,7 +154,7 @@ Feature: Request
     Then I press "Access profile"
 
     Given I am logged in as "expert1"
-    When I go to "invitations"
+    When I click "Referral"
     Then I should see "emindhub.test+flash@gmail.com"
     And I should see "Validated"
 
@@ -163,7 +164,7 @@ Feature: Request
     And I should see "Move credits from Barry Allen to eMindHub."
     And I should see "Captain AMERICA buy Barry Allen profile on \"How to become a superhero?\" request"
     And I should have "400" credits on "client1" user
-    And I should have "15" earnings on "expert1" user
+    And I should have "30" earnings on "expert1" user
     And I should have "30" earnings on "emindhub.test+flash@gmail.com" user mail
 
 
