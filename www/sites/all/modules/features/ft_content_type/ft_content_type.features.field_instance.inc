@@ -3452,7 +3452,7 @@ function ft_content_type_field_default_field_instances() {
     ),
     'entity_type' => 'user',
     'field_name' => 'field_activities_linkedin',
-    'label' => 'Description of activities',
+    'label' => 'Description of my activities',
     'required' => 0,
     'settings' => array(
       'entity_translation_sync' => FALSE,
@@ -3466,7 +3466,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 10,
       ),
       'type' => 'text_textarea',
-      'weight' => 7,
+      'weight' => 28,
     ),
   );
 
@@ -4499,7 +4499,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 28,
+      'weight' => 29,
     ),
   );
 
@@ -5292,7 +5292,7 @@ function ft_content_type_field_default_field_instances() {
   t('Deadline');
   t('Describe your work experience : degrees, companies, etc.');
   t('Description');
-  t('Description of activities');
+  t('Description of my activities');
   t('Description of the activity of organisation / company');
   t('Desired starting date');
   t('Document');
