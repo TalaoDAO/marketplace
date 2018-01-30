@@ -22,21 +22,18 @@ const EMH_VIRALITY_TXN_CONTEXT_USER_SPONSOR = 'user_sponsor';
 function emh_virality_menu() {
   $items = [];
 
-  // Route for the invitation page of the current user
+  // Route for the form page of the current user
   $items['invitations'] = [
     'title' => 'Invitations',
-    'page callback' => 'emh_virality_show_user_history',
+    'page callback' => 'emh_virality_block_view',
     'access callback' => 'emh_virality_user_history_access',
   ];
 
-  // Route for the invitation page of a specific user
-  $items['user/%user/invitations'] = [
-    'title' => 'Invitations',
+  // Route for the invitation page of the current user
+  $items['my-referrals'] = [
+    'title' => 'Referral',
     'page callback' => 'emh_virality_show_user_history',
-    'page arguments' => [1],
     'access callback' => 'emh_virality_user_history_access',
-    'access arguments' => [1],
-    'type' => MENU_LOCAL_TASK,
   ];
 
   return $items;
@@ -52,28 +49,6 @@ function emh_virality_permission() {
     'view others invitations history' => ['title' => t('View others invitations history')],
   ];
 }
-
-/**
- * Implements hook_menu_local_tasks_alter().
- */
-function emh_virality_menu_local_tasks_alter(&$data, $router_item, $root_path) {
-  // Changes the href of the invitations history tab
-  // if it goes to the current user's invitations history.
-  if (strpos($root_path, 'user/%') === 0) {
-    global $user;
-    $account = menu_get_object('user');
-
-    if ($user->uid == $account->uid) {
-      foreach ($data['tabs'][0]['output'] as &$tab) {
-        if ($tab['#link']['path'] == 'user/%/invitations') {
-          $tab['#link']['href'] = 'invitations';
-          break;
-        }
-      }
-    }
-  }
-}
-
 
 /**
  * Access callback for the invitations history page.
@@ -159,7 +134,7 @@ function emh_virality_block_info() {
     'region' => 'content',
     'weight' => -100,
     'visibility' => BLOCK_VISIBILITY_LISTED,
-    'pages' => "user/*/invitations\ninvitations",
+    'pages' => "invitations",
     'cache' => DRUPAL_CACHE_PER_ROLE,
   ];
 
@@ -520,7 +495,7 @@ function emh_virality_validation_field(&$elements, &$form_state) {
       // Verify that the value is not longer than #maxlength.
       if (isset($elements['#maxlength']) && drupal_strlen($elements['#value']) > $elements['#maxlength']) {
         form_error($elements, t('!name cannot be longer than %max characters but is currently %length characters long.', [
-          '!name' => empty($elements['#title']) ? $elements['#parents'][0] : $elements['#title'],
+          '!name' => empty($elements['#title']) ? check_plain($elements['#parents'][0]) : $elements['#title'],
           '%max' => $elements['#maxlength'],
           '%length' => drupal_strlen($elements['#value']),
         ]));
@@ -841,12 +816,12 @@ function emh_virality_invitation_form_submit($form, &$form_state) {
 function emh_virality_form_alter(&$form, &$form_state, $form_id) {
   // Forms placed in the invitations history page must be submitted to the "/invitations"
   // url if the user is currently viewing its own history
-  if (drupal_match_path(current_path(), 'user/*/invitations')) {
+  if (drupal_match_path(current_path(), 'invitations')) {
     global $user;
     $account = menu_get_object('user');
-
+    ddl('je suis là');
     if ($user->uid == $account->uid) {
-      $form['#action'] = url('invitations');
+      $form['#action'] = url('my-referrals');
       $form['#submit'][] = 'emh_virality_invitations_history_forms_submit';
     }
   }
@@ -858,7 +833,7 @@ function emh_virality_form_alter(&$form, &$form_state, $form_id) {
  * page.
  */
 function emh_virality_invitations_history_forms_submit($form, &$form_state) {
-  $form_state['redirect'] = 'invitations';
+  $form_state['redirect'] = 'my-referrals';
 }
 
 /**
@@ -1100,10 +1075,6 @@ function emh_virality_show_user_history($account = NULL) {
   global $user;
   global $base_url;
 
-  if (current_path() == 'invitations') {
-    menu_set_active_item('user/' . $user->uid . '/invitations');
-  }
-
   if ($account == NULL) {
     $account = $user;
   }
@@ -1160,6 +1131,15 @@ function emh_virality_show_user_history($account = NULL) {
     '#theme' => 'html_tag',
     '#tag' => 'h2',
     '#value' => t('Invitations statement'),
+  ];
+
+  $text = 'You can earn credits by inviting <b>experts</b> in your network to join eMindHub and answer clients requests. You will get a reward (' . variable_get('emh_virality_expert_invitation_reward', 50) . ' credits per expert) the first time each the new expert you sponsored is selected by a client for the quality of his contribution.<br />'
+    . 'We remind you that you can monetize your credits once you have reached a threshold of at least ' . variable_get('emh_points_monetization_threshold', '1500') . ' credits.';
+
+  $build['text'] = [
+    '#theme' => 'html_tag',
+    '#tag' => 'p',
+    '#value' => t($text),
   ];
 
   $build['table'] = [
@@ -1262,7 +1242,7 @@ function emh_virality_node_view($node, $view_mode, $langcode) {
 }
 
 /**
- * Test to know if the node is "All Experts".
+ * If the node is "All Experts".
  *
  * @param $nid Nid of node
  *
@@ -1272,11 +1252,11 @@ function emh_virality_is_request_all_experts($nid) {
 
   $node = node_load($nid);
   if ($node && $node->type == 'request') {
-    if(isset($node->og_group_ref['und'])) {
+    if (isset($node->og_group_ref['und'])) {
       $circles = $node->og_group_ref['und'];
       foreach ($circles as $circle) {
 
-        // see node table for to know nid circle
+        //Circles "All Experts" => nid 314
         if ($circle['target_id'] == '314') {
           return $node;
         }
