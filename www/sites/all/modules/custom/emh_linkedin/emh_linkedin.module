@@ -47,7 +47,7 @@ function emh_linkedin_menu() {
     'file' => 'emh_linkedin.pages.inc',
   ];
 
-  // Route for the invitation page of a specific user
+  //settings linkedin for user
   $items['user/%user/emh_linkedin'] = [
     'title' => 'LinkedIn',
     'page callback' => 'emh_linkedin_user_settings',
