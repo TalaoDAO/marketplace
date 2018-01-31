@@ -72,6 +72,12 @@ Feature: Request
     Then I fill in "Cost of profile purchase" with "100"
       And I press "Save configuration"
 
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/credits/earnings/settings"
+    Then I fill in "Context: profile_buy" with "0.7"
+    And I fill in "Context: user_sponsor" with "0.7"
+    And I press "Save configuration"
+
     Given the test email system is enabled
     Given I am logged in as "expert1"
     When I go to homepage
@@ -164,7 +170,7 @@ Feature: Request
     And I should see "Move credits from Barry Allen to eMindHub."
     And I should see "Captain AMERICA buy Barry Allen profile on \"How to become a superhero?\" request"
     And I should have "400" credits on "client1" user
-    And I should have "30" earnings on "expert1" user
+    And I should have "15" earnings on "expert1" user
     And I should have "30" earnings on "emindhub.test+flash@gmail.com" user mail
 
 
