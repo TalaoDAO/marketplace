@@ -39,6 +39,7 @@ Feature: Request
     Given the test email system is enabled
     Given I am logged in as "client1"
     When I go to homepage
+    And I should see "Referral"
     And I click "Invite experts" in the "content" region
     Then I should see "Invite experts and earn credits!"
 
@@ -70,6 +71,12 @@ Feature: Request
     When I go to "admin/emindhub/credits"
     Then I fill in "Cost of profile purchase" with "100"
       And I press "Save configuration"
+
+    Given I am logged in as a user with the "administrator" role
+    When I go to "admin/emindhub/credits/earnings/settings"
+    Then I fill in "Context: profile_buy" with "0.7"
+    And I fill in "Context: user_sponsor" with "0.7"
+    And I press "Save configuration"
 
     Given the test email system is enabled
     Given I am logged in as "expert1"
@@ -119,13 +126,13 @@ Feature: Request
       #Notice: "Position" don't work because it's exists also in "Last position(s)" group field
     And I fill in "academics" for "field_position[und]"
     And I select "Freelancer" from "Working status"
-    And I fill in "2182" for "Domain"
+    And I fill in "2247" for "Domain"
     And I press "Save"
     And I press "Save"
     Then I should see "The changes have been saved."
 
     Given I am logged in as "expert1"
-    When I go to "invitations"
+    When I click "Referral"
     Then I should see "emindhub.test+flash@gmail.com"
     And I should see "Registered"
 
@@ -142,7 +149,7 @@ Feature: Request
     And I press "Publish"
 
     Given I am logged in as "expert1"
-    When I go to "invitations"
+    When I click "Referral"
     Then I should see "emindhub.test+flash@gmail.com"
     And I should see "Answered to a request"
 
@@ -153,7 +160,7 @@ Feature: Request
     Then I press "Access profile"
 
     Given I am logged in as "expert1"
-    When I go to "invitations"
+    When I click "Referral"
     Then I should see "emindhub.test+flash@gmail.com"
     And I should see "Validated"
 

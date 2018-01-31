@@ -136,6 +136,9 @@ function emh_virality_update_7002() {
     ->execute();
 }
 
+/**
+ * Update table emh_invitation.
+ */
 function emh_virality_update_7003() {
   if (!db_field_exists('emh_invitation', 'message')) {
     $spec = [
@@ -164,4 +167,41 @@ function emh_virality_update_7003() {
     ];
     db_add_field('emh_invitation', 'referral_lastname', $spec);
   }
+}
+
+/**
+ * CHG: My Experts menu.
+ */
+function emh_virality_update_7004() {
+
+  // My experts
+  db_update('menu_links')
+    ->fields(array(
+      'link_path' => '<nolink>',
+      'router_path' => '<nolink>',
+      'expanded' => '1',
+    ))
+    ->condition('mlid', '9259')
+    ->execute();
+
+  $item = array(
+    'link_path' => 'circles/relationships',
+    'link_title' => 'My network',
+    'menu_name' => 'menu-top',
+    'weight' => 10,
+    'plid' => '9259',
+  );
+  menu_link_save($item);
+
+  $item = array(
+    'link_path' => 'my-referrals',
+    'link_title' => 'Referral',
+    'menu_name' => 'menu-top',
+    'weight' => 20,
+    'plid' => '9259',
+  );
+  menu_link_save($item);
+
+  menu_cache_clear_all();
+
 }
