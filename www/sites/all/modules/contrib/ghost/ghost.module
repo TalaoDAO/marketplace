@@ -1,0 +1,142 @@
+<?php
+
+/**
+ * @file
+ * The main Ghost file.
+ *
+ * @license GPL v2 http://www.fsf.org/licensing/licenses/gpl.html
+ *
+ * @author Chris Skene chris at xtfer dot com
+ */
+
+use Drupal\ghost\Core\Formatters\FormatterManager;
+
+/**
+ * Include the Form functionality.
+ */
+include_once 'inc/form.inc';
+
+/**
+ * Include the Block functionality.
+ */
+include_once 'inc/block.inc';
+
+/**
+ * Include the formatter functionality.
+ */
+include_once 'inc/formatter.inc';
+
+/**
+ * Define the block plugin ctools type name.
+ */
+define('GHOST_PLUGIN_TYPE_BLOCK', 'block');
+
+/**
+ * Define the form plugin ctools type name.
+ */
+define('GHOST_PLUGIN_TYPE_FORM', 'form');
+
+/**
+ * Legacy constant for old implementations.
+ *
+ * @deprecated
+ */
+define('GHOST_CTOOLS_TYPE_BLOCK', GHOST_PLUGIN_TYPE_BLOCK);
+
+/**
+ * Defines a formatters plugin type.
+ */
+define('GHOST_PLUGIN_TYPE_FORMATTER', 'formatter');
+
+/**
+ * Define a permission to access developer information.
+ */
+define('GHOST_PERM_DEV_ACCESS', 'access_developer_info');
+
+/**
+ * Implements hook_permission().
+ */
+function ghost_permission() {
+  return array(
+    'administer ghost block plugins' => array(
+      'title' => t('Administer block plugins'),
+    ),
+    'administer ghost form plugins' => array(
+      'title' => t('Administer form plugins'),
+    ),
+    GHOST_PERM_DEV_ACCESS => array(
+      'title' => t('Access developer information'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_type().
+ */
+function ghost_ctools_plugin_type() {
+
+  return array(
+    GHOST_PLUGIN_TYPE_BLOCK => array(
+      'extension' => 'php',
+    ),
+    GHOST_PLUGIN_TYPE_FORMATTER => array(
+      'extension' => 'php',
+    ),
+    GHOST_PLUGIN_TYPE_FORM => array(
+      'extension' => 'php',
+      'cache' => 'none',
+    ),
+  );
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function ghost_ctools_plugin_directory($owner, $plugin_type) {
+
+  if ($owner == 'ghost') {
+
+    if ($plugin_type == GHOST_PLUGIN_TYPE_BLOCK) {
+
+      return 'src/Core/Block/Plugin';
+    }
+
+    if ($plugin_type == GHOST_PLUGIN_TYPE_FORMATTER) {
+
+      return 'src/Core/Formatters/Plugins';
+    }
+
+    if ($plugin_type == GHOST_PLUGIN_TYPE_FORM) {
+
+      return 'src/Core/Form/Plugins';
+    }
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ghost_theme() {
+
+  // Currently we only return theme functions for Formatters.
+  $theme_info = FormatterManager::init()->theme();
+
+  $theme_info['ghost_tag'] = array(
+    'variables' => array(
+      'tag' => NULL,
+      'value' => NULL,
+    ),
+  );
+
+  return $theme_info;
+}
+
+/**
+ * Theme callback to render a tag.
+ */
+function theme_ghost_tag($vars) {
+
+  $tag = check_plain($vars['tag']);
+
+  return '<' . $tag . '>' . $vars['value'] . '</' . $tag . '>';
+}

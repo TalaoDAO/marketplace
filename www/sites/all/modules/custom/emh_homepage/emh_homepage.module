@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * EMH Homepage.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function emh_homepage_init() {
+  if (current_path() == 'emh_homepage') {
+    libraries_load('slick');
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function emh_homepage_menu() {
+  $items = array();
+  $items['emh_homepage'] = array(
+    'title' => 'Home',
+    'page callback' => '_emh_homepage',
+    'access arguments' => array('access content'),
+  );
+  return $items;
+}
+
+/**
+ * Helper function to render the front page.
+ */
+function _emh_homepage() {
+  if (user_is_logged_in()) {
+    drupal_goto('node/323');
+  }
+  else {
+    $config = config_pages_config('homepage');
+    drupal_set_title($config->field_hp_hero_title->value());
+    return config_pages_render('homepage');
+  }
+}
+
+/**
+ * Implements hook_taxonomy_term_view().
+ */
+function emh_homepage_taxonomy_term_view($term, $view_mode, $langcode) {
+  if ($term->vid == '2') {
+    if ($view_mode != 'teaser') {
+      drupal_goto('domains');
+    }
+  }
+}
