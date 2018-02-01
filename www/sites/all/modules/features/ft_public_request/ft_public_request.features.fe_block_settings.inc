@@ -20,7 +20,7 @@ function ft_public_request_default_fe_block_settings() {
     'i18n_mode' => 0,
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => '<front>',
     'roles' => array(
       'anonymous user' => 1,
     ),
@@ -56,7 +56,7 @@ function ft_public_request_default_fe_block_settings() {
     'i18n_mode' => 0,
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => '<front>',
     'roles' => array(
       'anonymous user' => 1,
     ),
