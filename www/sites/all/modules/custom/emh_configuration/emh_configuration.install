@@ -1778,5 +1778,5 @@ function emh_configuration_update_7091() {
   module_enable(['color_field', 'entity_view_mode', 'fences', 'simple_slick']);
   module_enable(['registry_autoload', 'ghost', 'diff']);
   module_enable(['emh_homepage']);
-  variable_set('site_frontpage', 'emh_homepage');
+  //variable_set('site_frontpage', 'emh_homepage');
 }
