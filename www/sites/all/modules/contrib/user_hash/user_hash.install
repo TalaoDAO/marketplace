@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Install hooks for user hash module.
+ */
+
+/**
+ * Implements hook_schema_alter().
+ */
+function user_hash_schema_alter(&$schema) {
+  if (isset($schema['users'])) {
+    $schema['users']['fields']['hash'] = array(
+      'type' => 'varchar',
+      'length' => 128,
+      'not null' => FALSE,
+      'description' => 'User hash.',
+    );
+  }
+}
+
+/**
+ * Implements hook_install().
+ */
+function user_hash_install() {
+  $schema['users'] = array();
+  user_hash_schema_alter($schema);
+  foreach ($schema['users']['fields'] as $name => $spec) {
+    db_add_field('users', $name, $spec);
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function user_hash_uninstall() {
+  $schema['users'] = array();
+  user_hash_schema_alter($schema);
+  foreach ($schema['users']['fields'] as $name => $spec) {
+    db_drop_field('users', $name);
+  }
+
+  variable_del('user_hash_algorithm');
+  variable_del('user_hash_random_bytes');
+}
