@@ -1,0 +1,12 @@
+name = Simple Slick
+description = Provides the Slick library
+core = 7.x
+dependencies[] = libraries
+dependencies[] = ghost
+
+; Information added by Drupal.org packaging script on 2015-10-11
+version = "7.x-1.0-alpha1"
+core = "7.x"
+project = "simple_slick"
+datestamp = "1444607340"
+
