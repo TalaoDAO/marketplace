@@ -205,28 +205,42 @@
   <footer class="footer">
     <div class="container">
       <div class="row">
-        <div class="footer-logo">
+        <div class="col-xs-12 footer-logo">
           <a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>">
-            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-h-white.svg" alt="<?php print $site_name; ?>" />
-            <span><?php print t('The smart professional network <br />in aerospace'); ?></span>
+            <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/logo/logo-footer.png" alt="<?php print $site_name; ?>" />
           </a>
         </div>
-        <div class="footer-nav">
-          <?php print render($page['footer_top']); ?>
+      </div>
+      <div class="row footer-links">
+        <div class="col-xs-6 col-xs-offset-3">
+          <div class="footer-nav">
+            <?php print render($page['footer_top']); ?>
+          </div>
         </div>
-        <div class="footer-contact">
-          <h4><?php print t('Contact us'); ?></h4>
-          <p><a href="<?php print url('contact'); ?>">contact@emindhub.com</a></p>
-        </div>
-        <div class="footer-social">
-          <div class="social-links">
-            <a class="social-network" href="https://twitter.com/emindhub"><img src="<?php print $base_url . '/' . drupal_get_path('module', 'emh_service_links'); ?>/images/twitter.svg" alt="Twitter" /></a>
-            <a class="social-network" href="https://www.linkedin.com/company/emindhub"><img src="<?php print $base_url . '/' . drupal_get_path('module', 'emh_service_links'); ?>/images/linkedin.svg" alt="Linkedin" /></a>
+        <div class="col-xs-3">
+          <div class="footer-social">
+            <div class="social-links">
+              <a class="social-network" href="https://twitter.com/emindhub"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/social-networks/footer-twitter.png" alt="Twitter" /></a>
+              <a class="social-network" href="https://www.linkedin.com/company/emindhub"><img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/social-networks/footer-linkedin.png" alt="Linkedin" /></a>
+            </div>
           </div>
         </div>
       </div>
-      <hr />
-      <p class="footer-credits"><?php print date('Y'); ?> <?php print $site_name; ?> | <?php print t('All rights reserved'); ?></p>
+      <div class="row footer-partners">
+        <p><?php print t('Our partners'); ?></p>
+        <div class="col-xs-2 col-xs-offset-2">
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/partners/bpifrance.png" alt="BPI France" />
+        </div>
+        <div class="col-xs-2">
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/partners/digitalplace.png" alt="Digital Place" />
+        </div>
+        <div class="col-xs-2">
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/partners/francedigitale.png" alt="France Digitale" />
+        </div>
+        <div class="col-xs-2">
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/partners/occitanie.png" alt="Région Occitanie" />
+        </div>
+      </div>
     </div>
   </footer>
 
