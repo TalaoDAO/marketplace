@@ -1,0 +1,108 @@
+<?php
+
+/**
+ * @file
+ * EMH Blockchain.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function emh_blockchain_menu() {
+  $items = array();
+
+  $items['admin/emindhub/blockchain'] = array(
+    'title' => 'Blockchain',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_blockchain_admin_form'),
+    'access arguments' => array('administer blockchain'),
+    'file' => 'emh_blockchain.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['blockchain/helloworld'] = array(
+    'title' => 'Helloworld',
+    'page callback' => '_emh_blockchain_helloworld',
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function emh_blockchain_permission() {
+  return array(
+    'administer blockchain' => array('title' => t('Administer Blockchain')),
+  );
+}
+
+/**
+ * Blockchain helloworld.
+ */
+function _emh_blockchain_helloworld() {
+  global $user;
+  $content = '';
+
+  $web3_local = variable_get('ethereum_web3_local_injection');
+  $library = libraries_load('web3');
+
+  if (($web3_local && $library && !empty($library['loaded'])) || !$web3_local) {
+
+    $header = array(
+      t('Expert'),
+      t('Votes'),
+    );
+    $rows = array(
+      array('Captain America', array('data' => '', 'id' => 'candidate-1')),
+      array('Charles Xavier', array('data' => '', 'id' => 'candidate-2')),
+      array('Ironman', array('data' => '', 'id' => 'candidate-3')),
+    );
+    $content .= theme('table', array(
+      'header' => $header,
+      'rows' => $rows,
+      'caption' => t('Those votes are read and written in the blockchain.'),
+    ));
+    $client = user_load(3); //Yoann Babel
+    $content .= '<input type="text" id="candidate" />
+    <a href="#" id="submit" class="btn btn-primary">Vote</a><hr>';
+    $content .= '<b>admin</b><br>hash: '.$user->hash.'<br>address: <span id="admin-address"></span><br>eth balance : <span id="admin-eth"></span><br>token balance: <span id="admin-token"></span>';
+    $content .= '<br><b>client (YBA)</b><br>hash: '.$client->hash.'<br>address: <span id="client-address"></span><br>eth balance : <span id="client-eth"></span><br>token balance: <span id="client-token"></span>';
+    $content .= '<div id="debug-client"/><div id="debug-user"/>';
+    $content .= 'User 3 (Yoann Babel) <input type="text" id="eth-password" /> <input id="buyYBA" type="button" value="Buy 1 Token for 0.001 ether">';
+    drupal_add_js(array(
+      'emh_blockchain' => array(
+        'voting_deployed_contract_address' => variable_get('emh_blockchain_voting_deployed_contract_address'),
+        'voting_deployed_contract_address_fallback' => variable_get('emh_blockchain_voting_deployed_contract_address_fallback'),
+        'register_drupal_deployed_contract_address_fallback' => variable_get('emh_blockchain_RegisterDrupal_deployed_contract_address_fallback'),
+        'register_drupal_deployed_contract_ABI' => variable_get('emh_blockchain_RegisterDrupal_deployed_contract_ABI'),
+        'token_emh_deployed_contract_address_fallback' => variable_get('emh_blockchain_TokenEMH_deployed_contract_address_fallback'),
+        'token_emh_deployed_contract_ABI' => variable_get('emh_blockchain_TokenEMH_deployed_contract_ABI'),
+        'adminHash' => $user->hash,
+        'clientHash' => $client->hash,
+      ),
+    ), 'setting');
+    drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/contracts/helloworld/js/helloworld.js', array('scope' => 'footer'));
+    drupal_add_js(drupal_get_path('module', 'emh_blockchain') . '/contracts/registerdrupal/js/registerdrupal.js', array('scope' => 'footer'));
+  }
+  else {
+    $content = 'Web3.js could not load.';
+  }
+  return $content;
+}
+
+/**
+ * Implements hook_ethereum_user_tab().
+ */
+function emh_blockchain_ethereum_user_tab(&$build, $this_user_ethereum_address) {
+
+  $markup  = '<div id="emh_blockchain">';
+  $markup .= '<h2>Example of hook_ethereum_user_tab</h2>';
+  $markup .= '<p>User address is ' . $this_user_ethereum_address . '</p>';
+  $markup .= '</div>';
+
+  $build['emb_blockchain'] = array(
+    '#markup' => $markup,
+  );
+}

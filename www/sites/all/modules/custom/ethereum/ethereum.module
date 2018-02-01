@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Ethereum features for Drupal.
+ *
+ * Features are in submodules.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ethereum_menu() {
+   $items = array();
+
+   $items['admin/config/ethereum'] = array(
+     'title' => 'Ethereum',
+     'description' => 'Ethereum module and submodules.',
+     'page callback' => 'system_admin_menu_block_page',
+     'access arguments' => array('administer site configuration'),
+     'file' => 'system.admin.inc',
+     'file path' => drupal_get_path('module', 'system'),
+  );
+
+  return $items;
+}
