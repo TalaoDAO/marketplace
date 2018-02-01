@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * @file
+ * Ethereum web3 library.
+ */
+
+/**
+ * Implements hook_libraries_info().
+ */
+function ethereum_web3_libraries_info() {
+  $libraries['web3'] = array(
+    'name' => 'web3.js',
+    'vendor url' => 'https://github.com/ethereum/web3.js/',
+    'download url' => 'https://github.com/ethereum/web3.js/releases',
+    'version arguments' => array(
+      'file' => 'dist/web3.min.js',
+      'pattern' => '/version:"([0-9a-z\.-]+)"/',
+      'lines' => 150,
+    ),
+    'files' => array(
+      'js' => array('dist/web3.min.js'),
+    ),
+  );
+  return $libraries;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function ethereum_web3_menu() {
+  $items = array();
+
+  $items['admin/config/ethereum/web3'] = array(
+    'title' => 'Web3.js',
+    'description' => 'Web3.js settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ethereum_web3_admin_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'ethereum_web3.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_init().
+ */
+function ethereum_web3_init() {
+
+  // Local injection of web3, if enabled.
+  if (variable_get('ethereum_web3_local_injection')) {
+
+    // Try to load the library.
+    if (($library = libraries_load('web3')) && !empty($library['loaded'])) {
+
+      // Pass settings to JS.
+      $settings = array(
+        'node' => variable_get('ethereum_web3_node'),
+      );
+      drupal_add_js(array('ethereum_web3' => $settings), 'setting');
+    }
+  }
+}

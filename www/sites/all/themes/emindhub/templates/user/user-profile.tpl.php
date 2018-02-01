@@ -180,5 +180,5 @@ $country = isset($countries[$country_code]) ? $countries[$country_code] : '';
       <?php print render($user_profile['field_availability']); ?>
     </div>
   <?php endif; ?>
-
+  <?php print render($user_profile['field_balanceof']); ?>
 </div>
