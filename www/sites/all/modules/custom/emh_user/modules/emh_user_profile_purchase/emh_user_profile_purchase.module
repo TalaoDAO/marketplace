@@ -31,6 +31,14 @@ function emh_user_profile_purchase_menu() {
  * Builds the profile purchase form.
  */
 function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
+  $web3_local = variable_get('ethereum_web3_local_injection');
+  $library = libraries_load('web3');
+
+  if (! (($web3_local && $library && !empty($library['loaded'])) || !$web3_local) ) {
+    $form['Error'] = array('#markup' => "Web3.js could not be loaded, ethereum wont work. You should be able to use the site normally though. Contact your adminsitrator");
+    //return $form;
+  }
+
   global $user;
 
   // Checks if the account hasn't already been purchased.
@@ -53,14 +61,16 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
 
   $form['confirmation'] = array(
     '#type' => 'item',
-    '#markup' => '<p>' . t("Access !user's profile for !amount credits?", array(
+    '#markup' => '<p><span id="buy-title">' . t("Access !user's profile for !amount credits ?", array(
       '!user' => format_username($account),
       '!amount' => $amount,
-    )) . '</p>'
+    )) . '</span></p>'
 		. '<p class="emh-credits-buy">' . t('Do you need more credits? Please contact us at <a href="mailto:credits@emindhub.com?Subject=Credits%20needed%20by%20!current_user&Body=Your%20company%3A%0AYour%20position%3A%0APhone%20number%3A%0AAmount%20of%20credits%20needed%3A">credits@emindhub.com</a>', array(
 					'!current_user' => format_username($user),
 		)) . '</p>',
   );
+
+  $form['info'] = array('#markup' => "<div id='ethereum-info'></div>");
 
   $form['actions'] = array(
     '#type' => 'actions',
@@ -77,6 +87,27 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
     ),
   );
 
+  $_user = user_load($user->uid);
+  $_account = user_load($account->uid);
+  _ethereum_smartcontract_load('token_erc20');
+  _ethereum_smartcontract_load('register_drupal');
+  drupal_add_js(array(
+    'emh_blockchain' => array(
+      'clientHash' => $_user->hash,
+      'clientAddress' => $_user->ethereum_address['und'][0]['ethereum_address'],
+      'expertHash' => $_account->hash,
+      'expertAddress' => $_account->ethereum_address['und'][0]['ethereum_address'],
+      'clientName' => emh_user_get_beautiful_realname($_user),
+      'expertName' => emh_user_get_beautiful_realname($_account),
+    ),
+  ), 'setting');
+
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/buffer.js');
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/keythereum.min.js');
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/lodash.min.js');
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/ethereumjs-tx-1.3.3.min.js');
+  drupal_add_js(drupal_get_path('module', 'emh_user_profile_purchase').'/js/ethereum_buy_profile.js');
+  //$form['info'] = array('#markup' => $_account->ethereum_user_address['und'][0]['ethereum_address']);
   return $form;
 }
 
@@ -183,13 +214,13 @@ function emh_user_profile_purchase($account, $node = NULL) {
     $amount = (int) variable_get('emh_user_profile_purchase_amount', 100);
 
     if ($node != NULL) {
-      $log = t('!source buy !destination profile on "!title" request', 
+      $log = t('!source buy !destination profile on "!title" request',
                   array(
-                      '!source' => emh_points_format_entity($user), 
-                      '!destination' => emh_points_format_entity($account), 
-                      '!title' => $node->title, 
+                      '!source' => emh_points_format_entity($user),
+                      '!destination' => emh_points_format_entity($account),
+                      '!title' => $node->title,
                   ));
-      emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT, NULL, $log, $node->nid); 
+      emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT, NULL, $log, $node->nid);
     } else emh_points_move_points($user, $account, $amount, EMH_USER_PROFILE_PURCHASE_TXN_CONTEXT);
 
     // Flags the account to add it in the user's relationships.
