@@ -5,6 +5,8 @@ if (!function_exists('json_decode')) {
   throw new Exception('DetectLanguage needs the JSON PHP extension.');
 }
 // Library files
-require(dirname(__FILE__) . '/DetectLanguage/Error.php');
+if (!class_exists('Error')) {
+  require(dirname(__FILE__) . '/DetectLanguage/Error.php');
+}
 require(dirname(__FILE__) . '/DetectLanguage/DetectLanguage.php');
 require(dirname(__FILE__) . '/DetectLanguage/Client.php');
