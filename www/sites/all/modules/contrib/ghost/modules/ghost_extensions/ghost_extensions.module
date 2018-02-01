@@ -1,0 +1,66 @@
+<?php
+
+/**
+ * @file
+ * Ghost extensions.
+ *
+ * @license GPL v2 http://www.fsf.org/licensing/licenses/gpl.html
+ * @author Chris Skene chris at xtfer dot com
+ * @copyright Copyright(c) 2015 Christopher Skene
+ */
+
+/**
+ * Implements hook_token_info().
+ */
+function ghost_extensions_token_info() {
+
+  $info['tokens']['random']['alphanum'] = array(
+    'name' => t('Alphanumeric'),
+    'description' => t('A random, non-unique, alphanumeric string. [random:alphanum:8] means random alphanumeric string of length 8. The possible lengths are 4-32 characters.'),
+    'dynamic' => TRUE,
+  );
+  if (module_exists('uuid')) {
+    $info['tokens']['random']['uuid'] = array(
+      'name' => t('UUID'),
+      'description' => t('A UUID.'),
+    );
+  }
+
+  return $info;
+}
+
+/**
+ * Implements hook_tokens().
+ */
+function ghost_extensions_tokens($type, $tokens, array $data = array(), array $options = array()) {
+
+  $replacements = array();
+
+  if ($type == 'random') {
+    // [custom:alphanum:*] dynamic token.
+    if ($hash_tokens = token_find_with_prefix($tokens, 'alphanum')) {
+      $alphanum_letters = array_merge(range('0', '9'), range('a', 'z'));
+      foreach ($hash_tokens as $length => $original) {
+        shuffle($alphanum_letters);
+        if ($length < 4) {
+          $length = 4;
+        }
+        if ($length > 32) {
+          $length = 32;
+        }
+        $replacements[$original] = implode('', array_slice($alphanum_letters, 0, $length));
+      }
+    }
+
+    if (module_exists('uuid')) {
+      foreach ($tokens as $name => $original) {
+
+        if ($name == 'uuid') {
+          $replacements[$original] = uuid_generate();
+        }
+      }
+    }
+  }
+
+  return $replacements;
+}
