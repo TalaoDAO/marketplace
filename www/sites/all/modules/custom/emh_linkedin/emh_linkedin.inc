@@ -137,6 +137,7 @@ function _emh_linkedin_fields_build_profile() {
  */
 function _emh_linkedin_fields_user_update() {
   // Basic Profile LinkedIn Fields
+
   $fields = [
     'location',
     //'summary', //waiting to fix the problem with field_description_activities
@@ -198,6 +199,7 @@ function _emh_linkedin_update_user($user) {
 function _emh_linkedin_fields_to_user_fields($field, $user) {
   if (isset($field['value'])) {
     $item = $field['value'];
+
     switch ($field['name']) {
 
       case 'location' :
@@ -690,6 +692,7 @@ function _emh_linkedin_parse_fields($contents) {
             $current[$tag],
             $result,
           ]; // ...Make it an array using using the existing value and the new value
+
           $repeated_tag_index[$tag . '_' . $level] = 2; // 0 and 1 index is already taken
         }
       }
