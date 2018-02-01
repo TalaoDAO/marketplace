@@ -20,8 +20,7 @@ function ft_front_default_fe_block_settings() {
     'machine_name' => 'emh_hp_community',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => '<front>
-open-requests',
+    'pages' => 'open-requests',
     'roles' => array(
       'anonymous user' => 1,
     ),
@@ -57,7 +56,7 @@ open-requests',
     'machine_name' => 'emh_hp_domains',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => '<front>',
+    'pages' => '',
     'roles' => array(
       'anonymous user' => 1,
     ),
@@ -93,7 +92,7 @@ open-requests',
     'machine_name' => 'emh_hp_how',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => '<front>',
+    'pages' => '',
     'roles' => array(
       'anonymous user' => 1,
     ),
@@ -129,7 +128,7 @@ open-requests',
     'machine_name' => 'emh_hp_persona',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => '<front>',
+    'pages' => '',
     'roles' => array(
       'anonymous user' => 1,
     ),
@@ -165,7 +164,7 @@ open-requests',
     'machine_name' => 'emh_hp_references',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => '<front>',
+    'pages' => '',
     'roles' => array(
       'anonymous user' => 1,
     ),
@@ -226,42 +225,6 @@ open-requests',
       ),
     ),
     'title' => '<none>',
-    'visibility' => 0,
-  );
-
-  $export['block-emh_partners'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'i18n_block_language' => array(),
-    'i18n_mode' => 1,
-    'machine_name' => 'emh_partners',
-    'module' => 'block',
-    'node_types' => array(),
-    'pages' => '',
-    'roles' => array(
-      'anonymous user' => 1,
-    ),
-    'themes' => array(
-      'emindhub' => array(
-        'region' => 'footer_bottom',
-        'status' => 1,
-        'theme' => 'emindhub',
-        'weight' => -39,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-      'smartmobility' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'smartmobility',
-        'weight' => -39,
-      ),
-    ),
-    'title' => 'Our partners',
     'visibility' => 0,
   );
 
