@@ -52,7 +52,7 @@ function emh_linkedin_menu() {
     'title' => 'LinkedIn',
     'page callback' => 'emh_linkedin_user_settings',
     'page arguments' => [1],
-    'access callback' => 'emh_linkedin_user_access',
+    'access callback' => FALSE, // TODO : restore wwhen OK. 'emh_linkedin_user_access',
     'access arguments' => [1],
     'type' => MENU_LOCAL_TASK,
   ];
