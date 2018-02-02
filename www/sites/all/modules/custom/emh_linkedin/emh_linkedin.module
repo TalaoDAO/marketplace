@@ -197,6 +197,7 @@ function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {
  * Implements hook_file_delete.
  */
 function emh_linkedin_file_delete($file) {
+  module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
   $path = EMH_LINKEDIN_DIR_IMAGE . '/' . $file->origname;
   if (file_exists($path)) {
     unlink($path);
