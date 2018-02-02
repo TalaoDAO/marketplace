@@ -1,4 +1,4 @@
-<section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<section id="smart-mobility-persona" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <?php print $title; ?>
   <?php echo sprintf(t('An initiative dedicated to the redeployment of Airbus employees %sin the aerospace sector'), '<br />'); ?>
