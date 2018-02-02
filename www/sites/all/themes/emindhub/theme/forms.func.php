@@ -159,8 +159,7 @@ function emindhub_form_alter(&$form, &$form_state, $form_id) {
       break;
 
     case 'user_register_form_client':
-    case 'user_register_form_expert':
-      $form['#groups']['group_account']->label = '';
+    case 'user_register_form_expert': 
       $form['emh_baseline'] = array(
         '#markup' => '<p class="emh-title-baseline">' . sprintf(t('Create your account %sfor free in no time%s'), '<strong>', '</strong>') . '</p>',
         '#weight' => '-1000',
