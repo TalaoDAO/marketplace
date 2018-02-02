@@ -834,24 +834,6 @@ function ft_permissions_user_default_permissions() {
     'module' => 'rules',
   );
 
-  // Exported permission: 'administer rules forms'.
-  $permissions['administer rules forms'] = array(
-    'name' => 'administer rules forms',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'rules_forms',
-  );
-
-  // Exported permission: 'administer rules forms rules'.
-  $permissions['administer rules forms rules'] = array(
-    'name' => 'administer rules forms rules',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'rules_forms',
-  );
-
   // Exported permission: 'administer simplify'.
   $permissions['administer simplify'] = array(
     'name' => 'administer simplify',
