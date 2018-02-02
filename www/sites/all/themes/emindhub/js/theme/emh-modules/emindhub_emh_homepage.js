@@ -39,6 +39,7 @@
       // Clients.
       $('.hp-clients .field-items').slick({
         speed: 500,
+        autoplaySpeed: 1500,
         autoplay: true,
         infinite: true,
         slidesToShow: 7,
