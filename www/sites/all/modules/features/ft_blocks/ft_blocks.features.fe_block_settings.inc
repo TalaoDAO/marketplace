@@ -20,7 +20,7 @@ function ft_blocks_default_fe_block_settings() {
     'machine_name' => 'hp_welcome',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => '<front>',
+    'pages' => 'homepage',
     'roles' => array(
       'authenticated user' => 2,
     ),

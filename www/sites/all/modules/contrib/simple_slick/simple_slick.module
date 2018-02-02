@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Simple Slick
+ *
+ * @license GPL v2 http://www.fsf.org/licensing/licenses/gpl.html
+ * @author Chris Skene chris at xtfer dot com
+ * @copyright Copyright(c) 2015 Christopher Skene
+ */
+
+
+/**
+ * Implements hook_libraries_info().
+ */
+function simple_slick_libraries_info() {
+  $slick_library_path = libraries_get_path('slick');
+
+  $libraries = array();
+
+  // Slick,
+  $libraries['slick'] = array(
+    'title' => 'Slick',
+    'website' => 'http://kenwheeler.github.io/slick/',
+    'version' => '1.3.2',
+    'js' => array(
+      $slick_library_path . '/slick/slick.min.js' => array('group' => JS_DEFAULT),
+    ),
+    'css' => array(
+      $slick_library_path . '/slick/slick.css' => array('group' => CSS_DEFAULT),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Helper to add the slick library.
+ */
+function simple_slick_add_slick() {
+  $added = drupal_add_library('simple_slick', 'slick');
+  if (empty($added)) {
+    \Drupal\ghost\Logger\Logger::init('simple_slick', 'Failed to add Slick', WATCHDOG_ERROR, TRUE);
+  }
+}

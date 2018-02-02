@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @file
+ * Examples for Ghost.
+ *
+ * @license GPL v2 http://www.fsf.org/licensing/licenses/gpl.html
+ * @author Chris Skene chris at xtfer dot com
+ * @copyright Copyright(c) 2014 Christopher Skene
+ */
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ */
+function ghost_examples_ctools_plugin_directory($owner, $plugin_type) {
+
+  // Tell CTools that we implement Ghost Block plugins.
+  if ($owner == 'ghost') {
+    if ($plugin_type == GHOST_PLUGIN_TYPE_BLOCK) {
+
+      return 'src/Block';
+    }
+    if ($plugin_type == GHOST_PLUGIN_TYPE_FORM) {
+
+      return 'src/FormPlugin';
+    }
+  }
+}

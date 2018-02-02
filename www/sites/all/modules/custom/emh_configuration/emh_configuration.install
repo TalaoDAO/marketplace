@@ -1771,3 +1771,21 @@ function emh_configuration_update_7089() {
 function emh_configuration_update_7090() {
   module_enable(['emh_linkedin']);
 }
+
+/**
+ * ADD: new homepage.
+ */
+function emh_configuration_update_7091() {
+  module_enable(['color_field', 'entity_view_mode', 'fences', 'simple_slick']);
+  module_enable(['registry_autoload', 'ghost', 'diff']);
+  module_enable(['emh_homepage']);
+}
+
+/**
+ * ADD: disable unused module rules_forms.
+ */
+function emh_configuration_update_7092() {
+  module_disable(['rules_forms']);
+}
+
+
