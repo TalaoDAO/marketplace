@@ -1,4 +1,4 @@
-<section id="<?php print $block_html_id; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
+<section id="smart-mobility-partners"> class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <?php print $title; ?>
   <ul>
