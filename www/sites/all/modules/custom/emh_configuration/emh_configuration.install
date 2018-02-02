@@ -1780,3 +1780,12 @@ function emh_configuration_update_7091() {
   module_enable(['registry_autoload', 'ghost', 'diff']);
   module_enable(['emh_homepage']);
 }
+
+/**
+ * ADD: disable unused module rules_forms.
+ */
+function emh_configuration_update_7092() {
+  module_disable(['rules_forms']);
+}
+
+
