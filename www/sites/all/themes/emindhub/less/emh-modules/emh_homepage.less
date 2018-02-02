@@ -210,7 +210,7 @@
 						font-size: 9px;
 						text-align: center;
 						color: #0a2c3f;
-						background-color: #459DC4;
+						background-color: lighten(#007eb3, 30%);
 						border-radius: 7px;
 						height: 14px;
 						width: auto;
@@ -369,6 +369,9 @@
 		.field-collection-view {
 			display: inline-block;
 			width: auto;
+			.field-collection-view {
+				width: 100% !important;
+			}
 			.field-name-field-slide-image{
 				height: 80px;
 				img{
@@ -380,7 +383,7 @@
 				font-weight: bold;
 				text-align: center;
 				color: #0a2c3f;
-				-webkit-text-stroke: 1px #005174;
+				//-webkit-text-stroke: 1px #005174;
 			}
 			.field-name-field-slide-text{
 				.field-item{
@@ -388,7 +391,7 @@
 					font-weight: normal;
 					text-align: center;
 					color: #0a2c3f;
-					-webkit-text-stroke: 1px #005174;
+					//-webkit-text-stroke: 1px #005174;
 					margin-top: 40px;
 					@media @mobile-view{
 						margin-top: 20px;
@@ -398,7 +401,8 @@
 			}
 		}
 		.field-name-field-hp-solutions-link{
-			a{
+			margin-top: 50px;
+			a {
 				font-weight: normal;
 				font-style: normal;
 				font-stretch: normal;
@@ -471,6 +475,7 @@
 			color: #0a2c3f;
 			width: 80%;
 			margin-left: 23px;
+			margin-top: 33px;
 		}
 		a{
 			font-weight: normal;
@@ -487,7 +492,7 @@
 			padding: 7px;
 			transform: translate(-50%);
 			-webkit-transform: translate(-50%);
-			margin-top: 30px;
+			margin-top: 37px;
 			margin-bottom: 40px;
 			margin-left: 50%;
 			display: block;
