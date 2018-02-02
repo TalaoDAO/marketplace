@@ -36,7 +36,8 @@ function ft_content_type_field_group_info() {
       10 => 'field_position',
       11 => 'field_linkedin',
       12 => 'field_twitter',
-      13 => 'account',
+      13 => 'field_activities_linkedin',
+      14 => 'account',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -54,7 +55,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_account|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -85,7 +86,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_address|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -106,7 +107,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(),
     ),
   );
-  $field_groups['group_background|node|question1|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -127,7 +128,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(),
     ),
   );
-  $field_groups['group_background|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -160,7 +161,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_business|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -192,7 +193,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'collapsible',
     ),
   );
-  $field_groups['group_common|node|challenge|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -225,7 +226,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'collapsible',
     ),
   );
-  $field_groups['group_common|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -257,7 +258,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'collapsible',
     ),
   );
-  $field_groups['group_common|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -291,7 +292,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_common|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -322,7 +323,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_complement|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -352,7 +353,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_container_background|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -381,7 +382,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_container_interests|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -410,7 +411,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_container_public_darken|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -439,7 +440,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_container_public|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -469,7 +470,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_container_skills|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -498,7 +499,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_container_testimony|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -529,7 +530,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_expert|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -559,7 +560,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_hidden|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -592,7 +593,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'collapsible',
     ),
   );
-  $field_groups['group_hidden|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -646,7 +647,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'collapsed',
     ),
   );
-  $field_groups['group_hidden|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -678,7 +679,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_interests|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -706,7 +707,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label2|node|challenge|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -734,7 +735,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label2|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -762,7 +763,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label2|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -792,7 +793,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label2|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -820,7 +821,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label3|node|challenge|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -848,7 +849,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label3|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -876,7 +877,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label3|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -906,7 +907,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label3|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -934,7 +935,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label|node|challenge|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -962,7 +963,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -990,7 +991,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1020,7 +1021,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_label|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1055,7 +1056,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_misc|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1090,7 +1091,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_mission|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1123,7 +1124,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_needs|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1157,7 +1158,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_needs|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1186,7 +1187,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_organisation_wrapper|field_collection_item|field_position_list|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1219,7 +1220,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_organisation|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1250,7 +1251,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_organisation|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1279,7 +1280,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_position_wrapper|field_collection_item|field_position_list|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1315,7 +1316,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_public_profile|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1344,7 +1345,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_public_wrapper_image|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1375,7 +1376,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_public_wrapper_info|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1408,7 +1409,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_row_names_left|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1440,7 +1441,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_row_names_right|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1473,7 +1474,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_row_names|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1504,7 +1505,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_row|field_collection_item|field_position_list|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1535,7 +1536,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_row|field_collection_item|field_skills_set|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1565,7 +1566,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_row|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1599,7 +1600,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_scope|node|challenge|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1633,7 +1634,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_scope|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1667,7 +1668,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_scope|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1703,7 +1704,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_skills|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1742,7 +1743,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_skills|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1776,7 +1777,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_sponsorship|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1812,7 +1813,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_target|node|challenge|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1848,7 +1849,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_target|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1884,7 +1885,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_target|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1916,7 +1917,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_testimony|user|user|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1951,7 +1952,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_testimony|user|user|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -1972,7 +1973,7 @@ function ft_content_type_field_group_info() {
       'instance_settings' => array(),
     ),
   );
-  $field_groups['group_title|node|question1|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2008,7 +2009,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_visibility|node|challenge|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2044,7 +2045,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_visibility|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2080,7 +2081,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_visibility|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2115,7 +2116,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_what|node|challenge|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2148,7 +2149,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_what|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2185,7 +2186,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_what|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2216,7 +2217,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_who|node|challenge|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2247,7 +2248,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_who|node|question1|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2278,7 +2279,7 @@ function ft_content_type_field_group_info() {
       'formatter' => 'open',
     ),
   );
-  $field_groups['group_who|node|webform|form'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2307,7 +2308,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_wrapper_self_appraisal|field_collection_item|field_skills_set|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2336,7 +2337,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_wrapper_skill|field_collection_item|field_skills_set|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2365,7 +2366,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_wrapper_years|field_collection_item|field_position_list|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -2394,7 +2395,7 @@ function ft_content_type_field_group_info() {
       ),
     ),
   );
-  $field_groups['group_wrapper_years|field_collection_item|field_skills_set|default'] = $field_group;
+  $field_groups[''] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.

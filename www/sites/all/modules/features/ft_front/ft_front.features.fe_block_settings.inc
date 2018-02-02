@@ -243,8 +243,8 @@ open-requests',
     ),
     'themes' => array(
       'emindhub' => array(
-        'region' => 'footer_bottom',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'emindhub',
         'weight' => -39,
       ),

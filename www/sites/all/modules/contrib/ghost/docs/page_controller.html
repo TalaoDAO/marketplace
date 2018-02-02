@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>Ghost</title>
+  <link rel="stylesheet" href="pnx-doc.css" />
+</head>
+<body>
+<div class="content"><h1>Ghost: Page Controller</h1>
+
+  <p>Page Controller provides a standardised Controller class for object-oriented page callbacks in Drupal 7, a bit like Drupal 8 page controllers.</p>
+
+  <p>Hook_menu accepts any string for the page callback. While passing a
+    standard object or an array suitable for use in call_user_func() won't work
+    here, a static object callback will. We leverage this to provide a standard
+    controller which can be reused for object oriented page callbacks.</p>
+
+  <h2>Usage</h2>
+
+  <script src="https://gist.github.com/xtfer/789fd7c6f4ccc265e1eb.js"></script>
+
+  <p>then, create a new page controller at</p>
+
+  <script src="https://gist.github.com/xtfer/49ff89ae3be666dcfd05.js"></script>
+</div>
+
+</body>
+</html>

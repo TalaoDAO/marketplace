@@ -1,0 +1,62 @@
+@import "reset.css";
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic);
+
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: rgb(78, 78, 78);
+  background: rgb(253, 253, 253);
+  line-height: 1.4;
+  border-top: 20px solid rgb(8, 88, 150);
+}
+
+/* Heading styles */
+h1 {
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 2em;
+  color: rgb(8, 88, 150);
+}
+h2 {
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1.6em;
+  font-style: italic;
+  color: rgb(8, 88, 150);
+}
+h3 {
+  font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 1.2em;
+  color: rgb(8, 88, 150);
+}
+
+/* Bottom margins on block elements */
+h1, h2, h3, h4, h5, h6, p, ul, ol {
+  margin-bottom: 1em;
+}
+
+/* Side margins on lists */
+ul, ol {
+  padding-left: 2em;
+}
+
+/* List styles */
+ul {
+  list-style: circle;
+}
+
+/* Links */
+a, a:link, a:visited, a:active {
+  color: rgb(48, 137, 183);
+}
+a:hover {
+  color: rgb(32, 59, 107);
+}
+
+/* Main body */
+.content {
+  max-width: 1024px;
+  padding: 2em 4em;
+}
+
+.gist {
+  max-width: 800px;
+  font-size: 0.9em;
+}
