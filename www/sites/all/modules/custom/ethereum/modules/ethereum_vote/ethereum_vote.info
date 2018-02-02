@@ -1,5 +1,0 @@
-name = Ethereum Vote
-description = Ethereum vote for Drupal
-package = Ethereum
-core = 7.x
-
