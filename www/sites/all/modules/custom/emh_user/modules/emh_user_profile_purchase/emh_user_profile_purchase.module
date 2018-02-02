@@ -15,6 +15,15 @@ include_once 'emh_user_profile_purchase.admin.inc';
 function emh_user_profile_purchase_menu() {
   $items = array();
 
+  $items['user/%user/purchase'] = array(
+    'title' => 'Buy profile access',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_user_profile_purchase_form', 1),
+    'access callback' => 'user_view_access',
+    'access arguments' => array(1),
+    'type' => MENU_CALLBACK,
+  );
+
   $items['user/%user/purchase/%node'] = array(
     'title' => 'Buy profile access',
     'page callback' => 'drupal_get_form',

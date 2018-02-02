@@ -1,0 +1,59 @@
+<?php
+/**
+ * @file
+ * Developer tools for use with Ghost.
+ *
+ * @license GPL v2 http://www.fsf.org/licensing/licenses/gpl.html
+ *
+ * @author Chris Skene chris dot skene at xtfer dot com
+ *
+ * @copyright Copyright(c) 2016 Christopher Skene
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ghost_dev_menu() {
+
+  $base_path = 'admin/config/development/ghost';
+
+  $items = array();
+
+  $items[$base_path] = array(
+    'title' => 'Ghost',
+    'description' => 'Information about functionality provided by Ghost',
+    'page callback' => '\Drupal\\ghost\\Page\\PageController::createPage',
+    'page arguments' => array(
+      '\Drupal\\ghost_dev\\Controller\\GhostOverviewController',
+      'view',
+    ),
+    'access arguments' => array(GHOST_PERM_DEV_ACCESS),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items[$base_path . '/block-plugins'] = array(
+    'title' => 'Block plugins',
+    'description' => 'View installed block plugins',
+    'page callback' => '\Drupal\\ghost\\Page\\PageController::createPage',
+    'page arguments' => array(
+      '\Drupal\\ghost_dev\\Controller\\BlockPluginListController',
+      'view',
+    ),
+    'access arguments' => array(GHOST_PERM_DEV_ACCESS),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items[$base_path . '/services'] = array(
+    'title' => 'Services',
+    'description' => 'View available Services',
+    'page callback' => '\Drupal\\ghost\\Page\\PageController::createPage',
+    'page arguments' => array(
+      '\Drupal\\ghost_dev\\Controller\\ServiceListController',
+      'view',
+    ),
+    'access arguments' => array(GHOST_PERM_DEV_ACCESS),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}

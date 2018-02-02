@@ -3,6 +3,8 @@
  * @file Main hooks implementation for emh LinkedIn module.
  */
 module_load_include('inc', 'emh_linkedin', 'emh_linkedin.pages');
+module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
+module_load_include('inc', 'emh_linkedin');
 
 /**
  * Implements hook_init().
@@ -112,7 +114,6 @@ function emh_linkedin_user_edit_perms() {
  * Implements hook_hybridauth_user_login.
  */
 function emh_linkedin_hybridauth_user_login($account, $data) {
-  module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
 
   $user = user_load($account->uid, TRUE);
 
@@ -150,7 +151,6 @@ function emh_linkedin_hybridauth_user_login($account, $data) {
  * created and using hybridauth for the first time.
  */
 function emh_linkedin_hybridauth_identity_added($account, $data) {
-  module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
 
   if (!_emh_linkedin_update_user($account)) {
     // Try to get HybridAuth instance.
@@ -182,7 +182,6 @@ function emh_linkedin_hybridauth_identity_added($account, $data) {
  * Implements hook_hybridauth_userinfo_alter.
  */
 function emh_linkedin_hybridauth_userinfo_alter(&$userinfo, $data) {
-  module_load_include('inc', 'emh_linkedin', 'emh_linkedin');
   $user_fields = _emh_linkedin_fields_user_update();
   $fields = [];
   foreach ($user_fields as $value) {
@@ -264,7 +263,6 @@ function _emh_linkedin_fields_user($uid) {
  *   http://developer.linkedin.com/docs/DOC-1061 for complete list).
  */
 function emh_linkedin_get_profile_fields($uid, $fields = []) {
-  module_load_include('inc', 'emh_linkedin');
   return _emh_linkedin_get_profile_fields($uid, $fields);
 }
 
@@ -277,7 +275,6 @@ function emh_linkedin_get_profile_fields($uid, $fields = []) {
  *   'token_secret' with their value
  */
 function emh_linkedin_get_request_fields($url, $tokens) {
-  module_load_include('inc', 'emh_linkedin');
   return _emh_linkedin_get_request_fields($url, $tokens);
 }
 
