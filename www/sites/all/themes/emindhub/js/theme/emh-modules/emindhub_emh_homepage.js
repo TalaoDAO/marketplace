@@ -18,7 +18,6 @@
       });
       var experts = $('.hp-expert-popup');
       $('.hp-expert-image').css('cursor','pointer').click(function () {
-        event.stopPropagation();
         var expert = $(this).next('.hp-expert-popup').stop(true).slideToggle(100);
         experts.not(expert).filter(':visible').stop(true).slideUp();
       });
