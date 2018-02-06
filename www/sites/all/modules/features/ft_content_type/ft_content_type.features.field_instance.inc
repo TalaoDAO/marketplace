@@ -3676,7 +3676,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 10,
       ),
       'type' => 'text_textarea',
-      'weight' => 28,
+      'weight' => 38,
     ),
   );
 
@@ -3745,7 +3745,7 @@ function ft_content_type_field_default_field_instances() {
         ),
       ),
       'type' => 'addressfield_standard',
-      'weight' => 19,
+      'weight' => 29,
     ),
   );
 
@@ -3780,7 +3780,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 16,
+      'weight' => 47,
     ),
   );
 
@@ -3839,7 +3839,7 @@ function ft_content_type_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 15,
+      'weight' => 46,
     ),
   );
 
@@ -3880,7 +3880,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 41,
     ),
   );
 
@@ -3915,7 +3915,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 13,
+      'weight' => 44,
     ),
   );
 
@@ -3946,7 +3946,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 27,
+      'weight' => 49,
     ),
   );
 
@@ -3988,7 +3988,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 14,
+      'weight' => 45,
     ),
   );
 
@@ -4054,7 +4054,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 23,
+      'weight' => 33,
     ),
   );
 
@@ -4095,7 +4095,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 24,
+      'weight' => 34,
     ),
   );
 
@@ -4127,7 +4127,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 5,
     ),
   );
 
@@ -4168,7 +4168,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 30,
       ),
       'type' => 'text_textfield',
-      'weight' => 15,
+      'weight' => 25,
     ),
   );
 
@@ -4205,7 +4205,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 20,
+      'weight' => 23,
     ),
   );
 
@@ -4242,7 +4242,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 21,
+      'weight' => 24,
     ),
   );
 
@@ -4279,7 +4279,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 19,
+      'weight' => 22,
     ),
   );
 
@@ -4318,7 +4318,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 10,
+      'weight' => 12,
     ),
   );
 
@@ -4358,7 +4358,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 11,
+      'weight' => 13,
     ),
   );
 
@@ -4399,7 +4399,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 30,
       ),
       'type' => 'text_textfield',
-      'weight' => 16,
+      'weight' => 26,
     ),
   );
 
@@ -4457,7 +4457,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 20,
+      'weight' => 30,
     ),
   );
 
@@ -4508,7 +4508,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 21,
+      'weight' => 31,
     ),
   );
 
@@ -4592,7 +4592,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 8,
+      'weight' => 7,
     ),
   );
 
@@ -4625,7 +4625,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 28,
+      'weight' => 50,
     ),
   );
 
@@ -4668,7 +4668,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 11,
     ),
   );
 
@@ -4709,7 +4709,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 29,
+      'weight' => 39,
     ),
   );
 
@@ -4820,7 +4820,7 @@ function ft_content_type_field_default_field_instances() {
         'validate_resolution' => 0,
       ),
       'type' => 'imagefield_crop_widget',
-      'weight' => 18,
+      'weight' => 28,
     ),
   );
 
@@ -4855,7 +4855,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 25,
+      'weight' => 35,
     ),
   );
 
@@ -4889,7 +4889,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 12,
+      'weight' => 43,
     ),
   );
 
@@ -4924,7 +4924,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 22,
+      'weight' => 25,
     ),
   );
 
@@ -4971,7 +4971,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'field_collection',
       'settings' => array(),
       'type' => 'field_collection_embed',
-      'weight' => 11,
+      'weight' => 42,
     ),
   );
 
@@ -5060,7 +5060,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 18,
+      'weight' => 19,
     ),
   );
 
@@ -5137,7 +5137,7 @@ function ft_content_type_field_default_field_instances() {
         'display_label' => 0,
       ),
       'type' => 'options_onoff',
-      'weight' => 17,
+      'weight' => 18,
     ),
   );
 
@@ -5264,7 +5264,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 50,
       ),
       'type' => 'text_textfield',
-      'weight' => 26,
+      'weight' => 36,
     ),
   );
 
@@ -5298,7 +5298,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -5349,7 +5349,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 7,
+      'weight' => 6,
     ),
   );
 
@@ -5381,7 +5381,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'twitter_username',
       'settings' => array(),
       'type' => 'twitter_username',
-      'weight' => 22,
+      'weight' => 32,
     ),
   );
 
@@ -5421,7 +5421,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 27,
+      'weight' => 37,
     ),
   );
 
@@ -5480,7 +5480,7 @@ function ft_content_type_field_default_field_instances() {
       'module' => 'og',
       'settings' => array(),
       'type' => 'og_complex',
-      'weight' => 18,
+      'weight' => 20,
     ),
   );
 
