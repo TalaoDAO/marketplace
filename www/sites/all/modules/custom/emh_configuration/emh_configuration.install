@@ -1788,4 +1788,20 @@ function emh_configuration_update_7092() {
   module_disable(['rules_forms']);
 }
 
+/**
+ * CHG: My Experts menu.
+ */
+function emh_configuration_update_7093() {
+  
+  $item = array(
+    'link_path' => 'my-referrals',
+    'link_title' => 'Referral',
+    'menu_name' => 'menu-top',
+    'weight' => 11,
+    'plid' => '9259',
+  );
+  menu_link_save($item);
 
+  menu_cache_clear_all();
+
+}
