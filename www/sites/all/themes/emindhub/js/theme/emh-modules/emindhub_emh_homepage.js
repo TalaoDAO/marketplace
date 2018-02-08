@@ -8,7 +8,7 @@
     attach: function (context, settings) {
 
       // Hero > Particles.
-      particlesJS.load('particles-js', 'sites/all/themes/emindhub/particles.json');
+      particlesJS.load('particles-js', '/sites/all/themes/emindhub/particles.json');
 
       // Hero > Experts popups.
       $('.hp-expert-image', context).once('emindhub_emh_homepage', function () {
