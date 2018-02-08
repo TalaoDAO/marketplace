@@ -4709,7 +4709,7 @@ function ft_content_type_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 40,
+      'weight' => 38,
     ),
   );
 
@@ -4855,7 +4855,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 36,
+      'weight' => 35,
     ),
   );
 
@@ -5264,7 +5264,7 @@ function ft_content_type_field_default_field_instances() {
         'size' => 50,
       ),
       'type' => 'text_textfield',
-      'weight' => 37,
+      'weight' => 36,
     ),
   );
 
@@ -5421,7 +5421,7 @@ function ft_content_type_field_default_field_instances() {
         'apply_chosen' => '',
       ),
       'type' => 'options_select',
-      'weight' => 38,
+      'weight' => 37,
     ),
   );
 
