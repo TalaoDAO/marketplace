@@ -30,25 +30,13 @@ function ft_content_type_field_group_info() {
       4 => 'field_link_to_my_blog',
       5 => 'field_titre_metier',
       6 => 'field_working_status',
-      7 => 'field_domaine',
-      8 => 'field_skills_set',
-      9 => 'field_employment_history',
-      10 => 'field_entreprise_description',
-      11 => 'field_other_areas',
-      12 => 'field_photo',
-      13 => 'field_position',
-      14 => 'field_cv',
-      15 => 'field_position_list',
-      16 => 'field_needs_for_expertise',
-      17 => 'field_availability',
-      18 => 'field_education',
-      19 => 'field_emh_usage',
-      20 => 'field_linkedin',
-      21 => 'field_twitter',
-      22 => 'field_activities_linkedin',
-      23 => 'account',
-      24 => 'group_skills',
-      25 => 'group_needs',
+      7 => 'field_entreprise_description',
+      8 => 'field_other_areas',
+      9 => 'field_photo',
+      10 => 'field_position',
+      11 => 'field_linkedin',
+      12 => 'field_twitter',
+      13 => 'account',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -110,7 +98,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Complement',
-    'weight' => '18',
+    'weight' => '17',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -141,7 +129,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Expert',
-    'weight' => '19',
+    'weight' => '18',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -172,7 +160,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
       0 => 'og_user_node',
       1 => 'field_telephone',
@@ -190,12 +178,12 @@ function ft_content_type_field_group_info() {
       13 => 'timezone',
       14 => 'contact',
       15 => 'locale',
-      16 => 'group_testimony',
-      17 => 'group_address',
-      18 => 'group_organisation',
-      19 => 'group_sponsorship',
-      20 => 'group_complement',
-      21 => 'group_expert',
+      16 => 'group_address',
+      17 => 'group_complement',
+      18 => 'group_expert',
+      19 => 'group_organisation',
+      20 => 'group_sponsorship',
+      21 => 'group_testimony',
     ),
     'format_type' => 'div',
     'format_settings' => array(
@@ -226,7 +214,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Other',
-    'weight' => '1',
+    'weight' => '3',
     'children' => array(
       0 => 'field_notification_frequency',
       1 => 'field_known_how',
@@ -258,11 +246,14 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'user';
   $field_group->bundle = 'user';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_account';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'You need expertise',
-    'weight' => '48',
-    'children' => array(),
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_needs_for_expertise',
+      1 => 'field_emh_usage',
+    ),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'You need expertise',
@@ -292,7 +283,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Organisation',
-    'weight' => '15',
+    'weight' => '14',
     'children' => array(),
     'format_type' => 'div',
     'format_settings' => array(
@@ -320,11 +311,19 @@ function ft_content_type_field_group_info() {
   $field_group->entity_type = 'user';
   $field_group->bundle = 'user';
   $field_group->mode = 'form';
-  $field_group->parent_name = 'group_account';
+  $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'You have expertise to offer',
-    'weight' => '40',
-    'children' => array(),
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_domaine',
+      1 => 'field_skills_set',
+      2 => 'field_employment_history',
+      3 => 'field_cv',
+      4 => 'field_position_list',
+      5 => 'field_availability',
+      6 => 'field_education',
+    ),
     'format_type' => 'div',
     'format_settings' => array(
       'label' => 'You have expertise to offer',
@@ -354,7 +353,7 @@ function ft_content_type_field_group_info() {
   $field_group->parent_name = 'group_hidden';
   $field_group->data = array(
     'label' => 'Sponsorship',
-    'weight' => '17',
+    'weight' => '15',
     'children' => array(
       0 => 'field_sponsorship',
       1 => 'field_sponsor1',
