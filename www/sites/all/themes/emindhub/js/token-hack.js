@@ -17,10 +17,8 @@ Drupal.behaviors.emindhub = {
 
     while (node = walker.nextNode()) {
       if (node.nodeType == Node.TEXT_NODE) { 
-        node.nodeValue = node.nodeValue.replace(/credit/, 'token');
-        node.nodeValue = node.nodeValue.replace(/Credit/, 'Token');
-        node.nodeValue = node.nodeValue.replace(/crédit/, 'token');
-        node.nodeValue = node.nodeValue.replace(/Crédit/, 'Token');
+        node.nodeValue = node.nodeValue.replace(/credit/gi, 'token');
+        node.nodeValue = node.nodeValue.replace(/crédit/gi, 'token');
       }
     }
   }

@@ -68,7 +68,7 @@ function ft_webmastering_views_default_views() {
   $handler->display->display_options['sorts']['earnings']['table'] = 'emh_points_earnings';
   $handler->display->display_options['sorts']['earnings']['field'] = 'earnings';
   $handler->display->display_options['sorts']['earnings']['order'] = 'DESC';
-  /* Filter criterion: User: Member */
+  /* Filter criterion: User: Active */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -191,7 +191,7 @@ function ft_webmastering_views_default_views() {
       'label' => '',
     ),
   );
-  /* Field: User: Photo */
+  /* Field: Field: Photo */
   $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
   $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
   $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
@@ -200,7 +200,7 @@ function ft_webmastering_views_default_views() {
     'image_style' => 'thumbnail',
     'image_link' => '',
   );
-  /* Field: User: Photo */
+  /* Field: Field: Photo */
   $handler->display->display_options['fields']['field_photo_1']['id'] = 'field_photo_1';
   $handler->display->display_options['fields']['field_photo_1']['table'] = 'field_data_field_photo';
   $handler->display->display_options['fields']['field_photo_1']['field'] = 'field_photo';
@@ -216,7 +216,7 @@ function ft_webmastering_views_default_views() {
   $handler->display->display_options['fields']['uid']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['uid']['alter']['path'] = 'user/[uid]/edit';
   $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: User: Member */
+  /* Field: User: Active */
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'users';
   $handler->display->display_options['fields']['status']['field'] = 'status';
@@ -855,7 +855,7 @@ function ft_webmastering_views_default_views() {
       'label' => '',
     ),
   );
-  /* Field: User: Photo */
+  /* Field: Field: Photo */
   $handler->display->display_options['fields']['field_photo']['id'] = 'field_photo';
   $handler->display->display_options['fields']['field_photo']['table'] = 'field_data_field_photo';
   $handler->display->display_options['fields']['field_photo']['field'] = 'field_photo';
@@ -864,7 +864,7 @@ function ft_webmastering_views_default_views() {
     'image_style' => 'thumbnail',
     'image_link' => '',
   );
-  /* Field: User: Photo */
+  /* Field: Field: Photo */
   $handler->display->display_options['fields']['field_photo_1']['id'] = 'field_photo_1';
   $handler->display->display_options['fields']['field_photo_1']['table'] = 'field_data_field_photo';
   $handler->display->display_options['fields']['field_photo_1']['field'] = 'field_photo';
@@ -880,7 +880,7 @@ function ft_webmastering_views_default_views() {
   $handler->display->display_options['fields']['uid']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['uid']['alter']['path'] = 'user/[uid]/edit';
   $handler->display->display_options['fields']['uid']['link_to_user'] = FALSE;
-  /* Field: User: Member */
+  /* Field: User: Active */
   $handler->display->display_options['fields']['status']['id'] = 'status';
   $handler->display->display_options['fields']['status']['table'] = 'users';
   $handler->display->display_options['fields']['status']['field'] = 'status';
@@ -1124,7 +1124,7 @@ function ft_webmastering_views_default_views() {
   $handler->display->display_options['filters']['rid']['value'] = array(
     4 => '4',
   );
-  /* Filter criterion: User: Member */
+  /* Filter criterion: User: Active */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1162,7 +1162,7 @@ function ft_webmastering_views_default_views() {
     5 => '5',
     9 => '9',
   );
-  /* Filter criterion: User: Member */
+  /* Filter criterion: User: Active */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
@@ -1538,7 +1538,7 @@ function ft_webmastering_views_default_views() {
   $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
-  /* Filter criterion: User: Member */
+  /* Filter criterion: User: Active */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
