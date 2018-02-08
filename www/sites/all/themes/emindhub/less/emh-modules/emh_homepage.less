@@ -20,11 +20,11 @@
 }
 
 #particles-js {
-	width: 63%;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10%;
-	height: 250px;
+	position: absolute;
+	width: 100%;
+	height: 562px;
+	top: 0;
+	left: 0;
 }
 
 // Experts popups.
@@ -32,7 +32,7 @@
 	display: none;
 }
 .hp-hero{
-	background: url('../images/img-hp/big-planet.png')no-repeat center 125px , linear-gradient(63deg, @blue2018, #007eb3);
+	background: url('../images/img-hp/big-planet.png')no-repeat center 125px , linear-gradient(63deg, @blue2018, @bluelight2018);
 	height: 562px;
 	.container{
 		position: relative;
@@ -50,27 +50,43 @@
 		}
 	}
 	.hp-hero-link {
+		z-index: 100;
+		position: absolute;
+		top: 175px;
+		left: 40%;
 		text-align: center;
 		.hp-join-us {
+			z-index: 1;
 			width: 200px;
 			height: 60px;
 			padding: 12px 65px;
 			border-radius: 100px;
-			background: linear-gradient(77deg, #5fb8df, #007eb3);
+			border: 1px solid @bluelight2018;
+			background: linear-gradient(77deg, #5fb8df, @bluelight2018);
 			box-shadow: 0 10px 38px 0 rgba(0, 0, 0, 0.56);
 			-webkit-box-shadow: 0 10px 38px 0 rgba(0, 0, 0, 0.56);
 			overflow: hidden;
 			color: white;
 			font-size: 22px;
-			line-height: 22px;
+			line-height: 24px;
+			transition: all linear 0.1s;
+			-webkit-transition: all linear 0.1s;
 			&:hover {
 				text-decoration: none;
+				color: @bluelight2018;
+				background: none;
+				background-color:lighten(@bluelight2018, 60%);
+				box-shadow: 0 0 38px 0 rgba(0, 0, 0, 0.56);
+				-webkit-box-shadow: 0 0 38px 0 rgba(0, 0, 0, 0.56);
 			}
 		}
 		@media @mobile-view {
 			position: relative;
 			top: 250px;
 		}
+	}
+	.container > .field-collection-container {
+		margin-top: 470px;
 	}
 	.hp-expert-popup {
 		z-index: 2;
@@ -117,7 +133,7 @@
 	}
 	.hero-expert-0 {
 		top: 63%;
-		left: 16%;
+		left: 10%;
 		@media @mobile-view {
 			top: 45%;
 			left: 75%;
@@ -131,7 +147,7 @@
 		}
 	}
 	.hero-expert-2 {
-		top: 67%;
+		top: 65%;
 		left: 38%;
 		@media @mobile-view {
 			top: 57%;
@@ -140,7 +156,7 @@
 	}
 	.hero-expert-3 {
 		top: 85%;
-		left: 33%;
+		left: 31%;
 		@media @mobile-view{
 		  display: none;
 	  }
@@ -179,10 +195,15 @@
 		.hp-expert-image{
 			border-radius: 50%;
 			-webkit-border-radius: 50%;
-			border: 5px solid white;
+			//border: 5px solid white;
 			width: 60px;
 			height: 60px;
 			overflow: hidden;
+			&:hover {
+				transform: scale(1.1);
+				transition: all linear 0.1s;
+				-webkit-transition: all linear 0.1s;
+			}
 		}
 		.hp-expert-popup{
 			background: white;
@@ -213,9 +234,10 @@
 					margin-top: 10px;
 					.field-item{
 						font-size: 9px;
+						line-height: 13px;
 						text-align: center;
 						color: #0a2c3f;
-						background-color: lighten(#007eb3, 30%);
+						background-color: lighten(@bluelight2018, 30%);
 						border-radius: 7px;
 						height: 14px;
 						width: auto;
@@ -263,7 +285,7 @@
 			display: block;
 			width: 81px;
 			height: 81px;
-			background: linear-gradient(47deg, #002e42, #007eb3 97%), linear-gradient(46deg, @blue2018, #007eb3);
+			background: linear-gradient(47deg, #002e42, @bluelight2018 97%), linear-gradient(46deg, @blue2018, @bluelight2018);
 		}
 		.content{
 			img{
@@ -286,8 +308,8 @@
 		width: 157px;
 		height: 42px;
 		border-radius: 100px;
-		border: solid 1px #007eb3;
-		color: #007eb3;
+		border: solid 1px @bluelight2018;
+		color: @bluelight2018;
 		font-size: 18px;
 		transform: translate(-50%);
 		-webkit-transform: translate(-50%);
@@ -297,8 +319,12 @@
 		display: block;
 		text-align: center;
 		padding: 7px;
+		transition: all linear 0.1s;
+		-webkit-transition: all linear 0.1s;
 		&:hover {
 			text-decoration: none;
+		  color: white;
+			background-color: @bluelight2018;
 		}
 	}
 	.field-item {
@@ -342,7 +368,7 @@
 ///client domain
 
 .hp-clients {
-	background: url('../images/img-hp/planet-side.png')no-repeat left center, linear-gradient(79deg, @blue2018, #007eb3);
+	background: url('../images/img-hp/planet-side.png')no-repeat left center, linear-gradient(79deg, @blue2018, @bluelight2018);
 	.field-items{
 		min-height:226px;
 
@@ -406,12 +432,13 @@
 				font-weight: normal;
 				font-style: normal;
 				font-stretch: normal;
-				line-height: normal;
+				line-height: 22px;
 				letter-spacing: normal;
 				font-family: @font-family-sans-serif;
 				width: 221px;
 				height: 40px;
 				border-radius: 100px;
+				border: 1px solid @blue2018;
 				background-color: @blue2018;
 				color: white;
 				text-align: center;
@@ -422,8 +449,12 @@
 				display: block;
 				transform: translate(-50%);
 				-webkit-transform: translate(-50%);
+				transition: all linear 0.1s;
+				-webkit-transition: all linear 0.1s;
 				&:hover{
 					text-decoration: none;
+					color: @blue2018;
+					background-color: white;
 				}
 			}
 		}
@@ -481,8 +512,9 @@
 			font-weight: normal;
 			font-style: normal;
 			font-stretch: normal;
-			line-height: normal;
+			line-height: 22px;
 			letter-spacing: normal;
+			border: 1px solid @orange2018;
 			background: linear-gradient(253deg, #fbd249, @orange2018);
 			width: 135px;
 			height: 40px;
@@ -497,8 +529,13 @@
 			margin-left: 50%;
 			display: block;
 			text-align: center;
+			transition: all linear 0.1s;
+			-webkit-transition: all linear 0.1s;
 			&:hover{
 				text-decoration: none;
+				color: @orange2018;
+				background: none;
+				background-color: white;
 			}
 		}
 	}
@@ -510,7 +547,7 @@
 .hp-testimonials{
 	margin-top: 100px;
 	height: 226px;
-	background: url('../images/img-hp/planet-side.png')no-repeat left center, linear-gradient(79deg, @blue2018, #007eb3);
+	background: url('../images/img-hp/planet-side.png')no-repeat left center, linear-gradient(79deg, @blue2018, @bluelight2018);
 	.hp-testimonies{
 		outline: 0;
 		@media @tablet-view{

@@ -18,8 +18,8 @@
       <?php print render($content['field_hp_hero_link']); ?>
     </div>
     <?php print render($content['field_hp_hero_experts']); ?>
-    <div id="particles-js"></div>
   </div>
+  <div id="particles-js"></div>
 </div>
 
 <div class="container-fluid hp-domains">
