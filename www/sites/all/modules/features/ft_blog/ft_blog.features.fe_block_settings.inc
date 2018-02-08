@@ -56,7 +56,7 @@ function ft_blog_default_fe_block_settings() {
     'i18n_mode' => 1,
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '<front>',
+    'pages' => '',
     'roles' => array(),
     'themes' => array(
       'emindhub' => array(
