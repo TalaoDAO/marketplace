@@ -299,41 +299,36 @@
 	.field-item {
 		position: relative;
 		min-height: 185px;
-		.tag-new, .tag-soon {
-			position: absolute;
-			padding-top: 2px;
-			font-size: 14px;
-			font-weight: bold;
-			text-align: center;
-			text-transform: uppercase;
-			z-index: 10;
-			width: 76px;
-			height: 23px;
-			border-radius: 15px;
-			-webkit-border-radius: 15px;
-			background-color: #fafafa;
-			box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
-			-webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
-			top: 37px;
-			left: 62px;
-			@media @mobile-view{
-				left: 50px;
+		.domain-teaser-label {
+			width: 100%;
+			margin-left: auto;
+			margin-right: auto;
+			.domain-label {
+				position: absolute;
+				padding-top: 2px;
+				font-size: 14px;
+				font-weight: bold;
+				text-align: center;
+				text-transform: uppercase;
+				z-index: 10;
+				width: 76px;
+				height: 23px;
+				border-radius: 15px;
+				-webkit-border-radius: 15px;
+				background-color: #fafafa;
+				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+				-webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
+				top: 37px;
+				left: calc(50% - 31px);
+				@media @mobile-view{
+					//left:0;
+				}
 			}
-		}
-		.tag-new {
-			color: #fa5656;
-			&.hide {
-				display: none;
+			.tag-new {
+				color: #fa5656;
 			}
-			&.show {
-				display: block;
-			}
-		}
-		//si on aoute la classe hide on cache
-		.tag-soon {
-			color: #f5a623;
-			&.hide {
-				display: none;
+			.tag-soon {
+				color: #f5a623;
 			}
 		}
 	}
