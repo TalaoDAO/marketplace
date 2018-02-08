@@ -1,12 +1,12 @@
 <?php global $base_url; ?>
 
-<?php if ($block_html_id) : ?>
+<?php if (isset($block_html_id)) : ?>
 <section id="<?php print $block_html_id; ?>" class="emh-module container how-it-works hiw <?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 <?php else : ?>
 <section class="emh-module how-it-works hiw">
 <?php endif; ?>
 
-  <?php if ($block_html_id) : ?>
+  <?php if (isset($block_html_id)) : ?>
   <?php print render($title_prefix); ?>
   <?php if ($title): ?>
     <div class="emh-title">
