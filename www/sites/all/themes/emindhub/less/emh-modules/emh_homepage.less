@@ -51,9 +51,9 @@
 	}
 	.hp-hero-link {
 		z-index: 100;
+		width: 100%;
 		position: absolute;
 		top: 175px;
-		left: 40%;
 		text-align: center;
 		.hp-join-us {
 			z-index: 1;
@@ -65,7 +65,7 @@
 			background: linear-gradient(77deg, #5fb8df, @bluelight2018);
 			box-shadow: 0 10px 38px 0 rgba(0, 0, 0, 0.56);
 			-webkit-box-shadow: 0 10px 38px 0 rgba(0, 0, 0, 0.56);
-			overflow: hidden;
+			overflow: hidden;		left: calc(50% - 100px);
 			color: white;
 			font-size: 22px;
 			line-height: 24px;
@@ -82,7 +82,7 @@
 		}
 		@media @mobile-view {
 			position: relative;
-			top: 250px;
+			top: 290px;
 		}
 	}
 	.container > .field-collection-container {
@@ -135,8 +135,8 @@
 		top: 63%;
 		left: 10%;
 		@media @mobile-view {
-			top: 45%;
-			left: 75%;
+			top: 25%;
+			left: 32%;
 		}
 	}
 	.hero-expert-1 {
@@ -150,8 +150,8 @@
 		top: 65%;
 		left: 38%;
 		@media @mobile-view {
-			top: 57%;
-			left: 0;
+			top: 42%;
+			left: 65%;
 		}
 	}
 	.hero-expert-3 {
@@ -630,12 +630,20 @@
 			.flex-direction(@direction: column);
 			.justify-content(@justify: center);
 			.align-items(@align: center);
+			@media @mobile-view {
+				height: unset;
+				padding: 5px;
+				a {
+					padding-top: 0 !important;
+				}
+			}
 			&:first-child {
 				border: solid 1px @blue2018;
 				a {
 					color: @blue2018;
 				}
 				@media @mobile-view {
+					height: unset;
 					margin-right: 15px;
 				}
 			}
@@ -657,11 +665,9 @@
 				-webkit-transition: all linear 0.1s;
 				display: block;
 				width: 100%;
-				height: 100%;
-				padding-top: 5%;
 				@media @mobile-view {
 					font-size: 14px;
-					padding-top: 12%;
+					//padding-top: 12%;
 				}
 			}
 			&.active {
@@ -795,6 +801,13 @@
 				padding-top:16px;
 				@media @mobile-view{
 					font-size:  15px;
+				}
+			}
+			@media @mobile-view {
+				height: unset;
+				padding: 5px;
+				a {
+					padding-top: 0 !important;
 				}
 			}
 		}
