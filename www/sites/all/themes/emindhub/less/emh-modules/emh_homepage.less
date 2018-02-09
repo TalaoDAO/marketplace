@@ -232,7 +232,7 @@
 					.align-items(@align: center);
 					margin-bottom: 10px;
 					margin-top: 10px;
-					.field-item{
+					.field-item {
 						font-size: 9px;
 						line-height: 13px;
 						text-align: center;
@@ -271,7 +271,10 @@
 		margin-top: 60px;
 		margin-bottom: 60px;
 	}
-	.field-item{
+	.field-item {
+		&.first {
+			clear: both;
+		}
 		@media @mobile-view {
 			&:nth-child(5),
 			&:nth-child(6),
