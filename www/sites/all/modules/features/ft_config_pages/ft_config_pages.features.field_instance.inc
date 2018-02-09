@@ -1670,6 +1670,68 @@ function ft_config_pages_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'field_collection_item-field_slide-field_file'.
+  $field_instances['field_collection_item-field_slide-field_file'] = array(
+    'bundle' => 'field_slide',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'hidden',
+        'module' => 'file_entity',
+        'settings' => array(
+          'file_view_mode' => 'default',
+        ),
+        'type' => 'file_rendered',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'field_collection_item',
+    'fences_wrapper' => 'no_wrapper',
+    'field_name' => 'field_file',
+    'label' => 'SVG',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'entity_translation_sync' => FALSE,
+      'file_directory' => '',
+      'file_extensions' => 'svg',
+      'filefield_paths' => array(
+        'active_updating' => 0,
+        'file_name' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => '[file:ffp-name-only-original].[file:ffp-extension-original]',
+        ),
+        'file_path' => array(
+          'options' => array(
+            'pathauto' => 0,
+            'slashes' => 0,
+            'transliterate' => 0,
+          ),
+          'value' => 'slides/svg',
+        ),
+        'redirect' => FALSE,
+        'retroactive_update' => 0,
+      ),
+      'filefield_paths_enabled' => 1,
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 2,
+    ),
+  );
+
   // Exported field_instance:
   // 'field_collection_item-field_slide-field_slide_color'.
   $field_instances['field_collection_item-field_slide-field_slide_color'] = array(
@@ -1682,7 +1744,7 @@ function ft_config_pages_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 6,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -1721,9 +1783,10 @@ function ft_config_pages_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'field_collection_item',
+    'fences_wrapper' => 'div_div_div',
     'field_name' => 'field_slide_image',
     'label' => 'Image',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'alt_field' => 1,
       'default_image' => 0,
@@ -1766,7 +1829,7 @@ function ft_config_pages_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -1836,7 +1899,7 @@ function ft_config_pages_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'field_collection_item',
@@ -1891,7 +1954,7 @@ function ft_config_pages_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -1927,7 +1990,7 @@ function ft_config_pages_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -1956,6 +2019,7 @@ function ft_config_pages_field_default_field_instances() {
   t('Popup');
   t('Popup direction');
   t('Position');
+  t('SVG');
   t('Slide');
   t('Solutions - Link');
   t('Solutions - Slides - Blue');
