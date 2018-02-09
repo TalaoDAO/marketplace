@@ -21,10 +21,10 @@
 
 #particles-js {
 	position: absolute;
-	width: 100%;
-	height: 562px;
-	top: 0;
-	left: 0;
+	width: 50%;
+	height: 200px;
+	bottom: 20px;
+	left: 25%;
 }
 
 // Experts popups.
@@ -73,9 +73,9 @@
 			-webkit-transition: all linear 0.1s;
 			&:hover {
 				text-decoration: none;
-				color: @bluelight2018;
+				color: @blue2018;
 				background: none;
-				background-color:lighten(@bluelight2018, 60%);
+				background-color: white;
 				box-shadow: 0 0 38px 0 rgba(0, 0, 0, 0.56);
 				-webkit-box-shadow: 0 0 38px 0 rgba(0, 0, 0, 0.56);
 			}
@@ -132,26 +132,26 @@
 		}
 	}
 	.hero-expert-0 {
-		top: 63%;
-		left: 10%;
+		top: 66%;
+		left: 22%;
 		@media @mobile-view {
-			top: 25%;
-			left: 32%;
+			top: 42%;
+			left: 10%;
 		}
 	}
 	.hero-expert-1 {
-		top: 57%;
-		left: 28%;
+		top: 70%;
+		left: 30%;
 		@media @mobile-view {
 			display: none;
 		}
 	}
 	.hero-expert-2 {
-		top: 65%;
-		left: 38%;
+		top: 60%;
+		left: 40%;
 		@media @mobile-view {
-			top: 42%;
-			left: 65%;
+			top: 57%;
+			left: 40%;
 		}
 	}
 	.hero-expert-3 {
@@ -875,6 +875,7 @@
 		.field-name-field-slide-image{
 			padding-bottom: 15px;
 			overflow: hidden;
+			height: 80px;
 			img{
 				max-width: 70px;
 				max-height: 70px;
