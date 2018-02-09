@@ -2,7 +2,7 @@
   <div class="container field-items"<?php print $content_attributes; ?>>
     <div class="row">
       <?php foreach ($items as $delta => $item): ?>
-        <div class="col-xs-6 col-sm-3 field-item <?php print $delta % 2 ? 'odd' : 'even'; ?>"<?php print $item_attributes[$delta]; ?>>
+        <div class="col-xs-6 col-sm-3 field-item <?php print $delta % 2 ? 'odd' : 'even'; ?> <?php print ($delta % 4 == 0) ? 'first' : ''; ?>"<?php print $item_attributes[$delta]; ?>>
           <?php print render($item); ?>
         </div>
       <?php endforeach; ?>
