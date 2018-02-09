@@ -22,6 +22,14 @@
       #earnings-badge {
         margin-left: 140px;
       }
+      li {
+        a {
+          font-weight: 600;
+          &:hover {
+            color: lighten(#0a2c3f, 20%) !important;
+          }
+        }
+      }
     }
   }
   li.separator {
@@ -387,8 +395,8 @@ header#page-header {
   margin-left: 15px;
 }
 
-#menu-user-login{
-  .sign-up{
+#menu-user-login {
+  .sign-up {
     border: solid 1px #005174;
     -webkit-border-radius: 14.5px;
     border-radius: 14.5px;
@@ -400,10 +408,19 @@ header#page-header {
     .flex-display(@display: flex);
     .justify-content(@justify: center);
     .align-items(@align: center);
-    @media @mobileDevices{
+    @media @mobileDevices {
       margin-top: 0;
       font-size: 14px;
     }
+    &:hover {
+      color: white;
+      background-color: #005174;
+      transition: all linear 0.1s;
+  		-webkit-transition: all linear 0.1s;
+    }
+  }
+  .sign-in {
+    font-size: 12px;
   }
   .navbar-text{
     display: none;

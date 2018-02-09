@@ -215,17 +215,17 @@
       </div>
       <div class="row footer-partners">
         <p><?php print t('Our partners'); ?></p>
-        <div class="col-xs-2 col-xs-offset-2">
+        <div class="col-xs-6 col-md-2 col-md-offset-2">
           <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/partners/bpifrance.png" alt="BPI France" />
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-6 col-md-2">
           <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/partners/digitalplace.png" alt="Digital Place" />
         </div>
-        <div class="col-xs-2">
+        <div class="col-xs-6 col-md-2">
           <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/partners/francedigitale.png" alt="France Digitale" />
         </div>
-        <div class="col-xs-2">
-          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/partners/occitanie.png" alt="Région Occitanie" />
+        <div class="col-xs-6 col-md-2">
+          <img src="<?php print $base_url . '/' . drupal_get_path('theme', 'emindhub'); ?>/images/partners/expering.png" alt="Expering" />
         </div>
       </div>
     </div>

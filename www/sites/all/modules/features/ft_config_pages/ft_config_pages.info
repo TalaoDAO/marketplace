@@ -106,6 +106,7 @@ features[field_instance][] = field_collection_item-field_hp_testimonies-field_te
 features[field_instance][] = field_collection_item-field_hp_why_have_slides-field_slide
 features[field_instance][] = field_collection_item-field_hp_why_need_slides-field_slide
 features[field_instance][] = field_collection_item-field_partners-field_partners_image
+features[field_instance][] = field_collection_item-field_slide-field_file
 features[field_instance][] = field_collection_item-field_slide-field_slide_color
 features[field_instance][] = field_collection_item-field_slide-field_slide_image
 features[field_instance][] = field_collection_item-field_slide-field_slide_link

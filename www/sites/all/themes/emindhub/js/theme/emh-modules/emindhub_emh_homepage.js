@@ -8,7 +8,7 @@
     attach: function (context, settings) {
 
       // Hero > Particles.
-      particlesJS.load('particles-js', 'sites/all/themes/emindhub/particles.json');
+      particlesJS.load('particles-js', '/sites/all/themes/emindhub/particles.json');
 
       // Hero > Experts popups.
       $('.hp-expert-image', context).once('emindhub_emh_homepage', function () {
@@ -18,7 +18,6 @@
       });
       var experts = $('.hp-expert-popup');
       $('.hp-expert-image').css('cursor','pointer').click(function () {
-        event.stopPropagation();
         var expert = $(this).next('.hp-expert-popup').stop(true).slideToggle(100);
         experts.not(expert).filter(':visible').stop(true).slideUp();
       });
@@ -57,7 +56,7 @@
         ]
       });
 
-      // Sliders.
+      // Testimonies.
       $('.hp-testimonies').slick({
         dots: true,
         speed: 500,
@@ -73,9 +72,7 @@
         }]
       });
 
-      /**
-       * need expertise
-       */
+      // How we work > You need expertise.
       $('.field-name-field-hp-how-need-slides .field-collection-container').slick({
         slidesToShow: 4,
         autoplay: true,
@@ -92,9 +89,8 @@
           }
         }]
       });
-      /**
-       * have expertise
-       */
+
+      // How we work > You have expertise.
       $('.field-name-field-hp-how-have-slides .field-collection-container').slick({
         slidesToShow: 4,
         autoplay: true,
@@ -112,15 +108,28 @@
         }]
       });
 
+      // Synchronize tabs.
+      $('ul[role="tablist"] li:first-child a').click(function () {
+        $('ul[role="tablist"] li:first-child').addClass('active');
+        $('.tab-content :first-child').addClass('active');
+        $('ul[role="tablist"] li:last-child').removeClass('active');
+        $('.tab-content :last-child').removeClass('active');
+      });
+      $('ul[role="tablist"] li:last-child a').click(function () {
+        $('ul[role="tablist"] li:last-child').addClass('active');
+        $('.tab-content :last-child').addClass('active');
+        $('ul[role="tablist"] li:first-child').removeClass('active');
+        $('.tab-content :first-child').removeClass('active');
+      });
+
       // Change some classes.
       $('.hp-solutions .col-sm-9 .col-sm-3') .removeClass('col-sm-3').addClass('col-sm-4');
       $('.hp-solutions .col-sm-3 .col-sm-3') .removeClass('col-sm-3');
       $('.private .col-xs-12') .addClass('no-padding radius');
 
-		/**
-		 * juste au dessus du footer le dernier texte less ligne 653
-		 */
-		$( "<div class='container lastWrapper'><p>48 hours a typical cycles</p></div>" ).insertAfter( ".hp-how .container .tab-content" );
-  	}
+      // Juste au dessus du footer le dernier texte less ligne 653.
+      $("<div class='container lastWrapper'><p>48 hours a typical cycles</p></div>").insertAfter(".hp-how .container .tab-content");
+
+    }
   }
 }(jQuery));
