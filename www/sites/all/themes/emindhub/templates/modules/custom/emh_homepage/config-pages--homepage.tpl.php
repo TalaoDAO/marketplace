@@ -14,7 +14,9 @@
 <div class="container-fluid hp-hero">
   <div class="container">
     <?php print render($content['field_hp_hero_title']); ?>
-    <?php print render($content['field_hp_hero_link']); ?>
+    <div class="hp-hero-link">
+      <?php print render($content['field_hp_hero_link']); ?>
+    </div>
     <?php print render($content['field_hp_hero_experts']); ?>
     <div id="particles-js"></div>
   </div>
