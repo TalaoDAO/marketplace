@@ -21,10 +21,10 @@
 
 #particles-js {
 	position: absolute;
-	width: 100%;
-	height: 562px;
-	top: 0;
-	left: 0;
+	width: 50%;
+	height: 200px;
+	bottom: 20px;
+	left: 25%;
 }
 
 // Experts popups.
@@ -73,9 +73,9 @@
 			-webkit-transition: all linear 0.1s;
 			&:hover {
 				text-decoration: none;
-				color: @bluelight2018;
+				color: @blue2018;
 				background: none;
-				background-color:lighten(@bluelight2018, 60%);
+				background-color: white;
 				box-shadow: 0 0 38px 0 rgba(0, 0, 0, 0.56);
 				-webkit-box-shadow: 0 0 38px 0 rgba(0, 0, 0, 0.56);
 			}
@@ -132,26 +132,26 @@
 		}
 	}
 	.hero-expert-0 {
-		top: 63%;
-		left: 10%;
+		top: 66%;
+		left: 22%;
 		@media @mobile-view {
-			top: 25%;
-			left: 32%;
+			top: 42%;
+			left: 10%;
 		}
 	}
 	.hero-expert-1 {
-		top: 57%;
-		left: 28%;
+		top: 70%;
+		left: 30%;
 		@media @mobile-view {
 			display: none;
 		}
 	}
 	.hero-expert-2 {
-		top: 65%;
-		left: 38%;
+		top: 60%;
+		left: 40%;
 		@media @mobile-view {
-			top: 42%;
-			left: 65%;
+			top: 57%;
+			left: 40%;
 		}
 	}
 	.hero-expert-3 {
@@ -232,7 +232,7 @@
 					.align-items(@align: center);
 					margin-bottom: 10px;
 					margin-top: 10px;
-					.field-item{
+					.field-item {
 						font-size: 9px;
 						line-height: 13px;
 						text-align: center;
@@ -271,7 +271,10 @@
 		margin-top: 60px;
 		margin-bottom: 60px;
 	}
-	.field-item{
+	.field-item {
+		&.first {
+			clear: both;
+		}
 		@media @mobile-view {
 			&:nth-child(5),
 			&:nth-child(6),
@@ -328,15 +331,20 @@
 		}
 	}
 	.field-item {
-		position: relative;
+		//position: relative;
 		min-height: 185px;
 		.domain-teaser-label {
 			width: 100%;
 			margin-left: auto;
 			margin-right: auto;
+			text-align: center;
+			height: 0;
 			.domain-label {
-				position: absolute;
-				padding-top: 2px;
+				position: relative;
+				top: 40px;
+				left: -50px;
+				padding: 5px 10px;
+				//padding-top: 2px;
 				font-size: 14px;
 				font-weight: bold;
 				text-align: center;
@@ -349,10 +357,10 @@
 				background-color: #fafafa;
 				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
 				-webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
-				top: 37px;
-				left: calc(50% - 31px);
+				//top: 37px;
+				//left: calc(50% - 31px);
 				@media @mobile-view{
-					//left:0;
+					//left: calc(50% - 62px);
 				}
 			}
 			.tag-new {
@@ -679,6 +687,9 @@
 				}
 				a {
 					font-weight: bold;
+					@media @mobile-view {
+						font-weight: normal;
+					}
 				}
 			}
 		}
@@ -763,6 +774,9 @@
 			&.active {
 				a {
 					font-weight: bold;
+					@media @mobile-view {
+						font-weight: normal;
+					}
 				}
 			}
 			&:first-child {
@@ -797,8 +811,6 @@
 				-webkit-transition: all linear 0.1s;
 				display: block;
 				width: 100%;
-				height: 100%;
-				padding-top:16px;
 				@media @mobile-view{
 					font-size:  15px;
 				}
@@ -872,6 +884,7 @@
 		.field-name-field-slide-image{
 			padding-bottom: 15px;
 			overflow: hidden;
+			height: 80px;
 			img{
 				max-width: 70px;
 				max-height: 70px;
