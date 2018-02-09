@@ -45,12 +45,14 @@
 
   <div class="content">
 
+    <?php if (!empty(render($content['field_domain_label']))): ?>
+      <div class="domain-teaser-label">
+        <span class="domain-label tag-<?php print render($content['field_domain_label']); ?>"><?php print render($content['field_domain_label']); ?></span>
+      </div>
+    <?php endif; ?>
     <div data-src="<?php print render($content['field_file']); ?>">
       <?php print render($content['field_image']); ?>
     </div>
     <?php print render($content['name_field']); ?>
-    <span class="tag-<?php print render($content['field_domain_label']); ?>"><?php print render($content['field_domain_label']); ?></span>
-
   </div>
-
 </div>
