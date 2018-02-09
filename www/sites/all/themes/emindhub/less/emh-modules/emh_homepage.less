@@ -331,15 +331,20 @@
 		}
 	}
 	.field-item {
-		position: relative;
+		//position: relative;
 		min-height: 185px;
 		.domain-teaser-label {
 			width: 100%;
 			margin-left: auto;
 			margin-right: auto;
+			text-align: center;
+			height: 0;
 			.domain-label {
-				position: absolute;
-				padding-top: 2px;
+				position: relative;
+				top: 40px;
+				left: -50px;
+				padding: 5px 10px;
+				//padding-top: 2px;
 				font-size: 14px;
 				font-weight: bold;
 				text-align: center;
@@ -352,10 +357,10 @@
 				background-color: #fafafa;
 				box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
 				-webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.26);
-				top: 37px;
-				left: calc(50% - 31px);
+				//top: 37px;
+				//left: calc(50% - 31px);
 				@media @mobile-view{
-					//left:0;
+					//left: calc(50% - 62px);
 				}
 			}
 			.tag-new {
@@ -682,6 +687,9 @@
 				}
 				a {
 					font-weight: bold;
+					@media @mobile-view {
+						font-weight: normal;
+					}
 				}
 			}
 		}
@@ -766,6 +774,9 @@
 			&.active {
 				a {
 					font-weight: bold;
+					@media @mobile-view {
+						font-weight: normal;
+					}
 				}
 			}
 			&:first-child {
@@ -800,8 +811,6 @@
 				-webkit-transition: all linear 0.1s;
 				display: block;
 				width: 100%;
-				height: 100%;
-				padding-top:16px;
 				@media @mobile-view{
 					font-size:  15px;
 				}
