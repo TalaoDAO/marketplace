@@ -1,0 +1,179 @@
+<?php
+
+/**
+ * @file
+ * Tests for the User hash module.
+ */
+
+/**
+ * Test class for the user hash functions.
+ */
+class UserHashTestCase extends DrupalWebTestCase {
+  protected $adminUser;
+
+  /**
+   * Return test info.
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'User hash functionality',
+      'description' => 'Test user hash module.',
+      'group' => 'User hash',
+    );
+  }
+
+  /**
+   * Set up test environment.
+   */
+  public function setUp() {
+    parent::setUp('user_hash');
+
+    // Create and log in an administrative user.
+    $this->adminUser = $this->drupalCreateUser(array(
+      'administer site configuration',
+      'access administration pages',
+      'administer users',
+      'access user profiles',
+    ));
+    $this->drupalLogin($this->adminUser);
+  }
+
+  /**
+   * Test user hash admin setting form.
+   */
+  public function testAdminSettingsForm() {
+    $edit = array(
+      'user_hash_algorithm' => 'sha1',
+      'user_hash_random_bytes' => 48,
+    );
+    $path = 'admin/config/people/user_hash';
+    $this->drupalPost($path, $edit, t('Save configuration'));
+    $this->drupalGet($path);
+    $this->assertResponse(200);
+    $this->assertText('sha1', 'Hash algorithm configuration saved.');
+    $this->assertText(48, 'Random bytes configuration saved.');
+  }
+
+  /**
+   * Test user hash generation.
+   */
+  public function testUserHashGeneration() {
+    $edit = array(
+      'operation' => 'user_hash_generate',
+      'accounts[1]' => 1,
+    );
+    $path = 'admin/people';
+    $this->drupalPost($path, $edit, t('Update'));
+    $this->assertText('Generate hash for', 'Hash generated.');
+    $this->drupalGet('user/1/edit');
+    $this->assertResponse(200);
+    $this->assertPattern('/[0-9A-Fa-f]{64}/', 'User hash displayed.');
+    $this->drupalGet('user/1');
+    $this->assertResponse(200);
+    $this->assertPattern('/[0-9A-Fa-f]{64}/', 'User hash displayed on profile.');
+
+    $edit = array(
+      'operation' => 'user_hash_delete',
+      'accounts[1]' => 1,
+    );
+    $path = 'admin/people';
+    $this->drupalPost($path, $edit, t('Update'));
+    $this->assertText('Delete hash from', 'Hash deleted.');
+    $this->drupalGet('user/1/edit');
+    $this->assertResponse(200);
+    $this->assertNoPattern('/[0-9A-Fa-f]{64}/', 'User hash not displayed.');
+    $this->drupalGet('user/1');
+    $this->assertResponse(200);
+    $this->assertNoPattern('/[0-9A-Fa-f]{64}/', 'User hash not displayed on profile.');
+  }
+
+}
+
+/**
+ * Test class for the user hash profile.
+ */
+class UserHashProfileTestCase extends DrupalWebTestCase {
+  protected $adminUser;
+  protected $authenticatedUser;
+
+  /**
+   * Return test info.
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'User hash profile',
+      'description' => 'Test user hash on profile.',
+      'group' => 'User hash',
+    );
+  }
+
+  /**
+   * Set up test environment.
+   */
+  public function setUp() {
+    parent::setUp('user_hash');
+
+    // Create and log in an administrative user.
+    $this->adminUser = $this->drupalCreateUser(array(
+      'administer site configuration',
+      'access administration pages',
+      'administer users',
+      'access user profiles',
+    ));
+    $this->drupalLogin($this->adminUser);
+  }
+
+  /**
+   * Test user hash display for user without required permissions.
+   */
+  public function testUserHashProfile() {
+    $edit = array(
+      'operation' => 'user_hash_generate',
+      'accounts[1]' => 1,
+    );
+    $path = 'admin/people';
+    $this->drupalPost($path, $edit, t('Update'));
+    $this->assertText('Generate hash for', 'Hash generated.');
+    $this->drupalGet('user/1');
+    $this->assertResponse(200);
+    $this->assertPattern('/[0-9A-Fa-f]{64}/', 'User hash displayed on profile.');
+    $this->drupalLogout();
+
+    $this->authenticatedUser = $this->drupalCreateUser(array(
+      'access user profiles',
+    ));
+    $this->drupalLogin($this->authenticatedUser);
+    $this->drupalGet('user/1');
+    $this->assertResponse(200);
+    $this->assertNoPattern('/[0-9A-Fa-f]{64}/', 'User hash hidden on profile.');
+  }
+
+}
+
+/**
+ * Unit test case for user hash comparison.
+ */
+class UserHashCompareUnitTestCase extends DrupalUnitTestCase {
+  /**
+   * Return test info.
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'User hash comparison',
+      'description' => 'Test user hash comparison.',
+      'group' => 'User hash',
+    );
+  }
+
+  /**
+   * Test user hash comparison.
+   */
+  public function testUserHashCompare() {
+    $hash = hash('sha256', drupal_random_bytes(32), FALSE);
+    $result = user_hash_compare($hash, $hash);
+    $this->assertTrue($result, t('User hashes are identical.'));
+    $result = user_hash_compare($hash, $this->randomString(20));
+    $this->assertFalse($result, t('User hashes are different.'));
+  }
+
+}

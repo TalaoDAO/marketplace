@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for ethereum_user module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ethereum_user_install() {
+
+  // Clear field cache to recognize the Ethereum address field.
+  $fields = field_read_fields(array(), array('include_inactive' => TRUE));
+  $field_types = field_info_field_types();
+  if (!isset($field_types['ethereum_address'])) {
+    field_info_cache_clear();
+  }
+
+  // Create an Ethereum address field.
+  if (!field_info_field('ethereum_address')) {
+    $field = array(
+      'field_name' => 'ethereum_address',
+      'type' => 'ethereum_address',
+    );
+    field_create_field($field);
+  }
+
+  // Create a field instance and attach it to the User entity.
+  if (!field_info_instance('user', 'ethereum_address', 'user')) {
+    $instance = array(
+      'field_name' => 'ethereum_address',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'label' => 'Ethereum address',
+      'widget' => array(
+        'type' => 'ethereum_address_text',
+      ),
+    );
+    field_create_instance($instance);
+  }
+
+  // Create a role.
+  $role_name = 'Registered Ethereum user';
+  $role = new stdClass();
+  $role->name = $role_name;
+  user_role_save($role);
+
+  // Add permission to role.
+  $permissions = array(
+    'sign ethereum contracts',
+  );
+  module_invoke_all('permission');
+  $role = user_role_load_by_name($role_name);
+  user_role_grant_permissions($role->rid, $permissions);
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function ethereum_user_uninstall() {
+
+  // Delete role.
+  $role_name = 'registered ethereum user';
+  if (user_role_load_by_name($role_name)) {
+    user_role_delete($role_name);
+  }
+
+  // Delete Ethereum address field for the User entity.
+  if ($instance = field_info_instance('user', 'ethereum_address', 'user')) {
+    field_delete_instance($instance);
+  }
+
+}
