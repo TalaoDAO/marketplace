@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for ethereum_address_field module.
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function ethereum_address_field_field_schema($field) {
+
+  $columns = array(
+    'ethereum_address' => array(
+      'type' => 'varchar',
+      'length' => 42,
+      'not null' => FALSE,
+    ),
+  );
+
+  $indexes = array(
+    'ethereum_address' => array('ethereum_address'),
+  );
+
+  return array(
+    'columns' => $columns,
+    'indexes' => $indexes,
+  );
+}

@@ -1,0 +1,11 @@
+name = Ethereum user
+description = Allows users to use Ethereum, provide an address field and a dashboard.
+package = Ethereum
+core = 7.x
+
+; Dependencies
+dependencies[] = entity
+dependencies[] = ethereum_address_field
+dependencies[] = ethereum_web3
+dependencies[] = libraries
+dependencies[] = user_hash

@@ -1,0 +1,8 @@
+name = Ethereum Token
+description = Allows users to sell and buy tokens.
+package = Ethereum
+core = 7.x
+
+; Dependencies
+dependencies[] = ethereum_user
+dependencies[] = libraries
