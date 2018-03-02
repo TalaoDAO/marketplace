@@ -1,0 +1,211 @@
+<?php
+
+/**
+ * @file
+ * Generate user hashes.
+ */
+
+/**
+ * Define default hash algorithm.
+ */
+define('USER_HASH_ALGORITHM_DEFAULT', 'sha256');
+
+/**
+ * Define default hash random bytes.
+ */
+define('USER_HASH_RANDOM_BYTES_DEFAULT', 32);
+
+/**
+ * Implements hook_help().
+ */
+function user_hash_help($path, $arg) {
+  global $user;
+
+  switch ($path) {
+    case 'admin/help#user_hash':
+      $output = '';
+      $output .= '<h3>' . t('User Hash') . '</h3>';
+      $output .= '<p>' . t('The User hash module allows you to create an individual hash for each user.') . '</p>';
+      $output .= '<p>' . t('You can use the hash as a light weight user identification where you do not want to use the Drupal login credentials, e.g. as an individual API Key for reading insensitive content.') . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Settings') . '</dt>';
+      $output .= '<dd>' . t('<a href="@user-hash-settings">Configure</a> which hash algorithm to use for generating hashes. Default is sha256.', array('@user-hash-settings' => url('admin/config/people/user_hash'))) . '</dd>';
+      $output .= '<dt>' . t('Generation') . '</dt>';
+      $output .= '<dd>' . t('The user hash module adds update options on the <a href="@user-list">user list page</a> for generating and deleting user hashes.', array('@user-list' => url('admin/people'))) . '</dd>';
+      $output .= '<dt>' . t('User profile') . '</dt>';
+      $output .= '<dd>' . t('The user hash is displayed on the <a href="@user-edit">user edit form</a> and on the <a href="@user-profile">profile</a> if the user has administer user permission or if it is his own account.',
+                            array('@user-edit' => url("user/$user->uid/edit"), '@user-profile' => url("user/$user->uid"))) . '</dd>';
+      $output .= '</dl>';
+
+      return $output;
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function user_hash_menu() {
+  $items = array();
+
+  $items['admin/config/people/user_hash'] = array(
+    'title' => 'User hash',
+    'description' => 'Configure user hashes.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('user_hash_settings_form'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'user_hash.admin.inc',
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_user_operations().
+ */
+function user_hash_user_operations() {
+  $operations = array(
+    'user_hash_generate' => array(
+      'label' => t('Generate hash for the selected users'),
+      'callback' => 'user_hash_bulk_operations',
+    ),
+    'user_hash_delete' => array(
+      'label' => t('Delete hash from the selected users'),
+      'callback' => 'user_hash_bulk_operations',
+      'callback arguments' => array('delete'),
+    ),
+  );
+
+  return $operations;
+}
+
+/**
+ * Bulk generate hash for user roles.
+ */
+function user_hash_bulk_operations(array $uids, $op = 'update') {
+  if (!empty($uids)) {
+    $users = entity_load('user', $uids);
+
+    foreach ($users as $user) {
+      $data = array(
+        '@name' => $user->name,
+        '!id' => $user->uid,
+      );
+
+      if ($op == 'update') {
+        $hash = user_hash_generate();
+        $message = t('Generate hash for @name (!id).', $data);
+      }
+      elseif ($op == 'delete') {
+        $hash = NULL;
+        $message = t('Delete hash from @name (!id).', $data);
+      }
+
+      $user = user_save($user, array('hash' => $hash));
+      $type = ($user) ? 'status' : 'error';
+      drupal_set_message($message, $type);
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function user_hash_form_user_profile_form_alter(&$form, &$form_state, $form_id) {
+  $form['hash'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Hash'),
+    '#weight' => 100,
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['hash']['markup'] = array(
+    '#markup' => $form['#user']->hash,
+  );
+}
+
+/**
+ * Implements hook_field_extra_fields().
+ */
+function user_hash_field_extra_fields() {
+  $extra['user']['user'] = array(
+    'form' => array(
+      'hash' => array(
+        'label' => t('Hash'),
+        'description' => 'Individual random hash',
+        'weight' => 0,
+      ),
+    ),
+    'display' => array(
+      'hash' => array(
+        'label' => t('Hash'),
+        'description' => 'Individual random hash',
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  return $extra;
+}
+
+/**
+ * Implements hook_user_view_alter().
+ */
+function user_hash_user_view_alter(&$build) {
+  global $user;
+
+  if ($user->uid == $build['#account']->uid
+      || user_access('administer users')) {
+    $build['hash'] = array(
+      '#type' => 'user_profile_item',
+      '#title' => t('Hash'),
+      '#markup' => $build['#account']->hash,
+    );
+  }
+}
+
+/**
+ * Generate hash.
+ *
+ * @param string $raw_output
+ *   When set to TRUE, outputs raw binary data. FALSE outputs lowercase hexits.
+ *
+ * @return string
+ *   Returns the generated hash.
+ */
+function user_hash_generate($raw_output = FALSE) {
+  $hash_algo = variable_get('user_hash_algorithm', USER_HASH_ALGORITHM_DEFAULT);
+  $count = variable_get('user_hash_random_bytes', USER_HASH_RANDOM_BYTES_DEFAULT);
+  return hash($hash_algo, drupal_random_bytes($count), $raw_output);
+}
+
+/**
+ * Compare hashes.
+ *
+ * Using constant-time algorithm in order to prevent from timing attacks.
+ *
+ * @param string $a
+ *   First hash to compare.
+ * @param string $b
+ *   Second hash to compare.
+ *
+ * @return bool
+ *   TRUE if hashes match.
+ */
+function user_hash_compare($a, $b) {
+  if (version_compare(phpversion(), '5.6.0', '>=')) {
+    return hash_equals($a, $b);
+  }
+  
+  if (drupal_strlen($a) !== drupal_strlen($b)) {
+    return FALSE;
+  }
+
+  $result = 0;
+  for ($i = 0; $i < drupal_strlen($a); $i++) {
+    $result |= ord($a[$i]) ^ ord($b[$i]);
+  }
+  return $result == 0;
+}
