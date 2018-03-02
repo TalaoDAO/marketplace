@@ -1,0 +1,174 @@
+<?php
+
+/**
+ * @file
+ * Ethereum user.
+ *
+ * Allows users to sign a User Registry contract on Ethereum.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ethereum_user_menu() {
+  $items = array();
+
+  $items['user/%user/ethereum'] = array(
+    'title' => 'Ethereum',
+    'page callback' => '_ethereum_user',
+    'page arguments' => array(1),
+    'access callback' => '_ethereum_user_access',
+    'access arguments' => array(1),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function ethereum_user_permission() {
+  return array(
+    'use ethereum' => array(
+      'title' => t('Use Ethereum'),
+    ),
+    'sign ethereum contracts' => array(
+      'title' => t('Sign Ethereum contracts'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_form().
+ */
+function ethereum_user_form($form, &$form_state) {
+  $form = array();
+
+  global $user;
+  $user_wrapper = entity_metadata_wrapper('user', $user);
+
+  $form['ethereum_address'] = array(
+    '#title' => t('Ethereum address'),
+    '#title_display' => 'invisible',
+    '#type' => 'textfield',
+    '#size' => 42,
+    '#maxlength' => 42,
+    '#default_value' => $user_wrapper->ethereum_address->value(),
+    '#description' => t('Ethereum addresses must begin with 0x and 40 hexadecimals characters must follow.'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Submit',
+  );
+
+  $form['#attached'] = array(
+    'css' => array(
+      drupal_get_path('module', 'ethereum_user') . '/css/ethereum_user_form.css',
+    ),
+    'js' => array(
+      drupal_get_path('module', 'ethereum_user') . '/js/ethereum_user_form.js',
+    ),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_form_validate().
+ */
+function ethereum_user_form_validate($form, &$form_state) {
+  if (!preg_match('/^0x[0-9a-f]{40}/is', $form_state['values']['ethereum_address'])) {
+    form_set_error('ethereum_address', t('Ethereum addresses must begin with "0x" and 40 hexadecimals characters must follow.'));
+  }
+}
+
+/**
+ * Implements hook_form_submit().
+ */
+function ethereum_user_form_submit($form, &$form_state) {
+  global $user;
+  $user_wrapper = entity_metadata_wrapper('user', $user);
+  $address = $form_state['input']['ethereum_address'];
+  $user_wrapper->ethereum_address->set($address);
+  $user_wrapper->save();
+}
+
+/**
+ * Tab for /user/UID/ethereum.
+ *
+ * @object $this_user: User beeing viewed (UID), not necessarly the current user.
+ */
+function _ethereum_user($this_user) {
+
+  $build = array();
+
+  global $user;
+  if ($user->uid == $this_user->uid) {
+    $is_the_ethereum_user = TRUE;
+  }
+  $this_user_wrapper = entity_metadata_wrapper('user', $this_user);
+  $this_user_ethereum_address = $this_user_wrapper->ethereum_address->value();
+
+  // Generate user hash, if necessary.
+  if (!$this_user->hash) {
+    $data = array(
+      '@name' => $this_user->name,
+      '!id' => $this_user->uid,
+    );
+    $hash = user_hash_generate();
+    $this_user = user_save($this_user, array('hash' => $hash));
+  }
+
+  // Ethereum user address.
+  $address = '<div id="ethereum_user_address">';
+  $address .= '<h2>' . t('Ethereum address') . '</h2>';
+  $address .= '<p>';
+  $address .= $this_user_ethereum_address ? $this_user_ethereum_address : t('Please add an Ethereum address');
+  $address .= ' ';
+  $address .= $is_the_ethereum_user ? '<a id="ethereum_user_address_trigger" href="#">' . t('edit') . '</a>' : l(t('edit'), 'user/' . $this_user->uid . '/edit');
+  $address .= '</p>';
+  $address .= '</div>';
+  $build['ethereum_user_address'] = array(
+    '#type' => 'markup',
+    '#markup' => $address,
+    '#attached' => array(
+      'js' => array(
+        array(
+          'type' => 'setting',
+          'data' => array(
+            'ethereum_user' => array(
+              'user' => array(
+                'hash' => $this_user->hash,
+                'address' => $this_user_ethereum_address,
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+  $build['ethereum_user_address_form'] = drupal_get_form('ethereum_user_form');
+
+  /*
+   * Defines hook_ethereum_user_tab().
+   *
+   * array $build
+   * int $uid User ID
+   */
+  foreach (module_implements('ethereum_user_tab') as $module) {
+    $function = $module . '_ethereum_user_tab';
+    $function($build, $this_user->uid);
+  }
+
+  // Return the content to Drupal Render API.
+  return $build;
+}
+
+/**
+ * Access callback for user Ethereum tab.
+ */
+function _ethereum_user_access($account) {
+  return (($GLOBALS['user']->uid == $account->uid && user_access('use ethereum')) || user_access('administer users')) && $account->uid > 0;
+}

@@ -1,0 +1,134 @@
+<?php
+
+/**
+ * @file
+ * Ethereum registry.
+ *
+ * Allows users to sign a Register Drupal contract on Ethereum.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ethereum_registry_menu() {
+  $items = array();
+
+  $items['admin/config/ethereum/registry'] = array(
+    'title' => 'Users registry',
+    'description' => 'Ethereum registry.',
+    'page callback' => '_ethereum_registry_list',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ethereum_registry.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['admin/config/ethereum/registry/callback/%/%'] = array(
+    'page callback' => '_ethereum_registry_list_callback',
+    'page arguments' => array(5),
+    'access callback' => '_ethereum_registry_list_callback_access',
+    'access arguments' => array(5, 6),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/config/ethereum/registry/settings'] = array(
+    'title' => 'Settings',
+    'description' => 'Ethereum registry settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ethereum_registry_admin_form'),
+    'access arguments' => array('administer site configuration'),
+    'file' => 'ethereum_registry.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_ethereum_user_tab().
+ */
+function ethereum_registry_ethereum_user_tab(&$build, $uid) {
+
+  global $user;
+  if ($user->uid == $uid) {
+    $is_the_ethereum_user = TRUE;
+  }
+  $this_user_wrapper = entity_metadata_wrapper('user', $uid);
+  $this_user_ethereum_address = $this_user_wrapper->ethereum_address->value();
+
+  // If the user has an ethereum address:
+  if ($this_user_ethereum_address) {
+
+    // User registry check.
+    $loader = theme_image(array(
+      'path' => '/misc/throbber-active.gif',
+      'attributes' => '',
+    ));
+    $registry = '<div id="ethereum_registry">';
+    $registry  .= '<h2>' . t('Ethereum registry') . '</h2>';
+    $registry  .= '<div id="ethereum_registry_wait"><p>' . t('Please wait while we check if you are in our user registry on Ethereum...') . '</p><p>' . $loader . '</p></diV>';
+    $registry  .= '<p id="ethereum_registry_validated">' . t('Yes, this account is linked to our Ethereum user registry!') . '</p>';
+    $register_link = ($user->uid == $uid) ? '<a href="#">' . t('To use Ethereum features with us, please sign our user registry.') . '</a>' : t('User did not sign the registry and you can not do it as an admin');
+    $registry  .= '<p id="ethereum_registry_sign">' . $register_link . '</p>';
+    $registry  .= '</div>';
+    $build['ethereum_registry'] = array(
+      '#type' => 'markup',
+      '#markup' => $registry,
+      '#attached' => array(
+        'css' => array(
+          drupal_get_path('module', 'ethereum_registry') . '/css/ethereum_registry.css',
+        ),
+        'js' => array(
+          array(
+            'type' => 'file',
+            'data' => drupal_get_path('module', 'ethereum_registry') . '/js/ethereum_registry.js',
+            array(
+              'scope' => 'footer',
+            ),
+          ),
+        ),
+      ),
+    );
+    $build['ethereum_registry']['#attached']['library'][] = array('ethereum_smartcontract', 'register_drupal');
+  }
+}
+
+/**
+ * Callback to retrieve a user from his hash.
+ */
+function _ethereum_registry_list_callback($hash) {
+
+  // Remove 0x.
+  $hash = substr($hash, 2);
+
+  $user = db_select('users', 'u')
+    ->fields('u', array('uid', 'name'))
+    ->condition('hash', $hash)
+    ->range(0, 1)
+    ->execute()
+    ->fetch();
+
+  drupal_json_output(
+    array(
+      'status' => 0,
+      'data' => array(
+        'uid' => $user->uid,
+        'name' => $user->name,
+      ),
+    )
+  );
+}
+
+/**
+ * Access callback to retrieve a user from his hash.
+ */
+function _ethereum_registry_list_callback_access($hash, $token) {
+  if (!ctype_xdigit(substr($hash, 2))) {
+    return FALSE;
+  }
+  elseif (check_plain($token) != variable_get('ethereum_registry_list_token')) {
+    return FALSE;
+  }
+  else {
+    return TRUE;
+  }
+}

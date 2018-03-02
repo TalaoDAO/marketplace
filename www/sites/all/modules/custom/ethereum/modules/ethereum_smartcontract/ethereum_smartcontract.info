@@ -1,0 +1,11 @@
+name = Ethereum smart contract
+description = Manages Ethereum smart contracts
+package = Ethereum
+core = 7.x
+
+; Dependencies
+dependencies[] = entity
+dependencies[] = ethereum
+dependencies[] = ethereum_address_field
+dependencies[] = ethereum_web3
+dependencies[] = libraries

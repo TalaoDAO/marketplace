@@ -1,0 +1,13 @@
+/**
+ * @file
+ * Stylesheet for the Ethereum_user module.
+ */
+
+#ethereum_registry_validated,
+#ethereum_registry_sign {
+  display: none;
+}
+
+#ethereum_registry_wait {
+  text-align: center;
+}

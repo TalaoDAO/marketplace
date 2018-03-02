@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for ethereum_field module.
+ */
+
+/**
+ * Implements hook_field_schema().
+ */
+function ethereum_field_field_schema($field) {
+}

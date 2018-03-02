@@ -1,0 +1,21 @@
+/**
+ * @file
+ * Stylesheet for the Ethereum_user module.
+ */
+
+#ethereum-user-form {
+  display: none;
+}
+
+/* TODO: Specific to our theme? Then move it there. */
+#ethereum-user-form .form-control {
+  width: unset;
+}
+#ethereum-user-form .form-control:not(textarea) {
+  width: unset;
+  max-width: unset;
+}
+#ethereum-user-form .form-item-ethereum-user-address {
+  float: left;
+  margin-right: 10px;
+}

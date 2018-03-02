@@ -1,0 +1,10 @@
+7.x-1.0, 2015-09-28
+-------------------
+- First stable release
+
+7.x-1.1, 2016-01-19
+-------------------
+- Added display of user hash on profile view.
+- Added administration of user hash position and visibility in field management.
+- Replaced random string generation by drupal equivalent.
+- Code improvements based on https://www.drupal.org/node/2572059#comment-10699486
