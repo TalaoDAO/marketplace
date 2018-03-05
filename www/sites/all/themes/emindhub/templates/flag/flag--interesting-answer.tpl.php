@@ -53,7 +53,7 @@
 <?php endif; ?>
 <span class="<?php print $flag_wrapper_classes; ?>">
   <?php if ($link_href): ?>
-    <a href="<?php print $link_href; ?>" title="<?php print $link_title; ?>" class="<?php print $flag_classes ?>" onclick="validate_exp(); return false;" rel="nofollow"><?php print $link_text; ?></a><span class="flag-throbber">&nbsp;</span>
+      <a href="<?php print $link_href; ?>" title="<?php print $link_title; ?>" class="<?php print $flag_classes ?>" <?php if (module_exists('ethereum')) print 'onclick="validate_exp(); return false;" '; ?>rel="nofollow"><?php print $link_text; ?></a><span class="flag-throbber">&nbsp;</span>
   <?php else: ?>
     <span class="<?php print $flag_classes ?>"><?php print $link_text; ?></span>
   <?php endif; ?>
@@ -63,16 +63,16 @@
     </span>
   <?php endif; ?>
 </span>
-<?php global $user; $client=user_load($user->uid); render(field_view_value('user', $client, 'field_freelancer')); ?>
+<?php if (module_exists('ethereum')) {global $user; $client=user_load($user->uid); render(field_view_value('user', $client, 'field_freelancer')); } ?>
 <script type="text/javascript">
 
   function validate_exp() {
     var userid = <?php global $user; print $user->uid;?>;
     var nodeid = <?php $nid = arg(1); print $nid;?>;
     var eid = <?=$entity_id?>;
-    var expertid = <?php $entity = reset(entity_load('webform_submission', [$entity_id])); print $entity->uid; ?>;
+    var expertid = <?php if (module_exists('ethereum')) { $entity = reset(entity_load('webform_submission', [$entity_id])); print $entity->uid; } else print '0'; ?>;
     console.log(expertid);
-    function drupalCall(url, method, callback) {          
+    function drupalCall(url, method, callback) {
             var drupal = new drupalService();
             drupal.url = url;
             drupal.method = method;
@@ -106,7 +106,8 @@
   }
 
 </script>
-<?php       drupal_add_js('sites/all/modules/contrib/drupalservicejs/app.js', array('scope' => 'footer')); ?>
+<?php  if (module_exists('ethereum')) 
+  drupal_add_js('sites/all/modules/contrib/drupalservicejs/app.js', array('scope' => 'footer')); ?>
 <?php if ($needs_wrapping_element): ?>
   </div>
 <?php endif; ?>
