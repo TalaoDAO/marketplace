@@ -19,10 +19,6 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7"
   },
-  "repository": {
-    "type": "git",
-    "url": "http://gitemindhub/yoann.babel/emindhub.git"
-  },
   "scripts": {
     "build": "gulp",
     "watch": "gulp watch"
@@ -35,3 +31,4 @@
   ],
   "private": true
 }
+
