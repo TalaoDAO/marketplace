@@ -37,6 +37,7 @@
 
         token_emh_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('token_erc20');
         user_register_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('register_drupal');
+        objection_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('objection');
         clientAddress = Drupal.settings.emh_blockchain.clientAddress;
         expertAddress = Drupal.settings.emh_blockchain.expertAddress;
         clientName = Drupal.settings.emh_blockchain.clientName;
@@ -64,15 +65,19 @@
         user_register_contract.methods.validateUserByHash(expertHash).call({from:expertAddress}).then(
           () => { logInfo('The expert is a registered ethereum user.'); expertRegistered = true;}, () => logInfo('The expert is not registered in ehtereum : Ethereum buy via token disabled')
         );
-        token_emh_contract.methods.balanceOf(clientAddress).call().then( balance => { addText('#buy-title', '<b> and for 1 ethereum Token</b>. Your current balance is :'+balance)} );
+        var price = 1; 
+        objection_contract.methods.get_value(web3.utils.padRight(web3.utils.stringToHex('profile_price'), 64)).call().then(value => {
+          price = value;
+          token_emh_contract.methods.balanceOf(clientAddress).call().then( balance => { addText('#buy-title', '<b> and for '+value+' talao Token</b>. Your current balance is :'+balance)} );
+        });
 
         validated = false;
         $('#edit-submit', context).on('click', function(){
            if (!clientRegistered || !expertRegistered) { alert('Using normal profil buy'); return true;}
            if (validated) return true;
-           var pass = prompt("Please enter your private key (keep empty to validate transaction with your wallet)", "");
+           var pass = prompt("Please enter your private key (keep empty to validate transaction with your wallet) for "+price+" tokens", "");
            if (pass == '') {
-             token_emh_contract.methods.transfer(expertAddress, 1).send({from:clientAddress})
+             token_emh_contract.methods.transfer(expertAddress, price).send({from:clientAddress})
                .then( receipt => {validated = true; $('#edit-submit', context).click(); })
                .catch(error => alert('Request rejected') );
            } else {
