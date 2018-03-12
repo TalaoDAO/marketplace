@@ -1,6 +1,6 @@
 # Talao
 
-## Smart way to access smarrt people
+## Smart way to access smart people
 
 This is repository contains :
 * the drupal source code along with custom modules and theme 
