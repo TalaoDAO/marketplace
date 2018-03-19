@@ -23,9 +23,9 @@ function ethereum_token_menu() {
   );
 
   $items['ethereum/dashboard'] = array(
-    'title' => 'Dashboard',
+    'title' => 'Ethereum',
     'page callback' => 'ethereum_dashboard',
-    'access arguments' => array('ethereum user'),
+    'access arguments' => array('use ethereum'),
     'menu_name' => 'user-menu',
     'type' => MENU_NORMAL_ITEM,
   );
