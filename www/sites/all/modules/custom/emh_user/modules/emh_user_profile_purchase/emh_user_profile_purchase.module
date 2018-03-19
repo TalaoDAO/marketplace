@@ -81,24 +81,12 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
 		)) . '</p>',
   );
 
-  $form['info'] = array('#markup' => "<div id='ethereum-info'></div>");
-
-  $form['actions'] = array(
-    '#type' => 'actions',
-    '#tree' => FALSE,
-    'cancel' => array(
-      '#type' => 'link',
-      '#title' => t("Cancel"),
-      '#href' => $options['path'],
-      '#options' => $options,
-    ),
-    'submit' => array(
-      '#type' => 'submit',
-      '#value' => t("Access profile"),
-    ),
-  );
 
   if (module_exists('ethereum')) {
+    $form['info'] = ['#markup' => "<div id='ethereum-info'></div>"];
+    $form['tx'] = [ '#type' => 'hidden'];
+    $form['price'] = [ '#type' => 'hidden'];
+    //$form['tx'] = [ '#type' => 'textfield'];
     $_user = user_load($user->uid);
     $_account = user_load($account->uid);
     _ethereum_smartcontract_load('token_erc20');
@@ -123,6 +111,21 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
     //$form['info'] = array('#markup' => $_account->ethereum_user_address['und'][0]['ethereum_address']);
   }
 
+  $form['actions'] = array(
+    '#type' => 'actions',
+    '#tree' => FALSE,
+    'cancel' => array(
+      '#type' => 'link',
+      '#title' => t("Cancel"),
+      '#href' => $options['path'],
+      '#options' => $options,
+    ),
+    'submit' => array(
+      '#type' => 'submit',
+      '#value' => t("Access profile"),
+    ),
+  );
+
   return $form;
 }
 
@@ -130,6 +133,17 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
  * Submit callback for the profile purchase form.
  */
 function emh_user_profile_purchase_form_submit($form, &$form_state) {
+  if (module_exists('ethereum')) {
+    drupal_set_message('Transaction checked : '.$form_state['values']['tx']);
+    global $user;
+    // we assume validation ensure a transaction in token have been made
+    $context = array(
+      'points' => (int) variable_get('emh_user_profile_purchase_amount', 100),
+      'log' => 'Profile buy via ethereum token transaction',
+      'txn_context' => 'token_erc20_buy',
+    );
+    emh_points_give_points($user, $context);
+  }
   $account = $form_state['account'];
   $node = $form_state['node'];
   try {
@@ -150,18 +164,49 @@ function emh_user_profile_purchase_form_submit($form, &$form_state) {
   }
 }
 
+function stringEndsWith($end, $whole){
+    return (strpos($whole, $end, strlen($whole) - strlen($end)) !== false);
+}
+
 /**
  * Validation callback for the profile purchase form.
  */
 function emh_user_profile_purchase_form_validate($form, &$form_state) {
-  global $user;
-  if (!isset($user->emh_points)) {
-    emh_points_entity_load_single($user, 'user');
-  }
-  if ($user->emh_points < (int) variable_get('emh_user_profile_purchase_amount', 100)) {
-    form_error($form, t("You don't have enough credits to access !user's profile.", array(
-      '!user' => format_username($form_state['account']),
-    )));
+  if (module_exists('ethereum')) {
+    if ($form_state['values']['tx'] != '') {
+      require 'ethereum-php/ethereum.php';
+      $provider = explode(':', str_replace('http://', '', variable_get('ethereum_web3_node')));
+      $ethereum = new Ethereum($provider[0], intval($provider[1]));
+      $tx = $ethereum->eth_getTransactionByHash($form_state['values']['tx']);
+      $from = $tx->from;
+      $to = $tx->to;
+      $tier = '0x'.substr($tx->input, 32+2, 40);
+      $account = $form_state['account']; 
+      global $user; 
+      $_user = user_load($user->uid);
+      $contract = get_smartcontract('token_erc20');
+      $address = $contract->ethereum_address->value();
+      $_account = user_load($account->uid);
+      if (strcasecmp($from, $_user->ethereum_address['und'][0]['ethereum_address']) != 0) 
+        form_error($form, t('Your ethereum address do not match '.$from. ' / ' . $_user->ethereum_address['und'][0]['ethereum_address']));
+      if (strcasecmp($tier,$_account->ethereum_address['und'][0]['ethereum_address']) != 0) 
+        form_error($form, t('Expert ethereum address do not match '.$tier. ' / ' . $_account->ethereum_address['und'][0]['ethereum_address']));
+      if (strcasecmp($to,$address) != 0) form_error($form, t('Contract address do not match '.$to. ' / ' . $address));
+      if (! stringEndsWith( dechex(intval($form_state['values']['price'])), $tx->input ))
+        form_error($form, t($form_state['values']['price'].'The price does not match '. dechex(intval($form_state['values']['price'])) . ' / ' . $tx->input));
+    } else {
+      form_error($form, t('Hey, you have to have a validated transaction before : '.$form_state['values']['tx']));
+    }
+  } else {
+    global $user;
+    if (!isset($user->emh_points)) {
+      emh_points_entity_load_single($user, 'user');
+    }
+    if ($user->emh_points < (int) variable_get('emh_user_profile_purchase_amount', 100)) {
+      form_error($form, t("You don't have enough credits to access !user's profile.", array(
+        '!user' => format_username($form_state['account']),
+      )));
+    }
   }
 }
 

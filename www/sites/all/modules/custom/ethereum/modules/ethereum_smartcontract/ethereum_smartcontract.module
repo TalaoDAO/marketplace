@@ -287,6 +287,20 @@ function ethereum_smartcontract_library() {
   return $libraries;
 }
 
+function get_smartcontract($machine_name) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'smartcontract')
+    ->propertyCondition('machine_name', $machine_name);
+  $result = $query->execute();
+  if (isset($result['smartcontract'])) {
+    $contracts = entity_load('smartcontract', array_keys($result['smartcontract']));
+    $contract = reset($contracts);  
+    $wrapper = entity_metadata_wrapper('smartcontract', $contract);
+    return $wrapper;
+  }
+  return NULL;
+}
+
 /**
  * Helper function to load a Smart Contract.
  *

@@ -45,18 +45,15 @@
         clientHash = Drupal.settings.emh_blockchain.clientHash;
         expertHash = Drupal.settings.emh_blockchain.expertHash;
 
-        console.log(expertAddress); console.log(clientAddress);
-        console.log(expertHash); console.log(clientHash);
-        console.log(expertName); console.log(clientName);
+        //console.log(expertAddress); console.log(clientAddress);
+        //console.log(expertHash); console.log(clientHash);
+        //console.log(expertName); console.log(clientName);
 
         clientRegistered = false; //async
         expertRegistered = false; //async
 
-        function addText(item, text) {
-          $(item).html( $(item).text() +text );
-        }
         function logInfo(text) {
-          addText('#ethereum-info', '<br>'+text);
+          $('#ethereum-info').append('<br>'+text);
         }
 
         user_register_contract.methods.validateUserByHash(clientHash).call({from:clientAddress}).then(
@@ -65,33 +62,39 @@
         user_register_contract.methods.validateUserByHash(expertHash).call({from:expertAddress}).then(
           () => { logInfo('The expert is a registered ethereum user.'); expertRegistered = true;}, () => logInfo('The expert is not registered in ehtereum : Ethereum buy via token disabled')
         );
-        var price = 1; 
+        var price = 1;
         objection_contract.methods.get_value(web3.utils.padRight(web3.utils.stringToHex('profile_price'), 64)).call().then(value => {
           price = value;
-          token_emh_contract.methods.balanceOf(clientAddress).call().then( balance => { addText('#buy-title', '<b> and for '+value+' talao Token</b>. Your current balance is :'+balance)} );
+          token_emh_contract.methods.balanceOf(clientAddress).call().then( balance => { $('#buy-title').html('Access Super\'s profile for <b> '+value+' talao Token</b>. Your current balance is :'+balance)} );
         });
 
         validated = false;
         $('#edit-submit', context).on('click', function(){
            if (!clientRegistered || !expertRegistered) { alert('Using normal profil buy'); return true;}
            if (validated) return true;
-           var pass = prompt("Please enter your private key (keep empty to validate transaction with your wallet) for "+price+" tokens", "");
-           if (pass == '') {
+           //var pass = prompt("Please enter your private key (keep empty to validate transaction with your wallet) for "+price+" tokens", "");
+           //if (pass == '') {
              token_emh_contract.methods.transfer(expertAddress, price).send({from:clientAddress})
-               .then( receipt => {validated = true; $('#edit-submit', context).click(); })
+               .then( receipt => {
+                 //console.log(receipt);
+                 //alert('validated');
+                 //alert(receipt.transactionHash);
+                 $('input[name="tx"]').val(receipt.transactionHash);
+                 $('input[name="price"]').val(price);
+                 validated = true; $('#edit-submit', context).click();
+               })
                .catch(error => alert('Request rejected') );
-           } else {
+           /*} else {
              try {
                logInfo('<b>Transaction send, waiting for (automatic) validation ...<b>');
                autosign(pass, ()=>{
                  validated = true; $('#edit-submit').click();
                });
              } catch (err) { console.log(err); alert('There was an error'); }
-           }
+           }*/
            return false;
         });
       });
     }
   }
 }(jQuery));
-
