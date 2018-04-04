@@ -63,3 +63,30 @@ function ethereum_web3_init() {
     }
   }
 }
+
+function stringEndsWith($end, $whole){
+  return (strpos($whole, $end, strlen($whole) - strlen($end)) !== false);
+}
+
+function web3_check_transaction($tx_hash, $from_uid, $to_uid, $contract_name, $price) {
+  require 'ethereum-php/ethereum.php';
+  $provider = explode(':', str_replace('http://', '', variable_get('ethereum_web3_node')));
+  $ethereum = new Ethereum($provider[0], intval($provider[1]));
+  $tx = $ethereum->eth_getTransactionByHash($tx_hash);
+  $from = $tx->from;
+  $tier = $tx->to;
+  $to = '0x'.substr($tx->input, 32+2, 40);
+  $user_from = user_load($from_uid);
+  $contract = get_smartcontract($contract_name);
+  $address = $contract->ethereum_address->value();
+  $to_user = user_load($to_uid);
+  if (strcasecmp($from, $user_from->ethereum_address['und'][0]['ethereum_address']) != 0) 
+    return t('Your ethereum address do not match '.$from. " / ($from_uid)" . $user_from->ethereum_address['und'][0]['ethereum_address']);
+  if (strcasecmp($to,$to_user->ethereum_address['und'][0]['ethereum_address']) != 0) 
+    return t('Expert ethereum address do not match '.$to. " / ($to_uid)" . $to_user->ethereum_address['und'][0]['ethereum_address']);
+  if (strcasecmp($tier,$address) != 0) 
+    return t('Contract address do not match '.$tier. ' / ' . $address);
+  if (! stringEndsWith( dechex(intval($price)), $tx->input ))
+    return t('The price does not match '. dechex(intval($price)) . ' / ' . $tx->input);
+  return '';
+}

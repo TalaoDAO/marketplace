@@ -4,6 +4,8 @@
     attach: function (context, settings) {
       window.addEventListener('load', function () {
 
+        if (typeof Drupal.settings.ethereum_web3 == 'undefined') return;
+
         // inspired from https://forum.ethereum.org/discussion/5039/how-to-use-web3-js-to-sign-a-contract-call
         autosign = function (pass, onreceipt) {
           var walletContractAddress = Drupal.settings.ethereum_smartcontract.contracts.token_erc20.address;
@@ -60,7 +62,7 @@
           () => { logInfo('You are a registered ethereum user.'); clientRegistered = true;}, () => logInfo('You are not registered in ethereum : Ethereum buy via token disabled')
         );
         user_register_contract.methods.validateUserByHash(expertHash).call({from:expertAddress}).then(
-          () => { logInfo('The expert is a registered ethereum user.'); expertRegistered = true;}, () => logInfo('The expert is not registered in ehtereum : Ethereum buy via token disabled')
+          () => { logInfo('The destination is a registered ethereum user.'); expertRegistered = true;}, () => logInfo('The destination is not registered in ehtereum : Ethereum buy via token disabled')
         );
         var price = 1;
         objection_contract.methods.get_value(web3.utils.padRight(web3.utils.stringToHex('profile_price'), 64)).call().then(value => {
@@ -70,10 +72,11 @@
 
         validated = false;
         $('#edit-submit', context).on('click', function(){
-           if (!clientRegistered || !expertRegistered) { alert('Using normal profil buy'); return true;}
+           if (!clientRegistered || !expertRegistered) { alert('Using normal buy (no ethereum)'); return true;}
            if (validated) return true;
            //var pass = prompt("Please enter your private key (keep empty to validate transaction with your wallet) for "+price+" tokens", "");
            //if (pass == '') {
+             alert('Waiting for validation, check your wallet');
              token_emh_contract.methods.transfer(expertAddress, price).send({from:clientAddress})
                .then( receipt => {
                  //console.log(receipt);

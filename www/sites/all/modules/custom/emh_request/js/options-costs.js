@@ -22,6 +22,7 @@
           });
 
           $optionsField.find('.total').text(getFormattedCost(total))
+          $optionsField.find('.total-num').text(total)
         }
 
 

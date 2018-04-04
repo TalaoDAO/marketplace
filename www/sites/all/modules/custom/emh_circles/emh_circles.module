@@ -533,8 +533,7 @@ function emh_circles_form_og_ui_confirm_unsubscribe_alter(&$form, &$form_state) 
 }
 
 /**
- * Submit handler: Confirm OG unsubscribe membership.
- */
+ * Submit handler: Confirm OG */
 function emh_circles_form_og_ui_confirm_unsubscribe_submit($form, &$form_state) {
   $form_state['redirect'] = 'circles';
 }
@@ -548,6 +547,36 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
     (empty($form['#node']->nid) || $form['#node']->status == NODE_NOT_PUBLISHED)
   ) {
     global $user;
+
+    if (module_exists('ethereum')) {
+      $form['info'] = ['#markup' => "<div id='ethereum-info'></div>"];
+      $form['tx'] = [ '#type' => 'hidden'];
+      $form['price'] = [ '#type' => 'hidden'];
+
+      $web3_local = variable_get('ethereum_web3_local_injection');
+      $library = libraries_load('web3');
+      if (! (($web3_local && $library && !empty($library['loaded'])) || !$web3_local) ) {
+        $form['Error'] = array('#markup' => "Web3.js could not be loaded, ethereum wont work. You should be able to use the site normally though. Contact your adminsitrator");
+      }
+      $_user = user_load($user->uid);
+      _ethereum_smartcontract_load('token_erc20');
+      _ethereum_smartcontract_load('register_drupal');
+      _ethereum_smartcontract_load('objection');
+      $account = user_load(1); // use admin account for token payments instead of node itsealf
+      drupal_add_js(array(
+        'emh_blockchain' => array(
+          'clientHash' => $_user->hash,
+          'clientAddress' => $_user->ethereum_address['und'][0]['ethereum_address'],
+          'clientName' => emh_user_get_beautiful_realname($_user),
+          'expertHash' => $account->hash,
+          'expertAddress' => $account->ethereum_address['und'][0]['ethereum_address'],
+          'expertName' => emh_user_get_beautiful_realname($account),
+        ),
+      ), 'setting');
+      //$form['#validate'][] = 'emh_circles_form_request_node_form_validate';
+      array_unshift($form['#validate'], 'emh_circles_form_request_node_form_validate'); // need to be done before other validations
+    }
+
 
     // Prepares data for Javascript.
     $settings = array(
@@ -569,6 +598,7 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
 
       if ($costs = field_get_items('node', $group, 'field_options_costs')) {
         $settings['circles'][$group->nid] = array();
+        $settings['circles_id'][$group->nid] = $group->title; // use by ethereum
         foreach ($costs as $cost) {
           $settings['circles'][$group->nid][$cost['option']] = $cost['cost'];
         }
@@ -588,3 +618,25 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
     );
   }
 }
+
+function emh_circles_form_request_node_form_validate($form, &$form_state) {
+  if (module_exists('ethereum')) {
+    if ($form_state['values']['tx'] != '') {
+      global $user;
+      $error = web3_check_transaction($form_state['values']['tx'], $user->uid, 1, 'token_erc20', $form_state['values']['price']);
+      if ($error != '') form_error($form, $error); else {
+        drupal_set_message('Transaction checked : '.$form_state['values']['tx']);
+        // we assume validation ensure a transaction in token have been made
+        $context = array(
+          'points' => (int) $form_state['values']['price'], // we assume 1 token = 1 credit for now
+          'log' => 'Credit buy via ethereum token transaction',
+          'txn_context' => 'token_erc20_buy',
+        );
+        emh_points_give_points($user, $context);
+      }
+    } else {
+      form_error($form, t('Hey, you have to have a validated transaction before : '.$form_state['values']['tx']));
+    }
+  } 
+}
+

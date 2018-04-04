@@ -139,6 +139,7 @@ function emh_request_field_widget_form(&$form, &$form_state, $field, $instance, 
       '#markup' => '<div class="total-wrapper">'
         . '<span class="total-label">' . t("Total:") . '</span> '
         . '<span class="total">' . emh_request_format_cost($total) . '</span>'
+        . '<span class="total-num hidden">'.$total.'</span>' // used by ethereum
         . '</div>',
       '#weight' => $weight++,
     );
