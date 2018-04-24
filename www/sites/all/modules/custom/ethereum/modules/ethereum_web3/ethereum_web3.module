@@ -14,9 +14,9 @@ function ethereum_web3_libraries_info() {
     'vendor url' => 'https://github.com/ethereum/web3.js/',
     'download url' => 'https://github.com/ethereum/web3.js/releases',
     'version arguments' => array(
-      'file' => 'dist/web3.min.js',
-      'pattern' => '/version:"([0-9a-z\.-]+)"/',
-      'lines' => 150,
+      'file' => 'dist/web3.js',
+      'pattern' => '/"version": "(1.0.0-beta\.[0-9]+)",/',
+      'lines' => 50000,
     ),
     'files' => array(
       'js' => array('dist/web3.min.js'),
@@ -49,17 +49,32 @@ function ethereum_web3_menu() {
  */
 function ethereum_web3_init() {
 
-  // Local injection of web3, if enabled.
-  if (variable_get('ethereum_web3_local_injection')) {
-
-    // Try to load the library.
-    if (($library = libraries_load('web3')) && !empty($library['loaded'])) {
-
-      // Pass settings to JS.
+  if (_ethereum_user_ready()) {
+    // Try to load a local Web3.js.
+    $library = libraries_load('web3');
+    if ($library && !empty($library['loaded'])) {
+      // Pass Web3.js settings to JS.
       $settings = array(
-        'node' => variable_get('ethereum_web3_node'),
+        'network' => variable_get('ethereum_web3_network'),
+        'messages_selector' => variable_get('ethereum_web3_messages_selector'),
+        'messages_base' => variable_get('ethereum_web3_messages_base'),
+        'messages_status' => variable_get('ethereum_web3_messages_status'),
+        'messages_warning' => variable_get('ethereum_web3_messages_warning'),
+        'messages_error' => variable_get('ethereum_web3_messages_error'),
       );
       drupal_add_js(array('ethereum_web3' => $settings), 'setting');
+      // Init Web3.js.
+      drupal_add_js(
+        drupal_get_path('module', 'ethereum_web3') . '/js/ethereum_web3.js',
+        array(
+          'type' => 'file',
+          'scope' => 'footer',
+          'weight' => '-20',
+        )
+      );
+    }
+    else {
+      watchdog('ethereum_web3', 'Web3.js not found locally', array(), WATCHDOG_ERROR);
     }
   }
 }
@@ -77,14 +92,14 @@ function web3_check_transaction($tx_hash, $from_uid, $to_uid, $contract_name, $p
   $tier = $tx->to;
   $to = '0x'.substr($tx->input, 32+2, 40);
   $user_from = user_load($from_uid);
-  $contract = get_smartcontract($contract_name);
+  $contract = _ethereum_smartcontract_get($contract_name);
   $address = $contract->ethereum_address->value();
   $to_user = user_load($to_uid);
-  if (strcasecmp($from, $user_from->ethereum_address['und'][0]['ethereum_address']) != 0) 
+  if (strcasecmp($from, $user_from->ethereum_address['und'][0]['ethereum_address']) != 0)
     return t('Your ethereum address do not match '.$from. " / ($from_uid)" . $user_from->ethereum_address['und'][0]['ethereum_address']);
-  if (strcasecmp($to,$to_user->ethereum_address['und'][0]['ethereum_address']) != 0) 
+  if (strcasecmp($to,$to_user->ethereum_address['und'][0]['ethereum_address']) != 0)
     return t('Expert ethereum address do not match '.$to. " / ($to_uid)" . $to_user->ethereum_address['und'][0]['ethereum_address']);
-  if (strcasecmp($tier,$address) != 0) 
+  if (strcasecmp($tier,$address) != 0)
     return t('Contract address do not match '.$tier. ' / ' . $address);
   if (! stringEndsWith( dechex(intval($price)), $tx->input ))
     return t('The price does not match '. dechex(intval($price)) . ' / ' . $tx->input);

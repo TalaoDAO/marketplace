@@ -1996,6 +1996,15 @@ function ft_permissions_user_default_permissions() {
     'module' => 'features',
   );
 
+  // Exported permission: 'manage smart contracts'.
+  $permissions['manage smart contracts'] = array(
+    'name' => 'manage smart contracts',
+    'roles' => array(
+      'administrator' => 'administrator',
+    ),
+    'module' => 'ethereum_smartcontract',
+  );
+
   // Exported permission: 'merge domaine terms'.
   $permissions['merge domaine terms'] = array(
     'name' => 'merge domaine terms',
@@ -2216,6 +2225,16 @@ function ft_permissions_user_default_permissions() {
     'module' => 'mimemail',
   );
 
+  // Exported permission: 'sign ethereum contracts'.
+  $permissions['sign ethereum contracts'] = array(
+    'name' => 'sign ethereum contracts',
+    'roles' => array(
+      'Registered Ethereum user' => 'Registered Ethereum user',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'ethereum_user',
+  );
+
   // Exported permission: 'skip comment approval'.
   $permissions['skip comment approval'] = array(
     'name' => 'skip comment approval',
@@ -2404,6 +2423,16 @@ function ft_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'ctools',
+  );
+
+  // Exported permission: 'use ethereum'.
+  $permissions['use ethereum'] = array(
+    'name' => 'use ethereum',
+    'roles' => array(
+      'Registered Ethereum user' => 'Registered Ethereum user',
+      'administrator' => 'administrator',
+    ),
+    'module' => 'ethereum_user',
   );
 
   // Exported permission: 'use flag import'.

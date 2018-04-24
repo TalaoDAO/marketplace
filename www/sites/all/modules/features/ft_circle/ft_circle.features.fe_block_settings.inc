@@ -31,7 +31,7 @@ function ft_circle_default_fe_block_settings() {
         'region' => 'title_right',
         'status' => 1,
         'theme' => 'emindhub',
-        'weight' => -41,
+        'weight' => -40,
       ),
       'seven' => array(
         'region' => '',

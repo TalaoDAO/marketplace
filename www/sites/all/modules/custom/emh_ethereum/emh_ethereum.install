@@ -1,0 +1,101 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for emh_ethereum module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function emh_ethereum_install() {
+
+  // Creates the Talao Token smart contract entity.
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'smartcontract')
+    ->propertyCondition('machine_name', 'talaotoken')
+    ->range(0, 1);
+  $result = $query->execute();
+
+  if (!$result) {
+
+    $entity = entity_create(
+      'smartcontract',
+      array(
+        'name' => 'Talao Token',
+        'description' => 'TalaoToken.sol from Talao DAO (https://github.com/TalaoDAO/dao/blob/dev/contracts/TalaoToken.sol)',
+        'machine_name' => 'talaotoken',
+        'abi' => file_get_contents(drupal_get_path('module', 'emh_ethereum') . '/contracts/TalaoToken.abi'),
+        'module' => 'emh_ethereum',
+      )
+    );
+    $entity->save();
+  }
+
+  // Creates the Freelancer smart contract entity.
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'smartcontract')
+    ->propertyCondition('machine_name', 'freelancer')
+    ->range(0, 1);
+  $result = $query->execute();
+
+  if (!$result) {
+
+    $entity = entity_create(
+      'smartcontract',
+      array(
+        'name' => 'Freelancer',
+        'description' => 'Freelancer.sol from Talao DAO (https://github.com/TalaoDAO/dao/tree/dev/contracts/freelancer)',
+        'machine_name' => 'freelancer',
+        'abi' => file_get_contents(drupal_get_path('module', 'emh_ethereum') . '/contracts/Freelancer.abi'),
+        'module' => 'emh_ethereum',
+      )
+    );
+    $entity->save();
+  }
+
+  // Creates the Objection smart contract entity.
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'smartcontract')
+    ->propertyCondition('machine_name', 'objection')
+    ->range(0, 1);
+  $result = $query->execute();
+
+  if (!$result) {
+
+    $entity = entity_create(
+      'smartcontract',
+      array(
+        'name' => 'Objection',
+        'description' => 'Objection.sol from Talao DAO (https://github.com/TalaoDAO/dao/blob/dev/contracts/objection)',
+        'machine_name' => 'objection',
+        'abi' => file_get_contents(drupal_get_path('module', 'emh_ethereum') . '/contracts/Objection.abi'),
+        'module' => 'emh_ethereum',
+      )
+    );
+    $entity->save();
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function emh_ethereum_uninstall() {
+
+  // Delete the Freelancer smart contract entity.
+  $query = new EntityFieldQuery();
+  $query
+    ->entityCondition('entity_type', 'smartcontract')
+    ->propertyCondition('machine_name', 'freelancer')
+    ->range(0, 1);
+  $result = $query->execute();
+
+  if ($result) {
+
+    $entity_id = current(current($result))->id;
+    entity_delete('smartcontract', $entity_id);
+  }
+}

@@ -13,6 +13,7 @@ include_once 'emh_circles.pages.inc';
 include_once 'emh_circles.theme.inc';
 include_once 'emh_circles.views.inc';
 
+const EMH_CIRCLES_NODE_TYPE = 'circle';
 const EMH_CIRCLES_JAIL = array(
   'roles' => array('expert'),
   'circles' => array(
@@ -484,14 +485,45 @@ function emh_circles_form_og_ui_confirm_subscribe_alter(&$form, &$form_state) {
   global $user;
   $account = user_load($user->uid);
 
-  if (og_user_access('node', arg(2), 'subscribe', $account)) {
-    $form['actions']['submit']['#value'] = t('Ask to join');
-  }
   if (og_user_access('node', arg(2), 'subscribe without approval', $account)) {
     $form[OG_MEMBERSHIP_REQUEST_FIELD]['#access'] = FALSE;
   }
 
   $form['#submit'][] = 'emh_circles_form_og_ui_confirm_subscribe_submit';
+
+  // If the user is Ethereum-ready:
+  if (module_exists('ethereum_user')) {
+    // Does the Circle have an Ethereum address?
+    $nid = arg(2);
+    if (is_numeric($nid)) {
+      $circle_wrapper = entity_metadata_wrapper('node', $nid);
+      if ($circle_wrapper->field_ethereum_address->value()) {
+        if (_ethereum_user_ready()) {
+          // Pass settings to JS.
+          $settings = array(
+            'contract' => array(
+              'machine_name' => 'community_' . $nid,
+              'address' => $circle_wrapper->field_ethereum_address->value(),
+            ),
+          );
+          drupal_add_js(array('emh_circles' => $settings), 'setting');
+          // Load corresponding Community contract.
+          drupal_add_library('ethereum_smartcontract', 'community_' . $nid);
+          drupal_add_js(
+            drupal_get_path('module', 'emh_circles') . '/js/emh_circles_join.js',
+            array(
+              'type' => 'file',
+              'scope' => 'footer',
+            )
+          );
+        }
+        else {
+          $joindao = t('You can use this Marketplace in a classic way and join this circle. Or you can join this circle AND join the associated Talao DAO communities on the Ethereum blockchain! <a href="/user/ethereum" target="_blank">JoinDAO() now!!!</a>');
+          drupal_set_message($joindao);
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -533,7 +565,8 @@ function emh_circles_form_og_ui_confirm_unsubscribe_alter(&$form, &$form_state) 
 }
 
 /**
- * Submit handler: Confirm OG */
+ * Submit handler: Confirm OG.
+ */
 function emh_circles_form_og_ui_confirm_unsubscribe_submit($form, &$form_state) {
   $form_state['redirect'] = 'circles';
 }
@@ -548,20 +581,14 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
   ) {
     global $user;
 
-    if (module_exists('ethereum')) {
+    if (module_exists('emh_ethereum') && _ethereum_user_ready()) {
       $form['info'] = ['#markup' => "<div id='ethereum-info'></div>"];
       $form['tx'] = [ '#type' => 'hidden'];
       $form['price'] = [ '#type' => 'hidden'];
 
-      $web3_local = variable_get('ethereum_web3_local_injection');
-      $library = libraries_load('web3');
-      if (! (($web3_local && $library && !empty($library['loaded'])) || !$web3_local) ) {
-        $form['Error'] = array('#markup' => "Web3.js could not be loaded, ethereum wont work. You should be able to use the site normally though. Contact your adminsitrator");
-      }
       $_user = user_load($user->uid);
-      _ethereum_smartcontract_load('token_erc20');
-      _ethereum_smartcontract_load('register_drupal');
-      _ethereum_smartcontract_load('objection');
+      drupal_add_library('ethereum_smartcontract', 'talaotoken');
+      drupal_add_library('ethereum_smartcontract', 'objection');
       $account = user_load(1); // use admin account for token payments instead of node itsealf
       drupal_add_js(array(
         'emh_blockchain' => array(
@@ -620,10 +647,10 @@ function emh_circles_form_request_node_form_alter(&$form, &$form_state, $form_id
 }
 
 function emh_circles_form_request_node_form_validate($form, &$form_state) {
-  if (module_exists('ethereum')) {
+  if (module_exists('emh_ethereum')) {
     if ($form_state['values']['tx'] != '') {
       global $user;
-      $error = web3_check_transaction($form_state['values']['tx'], $user->uid, 1, 'token_erc20', $form_state['values']['price']);
+      $error = web3_check_transaction($form_state['values']['tx'], $user->uid, 1, 'talaotoken', $form_state['values']['price']);
       if ($error != '') form_error($form, $error); else {
         drupal_set_message('Transaction checked : '.$form_state['values']['tx']);
         // we assume validation ensure a transaction in token have been made
@@ -637,6 +664,68 @@ function emh_circles_form_request_node_form_validate($form, &$form_state) {
     } else {
       form_error($form, t('Hey, you have to have a validated transaction before : '.$form_state['values']['tx']));
     }
-  } 
+  }
 }
 
+/**
+ * Implements hook_page_alter().
+ */
+function emh_circles_page_alter(&$page) {
+  global $user;
+  if (user_is_logged_in() && module_exists('ethereum_user')) {
+    $view = views_get_page_view();
+    if (isset($view) && $view->name == 'circles') {
+      if (_ethereum_user_ready()) {
+        drupal_add_js(
+          drupal_get_path('module', 'emh_circles') . '/js/emh_circles.js',
+          array(
+            'type' => 'file',
+            'scope' => 'footer',
+          )
+        );
+      }
+      else {
+        $joindao = t('You can use this Marketplace in a classic way and join those circles. Or you can join circles AND join the associated Talao DAO communities on the Ethereum blockchain! <a href="/user/ethereum">JoinDAO() now!!!</a>');
+        drupal_set_message($joindao);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_view().
+ */
+function emh_circles_node_view($node, $view_mode, $langcode) {
+  if ($view_mode == 'full') {
+    if ($node->type == EMH_CIRCLES_NODE_TYPE) {
+      if (user_is_logged_in() && module_exists('ethereum_user')) {
+        if (_ethereum_user_ready()) {
+          $circle_wrapper = entity_metadata_wrapper('node', $node);
+          if ($circle_wrapper->field_ethereum_address->value()) {
+            // Pass settings to JS.
+            $settings = array(
+              'contract' => array(
+                'machine_name' => 'community_' . $node->nid,
+                'address' => $circle_wrapper->field_ethereum_address->value(),
+              ),
+            );
+            drupal_add_js(array('emh_circles' => $settings), 'setting');
+            // Load corresponding Community contract.
+            drupal_add_library('ethereum_smartcontract', 'community_' . $node->nid);
+            drupal_add_js(
+              drupal_get_path('module', 'emh_circles') . '/js/emh_circles_circle.js',
+              array(
+                'type' => 'file',
+                'scope' => 'footer',
+              )
+            );
+          }
+        }
+        else {
+          $joindao = t('This circle has an associated Talao DAO community on the Ethereum blockchain. <a href="/user/ethereum">JoinDAO() now!!!</a>');
+          drupal_set_message($joindao);
+        }
+      }
+    }
+  }
+}

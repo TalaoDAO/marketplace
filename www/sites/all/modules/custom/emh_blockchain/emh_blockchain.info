@@ -1,6 +1,0 @@
-name = EMH Blockchain
-package = EMH
-core = 7.x
-
-; Dependencies
-dependencies[] = ethereum_web3

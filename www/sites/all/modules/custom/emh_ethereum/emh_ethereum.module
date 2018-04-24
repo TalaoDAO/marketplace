@@ -1,0 +1,205 @@
+<?php
+
+/**
+ * @file
+ * EMH Ethereum.
+ *
+ * Talao DAO Ethereum features for Drupal 7 Marketplace.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function emh_ethereum_init() {
+  // If the user is Ethereum-ready:
+  if (_ethereum_user_ready()) {
+    // Load Freelancer contract.
+    drupal_add_library('ethereum_smartcontract', 'freelancer');
+    // Load Freelancer promises.
+    drupal_add_js(
+      drupal_get_path('module', 'emh_ethereum') . '/js/emh_ethereum_Freelancer.js',
+      array(
+        'type' => 'file',
+        'scope' => 'footer',
+      )
+    );
+    // Load Ethereum settings.
+    $settings = array(
+      'marketplace' => variable_get('emh_ethereum_marketplace'),
+      'dao' => variable_get('emh_ethereum_dao'),
+    );
+    drupal_add_js(array('emh_ethereum' => $settings), 'setting');
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function emh_ethereum_menu() {
+  $items = array();
+
+  $items['admin/config/ethereum/marketplace'] = array(
+    'title' => 'Talao Marketplace',
+    'description' => 'Settings for this Marketplace on the Talao DAO.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('emh_ethereum_admin_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'emh_ethereum.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['admin/people/freelancer'] = array(
+    'title' => 'Talao Freelancers',
+    'description' => 'Lists the active freelancers on the DAO that belong to this Marketplace.',
+    'page callback' => '_emh_ethereum_freelancer_list',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'emh_ethereum.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['admin/people/freelancer/callback/%/%'] = array(
+    'page callback' => '_emh_ethereum_freelancer_list_callback',
+    'page arguments' => array(4),
+    'access callback' => '_emh_ethereum_freelancer_list_callback_access',
+    'access arguments' => array(4, 5),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_ethereum_user_tab().
+ */
+function emh_ethereum_ethereum_user_tab(&$build, $uid) {
+
+  global $user;
+  $is_the_ethereum_user = FALSE;
+  if ($user->uid == $uid) {
+    $is_the_ethereum_user = TRUE;
+  }
+  $this_user_wrapper = entity_metadata_wrapper('user', $uid);
+  $this_user_ethereum_address = $this_user_wrapper->ethereum_address->value();
+
+  // If the user is Ethereum-ready:
+  if (_ethereum_user_ready()) {
+
+    // Checks if the user is an active Freelancer on the DAO.
+    $loader = theme_image(array(
+      'path' => '/misc/throbber-active.gif',
+      'attributes' => array(),
+    ));
+    $joindao = '<div id="emh_ethereum_Freelancer">';
+    $joindao  .= '<h2>' . t('Talao DAO') . '</h2>';
+    $joindao  .= '<div id="emh_ethereum_Freelancer_checkIfActive"><p>' . t('Please wait while we check if you are an active Freelancer in the Talao DAO') . '</p><p>' . $loader . '</p></div>';
+    $joindao  .= '<p id="emh_ethereum_Freelancer_isActive">' . 'You are an active Freelancer in the Talao DAO. Perfect! <a href="' . variable_get('emh_ethereum_dao') . '/account" target="_blank">Your account on Talao DAO</a>' . '</p>';
+    $joindao_link = ($user->uid == $uid) ? '<a href="#">' . t('To use Talao DAO Ethereum features with us, please Join the Talao DAO first.') . '</a>' : t('User did not joinDAO() and you can not do it as an admin.');
+    $joindao  .= '<p id="emh_ethereum_Freelancer_joinDao">' . $joindao_link . '</p>';
+    $joindao  .= '</div>';
+    $build['emh_ethereum_freelancer'] = array(
+      '#type' => 'markup',
+      '#markup' => $joindao,
+      '#attached' => array(
+        'css' => array(
+          drupal_get_path('module', 'emh_ethereum') . '/css/emh_ethereum_Freelancer.css',
+        ),
+        'js' => array(
+          array(
+            'type' => 'file',
+            'data' => drupal_get_path('module', 'emh_ethereum') . '/js/emh_ethereum_user_ethereum_tab.js',
+            array(
+              'scope' => 'footer',
+            ),
+          ),
+        ),
+      ),
+    );
+    $build['ethereum_registry']['#attached']['library'][] = array('ethereum_smartcontract', 'freelancer');
+  }
+}
+
+/**
+ * Implements hook_node_update().
+ */
+function emh_ethereum_node_update($node) {
+  // Register a Community smartcontract entity for the Circle.
+  if ($node->type == EMH_CIRCLES_NODE_TYPE) {
+    $node_wrapper = entity_metadata_wrapper('node', $node);
+    // Does the node have an associated smartcontract entity?
+    $query = new EntityFieldQuery();
+    $query
+      ->entityCondition('entity_type', 'smartcontract')
+      ->propertyCondition('machine_name', 'community_' . $node->nid)
+      ->range(0, 1);
+    $result = $query->execute();
+    // Does the circle have an Ethereum address?
+    if ($node_wrapper->field_ethereum_address->value()) {
+      // Create a smartcontract associated to this Circle.
+      if (!$result) {
+        $entity = entity_create(
+          'smartcontract',
+          array(
+            'name' => 'Community attached to Circle ' . $node->title,
+            'description' => 'Community.sol from Talao DAO (https://github.com/TalaoDAO/dao/tree/dev/contracts/community)',
+            'machine_name' => 'community_' . $node->nid,
+            'abi' => file_get_contents(drupal_get_path('module', 'emh_ethereum') . '/contracts/Community.abi'),
+            'module' => 'emh_ethereum',
+          )
+        );
+        $entity_wrapper = entity_metadata_wrapper('smartcontract', $entity);
+        $entity_wrapper->ethereum_address->set($node_wrapper->field_ethereum_address->value());
+        $entity->save();
+      }
+    }
+    // The circle has no Ethereum address.
+    else {
+      // If the circle has a smartcontract entity:
+      if ($result) {
+        // Delete the smartcontract.
+        $id = reset(array_keys($result['smartcontract']));
+        entity_delete('smartcontract', $id);
+      }
+    }
+  }
+}
+
+/**
+ * Callback to retrieve a user from his hash.
+ */
+function _emh_ethereum_freelancer_list_callback($hash) {
+
+  // Remove 0x.
+  $hash = substr($hash, 2);
+
+  $user = db_select('users', 'u')
+    ->fields('u', array('uid', 'name'))
+    ->condition('hash', $hash)
+    ->range(0, 1)
+    ->execute()
+    ->fetch();
+
+  drupal_json_output(
+    array(
+      'status' => 0,
+      'data' => array(
+        'uid' => $user->uid,
+        'name' => $user->name,
+      ),
+    )
+  );
+}
+
+/**
+ * Access callback to retrieve a user from his hash.
+ */
+function _emh_ethereum_freelancer_list_callback_access($hash, $token) {
+  if (!ctype_xdigit(substr($hash, 2))) {
+    return FALSE;
+  }
+  elseif (check_plain($token) != variable_get('emh_ethereum_freelancer_list_token')) {
+    return FALSE;
+  }
+  else {
+    return TRUE;
+  }
+}

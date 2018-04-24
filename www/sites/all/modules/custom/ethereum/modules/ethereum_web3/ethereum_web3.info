@@ -1,10 +1,12 @@
-name = Ethereum Web3.js library wrapper.
+name = Ethereum Web3.js
+description = Ethereum Web3.js library wrapper.
 package = Ethereum
 core = 7.x
 
 ; Dependencies
 dependencies[] = libraries
 dependencies[] = ethereum
+dependencies[] = ethereum_user
 
 ; Misc
 configure = admin/config/ethereum/web3

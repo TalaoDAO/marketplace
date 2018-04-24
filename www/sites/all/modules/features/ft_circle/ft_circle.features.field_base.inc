@@ -177,6 +177,31 @@ function ft_circle_field_default_field_bases() {
     'type' => 'link_field',
   );
 
+  // Exported field_base: 'field_ethereum_address'.
+  $field_bases['field_ethereum_address'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_ethereum_address',
+    'field_permissions' => array(
+      'type' => 0,
+    ),
+    'indexes' => array(
+      'ethereum_address' => array(
+        0 => 'ethereum_address',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'ethereum_address_field',
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'max_length' => 42,
+    ),
+    'translatable' => 0,
+    'type' => 'ethereum_address',
+  );
+
   // Exported field_base: 'field_free_circle'.
   $field_bases['field_free_circle'] = array(
     'active' => 1,

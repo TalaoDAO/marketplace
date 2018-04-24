@@ -101,6 +101,10 @@
 
           <?php print $messages; ?>
 
+          <div id="ethereum_web3_messages">
+            <div class=""></div>
+          </div>
+
           <?php $primary_tabs = emh_submenu_menu_tabs_primary($tabs);
           if (!empty($primary_tabs)) : ?>
             <ul class="tabs--primary nav nav-tabs">
