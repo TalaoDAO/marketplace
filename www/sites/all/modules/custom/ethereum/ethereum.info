@@ -2,6 +2,3 @@ name = Ethereum
 description = Ethereum features for Drupal
 package = Ethereum
 core = 7.x
-
-; Dependencies
-;dependencies[] = libraries

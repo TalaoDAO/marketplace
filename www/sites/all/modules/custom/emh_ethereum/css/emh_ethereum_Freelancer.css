@@ -1,0 +1,13 @@
+/**
+ * @file
+ * Stylesheet for hook_ethereum_user_tab().
+ */
+
+#emh_ethereum_Freelancer_isActive,
+#emh_ethereum_Freelancer_joinDao {
+  display: none;
+}
+
+#emh_ethereum_Freelancer_checkIfActive {
+  text-align: center;
+}

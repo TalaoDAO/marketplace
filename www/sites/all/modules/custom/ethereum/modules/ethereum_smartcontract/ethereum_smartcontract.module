@@ -106,17 +106,10 @@ function ethereum_smartcontract_menu() {
 
   $items = array();
 
-  // TODO: We don't really need to view the contract, rather inject it.
   $items['admin/config/ethereum/smartcontract/view/%'] = array(
     'title' => 'Smart Contract',
     'page callback' => '_ethereum_smartcontract_view_smartcontract',
     'page arguments' => array(5),
-    'access arguments' => array('use ethereum'),
-  );
-
-  $items['admin/config/ethereum/smartcontract/test'] = array(
-    'title' => 'Test',
-    'page callback' => '_ethereum_smartcontract_test',
     'access arguments' => array('use ethereum'),
   );
 
@@ -261,6 +254,7 @@ function ethereum_smartcontract_library() {
       'js' => array(
         drupal_get_path('module', 'ethereum_smartcontract') . '/js/ethereum_smartcontract_load.js' => array(
           'scope' => 'footer',
+          'weight' => '-10',
         ),
         array(
           'type' => 'setting',
@@ -287,14 +281,17 @@ function ethereum_smartcontract_library() {
   return $libraries;
 }
 
-function get_smartcontract($machine_name) {
+/**
+ * Helper to get a smart contract.
+ */
+function _ethereum_smartcontract_get($machine_name) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'smartcontract')
     ->propertyCondition('machine_name', $machine_name);
   $result = $query->execute();
   if (isset($result['smartcontract'])) {
     $contracts = entity_load('smartcontract', array_keys($result['smartcontract']));
-    $contract = reset($contracts);  
+    $contract = reset($contracts);
     $wrapper = entity_metadata_wrapper('smartcontract', $contract);
     return $wrapper;
   }

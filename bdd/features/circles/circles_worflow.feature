@@ -58,7 +58,7 @@ Feature: Circles workflow for Expert
     When I go to "circles"
       And I click "Join circle" in the "guardians_galaxy_teaser" region
       And I fill in "Request message" with "I really want to join your band"
-      And I press "Ask to join"
+      And I press "Join"
     Then I should see "Your request is pending." in the "header" region
       And the last email to "emindhub.test+client4@gmail.com" should contain "Iron MAN membership request for 'Guardians of the Galaxy'"
       And the last email to "emindhub.test+1@gmail.com" should contain "Iron MAN membership request for 'Guardians of the Galaxy'"
@@ -84,7 +84,7 @@ Feature: Circles workflow for Expert
     When I go to "circles"
       And I click "Join circle" in the "guardians_galaxy_teaser" region
       And I fill in "Request message" with "Hey guys, please accept my request!"
-      And I press "Ask to join"
+      And I press "Join"
     Then I should see "Your request is pending." in the "header" region
 
     Given I am logged in as "client4"

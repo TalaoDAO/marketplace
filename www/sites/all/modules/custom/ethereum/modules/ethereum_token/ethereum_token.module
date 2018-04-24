@@ -17,7 +17,7 @@ function ethereum_token_menu() {
     'title' => 'Ethereum Token',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('ethereum_token_admin_form'),
-    'access arguments' => array('administer blockchain'),
+    'access arguments' => array('access administration pages'),
     'file' => 'ethereum_token.admin.inc',
     'type' => MENU_NORMAL_ITEM,
   );

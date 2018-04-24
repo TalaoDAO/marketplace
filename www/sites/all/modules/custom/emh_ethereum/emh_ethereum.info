@@ -1,0 +1,10 @@
+name = EMH Ethereum
+description = Activate Ethereum features on Drupal Marketplace.
+package = EMH
+core = 7.x
+
+; Dependencies
+dependencies[] = ethereum
+dependencies[] = ethereum_address_field
+dependencies[] = ethereum_smartcontract
+dependencies[] = ethereum_user

@@ -40,16 +40,6 @@ function emh_user_profile_purchase_menu() {
  * Builds the profile purchase form.
  */
 function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
-  if (module_exists('ethereum')) {
-    $web3_local = variable_get('ethereum_web3_local_injection');
-    $library = libraries_load('web3');
-
-    if (! (($web3_local && $library && !empty($library['loaded'])) || !$web3_local) ) {
-      $form['Error'] = array('#markup' => "Web3.js could not be loaded, ethereum wont work. You should be able to use the site normally though. Contact your adminsitrator");
-      //return $form;
-    }
-  }
-
   global $user;
 
   // Checks if the account hasn't already been purchased.
@@ -82,18 +72,17 @@ function emh_user_profile_purchase_form($form, &$form_state, $account, $node) {
   );
 
 
-  if (module_exists('ethereum')) {
+  if (module_exists('emh_ethereum')) {
     $form['info'] = ['#markup' => "<div id='ethereum-info'></div>"];
     $form['tx'] = [ '#type' => 'hidden'];
     $form['price'] = [ '#type' => 'hidden'];
     //$form['tx'] = [ '#type' => 'textfield'];
     $_user = user_load($user->uid);
     $_account = user_load($account->uid);
-    _ethereum_smartcontract_load('token_erc20');
-    _ethereum_smartcontract_load('register_drupal');
-    _ethereum_smartcontract_load('objection');
+    drupal_add_library('ethereum_smartcontract', 'talaotoken');
+    drupal_add_library('ethereum_smartcontract', 'objection');
     drupal_add_js(array(
-      'emh_blockchain' => array(
+      'emh_user_profile_purchase' => array(
         'clientHash' => $_user->hash,
         'clientAddress' => $_user->ethereum_address['und'][0]['ethereum_address'],
         'expertHash' => $_account->hash,
@@ -157,10 +146,10 @@ function emh_user_profile_purchase_form_submit($form, &$form_state) {
  * Validation callback for the profile purchase form.
  */
 function emh_user_profile_purchase_form_validate($form, &$form_state) {
-  if (module_exists('ethereum')) {
+  if (module_exists('emh_ethereum')) {
     if ($form_state['values']['tx'] != '') {
       global $user;
-      $error = web3_check_transaction($form_state['values']['tx'], $user->uid, $form_state['account']->uid, 'token_erc20', $form_state['values']['price']);
+      $error = web3_check_transaction($form_state['values']['tx'], $user->uid, $form_state['account']->uid, 'talaotoken', $form_state['values']['price']);
       if ($error != '') form_error($form, $error); else {
         drupal_set_message('Transaction checked : '.$form_state['values']['tx']);
         // we assume validation ensure a transaction in token have been made

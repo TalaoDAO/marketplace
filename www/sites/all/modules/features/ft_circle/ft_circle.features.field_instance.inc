@@ -554,6 +554,52 @@ function ft_circle_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-circle-field_ethereum_address'.
+  $field_instances['node-circle-field_ethereum_address'] = array(
+    'bundle' => 'circle',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'ethereum_address_field',
+        'settings' => array(),
+        'type' => 'ethereum_address_text',
+        'weight' => 12,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'fences_wrapper' => 'div_div_div',
+    'field_name' => 'field_ethereum_address',
+    'label' => 'Ethereum address',
+    'required' => 0,
+    'settings' => array(
+      'entity_translation_sync' => FALSE,
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'ethereum_address_field',
+      'settings' => array(),
+      'type' => 'ethereum_address_text',
+      'weight' => 11,
+    ),
+  );
+
   // Exported field_instance: 'node-circle-field_free_circle'.
   $field_instances['node-circle-field_free_circle'] = array(
     'bundle' => 'circle',
@@ -762,7 +808,7 @@ function ft_circle_field_default_field_instances() {
         'og_hide' => TRUE,
       ),
       'type' => 'options_onoff',
-      'weight' => 12,
+      'weight' => 13,
     ),
   );
 
@@ -776,6 +822,7 @@ function ft_circle_field_default_field_instances() {
   t('Circle logo');
   t('Community website');
   t('Determine if this is an OG group.');
+  t('Ethereum address');
   t('Free circle');
   t('Group');
   t('Group visibility');

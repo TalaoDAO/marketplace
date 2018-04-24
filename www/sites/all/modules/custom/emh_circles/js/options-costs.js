@@ -3,36 +3,11 @@
     Drupal.behaviors.emhCirclesOptionsCosts = {
       attach: function(context, settings) {
 
-
-        if (typeof Drupal.settings.ethereum_web3 !== 'undefined') { // TODO : use better test
-          function logInfo(text) {
-            $('#ethereum-info').append('<br>'+text);
-          }
-          token_emh_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('token_erc20');
-          user_register_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('register_drupal');
-          var objection_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('objection');
-          clientAddress = Drupal.settings.emh_blockchain.clientAddress;
-          clientName = Drupal.settings.emh_blockchain.clientName;
-          clientHash = Drupal.settings.emh_blockchain.clientHash;
-          expertAddress = Drupal.settings.emh_blockchain.expertAddress;                                                                                                       
-          expertName = Drupal.settings.emh_blockchain.expertName;                                                                                                            
-          expertHash = Drupal.settings.emh_blockchain.expertHash; 
-
-          user_register_contract.methods.validateUserByHash(clientHash).call({from:clientAddress}).then(
-            () => { logInfo('You are a registered ethereum user.'); clientRegistered = true;}, () => logInfo('You are not registered in ethereum : Ethereum buy via token disabled')
-          );
-          user_register_contract.methods.validateUserByHash(expertHash).call({from:expertAddress}).then(
-            () => { logInfo('The destination is a registered ethereum user.'); expertRegistered = true;}, () => logInfo('The destination is not registered in ehtereum : Ethereum buy via token disabled')
-          );
-
-        }
-
         var $circlesField = $('#edit-og-group-ref', context);
         var $optionsField = $('#edit-field-options', context);
-
+        var objection_contract = undefined;
         async function selectCosts(circles) {
           var costs = {};
-
           if ($.isArray(circles) && circles.length > 0) {
             // Selects the highest cost (from circles) for each option
             for (var i = 0; i < circles.length; i++) {
@@ -54,7 +29,6 @@
               }
             }
           }
-
           // Completes the costs array with the default costs
           // when there isn't yet a cost for an option
           for (var k in settings.circlesOptionsCosts.default) {
@@ -65,8 +39,6 @@
           //setTimeout(function (){}, 2000);
           return costs;
         }
-
-
         $circlesField.find('select').change(function() {
           var circles = $(this).val();
           selectCosts(circles).then(costs => {
@@ -82,30 +54,54 @@
             }
           });
         });
-        
-
         $circlesField.find('select').trigger("change"); //force change in case field has default value
-  
-        if (typeof Drupal.settings.ethereum_web3 !== 'undefined') {
-          validated = false;
-          $('#edit-submit', context).on('click', function(){
-             var price = Number($optionsField.find('.total-num').text());
-             if (!clientRegistered || !expertRegistered) { alert('Using normal buy (no ethereum)'); return true;}
-             if (validated) return true;
-               alert('Waiting for validation, check your wallet');
-               token_emh_contract.methods.transfer(expertAddress, price).send({from:clientAddress})
-                 .then( receipt => {
-                   $('input[name="tx"]').val(receipt.transactionHash);
-                   $('input[name="price"]').val(price);
-                   validated = true; $('#edit-submit', context).click();
-                 })
-                 .catch(error => alert('Request rejected') );
-             return false;
-          });
-        }
 
+        window.addEventListener('load', () => {
+          if (Drupal.settings.ethereum_user !== undefined) {
+            // Check if the user is an active Freelancer on Talao DAO and if he joined from the Marketplace.
+            Drupal.behaviors.emh_ethereum_Freelancer.isActiveOnMarketplace()
+            .then((isActiveOnMarketplace) => {
+              if (isActiveOnMarketplace) {
+                function logInfo(text) {
+                  $('#ethereum-info').append('<br>'+text);
+                }
+                token_emh_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('talaotoken');
+                user_register_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('freelancer');
+                objection_contract = Drupal.behaviors.ethereum_smartcontract.loadContract('objection');
+                clientAddress = Drupal.settings.emh_blockchain.clientAddress;
+                clientName = Drupal.settings.emh_blockchain.clientName;
+                clientHash = Drupal.settings.emh_blockchain.clientHash;
+                expertAddress = Drupal.settings.emh_blockchain.expertAddress;
+                expertName = Drupal.settings.emh_blockchain.expertName;
+                expertHash = Drupal.settings.emh_blockchain.expertHash;
+                validated = false;
+                $('#edit-submit', context).on('click', function(){
+                   var price = Number($optionsField.find('.total-num').text());
+                   if (validated) return true;
+                     alert('Waiting for validation, check your wallet');
+                     Drupal.behaviors.ethereum_web3.message('Your Ethereum wallet is waiting for you to sign this transaction.', 'warning');
+                     token_emh_contract.methods.transfer(expertAddress, price).send({from:clientAddress})
+                       .then( receipt => {
+                         $('input[name="tx"]').val(receipt.transactionHash);
+                         $('input[name="price"]').val(price);
+                         validated = true;
+                         $('#edit-submit', context).click();
+                       })
+                       .catch(error => {
+                         alert('Request rejected');
+                         Drupal.behaviors.ethereum_web3.error(error);
+                       });
+                   return false;
+                });
+              }
+            })
+            .catch((error) => {
+              Drupal.behaviors.ethereum_web3.error(error);
+            });
+          }
+
+        });
       }
     };
 
 }(jQuery));
-

@@ -357,14 +357,18 @@ function emindhub_beautiful_baseline() {
     $show_help = TRUE;
   }
 
-  if ($show_help) {
-    switch ($type) {
-      case 'group-subscribe':
-        if (og_user_access('node', arg(2), 'subscribe', $account)) {
-          $baseline = t('Your membership request will be reviewed by the manager of the circle. Please put forward your request.');
-        }
-        break;
-    }
+  if (module_exists('ethereum_user') && _ethereum_user_ready()) {
+	}
+	else {
+		if ($show_help) {
+	    switch ($type) {
+	      case 'group-subscribe':
+	        if (og_user_access('node', arg(2), 'subscribe', $account)) {
+	          $baseline = t('Your membership request will be reviewed by the manager of the circle. Please put forward your request.');
+	        }
+	        break;
+	    }
+	  }
   }
 
   return $baseline;
